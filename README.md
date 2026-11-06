@@ -54,7 +54,7 @@ Projeto de Demo Day do Instituto PROA.
 | --- | --- |
 | Gabriel Rodrigues Gomes | [Perfil](https://br.linkedin.com/in/gabriel-rodrigues-rgg) |
 | Kerolaine de Almeida | [Perfil](https://br.linkedin.com/in/kerolainedealmeida) |
-| Caique | — |
-| Diego | — |
-| Iago Oliveira | — |
+| Caique | [Perfil](https://www.linkedin.com/in/caique-vinicius-5150b643b/) |
+| Diego | [Perfil](https://www.linkedin.com/in/diego-armando-698142316/) |
+| Iago Oliveira | [Perfil](https://www.linkedin.com/in/iagosm-oliveira/) |
 | João Victor Torres Pereira | [Perfil](https://br.linkedin.com/in/jo%C3%A3o-victortorrespereira) |
