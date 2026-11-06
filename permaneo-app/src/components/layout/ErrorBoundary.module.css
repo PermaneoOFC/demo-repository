@@ -1,0 +1,5 @@
+.error { max-width: 640px; margin: 12vh auto; padding: 24px; color: var(--app-text); font-family: Manrope, sans-serif; }
+.error h1 { font-size: 24px; }
+.error pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 16px; border: 1px solid var(--app-border); border-radius: 10px; }
+.error button { cursor: pointer; border: 0; padding: 12px 18px; border-radius: 10px; background: #246579; color: white; font: inherit; }
+.error a { display: inline-block; margin: 16px; color: var(--app-text); }

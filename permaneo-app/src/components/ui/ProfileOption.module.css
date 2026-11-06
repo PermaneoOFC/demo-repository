@@ -1,0 +1,8 @@
+.option { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; width: 100%; min-width: 0; padding: 18px; border: 2px solid var(--app-border); border-radius: 10px; background: var(--app-surface); color: var(--app-text); text-align: left; cursor: pointer; transition: border-color .16s, background-color .16s; }
+.option strong { font-size: 14px; }
+.option > span:not(.indicator) { color: var(--app-muted); font-size: 12px; line-height: 1.5; }
+.option:hover { border-color: #246579; }
+.selected { border-color: #246579; background: color-mix(in srgb, var(--app-surface) 85%, #a8e0ed); }
+.indicator { position: absolute; right: 12px; top: 12px; display: grid; place-items: center; width: 19px; height: 19px; border: 1px solid var(--app-border); border-radius: 50%; }
+.selected .indicator { border-color: #246579; background: #246579; color: white; }
+@media (prefers-reduced-motion: reduce) { .option { transition: none; } }
