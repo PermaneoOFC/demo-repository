@@ -48,4 +48,13 @@ A integração com MySQL cobre login e frequência. Carômetro, alertas, notific
 
 ## Equipe
 
-Gabriel, Kerolaine, Caique, Diego, Iago Oliveira e Torres. Projeto de Demo Day do Instituto PROA.
+Projeto de Demo Day do Instituto PROA.
+
+| Integrante | LinkedIn |
+| --- | --- |
+| Gabriel Rodrigues Gomes | [Perfil](https://br.linkedin.com/in/gabriel-rodrigues-rgg) |
+| Kerolaine de Almeida | [Perfil](https://br.linkedin.com/in/kerolainedealmeida) |
+| Caique | — |
+| Diego | — |
+| Iago Oliveira | — |
+| João Victor Torres Pereira | [Perfil](https://br.linkedin.com/in/jo%C3%A3o-victortorrespereira) |
