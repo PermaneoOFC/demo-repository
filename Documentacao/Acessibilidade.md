@@ -11,13 +11,15 @@ O ponto de entrada `permaneo-app/src/main.jsx` carrega os widgets uma vez por ab
 - **VLibras:** tradução automática de português para Libras, pelo script oficial. O botão fica à direita.
 - **UserWay:** menu de acessibilidade em português, com botão na cor do Permaneo no canto inferior esquerdo, separado do VLibras. As funções disponíveis dependem da configuração e do plano da conta UserWay.
 
-### Ativar o UserWay
+### Configuração do UserWay
 
-1. No painel da conta UserWay do projeto, registre o domínio do site e copie o script de instalação em **Embed Script**.
-2. Copie somente o valor de `data-account` para `VITE_USERWAY_ACCOUNT_ID` no arquivo local `permaneo-app/.env` e nas variáveis de ambiente do serviço de hospedagem. Esse identificador é público; não use senha, token privado ou chave de API.
-3. Reinicie o Vite no desenvolvimento. Em produção, faça um novo build e publique-o, pois o Vite incorpora essa variável no build.
+O identificador público `csVkjYy3VL`, fornecido pelo responsável do Permaneo, já está configurado como padrão em `main.jsx`. Não é necessário criar uma variável de ambiente para ativá-lo.
 
-Sem um ID configurado, o UserWay não é carregado; o VLibras continua independente. Os scripts são assíncronos e uma falha de rede no widget não impede o carregamento do aplicativo. Uma nova abertura da página tenta carregar novamente.
+1. No painel UserWay do projeto, confira se o domínio publicado está cadastrado na conta.
+2. Para usar outra conta, defina `VITE_USERWAY_ACCOUNT_ID` no arquivo local `permaneo-app/.env` ou no serviço de hospedagem. Use somente o valor público de `data-account`, nunca senha ou chave privada.
+3. Uma variável explicitamente vazia desativa o UserWay. Após alterar a variável, reinicie o Vite ou faça um novo build em produção.
+
+O VLibras funciona de forma independente do UserWay. Os scripts são assíncronos e uma falha de rede no widget não impede o carregamento do aplicativo. Uma nova abertura da página tenta carregar novamente.
 
 ### Verificação no site publicado
 
