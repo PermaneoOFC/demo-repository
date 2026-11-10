@@ -9,9 +9,9 @@ export default function TextField({ as: Element = 'input', label, children, id, 
     <label className={styles.field} htmlFor={controlId}>
       <span>{label}</span>
       {Element === 'input' ? (
-        <input className={styles.control} id={controlId} {...props} />
+        <input className={styles.control} id={controlId} aria-label={label} {...props} />
       ) : (
-        <Element className={styles.control} id={controlId} {...props}>{children}</Element>
+        <Element className={styles.control} id={controlId} aria-label={label} {...props}>{children}</Element>
       )}
     </label>
   );

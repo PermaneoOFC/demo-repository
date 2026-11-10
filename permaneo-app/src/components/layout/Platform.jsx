@@ -7,6 +7,8 @@ import logo from '../../images/logo.svg';
 import utilityStyles from './Layout.module.css';
 import Modal from '../ui/Modal.jsx';
 import TextField from '../ui/TextField.jsx';
+import StudentShell from './StudentShell.jsx';
+import { StudentNavigationContext } from '../student/studentNavigation.js';
 
 const FrequenciaIntegrada = lazy(() => import('../../pages/Dashboard/Frequencia/FrequenciaIntegrada.jsx'));
 const HomeLight = lazy(() => import('../../pages/Landing/HomeLight.jsx'));
@@ -29,8 +31,7 @@ const TeacherNotificationsLight = lazy(() => import('../../pages/Dashboard/Profe
 const TeacherNotificationsDark = lazy(() => import('../../pages/Dashboard/Professor/TeacherNotificationsDark.jsx'));
 const TeacherSettingsLight = lazy(() => import('../../pages/Dashboard/Professor/TeacherSettingsLight.jsx'));
 const TeacherSettingsDark = lazy(() => import('../../pages/Dashboard/Professor/TeacherSettingsDark.jsx'));
-const StudentDashboardLight = lazy(() => import('../../pages/Dashboard/Estudante/StudentDashboardLight.jsx'));
-const StudentDashboardDark = lazy(() => import('../../pages/Dashboard/Estudante/StudentDashboardDark.jsx'));
+const StudentArea = lazy(() => import('../../pages/Dashboard/Estudante/StudentArea.jsx'));
 const StudentSpaceLight = lazy(() => import('../../pages/Dashboard/Estudante/StudentSpaceLight.jsx'));
 const StudentSpaceDark = lazy(() => import('../../pages/Dashboard/Estudante/StudentSpaceDark.jsx'));
 const CarometroManagementLight = lazy(() => import('../../pages/Dashboard/Carometro/CarometroManagementLight.jsx'));
@@ -59,12 +60,16 @@ const pages = {
   teacherFollowup: [TeacherFollowupLight, TeacherFollowupDark],
   teacherNotifications: [TeacherNotificationsLight, TeacherNotificationsDark],
   teacherSettings: [TeacherSettingsLight, TeacherSettingsDark],
-  student: [StudentDashboardLight, StudentDashboardDark], studentSpace: [StudentSpaceLight, StudentSpaceDark],
+  student: [StudentArea, StudentArea], studentSpace: [StudentSpaceLight, StudentSpaceDark],
+  studentActivities: [StudentArea, StudentArea], studentCalendar: [StudentArea, StudentArea],
+  studentSubjects: [StudentArea, StudentArea], studentNotices: [StudentArea, StudentArea],
+  studentPlan: [StudentArea, StudentArea], studentSupport: [StudentArea, StudentArea],
   carometroManagement: [CarometroManagementLight, CarometroManagementDark],
   carometroTeacher: [CarometroTeacherLight, CarometroTeacherDark],
 };
 
 const resolvePage = (value) => {
+  value = value.replace(/^\/+/, '');
   if (value === 'frequencia' && frequenciaIntegrada) return value;
   if (Object.hasOwn(pages, value)) return value;
   const match = value.match(/^Profile(.+)(Management|Teacher)$/);
@@ -89,7 +94,7 @@ export default function Platform() {
   const [dark, setDark] = useState(() => {
     try { return localStorage.getItem('permaneo-theme') === 'dark'; } catch { return false; }
   });
-  const [role, setRole] = useState('director');
+  const [role, setRole] = useState(() => window.location.hash.replace(/^#\/?/, '').startsWith('student') ? 'student' : 'director');
   const [toast, setToast] = useState('');
   const [modal, setModal] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -269,6 +274,7 @@ export default function Platform() {
 
   const handleClick = (event) => {
     const target = event.target instanceof Element ? event.target : null;
+    if (target?.closest('[data-local-content]')) return;
     const element = target?.closest('button, a[href], [role="button"], [role="link"]')
       || target?.closest('[data-name="Ver perfil"], [data-name^="Faltou ·"], [data-name="Buscar por nome"]');
     if (!element) return;
@@ -469,7 +475,14 @@ export default function Platform() {
         {page === 'frequencia' && (
           <FrequenciaIntegrada onVoltar={() => navigate('login')} dark={dark} onToggleTheme={toggleTheme} />
         )}
-        {page !== 'login' && page !== 'frequencia' && <ActiveScreen />}
+        {page.startsWith('student') && (
+          <StudentNavigationContext.Provider value={{ page, navigate }}>
+            <StudentShell role="student" dark={dark} onToggleTheme={toggleTheme}>
+              <ActiveScreen />
+            </StudentShell>
+          </StudentNavigationContext.Provider>
+        )}
+        {page !== 'login' && page !== 'frequencia' && !page.startsWith('student') && <ActiveScreen />}
       </Suspense>
         {modal && (
           <Modal labelledBy="dialog-title" onClose={() => setModal('')}>
