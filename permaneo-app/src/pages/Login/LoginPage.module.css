@@ -20,3 +20,6 @@
 @media (max-width: 1000px) { .login { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); } .story, .access { padding: 24px; } .profiles { gap: 6px; } }
 @media (max-width: 760px) { .login { grid-template-columns: minmax(0, 1fr); } .story { gap: 16px; } .photo { max-height: 240px; } .message { display: none; } .access { gap: 28px; } }
 @media (max-width: 440px) { .profiles { grid-template-columns: minmax(0, 1fr); } }
+
+
+/* Complete Figma token fallbacks. */

@@ -127,3 +127,155 @@
 .screen :global([class~="gap-[2px]"]) { gap:2px; }
 .screen :global([class~="w-[255px]"]) { width:255px; }
 .screen :global([class~="w-[1596px]"]) { width:1596px; }
+
+
+/* Complete Figma token fallbacks. */
+.screen :global([class~="bg-[var(--bg,#2b3f4d)]"]) { background-color:#2b3f4d; }
+.screen :global([class~="bg-[var(--permaneo-surface,white)]"]) { background-color:white; }
+.screen :global([class~="border-[var(--permaneo-border,#d7e2ea)]"]) { border-color:#d7e2ea; }
+.screen :global([class~="border-r-[length:var(--border\\/default,1px)]"]) { border-right-width:1px; }
+.screen :global([class~="gap-[var(--dialog\\/viewport-inset,24px)]"]) { gap:24px; }
+.screen :global([class~="p-[16px]"]) { padding:16px; }
+.screen :global([class~="w-[260px]"]) { width:260px; }
+.screen :global([class~="pb-[6px]"]) { padding-bottom:6px; }
+.screen :global([class~="pt-[4px]"]) { padding-top:4px; }
+.screen :global([class~="px-[8px]"]) { padding-inline:8px; }
+.screen :global([class~="gap-[var(--item-spacing\\/8,8px)]"]) { gap:8px; }
+.screen :global([class~="size-[35px]"]) { width:35px;height:35px; }
+.screen :global([class~="h-[26.979px]"]) { height:26.979px; }
+.screen :global([class~="top-[4.01px]"]) { top:4.01px; }
+.screen :global([class~="w-[35px]"]) { width:35px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-3,'Sora:Bold')]"]) { font-family:Sora,sans-serif; }
+.screen :global([class~="font-[var(--font-weight\\/700,700)]"]) { font-weight:700; }
+.screen :global([class~="leading-[0]"]) { line-height:0; }
+.screen :global([class~="text-[#f3f8fb]"]) { color:#f3f8fb; }
+.screen :global([class~="text-[length:var(--line-height\\/18,18px)]"]) { font-size:18px; }
+.screen :global([class~="tracking-[var(--letter-spacing\\/-0_45,-0.45px)]"]) { letter-spacing:-0.45px; }
+.screen :global([class~="leading-[var(--line-height\\/28,28px)]"]) { line-height:28px; }
+.screen :global([class~="text-[#a1e5c7]"]) { color:#a1e5c7; }
+.screen :global([class~="flex-[1_0_0]"]) { flex:1 0 0; }
+.screen :global([class~="gap-[var(--toast\\/icon-margin-end,4px)]"]) { gap:4px; }
+.screen :global([class~="bg-[var(--surface,#354e5e)]"]) { background-color:#354e5e; }
+.screen :global([class~="gap-[var(--blur\\/md,12px)]"]) { gap:12px; }
+.screen :global([class~="px-[12px]"]) { padding-inline:12px; }
+.screen :global([class~="py-[10px]"]) { padding-block:10px; }
+.screen :global([class~="rounded-[12px]"]) { border-radius:12px; }
+.screen :global([class~="size-[18px]"]) { width:18px;height:18px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-2,'Manrope:Medium')]"]) { font-family:Manrope,sans-serif; }
+.screen :global([class~="font-[var(--font-weight\\/500,500)]"]) { font-weight:500; }
+.screen :global([class~="text-[color:var(--permaneo-brand,#a7e1ef)]"]) { color:#a7e1ef; }
+.screen :global([class~="text-[length:var(--text\\/sm,14px)]"]) { font-size:14px; }
+.screen :global([class~="leading-[var(--text\\/xl,20px)]"]) { line-height:20px; }
+.screen :global([class~="text-[color:var(--permaneo-muted,#d4e0e9)]"]) { color:#d4e0e9; }
+.screen :global([class~="bg-[var(--color\\/grey\\/93,#e5f0f7)]"]) { background-color:#e5f0f7; }
+.screen :global([class~="rounded-[var(--blur\\/md,12px)]"]) { border-radius:12px; }
+.screen :global([class~="w-[227px]"]) { width:227px; }
+.screen :global([class~="text-[0px]"]) { font-size:0px; }
+.screen :global([class~="text-[color:var(--color\\/azure\\/20-2,#0b425c)]"]) { color:#0b425c; }
+.screen :global([class~="font-['Manrope:Medium']"]) { font-weight:'Manrope:Medium'; }
+.screen :global([class~="leading-[20px]"]) { line-height:20px; }
+.screen :global([class~="text-[14px]"]) { font-size:14px; }
+.screen :global([class~="bg-[var(--permaneo-warning-bg,#5d4d39)]"]) { background-color:#5d4d39; }
+.screen :global([class~="rounded-[var(--corner-radius\\/33554400,33554400px)]"]) { border-radius:33554400px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-1,'Manrope:Bold')]"]) { font-family:Manrope,sans-serif; }
+.screen :global([class~="text-[color:var(--permaneo-warning,#ffd594)]"]) { color:#ffd594; }
+.screen :global([class~="text-[length:var(--font-size\\/12,12px)]"]) { font-size:12px; }
+.screen :global([class~="leading-[var(--line-height\\/16,16px)]"]) { line-height:16px; }
+.screen :global([class~="gap-[var(--mention\\/pill-bleed,8px)]"]) { gap:8px; }
+.screen :global([class~="pt-[16px]"]) { padding-top:16px; }
+.screen :global([class~="bg-[var(--permaneo-canvas,#f4f7fa)]"]) { background-color:#f4f7fa; }
+.screen :global([class~="size-[36px]"]) { width:36px;height:36px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-2,'Manrope:SemiBold')]"]) { font-family:Manrope,sans-serif; }
+.screen :global([class~="font-[var(--font\\/weight-semibold,600)]"]) { font-weight:600; }
+.screen :global([class~="text-[color:var(--permaneo-brand,#24647b)]"]) { color:#24647b; }
+.screen :global([class~="text-[length:var(--blur\\/lg,16px)]"]) { font-size:16px; }
+.screen :global([class~="leading-[var(--dialog\\/viewport-inset,24px)]"]) { line-height:24px; }
+.screen :global([class~="text-[color:var(--permaneo-text,#203746)]"]) { color:#203746; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-1,'Manrope:Regular')]"]) { font-family:Manrope,sans-serif; }
+.screen :global([class~="font-[var(--font-weight\\/400,400)]"]) { font-weight:400; }
+.screen :global([class~="text-[color:var(--permaneo-muted,#4e6575)]"]) { color:#4e6575; }
+.screen :global([class~="h-[36px]"]) { height:36px; }
+.screen :global([class~="pb-[8.5px]"]) { padding-bottom:8.5px; }
+.screen :global([class~="pt-[7.5px]"]) { padding-top:7.5px; }
+.screen :global([class~="px-[16px]"]) { padding-inline:16px; }
+.screen :global([class~="rounded-[10px]"]) { border-radius:10px; }
+.screen :global([class~="size-[16px]"]) { width:16px;height:16px; }
+.screen :global([class~="gap-[20px]"]) { gap:20px; }
+.screen :global([class~="px-[32px]"]) { padding-inline:32px; }
+.screen :global([class~="py-[28px]"]) { padding-block:28px; }
+.screen :global([class~="h-[48px]"]) { height:48px; }
+.screen :global([class~="font-['Manrope:Regular']"]) { font-weight:'Manrope:Regular'; }
+.screen :global([class~="leading-[1.45]"]) { line-height:1.45; }
+.screen :global([class~="text-[13px]"]) { font-size:13px; }
+.screen :global([class~="text-[color:var(--muted,#cfdee7)]"]) { color:#cfdee7; }
+.screen :global([class~="border-[var(--line,#718d9e)]"]) { border-color:#718d9e; }
+.screen :global([class~="px-[20px]"]) { padding-inline:20px; }
+.screen :global([class~="py-[13px]"]) { padding-block:13px; }
+.screen :global([class~="font-['Manrope:Bold']"]) { font-weight:'Manrope:Bold'; }
+.screen :global([class~="leading-[22px]"]) { line-height:22px; }
+.screen :global([class~="text-[color:var(--ink,#f3f8fb)]"]) { color:#f3f8fb; }
+.screen :global([class~="gap-[6px]"]) { gap:6px; }
+.screen :global([class~="min-w-[320px]"]) { min-width:320px; }
+.screen :global([class~="font-['Sora:Bold']"]) { font-weight:'Sora:Bold'; }
+.screen :global([class~="text-[30px]"]) { font-size:30px; }
+.screen :global([class~="text-[16px]"]) { font-size:16px; }
+.screen :global([class~="bg-[var(--brand,#a8e0ed)]"]) { background-color:#a8e0ed; }
+.screen :global([class~="text-[color:var(--onbrand,#183b4c)]"]) { color:#183b4c; }
+.screen :global([class~="bg-[var(--bluebg,#405f73)]"]) { background-color:#405f73; }
+.screen :global([class~="p-[14px]"]) { padding:14px; }
+.screen :global([class~="gap-[12px]"]) { gap:12px; }
+.screen :global([class~="pl-[16px]"]) { padding-left:16px; }
+.screen :global([class~="pr-[20px]"]) { padding-right:20px; }
+.screen :global([class~="w-[1249px]"]) { width:1249px; }
+.screen :global([class~="w-[230px]"]) { width:230px; }
+.screen :global([class~="gap-[8px]"]) { gap:8px; }
+.screen :global([class~="gap-[16px]"]) { gap:16px; }
+.screen :global([class~="h-[246px]"]) { height:246px; }
+.screen :global([class~="min-w-[260px]"]) { min-width:260px; }
+.screen :global([class~="p-[20px]"]) { padding:20px; }
+.screen :global([class~="rounded-[16px]"]) { border-radius:16px; }
+.screen :global([class~="w-[387px]"]) { width:387px; }
+.screen :global([class~="w-[321px]"]) { width:321px; }
+.screen :global([class~="p-[10px]"]) { padding:10px; }
+.screen :global([class~="rounded-[14px]"]) { border-radius:14px; }
+.screen :global([class~="size-[92px]"]) { width:92px;height:92px; }
+.screen :global([class~="w-[213px]"]) { width:213px; }
+.screen :global([class~="h-[28px]"]) { height:28px; }
+.screen :global([class~="text-[18px]"]) { font-size:18px; }
+.screen :global([class~="h-[22px]"]) { height:22px; }
+.screen :global([class~="text-[color:var(--brand,#a8e0ed)]"]) { color:#a8e0ed; }
+.screen :global([class~="w-[243px]"]) { width:243px; }
+.screen :global([class~="gap-[2px]"]) { gap:2px; }
+.screen :global([class~="w-[140px]"]) { width:140px; }
+.screen :global([class~="text-[12px]"]) { font-size:12px; }
+.screen :global([class~="text-[color:var(--green,#a1e5c7)]"]) { color:#a1e5c7; }
+.screen :global([class~="w-[255px]"]) { width:255px; }
+.screen :global([class~="h-[20px]"]) { height:20px; }
+.screen :global([class~="w-[1596px]"]) { width:1596px; }
+
+/* Keep the management sidebar consistent with the dark screen palette. */
+.screen :global([data-name="aside.sticky"]) {
+  background-color: var(--app-surface);
+  border-color: var(--app-border);
+}
+.screen :global([data-name="aside.sticky"] [data-name="div.border-t"]) {
+  border-color: var(--app-border);
+}
+.screen :global([data-name="aside.sticky"] [data-name="span.grid"]) {
+  background-color: var(--app-bg);
+}
+.screen :global([data-name="aside.sticky"] [class*="text-[color:var(--permaneo-text,"]) {
+  color: var(--app-text);
+}
+.screen :global([data-name="aside.sticky"] [class*="text-[color:var(--permaneo-muted,"]) {
+  color: var(--app-muted);
+}
+.screen :global([data-name="aside.sticky"] [class*="text-[color:var(--permaneo-brand,"]) {
+  color: #a8e0ed;
+}
+.screen :global([data-name="Menu da plataforma"] > [data-name="Carômetro"]) {
+  background-color: #a8e0ed;
+}
+.screen :global([data-name="aside.sticky"] a) {
+  text-decoration: none;
+}
