@@ -10,7 +10,8 @@ try {
   assert.equal(document.querySelectorAll('#permaneo-vlibras').length, 1);
   assert.equal(document.querySelectorAll('#permaneo-userway').length, 1);
   const userway = document.getElementById('permaneo-userway');
-  assert.equal(userway.dataset.position, '5');
+  assert.equal(userway.dataset.position, '2');
+  assert.equal(userway.dataset.size, 'small');
   assert.equal(userway.dataset.language, 'pt');
   assert.equal(userway.async, true);
   assert.ok(!document.getElementById('root'), 'widgets do not require or modify the React root');

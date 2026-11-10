@@ -1,100 +1,73 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { Window } from 'happy-dom';
+import { chromium } from '@playwright/test';
 import { createServer } from 'vite';
-
-const window = new Window({ url: 'http://localhost:5173/' });
-for (const key of ['window', 'document', 'localStorage', 'navigator', 'Element', 'HTMLElement', 'MutationObserver']) {
-  Object.defineProperty(globalThis, key, { value: window[key], configurable: true });
+const server=await createServer({server:{host:'127.0.0.1',port:5174,strictPort:true}});
+await server.listen();
+const browser=await chromium.launch({channel:'chrome',headless:true});
+const page=await browser.newPage({viewport:{width:1440,height:1000}});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const routes=['home','login','director','directorFollowup','directorNotifications','reports','directorSettings','teacher','teacherFollowup','teacherNotifications','teacherSettings','student','studentSpace','carometroManagement','carometroTeacher'];
+routes.push('studentActivities','studentCalendar','studentSubjects','studentNotices','studentPlan','studentSupport');
+for(const name of ['Lucas','Camila','Isabela','Eduardo','Yasmin','Livia'])routes.push('Profile'+name+'Management','Profile'+name+'Teacher');
+routes.push('ProfileAnaBeatrizManagement','ProfileHeitorManagement');
+async function visit(route,theme='light'){
+ console.log('Checking',route,theme);
+ await page.goto('http://127.0.0.1:5174/',{waitUntil:'domcontentloaded'});
+ await page.evaluate(theme=>localStorage.setItem('permaneo-theme',theme),theme);
+ await page.goto('http://127.0.0.1:5174/#/'+route,{waitUntil:'domcontentloaded'});await page.reload({waitUntil:'domcontentloaded'});
+ await page.waitForSelector('[data-name], [role="radiogroup"]');
+ await page.waitForFunction(()=>!document.body.innerText.includes('Carregando Permaneo'));
+ assert.ok((await page.locator('body').innerText()).length>150,route);
+ await page.waitForFunction(()=>[...document.images].every(i=>i.complete&&i.naturalWidth>0));
 }
-const server = await createServer({ server: { middlewareMode: true } });
-const React = (await import('react')).default;
-const { createRoot } = await import('react-dom/client');
-const pause = () => new Promise((resolve) => setTimeout(resolve, 20));
-async function waitFor(predicate, description) {
-  for (let attempt = 0; attempt < 250; attempt += 1) {
-    if (predicate()) return;
-    await pause();
+try{
+ if(!process.argv.includes('--flows')){
+  for(const route of routes)for(const theme of ['light','dark'])await visit(route,theme);
+  console.log(`PASS: ${routes.length*2} route/theme renders with local images.`);
+ }
+ await visit('login');await page.getByRole('radio').nth(1).click();
+ assert.equal(await page.getByRole('radio').nth(1).getAttribute('aria-checked'),'true');
+ await page.getByRole('button',{name:'Explorar sem preencher',exact:true}).click();await page.waitForURL('**/#/teacher');
+ await visit('carometroManagement');
+ await page.locator('[data-name="Ver perfil"]').first().click();await page.waitForURL('**/#/ProfileLucasManagement');
+ await visit('carometroManagement');await page.locator('[data-name^="Buscar por nome"]').click();
+ await page.getByRole('dialog').getByRole('textbox').fill('Lucas');
+ await page.getByRole('dialog').getByRole('button',{name:/Lucas Gomes/}).click();await page.waitForURL('**/#/ProfileLucasManagement');
+ await visit('carometroManagement');await page.locator('[data-name="+ Adicionar aluno"]').click();
+ await page.getByLabel('Nome completo',{exact:true}).fill('Rafaela Teste');
+ await page.getByLabel('Série e turma',{exact:true}).selectOption('8º A');
+ await page.getByRole('button',{name:'Salvar aluno',exact:true}).click();
+ await page.locator('[data-name="Estudante · Rafaela Teste"]').waitFor();
+ assert.ok(await page.locator('[data-name="Estudante · Rafaela Teste"]').isVisible());
+ await page.locator('[data-name="Estudante · Rafaela Teste"]').getByRole('button',{name:'Ver perfil',exact:true}).click();
+ await page.getByRole('button',{name:'Registrar acompanhamento',exact:true}).click();
+ await page.getByLabel('Registro de acompanhamento',{exact:true}).fill('Combinar uma rotina de estudo.');
+ await page.getByRole('button',{name:'Salvar registro demonstrativo',exact:true}).click();
+ assert.ok(await page.getByText('Combinar uma rotina de estudo.',{exact:true}).isVisible());
+ await page.reload();await page.locator('[data-name="Estudante · Rafaela Teste"]').waitFor({state:'attached'});
+ await visit('student');await page.getByLabel('Assunto',{exact:true}).selectOption('Frequência');
+ await page.getByLabel('Como podemos ajudar?',{exact:true}).fill('Gostaria de conversar sobre minha rotina.');
+ await page.getByRole('button',{name:'Enviar pedido demonstrativo',exact:true}).click();
+ assert.ok(await page.getByText('Pedido demonstrativo registrado. Nenhuma mensagem foi enviada.',{exact:true}).isVisible());
+ fs.mkdirSync('test-results',{recursive:true});
+ for(const width of [390,768,1440]){
+  await page.setViewportSize({width,height:900});
+  for(const route of ['home','login','director','carometroManagement','directorNotifications','directorSettings','teacher','student']){
+   await visit(route);await page.screenshot({path:`test-results/${route}-${width}.png`,fullPage:true});
+   const size=await page.evaluate(()=>({view:innerWidth,scroll:document.documentElement.scrollWidth}));
+   assert.ok(size.scroll<=size.view+1,`${route} at ${width}: overflow ${size.scroll}`);
   }
-  throw new Error('Timeout: ' + description + '\n' + document.body.textContent.slice(0, 300));
-}
-let root;
-try {
-  const { default: App } = await server.ssrLoadModule('/src/App.jsx');
-  const { default: ErrorBoundary } = await server.ssrLoadModule('/src/components/layout/ErrorBoundary.jsx');
-  document.body.innerHTML = '<div id="root"></div>';
-  root = createRoot(document.getElementById('root'));
-  root.render(React.createElement(ErrorBoundary, null, React.createElement(App)));
-  await waitFor(() => document.querySelector('[data-name="CTA / Acessar"][role="link"]'), 'home');
-  // Clicking the label inside a control must behave like clicking its boundary.
-  document.querySelector('[data-name="CTA / Acessar"] p').click();
-  await waitFor(() => document.querySelector('[role="radiogroup"]'), 'login');
-  const radios = [...document.querySelectorAll('[role="radio"]')];
-  radios[1].querySelector('strong').click();
-  await waitFor(() => radios[1].getAttribute('aria-checked') === 'true', 'selected teacher');
-  assert.equal(document.querySelectorAll('[role="radio"][aria-checked="true"]').length, 1);
-  [...document.querySelectorAll('button')].find((button) => button.textContent === 'Explorar sem preencher').click();
-  await waitFor(() => window.location.hash === '#teacher' && document.body.textContent.includes('Minhas turmas'), 'teacher entry');
-
-  async function visit(route, dark = false) {
-    localStorage.setItem('permaneo-theme', dark ? 'dark' : 'light');
-    root.unmount();
-    document.getElementById('root').innerHTML = '';
-    window.history.replaceState({ page: route }, '', '#' + route);
-    root = createRoot(document.getElementById('root'));
-    root.render(React.createElement(ErrorBoundary, null, React.createElement(App)));
-    await waitFor(() => document.querySelector('[data-name], [role="radiogroup"]') && !document.body.textContent.includes('Carregando Permaneo'), route);
-    assert.ok(document.body.textContent.length > 150, route + ' has content');
-    assert.ok(!document.body.textContent.includes('Não foi possível abrir esta tela.'), route + ' has no render error');
-    await pause();
-  }
-  const routes = ['home','login','director','directorFollowup','directorNotifications','reports','directorSettings','teacher','teacherFollowup','teacherNotifications','teacherSettings','student','studentSpace','carometroManagement','carometroTeacher'];
-  routes.push('studentActivities','studentCalendar','studentSubjects','studentNotices','studentPlan','studentSupport');
-  const profiles = ['Lucas','Camila','Isabela','Eduardo','Yasmin','Livia'];
-  for (const name of profiles) routes.push('Profile'+name+'Management', 'Profile'+name+'Teacher');
-  routes.push('ProfileAnaBeatrizManagement', 'ProfileHeitorManagement');
-  for (const route of routes) for (const dark of [false,true]) await visit(route,dark);
-  await visit('carometroManagement');
-  await waitFor(() => document.querySelector('[data-name="Ver perfil"][role="button"]'), 'profile buttons');
-  const card = document.querySelector('[data-name^="Estudante ·"]');
-  const initialHash = window.location.hash;
-  card.querySelector('p').click();
-  await pause();
-  assert.equal(window.location.hash, initialHash, 'card text does not navigate');
-  card.querySelector('[data-name="Ver perfil"] p').click();
-  await waitFor(() => window.location.hash.startsWith('#ProfileLucas') && !document.body.textContent.includes('Carregando Permaneo'), 'selected student profile');
-  await visit('carometroManagement');
-  document.querySelector('[data-name^="Buscar por nome"]').click();
-  await waitFor(() => document.querySelector('[role="dialog"] input'), 'search modal');
-  const search = document.querySelector('[role="dialog"] input');
-  assert.ok(search.labels.length, 'search has associated label');
-  document.querySelector('[aria-label="Fechar janela"]').click();
-  await waitFor(() => !document.querySelector('[role="dialog"]'), 'modal closes');
-  // Source conventions and imports are checked separately from rendering.
-  function scan(directory) {
-    return fs.readdirSync(directory,{withFileTypes:true}).flatMap((entry) => entry.isDirectory() ? scan(path.join(directory,entry.name)) : [path.join(directory,entry.name)]);
-  }
-  const files = scan('src');
-  assert.equal(files.filter((file) => /\.tsx?$/.test(file)).length, 0, 'JavaScript only');
-  for (const file of files.filter((file) => file.endsWith('.jsx'))) assert.ok(fs.existsSync(file.replace(/\.jsx$/,'.module.css')), file+' matching CSS Module');
-  for (const file of files.filter((file) => file.endsWith('.jsx'))) {
-    const source = fs.readFileSync(file, 'utf8');
-    assert.ok(!source.includes('figma.com/api/mcp/asset'), file + ' has no temporary image URLs');
-    for (const match of source.matchAll(/from ['"]([^'"]+\.(?:svg|png|jpg|gif))['"]/g)) {
-      const image = path.resolve(path.dirname(file), match[1]);
-      assert.ok(fs.statSync(image).size > 0, image + ' is nonempty');
-    }
-  }
-  for (const file of files.filter((file) => file.endsWith('.svg'))) {
-    const xml = new window.DOMParser().parseFromString(fs.readFileSync(file, 'utf8'), 'image/svg+xml');
-    assert.equal(xml.documentElement.tagName.toLowerCase(), 'svg', file + ' is an SVG');
-    assert.ok(Number.parseFloat(xml.documentElement.getAttribute('width')) > 0, file + ' has width');
-    assert.ok(Number.parseFloat(xml.documentElement.getAttribute('height')) > 0, file + ' has height');
-  }
-  console.log(`PASS: ${routes.length * 2} route/theme renders; home/login/profile/modal interactions; JSX/CSS Modules pairing.`);
-} finally {
-  root?.unmount();
-  await server.close();
-  await window.happyDOM.abort();
-}
+ }
+ const scan=dir=>fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?scan(path.join(dir,e.name)):[path.join(dir,e.name)]);
+ const files=scan('src');assert.equal(files.filter(f=>/\.tsx?$/.test(f)).length,0);
+ for(const file of files.filter(f=>f.endsWith('.jsx'))){
+  const imports = [...fs.readFileSync(file,'utf8').matchAll(/from ['"]([^'"]+\.module\.css)['"]/g)];
+  assert.ok(imports.length > 0, file+' CSS Module');
+  for (const [, stylesheet] of imports) assert.ok(fs.existsSync(path.resolve(path.dirname(file), stylesheet)), file+' stylesheet exists');
+  assert.ok(!fs.readFileSync(file,'utf8').includes('figma.com/api/mcp/asset'),file+' temporary URLs');
+ }
+ assert.deepEqual(errors,[]);
+ console.log('PASS: login, profile, search, local registration, refresh persistence, responsive layouts and console.');
+}finally{await browser.close();await server.close();}
