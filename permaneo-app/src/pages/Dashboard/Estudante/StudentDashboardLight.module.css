@@ -1,5 +1,48 @@
 .screen { display: contents; }
 
+.screen :global([class~="[word-break:break-word]"]) { overflow-wrap: break-word; }
+.screen :global([class~="border-t-[length:var(--border\\/default,1px)]"]) { border-top-width: 1px; }
+.screen :global([class~="gap-[var(--item-spacing\\/202_97,202.97000122070312px)]"]) { gap: 16px; }
+.screen :global([class~="gap-[var(--item-spacing\\/233_59,233.58999633789062px)]"]) { gap: 16px; }
+.screen :global([class~="gap-[var(--item-spacing\\/204_95,204.9499969482422px)]"]) { gap: 16px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-2,'Manrope:Bold')]"]) { font-family: Manrope, sans-serif; font-weight: 700; }
+.screen :global([class~="font-[var(--font\\/weight-bold,700)]"]) { font-weight: 700; }
+.screen :global([class~="text-[length:var(--text\\/xl,20px)]"]) { font-size: 20px; }
+
+/* Restore shared Figma token rules omitted during migration. */
+.screen :global([class~="border-r-[length:var(--border\\/default,1px)]"]) { border-right-width:1px; }
+.screen :global([class~="gap-[var(--dialog\\/viewport-inset,24px)]"]) { gap:24px; }
+.screen :global([class~="gap-[var(--item-spacing\\/8,8px)]"]) { gap:8px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-3,'Sora:Bold')]"]) { font-family:Sora,sans-serif; }
+.screen :global([class~="font-[var(--font-weight\\/700,700)]"]) { font-weight:700; }
+.screen :global([class~="text-[length:var(--line-height\\/18,18px)]"]) { font-size:18px; }
+.screen :global([class~="tracking-[var(--letter-spacing\\/-0_45,-0.45px)]"]) { letter-spacing:-0.45px; }
+.screen :global([class~="leading-[var(--line-height\\/28,28px)]"]) { line-height:28px; }
+.screen :global([class~="flex-[1_0_0]"]) { flex:1 0 0; }
+.screen :global([class~="gap-[var(--toast\\/icon-margin-end,4px)]"]) { gap:4px; }
+.screen :global([class~="gap-[var(--blur\\/md,12px)]"]) { gap:12px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-2,'Manrope:Medium')]"]) { font-family:Manrope,sans-serif; }
+.screen :global([class~="font-[var(--font-weight\\/500,500)]"]) { font-weight:500; }
+.screen :global([class~="text-[length:var(--text\\/sm,14px)]"]) { font-size:14px; }
+.screen :global([class~="leading-[var(--text\\/xl,20px)]"]) { line-height:20px; }
+.screen :global([class~="gap-[var(--mention\\/pill-bleed,8px)]"]) { gap:8px; }
+.screen :global([class~="rounded-[var(--corner-radius\\/33554400,33554400px)]"]) { border-radius:33554400px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-2,'Manrope:SemiBold')]"]) { font-family:Manrope,sans-serif; }
+.screen :global([class~="font-[var(--font\\/weight-semibold,600)]"]) { font-weight:600; }
+.screen :global([class~="text-[length:var(--blur\\/lg,16px)]"]) { font-size:16px; }
+.screen :global([class~="leading-[var(--dialog\\/viewport-inset,24px)]"]) { line-height:24px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-1,'Manrope:Regular')]"]) { font-family:Manrope,sans-serif; }
+.screen :global([class~="font-[var(--font-weight\\/400,400)]"]) { font-weight:400; }
+.screen :global([class~="text-[length:var(--font-size\\/12,12px)]"]) { font-size:12px; }
+.screen :global([class~="leading-[var(--line-height\\/16,16px)]"]) { line-height:16px; }
+.screen :global([class~="border-b-[length:var(--border\\/default,1px)]"]) { border-bottom-width:1px; }
+.screen :global([class~="text-[length:var(--font-size\\/14,14px)]"]) { font-size:14px; }
+.screen :global([class~="leading-[var(--line-height\\/20,20px)]"]) { line-height:20px; }
+.screen :global([class~="gap-[var(--blur\\/lg,16px)]"]) { gap:16px; }
+.screen :global([class~="rounded-[var(--blur\\/md,12px)]"]) { border-radius:12px; }
+.screen :global([class~="font-[family-name:var(--font-family\\/font-4,'Sora:SemiBold')]"]) { font-family:Sora,sans-serif; }
+.screen :global([class~="tracking-[var(--letter-spacing\\/-0_24,-0.24px)]"]) { letter-spacing:-0.24px; }
+
 .screen :global([class~="font-['Manrope:Bold']"]) { font-family:'Manrope',sans-serif;font-weight:700; }
 .screen :global([class~="font-bold"]) { font-weight:700; }
 .screen :global([class~="leading-[22px]"]) { line-height:22px; }

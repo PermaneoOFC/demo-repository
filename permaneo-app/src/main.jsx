@@ -6,9 +6,6 @@ import ErrorBoundary from './components/layout/ErrorBoundary.jsx';
 import './global.css';
 import { initializeAccessibility } from './services/accessibility.js';
 
-// Identificador público fornecido pelo painel UserWay do Permaneo.
-initializeAccessibility(import.meta.env.VITE_USERWAY_ACCOUNT_ID ?? 'csVkjYy3VL');
-
 const rootElement = document.getElementById('root');
 
 if (rootElement) {
@@ -19,4 +16,9 @@ if (rootElement) {
       </div>
     </React.StrictMode>,
   );
+
+  // Os serviços opcionais não participam da montagem da aplicação React.
+  window.setTimeout(() => {
+    initializeAccessibility(import.meta.env.VITE_USERWAY_ACCOUNT_ID ?? 'csVkjYy3VL');
+  }, 0);
 }

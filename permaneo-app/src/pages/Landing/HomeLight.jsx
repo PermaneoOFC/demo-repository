@@ -46,11 +46,11 @@ import styles from './HomeLight.module.css';
 
 
 function PermaneoSiteButton({ className, estilo = "Prim\xE1rio", texto = "Continuar" }) {
-  return <div className={className || "bg-[var(--brand,#246579)] content-stretch flex h-[49px] items-center justify-center px-[20px] py-[13px] relative rounded-[10px]"} data-node-id="2024:3368">
+  return <button type="button" className={className || "bg-[var(--brand,#246579)] content-stretch flex h-[49px] items-center justify-center px-[20px] py-[13px] relative rounded-[10px]"} data-node-id="2024:3368">
       <p className="[word-break:break-word] font-['Manrope:Bold'] font-bold leading-[22px] relative shrink-0 text-[12px] text-[color:var(--onbrand,white)] whitespace-nowrap" data-node-id="2024:3371">
         {texto}
       </p>
-    </div>;
+    </button>;
 }
 function PermaneoSitePerfisDaHome({ className, perfil = "gestao", tema = "Claro" }) {
   return <div className={className || "content-stretch flex gap-[72px] items-start relative w-[1592px]"} data-node-id="2027:3478">

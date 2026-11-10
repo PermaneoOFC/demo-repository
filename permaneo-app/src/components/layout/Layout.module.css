@@ -1,4 +1,59 @@
 .marker{display:block;}
+.marker :global([data-name="table.w-full"]) { max-width: 100%; overflow-x: auto; }
+.marker :global([data-name="Lista de estudantes · Site atualizado"]) { max-width: 100%; overflow-x: auto; }
+.marker :global([data-name="Identidade e privacidade"] > p) { flex: 1 1 0; min-width: 0; }
+/* Generated student screens must remain fluid at desktop widths too. */
+.marker :global([data-name="Pequenas conquistas"]) { flex: 0 1 404px; min-width: 0; }
+.marker :global([data-name="Pequenas conquistas"] > *) { max-width: 100%; }
+.marker :global([data-name="icon/down"]) { left: auto !important; right: 16px !important; }
+.marker :global([data-name="Presença mensal · escala de 0 a 100%"] > *) { flex: 1 1 0; min-width: 0; }
+.marker :global([data-name="Presença mensal · escala de 0 a 100%"] [data-name="div.flex-1"]) { height: 112px; width: 100%; }
+@media (max-width: 1000px) {
+  .marker :global([data-name="header.flex"] > :first-child) { flex-basis: 160px !important; }
+  .marker :global([data-name="aside.sticky"] > [data-name="div.flex-1"]) {
+    width: 100%; max-width: 100%; min-width: 0; overflow-x: auto; flex-wrap: nowrap !important;
+  }
+}
+.marker :global([data-name="Conteúdo"]) { width:calc(100% - 260px)!important;flex:1 1 0;min-width:0; }
+.marker :global([data-name="Conteúdo"] [class*="w-["]) { max-width:100%;min-width:0; }
+.marker :global([data-name^="Selecionar perfil"][aria-pressed="true"]) { border-color:#246579!important;background:var(--app-bg)!important;box-shadow:inset 0 0 0 1px #246579; }
+.marker :global([data-name^="button#"][aria-pressed="true"]) { background:#246579!important; }
+@media(max-width:1000px) {
+ .marker :global([data-name^="Carômetro"]),.marker :global([data-name="Carômetro · Gestão · Escuro"]){flex-direction:column!important;}
+ .marker :global([data-name="Conteúdo"]) {width:100%!important;padding:20px 16px!important;}
+ .marker :global([data-name="Conteúdo"] [class*="w-["]) {width:100%!important;}
+ .marker :global([data-name="Filtros"]),.marker :global([data-name="Filtros do carômetro"]){flex-wrap:wrap;}
+}
+.marker :global([data-name$=":shadow"]) { pointer-events:none; }
+.marker :global([class*="flex-[1_"]) { flex:1 1 0;min-width:0; }
+.marker :global([data-name="div.ml-auto:margin"]) { padding-left:16px!important;margin-left:auto;flex:0 0 auto!important; }
+.marker :global([data-name="main.mx-auto"]) { width:100%!important;max-width:1280px;margin:0 auto;padding:32px;min-width:0; }
+.marker :global([data-name="div.mb-6"]) { gap:24px!important;justify-content:space-between;flex-wrap:wrap; }
+.marker :global([class*="gap-[var(--item-spacing"]) { gap:16px!important; }
+.marker :global([data-name="div.border-t"]) { margin-top:auto; }
+.marker :global([data-name="Indicadores"]) { display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr)); }
+.marker :global([data-name="main.mx-auto"] [class*="w-["]) { max-width:100%;min-width:0; }
+@media(max-width:1000px) {
+ .marker :global([data-name="Indicadores"]) { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .marker :global([data-name="main.mx-auto"] [class~="grid"]) { grid-template-columns:minmax(0,1fr)!important;height:auto!important;grid-template-rows:auto!important; }
+ .marker :global([data-name="main.mx-auto"] [class~="grid"] > *) { grid-column:1!important;grid-row:auto!important; }
+}
+@media(max-width:1000px) {
+ .marker :global([data-name="aside.sticky"]) { flex-basis:auto!important;position:relative!important; }
+ .marker :global([data-name="aside.sticky"] nav),.marker :global([data-name="aside.sticky"] [data-name="div.flex-1"]) { display:flex;flex-wrap:wrap;gap:4px; }
+ .marker :global([data-name="aside.sticky"] [data-name="div.border-t"]) { display:none!important; }
+ .marker :global([data-name="main.mx-auto"]) { padding:20px 16px; }
+ .marker :global([data-name="main.mx-auto"] [class~="whitespace-nowrap"]) { white-space:normal; }
+ .marker :global([data-name="main.mx-auto"] [class*="w-["]) { width:100%!important; }
+ .marker :global([data-name="div.surface-card"]) { flex-wrap:wrap; }
+ .marker :global([data-name="Grade de estudantes"] > *) { max-width:100%!important; }
+}
+.marker :global([class~="size-full"]) { width:100%;height:100%; }
+.marker :global([class~="grid"]) { display:grid!important; }
+.marker :global(p) { line-height:1.5; }
+.marker :global([data-name="div.min-h-screen"] > [data-name="div.min-w-0"]) { min-width:0;flex:1; }
+.marker :global([data-name="div.min-h-screen"] > [data-name="div.min-w-0"] > *) { max-width:100%; }
+.marker :global([data-name="Grade de estudantes"]) { flex-wrap:wrap; }
 
 
 /* Responsive behavior for the Figma source screens */
@@ -35,7 +90,7 @@
   max-width: 260px !important;
 }
 
-.marker :global([data-name="div.min-w-0"]) {
+.marker :global([data-name="div.min-h-screen"] > [data-name="div.min-w-0"]) {
   flex: 1 1 0%;
   width: calc(100% - 260px) !important;
   max-width: calc(100% - 260px) !important;
@@ -126,7 +181,7 @@
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1000px) {
   .marker :global([data-name="div.min-h-screen"]) {
     display: flex !important;
     flex-direction: column !important;
@@ -147,7 +202,7 @@
     border-bottom: 1px solid #d7e2e3;
   }
 
-  .marker :global([data-name="div.min-w-0"]) {
+  .marker :global([data-name="div.min-h-screen"] > [data-name="div.min-w-0"]) {
     width: 100% !important;
     max-width: 100% !important;
     min-height: 0;
@@ -213,6 +268,32 @@
   }
 }
 
+@media(max-width:1000px){
+ .marker :global([data-name="main.mx-auto"] > [data-name="section.mt-6"]){flex-direction:column!important;align-items:stretch!important;}
+ .marker :global([data-name="main.mx-auto"] > [data-name="section.mt-6"] > *){width:100%!important;max-width:100%!important;flex:none!important;}
+ .marker :global([data-name="main.mx-auto"] > [data-name="div.surface-card"]){display:grid!important;grid-template-columns:1fr!important;}
+ .marker :global([data-name="main.mx-auto"] > [data-name="div.surface-card"] > *){grid-column:1!important;width:100%!important;}
+ .marker :global([data-name="aside.sticky"]){min-height:0!important;height:auto!important;}
+ .marker :global([data-name="div.min-h-screen"] > [data-name="div.min-w-0"]){max-width:100%!important;width:100%!important;}
+ .marker :global([data-name="Indicadores"]){grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;}
+ .marker :global([data-name="Indicadores"] > *){width:100%!important;min-width:0!important;}
+ .marker :global([data-name="main.mx-auto"] > [class~="grid"]){grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto!important;height:auto!important;}
+ .marker :global([data-name="main.mx-auto"] > [class~="grid"] > *){grid-column:1!important;grid-row:auto!important;width:100%!important;}
+ .marker :global([data-name="main.mx-auto"] [data-name="div.surface-card"]){overflow-wrap:anywhere;}
+ .marker :global([data-name="main.mx-auto"] [data-name="div.surface-card"] [class~="shrink-0"]){flex-shrink:1;min-width:0;}
+ .marker :global([data-name="Menu da plataforma"]){width:100%!important;max-width:100%!important;min-width:0!important;overflow-x:auto;flex-wrap:nowrap;}
+ .marker :global([data-name="aside.sticky"] > *){max-width:100%;min-width:0;}
+ .marker :global(header),.marker :global([data-name="header.flex"]){max-width:100%;gap:8px!important;flex-wrap:wrap;height:auto!important;min-height:64px;}
+ .marker :global([data-name="div.ml-auto:margin"]){margin-left:0!important;padding-left:0!important;}
+ .marker :global([data-name="Indicadores"] > *){min-width:0!important;max-width:100%;}
+ .marker :global([data-name="main.mx-auto"] [class*="pr-["]){padding-right:0!important;}
+ .marker :global([data-name="main.mx-auto"] [class*="pl-["]){padding-left:0!important;}
+ .marker :global([data-name="main.mx-auto"] [class*="whitespace-nowrap"]){white-space:normal!important;}
+ .marker :global([data-name="Busca e visualização"]){flex-wrap:wrap;}
+ .marker :global([data-name="Conteúdo"] [class*="whitespace-nowrap"]){white-space:normal!important;}
+ .marker :global([data-name="Conteúdo"] [data-name="Resumo"]){flex-wrap:wrap;}
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marker :global(*),
   .marker :global(*::before),
@@ -231,11 +312,11 @@
   overflow-y: auto;
 }
 
-.marker :global([data-name="div.min-w-0"]) {
+.marker :global([data-name="div.min-h-screen"] > [data-name="div.min-w-0"]) {
   overflow: visible !important;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1000px) {
   .marker :global([data-name="aside.sticky"]) {
     position: sticky !important;
     height: auto !important;
@@ -288,4 +369,158 @@
   .marker :global([data-name="Grade de estudantes"][data-view-mode="list"] [data-name="Frequência e perfil"]) {
     flex-basis: 100%;
   }
+}
+
+
+
+.marker :global([role="tab"][aria-selected="true"]) {outline:2px solid #246579;background:var(--app-surface)!important;border-radius:10px;} .marker[data-notifications-read="true"] :global([data-name="span.ml-2"]){visibility:hidden;}
+@media(max-width:1000px){
+ .marker [data-name="main.mx-auto"] :global([class~="flex"]:not([class~="flex-col"])){flex-wrap:wrap!important;}
+ .marker :global([data-name="main.mx-auto"] *){max-width:100%;min-width:0;}
+ .marker :global([data-name="main.mx-auto"] [class~="shrink-0"]){flex-shrink:1;}
+ .marker :global([data-name="Permaneo / Site / Linha de estudante"]){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));width:100%!important;gap:16px!important;}
+ .marker :global([data-name="Permaneo / Site / Linha de estudante"] > *){width:100%!important;}
+ .marker :global([data-name="main.mx-auto"] [class~="self-stretch"]){height:auto!important;}
+}
+@media(max-width:1000px){
+ .marker :global([data-name="icon/down"]){left:auto!important;right:16px!important;}
+ .marker :global([data-name="div.ml-auto:margin"]){max-width:80px!important;min-width:0!important;width:auto!important;}
+ .marker :global(header > :first-child){flex:1 1 200px!important;white-space:normal!important;min-width:0;}
+ .marker :global([data-name^="Perfil ·"]){padding:20px 16px!important;overflow:visible!important;}
+ .marker :global([data-name^="Perfil ·"] [class*="w-["]){width:100%!important;max-width:100%!important;min-width:0;}
+ .marker :global([data-name^="Perfil ·"] [class~="flex"]:not([class~="flex-col"])){flex-wrap:wrap!important;}
+ .marker :global([data-name^="Perfil ·"] [class~="whitespace-nowrap"]){white-space:normal!important;}
+ .marker :global([data-name="Seções do perfil"]){gap:8px!important;}
+ .marker :global([data-name="Seções do perfil"] > *){flex:1 1 100px!important;}
+ .marker :global([data-name="Conteúdo"] [data-name="Foto e identificação"]){width:100%!important;}
+ .marker :global([data-name="Conteúdo"] [data-name^="Avatar por iniciais"]){width:92px!important;flex:0 0 92px!important;}
+ .marker :global([data-name="Conteúdo"] [data-name="Identificação"]){width:auto!important;flex:1 1 0!important;min-width:0;}
+ .marker :global([data-name="Conteúdo"] [data-name="Frequência e perfil"]){justify-content:space-between;}
+ .marker :global([data-name="Conteúdo"] [data-name="Ver perfil"]){width:auto!important;}
+ .marker :global([data-name="Conteúdo"] [data-name="Contexto"]){height:auto!important;min-height:48px;flex-wrap:wrap!important;}
+ .marker :global([data-name="Conteúdo"] [data-name="Contexto"] > *){width:auto!important;flex:1 1 120px;}
+}
+/* Fluid containers preserve the original Home composition at desktop widths. */
+.marker :global([data-name^="01 · Home"] [class*="w-["]){max-width:100%!important;min-width:0;}
+.marker :global([data-name^="01 · Home"] > *){width:100%!important;padding-inline:clamp(20px,8.54vw,164px)!important;}
+.marker :global([data-name^="01 · Home"] > :not([data-name="Navegação principal"]) > [class*="w-["]){width:100%!important;}
+.marker :global([data-name="Hero · Pessoas e permanência"]),
+.marker :global([data-name="Desafio e demonstração"]),
+.marker :global([data-name="Permaneo / Site / Perfis da Home"]),
+.marker :global([data-name="Duas soluções Permaneo"]){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3.75vw,72px)!important;}
+.marker :global([data-name="Hero · Pessoas e permanência"] > *),
+.marker :global([data-name="Desafio e demonstração"] > *),
+.marker :global([data-name="Permaneo / Site / Perfis da Home"] > *),
+.marker :global([data-name="Duas soluções Permaneo"] > *){width:100%!important;}
+.marker :global([data-name="Três pilares"]){display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px!important;}
+.marker :global([data-name="Quatro passos"]),.marker :global([data-name="Etapas da implantação"]){display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px!important;}
+.marker :global([data-name="Três pilares"] > *),.marker :global([data-name="Quatro passos"] > *),.marker :global([data-name="Etapas da implantação"] > *){width:100%!important;height:auto!important;min-height:116px;}
+.marker :global([data-name="Vídeo de abertura e mensagem"] > :first-child){width:100%!important;height:auto!important;aspect-ratio:16/9;}
+.marker :global([data-node-id="2009:7569"]),.marker :global([data-node-id="2009:7569"] p){font-size:clamp(34px,3.75vw,72px)!important;line-height:1.17!important;}
+.marker :global([data-name="Convite à demonstração"]){gap:24px;}
+.marker :global([data-name="Convite à demonstração"] > :first-child){flex:1;min-width:0;}
+.marker :global([data-name="Prévia do perfil"] > *),.marker :global([data-name="Prévia do perfil"] [class*="w-["]){max-width:100%!important;min-width:0;}
+.marker :global([data-name="Prévia do perfil"] [data-name="Indicadores ilustrativos"] > *){flex:1 1 0;}
+@media(max-width:1100px){
+ .marker :global([data-name="Navegação principal"]){flex-wrap:wrap;gap:24px;padding-block:24px!important;}
+ .marker :global([data-name="Navegação principal"] [data-name="Menu"]){order:3;justify-content:center;width:100%!important;}
+ .marker :global([data-name="Quatro passos"]),.marker :global([data-name="Etapas da implantação"]){grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media(max-width:760px){
+ .marker :global([data-name="Hero · Pessoas e permanência"]),.marker :global([data-name="Desafio e demonstração"]),.marker :global([data-name="Permaneo / Site / Perfis da Home"]),.marker :global([data-name="Duas soluções Permaneo"]),.marker :global([data-name="Três pilares"]){grid-template-columns:minmax(0,1fr);}
+ .marker :global([data-name^="01 · Home"] [class~="whitespace-nowrap"]){white-space:normal!important;}
+ .marker :global([data-name="Convite à demonstração"]),.marker :global([data-name="Identidade e privacidade"]){flex-direction:column;gap:24px;}
+ .marker :global([data-name="Quatro passos"]),.marker :global([data-name="Etapas da implantação"]){grid-template-columns:minmax(0,1fr);}
+ .marker :global([data-name="Navegação principal"] [data-name="Menu"]){flex-wrap:wrap;gap:16px!important;}
+}
+
+.marker :global([data-name="Três perfis · Uma escola conectada"] > *){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3.75vw,72px)!important;width:100%!important;}
+.marker :global([data-name="Três perfis · Uma escola conectada"] > * > *){width:100%!important;min-width:0;}
+.marker :global([data-name="Prévia do perfil"] [data-name="Indicadores ilustrativos"] > *){flex:1 1 0!important;min-width:0;}
+@media(max-width:760px){.marker :global([data-name="Três perfis · Uma escola conectada"] > *){grid-template-columns:minmax(0,1fr)!important;}}
+.marker :global([data-name="Texto do perfil"]){flex:1 1 0!important;width:auto!important;min-width:0;}
+.marker :global([data-name="Indicadores demonstrativos"] > *){flex:1 1 0!important;min-width:0;}
+
+/* Shared sidebar branding and navigation across all generated screens. */
+.marker :global([data-name="aside.sticky"] a) { text-decoration: none; }
+.marker :global([data-name="aside.sticky"] > [data-name="a.px-2"]) {
+  padding: 4px 8px 6px !important;
+  width: 100% !important;
+}
+.marker :global([data-name="aside.sticky"] [data-name="a.px-2"] [data-name="a.px-2"]) {
+  padding: 0 !important;
+  width: auto !important;
+}
+.marker :global([data-name="aside.sticky"] [data-name="a.px-2"] [data-name="span.inline-flex"]) {
+  gap: 8px !important;
+  width: auto !important;
+  align-items: center !important;
+}
+.marker :global([data-name="aside.sticky"] [data-name^="Logo Permaneo"]) {
+  width: 35px !important;
+  height: 35px !important;
+  flex: 0 0 35px !important;
+}
+.marker :global([data-name="aside.sticky"] [data-name^="Logo Permaneo"] > div) {
+  width: 35px !important;
+  height: 27px !important;
+  left: 0 !important;
+  top: 4px !important;
+}
+.marker :global([data-name="aside.sticky"] [data-name="span.text-lg"]),
+.marker :global([data-name="aside.sticky"] [data-name="span.text-lg"] *) {
+  font-family: Sora, sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 28px !important;
+  letter-spacing: -0.45px !important;
+}
+
+/* The home theme control is the standard on every screen. */
+.marker :global([data-name="Alternar tema"]) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 48px !important;
+  flex: 0 0 48px !important;
+  padding: 12px !important;
+  border: 1px solid var(--app-border) !important;
+  border-radius: 10px !important;
+  background: var(--app-surface) !important;
+  cursor: pointer;
+  text-decoration: none;
+}
+.marker :global([data-name="Alternar tema"] > *) { display: none !important; }
+.marker :global([data-name="Alternar tema"])::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  background: url('../../images/figma/9b3e4d81507d448f0ca2.svg') center / contain no-repeat;
+}
+.marker[data-theme="dark"] :global([data-name="Alternar tema"])::before {
+  background-image: url('../../images/figma/fe2b6270a3045abf29b1.svg');
+}
+
+/* Keep the original search/status columns within the available content width. */
+.marker :global([data-name="Busca e situação"]) {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+  gap: 16px;
+}
+.marker :global([data-name="Busca e situação"] > *),
+.marker :global([data-name="Busca e situação"] [class*="w-["]) {
+  width: 100% !important;
+  min-width: 0;
+}
+@media (max-width: 1000px) {
+  .marker :global(header > :first-child),
+  .marker :global([data-name^="header."] > :first-child) { flex: 1 1 160px !important; min-width: 0; }
+  .marker :global([data-name^="header."]) { flex-wrap: wrap; height: auto; min-height: 64px; }
+  .marker :global([data-name^="header."] [class~="whitespace-nowrap"]) { white-space: normal; }
+  .marker :global([data-name="Busca e situação"]) { grid-template-columns: minmax(0, 1fr); }
 }
