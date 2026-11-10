@@ -50,6 +50,7 @@ try {
     await pause();
   }
   const routes = ['home','login','director','directorFollowup','directorNotifications','reports','directorSettings','teacher','teacherFollowup','teacherNotifications','teacherSettings','student','studentSpace','carometroManagement','carometroTeacher'];
+  routes.push('studentActivities','studentCalendar','studentSubjects','studentNotices','studentPlan','studentSupport');
   const profiles = ['Lucas','Camila','Isabela','Eduardo','Yasmin','Livia'];
   for (const name of profiles) routes.push('Profile'+name+'Management', 'Profile'+name+'Teacher');
   routes.push('ProfileAnaBeatrizManagement', 'ProfileHeitorManagement');

@@ -1,0 +1,40 @@
+.panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 0;
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--app-surface);
+  color: var(--app-text);
+}
+.panel h2 {
+  font:
+    600 24px/1.4 Sora,
+    sans-serif;
+}
+.panel > p {
+  color: var(--app-muted);
+  line-height: 1.5;
+}
+.panel form {
+  display: grid;
+  gap: 12px;
+}
+.panel small {
+  color: var(--app-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.success {
+  padding: 12px;
+  background: var(--app-bg);
+  border-radius: 10px;
+}
+.request {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--app-border);
+  font-size: 14px;
+  line-height: 1.5;
+}

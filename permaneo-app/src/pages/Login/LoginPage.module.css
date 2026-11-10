@@ -23,3 +23,5 @@
 
 
 /* Complete Figma token fallbacks. */
+.studentDemoLink { display: block; padding: 10px; color: var(--app-text); text-align: center; font-weight: 600; border-radius: 10px; }
+.studentDemoLink:hover { background: var(--app-bg); }
