@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { formatDate, subjects } from '../../data/studentArea.js';
-import styles from './StudentActivities.module.css';
+import styles from '../../pages/Dashboard/Estudante/StudentArea.module.css';
 
 export default function StudentActivities({ tasks, onSubmit }) {
   const [filter, setFilter] = useState('Todas');

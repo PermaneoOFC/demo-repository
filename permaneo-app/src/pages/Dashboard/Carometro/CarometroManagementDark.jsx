@@ -100,7 +100,7 @@ function CarometroGestaoEscuro() {
             <div className="bg-[var(--color\/grey\/93,#e5f0f7)] content-stretch flex gap-[var(--blur\/md,12px)] items-center px-[12px] py-[10px] relative rounded-[var(--blur\/md,12px)] shrink-0 w-[227px]" data-node-id="2237:3353" data-name="Carômetro">
               <Component1 className="relative shrink-0 size-[18px]" />
               <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative" data-node-id="I2237:3353;11:12471" data-name="span.flex-1">
-                <a className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-2,'Manrope:Medium')] font-[var(--font-weight\/500,500)] justify-center leading-[0] relative shrink-0 text-[0px] text-[color:var(--color\/azure\/20-2,#0b425c)] w-full" href="https://preview--aspire-and-achieve-tool.lovable.app/app/gestao" data-node-id="I2237:3353;11:12472" target="_blank">
+                <a className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-2,'Manrope:Medium')] font-[var(--font-weight\/500,500)] justify-center leading-[0] relative shrink-0 text-[0px] text-[color:var(--color\/azure\/20-2,#0b425c)] w-full" href="#/carometroManagement" data-node-id="I2237:3353;11:12472">
                   <p className="cursor-pointer font-['Manrope:Medium'] font-medium leading-[20px] text-[14px]">Carômetro</p>
                 </a>
               </div>

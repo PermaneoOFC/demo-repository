@@ -10,12 +10,16 @@
     "test": "node tests/frontend.test.mjs",
     "test:browser": "node tests/browser-smoke.mjs && node tests/browser-flow.mjs",
     "test:accessibility": "node tests/accessibility.test.mjs",
-    "test:student": "node tests/student.test.mjs"
+    "test:student": "node tests/student.test.mjs",
+    "test:shell": "node tests/shell.test.mjs",
+    "test:profile": "node tests/profile.test.mjs",
+    "test:widgets": "node tests/accessibility-browser.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.65.0",

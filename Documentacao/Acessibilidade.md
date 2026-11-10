@@ -39,7 +39,7 @@ A home usa a mídia original de `gabrielrgg/Permaneo-OFC/src/imagens/hero-school
 O ponto de entrada `permaneo-app/src/main.jsx` carrega os widgets uma vez por abertura do site, fora do ciclo de renderização do React. Assim, permanecem disponíveis na landing page, login e telas de direção, professor e estudante, nos dois temas.
 
 - **VLibras:** tradução automática de português para Libras, pelo script oficial. O botão fica à direita.
-- **UserWay:** menu de acessibilidade em português, com botão na cor do Permaneo no canto inferior esquerdo, separado do VLibras. As funções disponíveis dependem da configuração e do plano da conta UserWay.
+- **UserWay:** menu de acessibilidade em português, com botão na cor do Permaneo à direita, 12 px abaixo do VLibras. As funções disponíveis dependem da configuração e do plano da conta UserWay.
 
 ### Configuração do UserWay
 

@@ -1,3 +1,5 @@
+import Toggle from '../../../components/students/Toggle.jsx';
+import StoredField from '../../../components/students/StoredField.jsx';
 import imgVariant3 from '../../../images/figma/422ec51e450a50eea47e.svg';
 import imgVariant4 from '../../../images/figma/5ca6414882706a85b404.svg';
 import imgVinculoSimboloVetorial from '../../../images/figma/a58125bfbd059409217b.svg';
@@ -219,20 +221,7 @@ function Component09ConfiguracoesDaDirecaoClaro() {
                       <p className="leading-[var(--text\/sm,14px)]">Faltas consecutivas para alerta</p>
                     </div>
                   </div>
-                  <div className="bg-[var(--permaneo-surface,white)] border-[length:var(--border\/default,1px)] border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex h-[36px] items-start overflow-clip px-[12px] py-[7.5px] relative rounded-[var(--text\/2xs,10px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] shrink-0 w-full" data-node-id="2009:9632" data-name="input#consecutiveAbsences">
-                    <div className="content-stretch flex h-full items-center relative shrink-0" data-node-id="2009:9633" data-name="div#text-field-container">
-                      <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="2009:9634" data-name="div#editing-view-port">
-                        <div className="content-stretch flex flex-col items-start overflow-auto pr-[507.25px] relative shrink-0" data-node-id="2009:9635" data-name="div">
-                          <div className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-2,'Manrope:Regular')] font-[var(--tw\/font-weight,400)] justify-center leading-[0] relative shrink-0 text-[color:var(--permaneo-text,#203746)] text-[length:var(--text\/sm,14px)] whitespace-nowrap" data-node-id="2009:9636">
-                            <p className="leading-[normal]">3</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="content-stretch flex h-full items-start relative shrink-0" data-node-id="2009:9637" data-name="div#spin:align-stretch">
-                        <div className="h-full min-w-[13px] opacity-0 relative shrink-0 w-[13px]" data-node-id="2009:9638" data-name="div#spin" />
-                      </div>
-                    </div>
-                  </div>
+                  <StoredField label="Faltas consecutivas" storageKey="consecutiveAbsences" initialValue="3" />
                 </div>
                 <div className="content-stretch flex flex-col gap-[var(--item-spacing\/6,6px)] items-start relative shrink-0 w-full" data-node-id="2009:9639" data-name="div.grid">
                   <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="2009:9640" data-name="label.text-sm">
@@ -240,20 +229,7 @@ function Component09ConfiguracoesDaDirecaoClaro() {
                       <p className="leading-[var(--text\/sm,14px)]">Meta mínima de frequência (%)</p>
                     </div>
                   </div>
-                  <div className="bg-[var(--permaneo-surface,white)] border-[length:var(--border\/default,1px)] border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex h-[36px] items-start overflow-clip px-[12px] py-[7.5px] relative rounded-[var(--text\/2xs,10px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] shrink-0 w-full" data-node-id="2009:9642" data-name="input#minFrequency">
-                    <div className="content-stretch flex h-full items-center relative shrink-0" data-node-id="2009:9643" data-name="div#text-field-container">
-                      <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="2009:9644" data-name="div#editing-view-port">
-                        <div className="content-stretch flex flex-col items-start overflow-auto pr-[499.87px] relative shrink-0" data-node-id="2009:9645" data-name="div">
-                          <div className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-2,'Manrope:Regular')] font-[var(--tw\/font-weight,400)] justify-center leading-[0] relative shrink-0 text-[color:var(--permaneo-text,#203746)] text-[length:var(--text\/sm,14px)] whitespace-nowrap" data-node-id="2009:9646">
-                            <p className="leading-[normal]">75</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="content-stretch flex h-full items-start relative shrink-0" data-node-id="2009:9647" data-name="div#spin:align-stretch">
-                        <div className="h-full min-w-[13px] opacity-0 relative shrink-0 w-[13px]" data-node-id="2009:9648" data-name="div#spin" />
-                      </div>
-                    </div>
-                  </div>
+                  <StoredField label="Frequência mínima (%)" storageKey="minFrequency" initialValue="75" />
                 </div>
                 <div className="content-stretch flex flex-col gap-[var(--item-spacing\/6,6px)] items-start relative shrink-0 w-full" data-node-id="2009:9649" data-name="div.grid">
                   <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="2009:9650" data-name="label.text-sm">
@@ -261,20 +237,7 @@ function Component09ConfiguracoesDaDirecaoClaro() {
                       <p className="leading-[var(--text\/sm,14px)]">Queda de frequência (pontos)</p>
                     </div>
                   </div>
-                  <div className="bg-[var(--permaneo-surface,white)] border-[length:var(--border\/default,1px)] border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex h-[36px] items-start overflow-clip px-[12px] py-[7.5px] relative rounded-[var(--text\/2xs,10px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] shrink-0 w-full" data-node-id="2009:9652" data-name="input#frequencyDrop">
-                    <div className="content-stretch flex h-full items-center relative shrink-0" data-node-id="2009:9653" data-name="div#text-field-container">
-                      <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="2009:9654" data-name="div#editing-view-port">
-                        <div className="content-stretch flex flex-col items-start overflow-auto pr-[506.86px] relative shrink-0" data-node-id="2009:9655" data-name="div">
-                          <div className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-2,'Manrope:Regular')] font-[var(--tw\/font-weight,400)] justify-center leading-[0] relative shrink-0 text-[color:var(--permaneo-text,#203746)] text-[length:var(--text\/sm,14px)] whitespace-nowrap" data-node-id="2009:9656">
-                            <p className="leading-[normal]">8</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="content-stretch flex h-full items-start relative shrink-0" data-node-id="2009:9657" data-name="div#spin:align-stretch">
-                        <div className="h-full min-w-[13px] opacity-0 relative shrink-0 w-[13px]" data-node-id="2009:9658" data-name="div#spin" />
-                      </div>
-                    </div>
-                  </div>
+                  <StoredField label="Queda de frequência (%)" storageKey="frequencyDrop" initialValue="8" />
                 </div>
                 <div className="content-stretch flex flex-col gap-[var(--item-spacing\/6,6px)] items-start relative shrink-0 w-full" data-node-id="2009:9659" data-name="div.grid">
                   <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="2009:9660" data-name="label.text-sm">
@@ -282,20 +245,7 @@ function Component09ConfiguracoesDaDirecaoClaro() {
                       <p className="leading-[var(--text\/sm,14px)]">Queda de média entre bimestres</p>
                     </div>
                   </div>
-                  <div className="bg-[var(--permaneo-surface,white)] border-[length:var(--border\/default,1px)] border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex h-[36px] items-start overflow-clip px-[12px] py-[7.5px] relative rounded-[var(--text\/2xs,10px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] shrink-0 w-full" data-node-id="2009:9662" data-name="input#gradeDrop">
-                    <div className="content-stretch flex h-full items-center relative shrink-0" data-node-id="2009:9663" data-name="div#text-field-container">
-                      <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="2009:9664" data-name="div#editing-view-port">
-                        <div className="content-stretch flex flex-col items-start overflow-auto pr-[498.3px] relative shrink-0" data-node-id="2009:9665" data-name="div">
-                          <div className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-2,'Manrope:Regular')] font-[var(--tw\/font-weight,400)] justify-center leading-[0] relative shrink-0 text-[color:var(--permaneo-text,#203746)] text-[length:var(--text\/sm,14px)] whitespace-nowrap" data-node-id="2009:9666">
-                            <p className="leading-[normal]">1,5</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="content-stretch flex h-full items-start relative shrink-0" data-node-id="2009:9667" data-name="div#spin:align-stretch">
-                        <div className="h-full min-w-[13px] opacity-0 relative shrink-0 w-[13px]" data-node-id="2009:9668" data-name="div#spin" />
-                      </div>
-                    </div>
-                  </div>
+                  <StoredField label="Queda de notas" storageKey="gradeDrop" initialValue="0" />
                 </div>
                 <button className="bg-[var(--permaneo-brand,#24647b)] content-stretch cursor-pointer flex h-[36px] items-center justify-center pb-[8.5px] pt-[7.5px] px-[16px] relative rounded-[10px] shrink-0" data-node-id="2009:9669" data-name="Component 6">
                   <div className="absolute bg-[var(--permaneo-brand,#24647b)] h-[36px] left-0 right-0 rounded-[var(--text\/2xs,10px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] top-0" data-node-id="I2009:9669;29:11889" data-name="button.inline-flex:shadow" />
@@ -316,12 +266,7 @@ function Component09ConfiguracoesDaDirecaoClaro() {
                       <p className="leading-[var(--text\/sm,14px)]">Alertas para a equipe</p>
                     </div>
                   </div>
-                  <div className="bg-[var(--permaneo-brand,#24647b)] border-[length:var(--leading\/loose,2px)] border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex h-[20px] items-center pl-[16px] relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 w-[36px]" data-node-id="2009:9676" data-name="button#staffAlerts">
-                    <div className="-translate-y-1/2 absolute bg-[var(--permaneo-surface,white)] h-[20px] left-[-2px] rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] top-1/2 w-[36px]" data-node-id="2009:9677" data-name="button#staffAlerts:shadow" />
-                    <div className="bg-[var(--permaneo-surface,white)] content-stretch flex flex-col items-start justify-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 size-[16px]" data-node-id="2009:9678" data-name="span.pointer-events-none">
-                      <div className="bg-[var(--permaneo-surface,white)] relative rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] shrink-0 size-[16px]" data-node-id="2009:9679" data-name="span.pointer-events-none:shadow" />
-                    </div>
-                  </div>
+                  <Toggle label="staffAlerts" storageKey="staffAlerts" />
                 </div>
                 <div className="content-stretch flex gap-[var(--item-spacing\/424_73,424.7300109863281px)] items-center justify-between relative shrink-0 w-full" data-node-id="2009:9680" data-name="div.flex">
                   <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="2009:9681" data-name="label.text-sm">
@@ -329,12 +274,7 @@ function Component09ConfiguracoesDaDirecaoClaro() {
                       <p className="leading-[var(--text\/sm,14px)]">Resumo diário</p>
                     </div>
                   </div>
-                  <div className="bg-[var(--permaneo-canvas,#f4f7fa)] border-[length:var(--leading\/loose,2px)] border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex h-[20px] items-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 w-[36px]" data-node-id="2009:9683" data-name="button#dailyDigest">
-                    <div className="-translate-y-1/2 absolute bg-[var(--permaneo-surface,white)] h-[20px] left-[-2px] rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] top-1/2 w-[36px]" data-node-id="2009:9684" data-name="button#dailyDigest:shadow" />
-                    <div className="bg-[var(--permaneo-surface,white)] content-stretch flex flex-col items-start justify-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 size-[16px]" data-node-id="2009:9685" data-name="span.pointer-events-none">
-                      <div className="bg-[var(--permaneo-surface,white)] relative rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] shrink-0 size-[16px]" data-node-id="2009:9686" data-name="span.pointer-events-none:shadow" />
-                    </div>
-                  </div>
+                  <Toggle label="Resumo diário" storageKey="dailyDigest" />
                 </div>
                 <div className="content-stretch flex gap-[var(--item-spacing\/404_03,404.0299987792969px)] items-center justify-between relative shrink-0 w-full" data-node-id="2009:9687" data-name="div.flex">
                   <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="2009:9688" data-name="label.text-sm">
@@ -342,12 +282,7 @@ function Component09ConfiguracoesDaDirecaoClaro() {
                       <p className="leading-[var(--text\/sm,14px)]">Avisos às famílias</p>
                     </div>
                   </div>
-                  <div className="bg-[var(--permaneo-canvas,#f4f7fa)] border-[length:var(--leading\/loose,2px)] border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex h-[20px] items-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 w-[36px]" data-node-id="2009:9690" data-name="button#familyNotices">
-                    <div className="-translate-y-1/2 absolute bg-[var(--permaneo-surface,white)] h-[20px] left-[-2px] rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] top-1/2 w-[36px]" data-node-id="2009:9691" data-name="button#familyNotices:shadow" />
-                    <div className="bg-[var(--permaneo-surface,white)] content-stretch flex flex-col items-start justify-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 size-[16px]" data-node-id="2009:9692" data-name="span.pointer-events-none">
-                      <div className="bg-[var(--permaneo-surface,white)] relative rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] shrink-0 size-[16px]" data-node-id="2009:9693" data-name="span.pointer-events-none:shadow" />
-                    </div>
-                  </div>
+                  <Toggle label="Avisos para responsáveis" storageKey="familyNotices" />
                 </div>
                 <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="2009:9694" data-name="p.text-xs">
                   <div className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-1,'Manrope:Regular')] font-[var(--font-weight\/400,400)] justify-center leading-[0] relative shrink-0 text-[color:var(--permaneo-muted,#4e6575)] text-[length:var(--font-size\/12,12px)] w-full" data-node-id="2009:9695">

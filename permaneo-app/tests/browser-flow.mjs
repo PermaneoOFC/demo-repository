@@ -10,7 +10,7 @@ try {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     if (!widgetsAvailable) await page.route(/https:\/\/(?:cdn\.userway\.org|vlibras\.gov\.br)\//, route => route.abort());
-    await page.goto(baseURL + '/#home');
+    await page.goto(baseURL + '/#/home');
     await expect(page.locator('[data-name="CTA / Acessar"]')).toBeVisible();
     const hero = page.locator('img[src*="hero-school"]');
     await expect(hero).toBeVisible();
@@ -41,25 +41,25 @@ try {
     }
     // Enter each profile through the real login controls, without backend credentials.
     for (const [index, route] of ['director','teacher','student'].entries()) {
-      await page.goto(baseURL + '/#home');
+      await page.goto(baseURL + '/#/home');
       await page.locator('[data-name="CTA / Acessar"]').click();
       await expect(page.getByRole('radiogroup')).toBeVisible();
       await page.getByRole('radio').nth(index).click();
       await page.getByRole('button', {name: 'Explorar sem preencher', exact: true}).click();
-      await expect(page).toHaveURL(new RegExp('#' + route + '$'));
-      await expect(page.locator(route === 'student' ? '[data-app-shell] aside' : '[data-name="aside.sticky"]')).toBeVisible();
+      await expect(page).toHaveURL(new RegExp('#/?' + route + '$'));
+      await expect(page.locator('[data-app-shell] aside')).toBeVisible();
       if (route === 'director') {
-        await page.locator('[data-name="Carômetro"]').first().click();
-        await expect(page).toHaveURL(/#carometroManagement$/);
+        await page.getByRole('navigation', {name: 'Menu da plataforma'}).getByRole('link', {name:'Carômetro',exact:true}).click();
+        await expect(page).toHaveURL(/#\/?carometroManagement$/);
         await page.locator('[data-name^="Buscar por nome"]').click();
         await expect(page.getByRole('dialog')).toBeVisible();
         await page.getByRole('button', {name: 'Fechar janela', exact: true}).click();
         await page.locator('[data-name="Ver perfil"]').first().click();
-        await expect(page).toHaveURL(/#ProfileLucasManagement$/);
+        await expect(page).toHaveURL(/#\/?ProfileLucasManagement$/);
       }
       if (route === 'student') {
         await page.getByRole('link', {name: 'Meu espaço', exact: true}).click();
-        await expect(page).toHaveURL(/#studentSpace$/);
+        await expect(page).toHaveURL(/#\/?studentSpace$/);
       }
       if (widgetsAvailable) {
         await expect(page.locator('#permaneo-userway')).toHaveCount(1);

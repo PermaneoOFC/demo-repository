@@ -1,3 +1,4 @@
+import Toggle from '../../../components/students/Toggle.jsx';
 import imgVariant3 from '../../../images/figma/422ec51e450a50eea47e.svg';
 import imgVariant4 from '../../../images/figma/5ca6414882706a85b404.svg';
 import imgVinculoSimboloVetorial from '../../../images/figma/1ae630022474937a8bfc.svg';
@@ -205,12 +206,7 @@ function Component12ConfiguracoesDoProfessorEscuroSuave() {
                     <p className="leading-[var(--text\/sm,14px)]">Alertas para a equipe</p>
                   </div>
                 </div>
-                <div className="bg-[var(--permaneo-brand,#a7e1ef)] border-[length:var(--leading\/loose,2px)] border-[var(--permaneo-border,#7692a4)] border-solid content-stretch flex h-[20px] items-center pl-[16px] relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 w-[36px]" data-node-id="2009:10694" data-name="button#staffAlerts">
-                  <div className="-translate-y-1/2 absolute bg-[var(--permaneo-surface,#354c5d)] h-[20px] left-[-2px] rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] top-1/2 w-[36px]" data-node-id="2009:10695" data-name="button#staffAlerts:shadow" />
-                  <div className="bg-[var(--permaneo-surface,#354c5d)] content-stretch flex flex-col items-start justify-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 size-[16px]" data-node-id="2009:10696" data-name="span.pointer-events-none">
-                    <div className="bg-[var(--permaneo-surface,#354c5d)] relative rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] shrink-0 size-[16px]" data-node-id="2009:10697" data-name="span.pointer-events-none:shadow" />
-                  </div>
-                </div>
+                <Toggle label="staffAlerts" storageKey="staffAlerts" />
               </div>
               <div className="content-stretch flex gap-[var(--item-spacing\/424_73,424.7300109863281px)] items-center justify-between relative shrink-0 w-full" data-node-id="2009:10698" data-name="div.flex">
                 <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="2009:10699" data-name="label.text-sm">
@@ -218,12 +214,7 @@ function Component12ConfiguracoesDoProfessorEscuroSuave() {
                     <p className="leading-[var(--text\/sm,14px)]">Resumo diário</p>
                   </div>
                 </div>
-                <div className="bg-[var(--permaneo-canvas,#293c4c)] border-[length:var(--leading\/loose,2px)] border-[var(--permaneo-border,#7692a4)] border-solid content-stretch flex h-[20px] items-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 w-[36px]" data-node-id="2009:10701" data-name="button#dailyDigest">
-                  <div className="-translate-y-1/2 absolute bg-[var(--permaneo-surface,#354c5d)] h-[20px] left-[-2px] rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] top-1/2 w-[36px]" data-node-id="2009:10702" data-name="button#dailyDigest:shadow" />
-                  <div className="bg-[var(--permaneo-surface,#354c5d)] content-stretch flex flex-col items-start justify-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 size-[16px]" data-node-id="2009:10703" data-name="span.pointer-events-none">
-                    <div className="bg-[var(--permaneo-surface,#354c5d)] relative rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] shrink-0 size-[16px]" data-node-id="2009:10704" data-name="span.pointer-events-none:shadow" />
-                  </div>
-                </div>
+                <Toggle label="Resumo diário" storageKey="dailyDigest" />
               </div>
               <div className="content-stretch flex gap-[var(--item-spacing\/404_03,404.0299987792969px)] items-center justify-between relative shrink-0 w-full" data-node-id="2009:10705" data-name="div.flex">
                 <div className="content-stretch flex flex-col items-start relative shrink-0" data-node-id="2009:10706" data-name="label.text-sm">
@@ -231,12 +222,7 @@ function Component12ConfiguracoesDoProfessorEscuroSuave() {
                     <p className="leading-[var(--text\/sm,14px)]">Avisos às famílias</p>
                   </div>
                 </div>
-                <div className="bg-[var(--permaneo-canvas,#293c4c)] border-[length:var(--leading\/loose,2px)] border-[var(--permaneo-border,#7692a4)] border-solid content-stretch flex h-[20px] items-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 w-[36px]" data-node-id="2009:10708" data-name="button#familyNotices">
-                  <div className="-translate-y-1/2 absolute bg-[var(--permaneo-surface,#354c5d)] h-[20px] left-[-2px] rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)] top-1/2 w-[36px]" data-node-id="2009:10709" data-name="button#familyNotices:shadow" />
-                  <div className="bg-[var(--permaneo-surface,#354c5d)] content-stretch flex flex-col items-start justify-center relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0 size-[16px]" data-node-id="2009:10710" data-name="span.pointer-events-none">
-                    <div className="bg-[var(--permaneo-surface,#354c5d)] relative rounded-[var(--corner-radius\/33554400,33554400px)] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)] shrink-0 size-[16px]" data-node-id="2009:10711" data-name="span.pointer-events-none:shadow" />
-                  </div>
-                </div>
+                <Toggle label="Avisos para responsáveis" storageKey="familyNotices" />
               </div>
               <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="2009:10712" data-name="p.text-xs">
                 <div className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-1,'Manrope:Regular')] font-[var(--font-weight\/400,400)] justify-center leading-[0] relative shrink-0 text-[color:var(--permaneo-muted,#d4e0e9)] text-[length:var(--font-size\/12,12px)] w-full" data-node-id="2009:10713">

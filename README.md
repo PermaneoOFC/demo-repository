@@ -50,9 +50,13 @@ A integração com MySQL cobre login e frequência. Carômetro, alertas, notific
 
 O login oferece o link **Acessar área do aluno (demonstração)**. O perfil Aluno também abre essa área, recuperada da versão **commit aluno** do repositório `gabrielrgg/Permaneo-OFC`.
 
-O menu inclui Meu dia, Atividades, Calendário, Disciplinas, Avisos, Plano de estudos, Pedidos de apoio e Meu espaço. Entregas de atividades com respostas, avisos lidos, metas e pedidos demonstrativos ficam salvos no navegador, inclusive após recarregar; nada é enviado à escola. A navegação usa as rotas por hash já existentes e aceita os links antigos com `#/`.
+O menu inclui Meu dia, Atividades, Calendário, Disciplinas, Avisos, Plano de estudos, Pedidos de apoio e Meu espaço. Entregas de atividades com respostas, avisos lidos, metas e pedidos demonstrativos ficam salvos no navegador, inclusive após recarregar; nada é enviado à escola. A navegação usa rotas como `#/student` e também aceita os links antigos como `#student`.
 
 Execute `npm.cmd run test:student` em `permaneo-app` para validar os fluxos e as oito telas nos temas claro/escuro, em celular, tablet e computador. É necessário ter Google Chrome instalado.
+
+### Recuperação completa da plataforma
+
+Os três perfis usam a versão completa anterior à inclusão dos widgets, com perfis de estudantes, registros, cadastro local, filtros e configurações recuperados. UserWay e VLibras continuam ativos; o UserWay fica abaixo do VLibras na lateral direita. A fonte consultada, os recursos e as verificações estão em [Recuperação da plataforma](Documentacao/Restauracao.md).
 
 ## Equipe
 

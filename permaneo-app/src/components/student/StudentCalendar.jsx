@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { formatDate } from '../../data/studentArea.js';
-import styles from './StudentCalendar.module.css';
+import styles from '../../pages/Dashboard/Estudante/StudentArea.module.css';
 
 const dateKey = (date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
