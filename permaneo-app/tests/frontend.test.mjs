@@ -80,7 +80,7 @@ try {
   for (const file of files.filter((file) => file.endsWith('.jsx'))) {
     const source = fs.readFileSync(file, 'utf8');
     assert.ok(!source.includes('figma.com/api/mcp/asset'), file + ' has no temporary image URLs');
-    for (const match of source.matchAll(/from ['"]([^'"]+\.(?:svg|png|jpg))['"]/g)) {
+    for (const match of source.matchAll(/from ['"]([^'"]+\.(?:svg|png|jpg|gif))['"]/g)) {
       const image = path.resolve(path.dirname(file), match[1]);
       assert.ok(fs.statSync(image).size > 0, image + ' is nonempty');
     }

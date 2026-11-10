@@ -34,7 +34,7 @@ Os testes de navegador usam Google Chrome instalado. `BASE_URL` permite testar o
 
 Os testes demonstrativos não comprovam conexão com a API/MySQL nem validam a qualidade da tradução automática. Essas verificações precisam do ambiente de backend e de revisão humana.
 
-A mídia da home disponível no histórico consultado é uma imagem estática (`hero.svg`, com PNG incorporado). Não foi localizado vídeo/GIF original nos históricos dos dois repositórios; a imagem foi preservada, sem inventar uma animação substituta.
+A home usa a mídia original de `gabrielrgg/Permaneo-OFC/src/imagens/hero-school.png`, copiada sem alterar o conteúdo para `src/images/hero-school.gif`. Apesar da extensão `.png` no repositório antigo, a assinatura do arquivo é `GIF89a`: trata-se de um GIF animado. As duas versões de tema usam esse mesmo arquivo local. A análise anterior de que o histórico só continha uma imagem estática foi corrigida após conferir o formato real do arquivo.
 
 O ponto de entrada `permaneo-app/src/main.jsx` carrega os widgets uma vez por abertura do site, fora do ciclo de renderização do React. Assim, permanecem disponíveis na landing page, login e telas de direção, professor e estudante, nos dois temas.
 
