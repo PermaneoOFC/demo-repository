@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node tests/frontend.test.mjs"
+    "test": "node tests/frontend.test.mjs",
+    "test:browser": "node tests/browser-smoke.mjs && node tests/browser-flow.mjs",
+    "test:accessibility": "node tests/accessibility.test.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
@@ -15,9 +17,10 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@vitejs/plugin-react": "^4.3.4",
     "happy-dom": "^21.0.4",
-    "vite": "^6.0.5",
-    "@vitejs/plugin-react": "^4.3.4"
+    "vite": "^6.0.5"
   },
   "engines": {
     "node": ">=20.19.0"
