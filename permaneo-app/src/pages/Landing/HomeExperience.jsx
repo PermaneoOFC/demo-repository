@@ -1,15 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowDown, ArrowRight, BookOpen, Check, ChevronRight, GraduationCap, HeartHandshake, LayoutDashboard, Menu, Moon, ShieldCheck, Sparkles, Sun, TrendingUp, Users, X } from 'lucide-react';
+import { ArrowDown, ArrowRight, BookOpen, Check, ChevronRight, GraduationCap, HeartHandshake, LayoutDashboard, Menu, Moon, ShieldCheck, Sparkles, Sun, TrendingUp, Users, X, Pause, Play, Linkedin, Building2, Camera, CircleHelp } from 'lucide-react';
 import logo from '../../images/logo.svg';
 import schoolPhoto from '../../images/hero-school-home.webp';
+import schoolVideo from '../../images/school-life.mp4';
 import styles from './HomeExperience.module.css';
 
 const stages = [
   { number: '01', title: 'Perceber cedo', short: 'Um sinal aparece', description: 'A frequência é acompanhada com contexto. Quando as faltas se repetem, a equipe recebe um sinal para olhar mais de perto.', icon: TrendingUp, tag: 'Sinal de atenção', cardTitle: 'Faltas consecutivas', cardBody: 'Lucas Gomes · 9º A', detail: '3 faltas registradas nesta semana' },
   { number: '02', title: 'Acolher de perto', short: 'A escola se aproxima', description: 'Professor e gestão organizam o contato com o estudante e sua família. Cada tentativa de apoio pode ser registrada.', icon: HeartHandshake, tag: 'Acompanhamento', cardTitle: 'Contato iniciado', cardBody: 'Conversa com a família', detail: 'Próximo passo definido pela equipe' },
   { number: '03', title: 'Caminhar juntos', short: 'A trajetória continua', description: 'A equipe acompanha o retorno, observa a evolução e ajusta o apoio conforme a necessidade de cada estudante.', icon: Users, tag: 'Evolução', cardTitle: 'Presença em recuperação', cardBody: 'Lucas Gomes · 9º A', detail: 'Acompanhamento em andamento' },
+];
+
+const team = [
+  ['Gabriel Rodrigues Gomes', 'https://br.linkedin.com/in/gabriel-rodrigues-rgg'],
+  ['Kerolaine de Almeida', 'https://br.linkedin.com/in/kerolainedealmeida'],
+  ['Caique Vinicius', 'https://www.linkedin.com/in/caique-vinicius-5150b643b/'],
+  ['Diego Armando', 'https://www.linkedin.com/in/diego-armando-698142316/'],
+  ['Iago Oliveira', 'https://www.linkedin.com/in/iagosm-oliveira/'],
+  ['João Victor Torres Pereira', 'https://br.linkedin.com/in/jo%C3%A3o-victortorrespereira'],
 ];
 
 const roles = [
@@ -20,6 +30,9 @@ const roles = [
 
 export default function HomeExperience({ dark, onToggleTheme, onNavigate }) {
   const root = useRef(null);
+  const videoRef = useRef(null);
+  const [videoPlaying, setVideoPlaying] = useState(true);
+  const [openQuestion, setOpenQuestion] = useState(0);
   const [stage, setStage] = useState(0);
   const [role, setRole] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,10 +62,7 @@ export default function HomeExperience({ dark, onToggleTheme, onNavigate }) {
         scaleX: 1, ease: 'none',
         scrollTrigger: { trigger: '#como-funciona', start: 'top 55%', end: 'bottom 45%', scrub: true },
       });
-      gsap.to('[data-hero-image]', {
-        yPercent: 9, ease: 'none',
-        scrollTrigger: { trigger: '#inicio', start: 'top top', end: 'bottom top', scrub: true },
-      });
+      gsap.to('[data-hero-video]', { scale: 1.1, ease: 'none', scrollTrigger: { trigger: '#inicio', start: 'top top', end: 'bottom top', scrub: true } });
       gsap.utils.toArray('[data-stage-index]').forEach((node) => {
         ScrollTrigger.create({
           trigger: node, start: 'top 58%', end: 'bottom 42%',
@@ -72,7 +82,8 @@ export default function HomeExperience({ dark, onToggleTheme, onNavigate }) {
           <button onClick={() => goTo('proposta')}>A proposta</button>
           <button onClick={() => goTo('como-funciona')}>Como funciona</button>
           <button onClick={() => goTo('para-quem')}>Para quem</button>
-          <button onClick={() => goTo('solucoes')}>Soluções</button>
+          <button onClick={() => goTo('solucoes')}>Modelo de negócio</button>
+          <button onClick={() => goTo('equipe')}>Equipe</button>
         </nav>
         <div className={styles.headerActions}>
           <button className={styles.themeButton} onClick={onToggleTheme} aria-label={dark ? 'Ativar tema claro' : 'Ativar tema escuro'} title={dark ? 'Ativar tema claro' : 'Ativar tema escuro'}>{dark ? <Sun size={20} /> : <Moon size={20} />}</button>
@@ -87,9 +98,9 @@ export default function HomeExperience({ dark, onToggleTheme, onNavigate }) {
         <div className={styles.heroGlow} aria-hidden="true" />
         <div className={styles.heroInner}>
           <div className={styles.heroCopy}>
-            <p className={styles.eyebrow} data-hero-reveal><span className={styles.eyebrowDot} /> TECNOLOGIA COM UM OLHAR HUMANO</p>
+            <p className={styles.eyebrow} data-hero-reveal><span className={styles.eyebrowDot} /> EDUCAÇÃO, PRESENÇA E CUIDADO</p>
             <h1 data-hero-reveal>Toda trajetória merece <em>continuar.</em></h1>
-            <p className={styles.heroLead} data-hero-reveal>Mais presença. Mais vínculos. Uma escola que percebe cedo e caminha junto com cada estudante.</p>
+            <p className={styles.heroLead} data-hero-reveal>O Permaneo transforma sinais da rotina escolar em oportunidades de aproximação. Para que nenhum estudante passe despercebido.</p>
             <div className={styles.heroActions} data-hero-reveal>
               <button className={styles.button} onClick={() => onNavigate('login')}>Explorar a plataforma <ArrowRight size={19} /></button>
               <button className={styles.secondaryButton} onClick={() => goTo('proposta')}>Conhecer a proposta <ArrowDown size={18} /></button>
@@ -97,9 +108,11 @@ export default function HomeExperience({ dark, onToggleTheme, onNavigate }) {
             <p className={styles.careNote} data-hero-reveal><ShieldCheck size={17} /> Cuidado com as pessoas. Respeito aos dados.</p>
           </div>
           <div className={styles.heroVisual} data-hero-reveal>
-            <div className={styles.imageFrame}><img data-hero-image src={schoolPhoto} alt="Estudantes no cotidiano escolar" /></div>
-            <div className={styles.floatingAlert}><span className={styles.alertIcon}><TrendingUp size={19} /></span><span><strong>Perceber é o primeiro passo.</strong><small>Um olhar atento pode mudar uma história.</small></span></div>
-            <div className={styles.imageCaption}><span className={styles.captionIcon}><HeartHandshake size={19} /></span> Presença é vínculo. Cuidar é perceber.</div>
+            <div className={styles.imageFrame}>
+              <video ref={videoRef} data-hero-video autoPlay muted loop playsInline preload="metadata" poster={schoolPhoto} aria-label="Cenas do cotidiano escolar"><source src={schoolVideo} type="video/mp4" /></video>
+              <button className={styles.videoControl} type="button" onClick={() => { const video = videoRef.current; if (!video) return; if (video.paused) { video.play().then(() => setVideoPlaying(true)).catch(() => setVideoPlaying(false)); } else { video.pause(); setVideoPlaying(false); } }} aria-label={videoPlaying ? 'Pausar vídeo' : 'Reproduzir vídeo'}>{videoPlaying ? <Pause size={17} fill="currentColor" /> : <Play size={17} fill="currentColor" />}</button>
+            </div>
+            <div className={styles.videoCaption}><span className={styles.captionIcon}><HeartHandshake size={19} /></span><span><strong>Presença é vínculo.</strong><small>Imagens ilustrativas do cotidiano escolar</small></span></div>
           </div>
         </div>
         <button className={styles.scrollCue} onClick={() => goTo('proposta')} aria-label="Descer até a proposta"><span>DESCUBRA O PERMANEO</span><ArrowDown size={16} /></button>
@@ -151,9 +164,34 @@ export default function HomeExperience({ dark, onToggleTheme, onNavigate }) {
         </div>
       </section>
 
-      <section id="solucoes" className={styles.solutions}><div className={styles.sectionInner}><div className={styles.sectionIntro} data-reveal><p className={styles.kicker}>04 / SOLUÇÕES</p><h2>Tecnologia para perceber. Pessoas para acolher.</h2><p>O Permaneo conecta informações e pessoas para que a escola organize o acompanhamento com cuidado.</p></div><div className={styles.solutionGrid}><article data-reveal><span className={styles.solutionIcon}><LayoutDashboard size={26} /></span><h3>Plataforma Permaneo</h3><p>Painéis, frequência, alertas e registros de acompanhamento em uma experiência para a equipe escolar.</p><button onClick={() => onNavigate('login')}>Ver a demonstração <ArrowRight size={17} /></button></article><article data-reveal><span className={styles.solutionIcon}><Sparkles size={26} /></span><h3>Permaneo Inteligente</h3><p>Uma proposta de integração para ampliar as formas de registrar presença e apoiar a tomada de decisão.</p><button onClick={() => goTo('contato')}>Conhecer a proposta <ArrowRight size={17} /></button></article></div></div></section>
+      <section id="solucoes" className={styles.solutions}>
+        <div className={styles.sectionInner}>
+          <div className={styles.businessHead} data-reveal><p className={styles.kicker}>04 / MODELO DE NEGÓCIO</p><h2>Uma solução para a escola. Um compromisso com cada trajetória.</h2><p>O Permaneo é pensado como uma licença de software para escolas, com implantação acompanhada e espaço para evoluir conforme a realidade de cada instituição.</p></div>
+          <div className={styles.businessGrid}>
+            <article className={styles.businessMain} data-reveal><span className={styles.businessIndex}>01 — PLATAFORMA</span><Building2 size={35} strokeWidth={1.5}/><h3>Licença por escola</h3><p>Um espaço para gestão, professores e estudantes acompanharem frequência, alertas e ações de apoio.</p><ul><li>Implantação com a equipe escolar</li><li>Painéis por perfil e acompanhamento</li><li>Licença recorrente adaptada à instituição</li></ul><button className={styles.businessButton} onClick={() => onNavigate('login')}>Conhecer a demonstração <ArrowRight size={18}/></button></article>
+            <article className={styles.businessFuture} data-reveal><span className={styles.businessIndex}>02 — EVOLUÇÃO PROPOSTA</span><Camera size={34} strokeWidth={1.5}/><h3>Presença com mais possibilidades</h3><p>Integrações futuras para apoiar o registro de presença e reduzir tarefas manuais, sempre com avaliação de privacidade e contexto da escola.</p><span className={styles.conceptNote}>Conceito em estudo · não disponível nesta demonstração</span><button onClick={() => goTo('contato')}>Conversar sobre o projeto <ArrowRight size={18}/></button></article>
+          </div>
+          <p className={styles.businessFootnote}>Valores e contratação dependem do tamanho e das necessidades de cada escola. Esta página apresenta o modelo, sem oferta comercial ativa.</p>
+        </div>
+      </section>
 
-      <section id="contato" className={styles.finalCta}><div className={styles.finalInner} data-reveal><span className={styles.finalMark}><HeartHandshake size={28} /></span><h2>Cada estudante que permanece é uma história que continua.</h2><p>Explore a demonstração nos perfis de gestão, professor e estudante.</p><button onClick={() => onNavigate('login')}>Vamos conhecer? <ArrowRight size={19} /></button></div></section>
+      <section id="equipe" className={styles.teamSection}>
+        <div className={styles.sectionInner}>
+          <div className={styles.teamHeading} data-reveal><div><p className={styles.kicker}>05 / QUEM FAZ ACONTECER</p><h2>Feito por pessoas que acreditam na permanência.</h2></div><p>Somos uma equipe do Instituto PROA. Juntamos pesquisa, design e desenvolvimento para construir uma ferramenta que aproxima a escola de seus estudantes.</p></div>
+          <div className={styles.teamGrid}>
+            {team.map(([name, url], index) => <a key={name} className={styles.teamMember} href={url} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${name}`} data-reveal><span className={styles.teamNumber}>0{index + 1}</span><span className={styles.teamInitials} aria-hidden="true">{name.split(' ').slice(0,2).map(part => part[0]).join('')}</span><span className={styles.teamName}>{name}</span><Linkedin size={18}/></a>)}
+          </div>
+          <p className={styles.teamNote}>Conheça o trabalho e a trajetória de cada integrante pelo LinkedIn.</p>
+        </div>
+      </section>
+
+      <section className={styles.questions} aria-labelledby="questions-title"><div className={styles.sectionInner}><div className={styles.questionsIntro} data-reveal><p className={styles.kicker}>06 / PERGUNTAS FREQUENTES</p><h2 id="questions-title">O que você quer saber?</h2></div><div className={styles.questionsList}>{[
+        ['O Permaneo já substitui o sistema da escola?', 'A proposta é reunir informações de frequência e acompanhamento em uma experiência mais clara. A integração com sistemas da escola depende de cada implantação.'],
+        ['Os dados mostrados aqui são reais?', 'Não. Esta demonstração usa dados fictícios para apresentar os fluxos dos três perfis.'],
+        ['Como a escola poderia contratar?', 'O modelo em estudo é uma licença recorrente por escola, definida conforme a estrutura e as necessidades da instituição.'],
+      ].map(([question, answer], index) => <div className={styles.question} key={question}><button aria-expanded={openQuestion === index} onClick={() => setOpenQuestion(openQuestion === index ? -1 : index)}><span>{question}</span><span aria-hidden="true">{openQuestion === index ? '−' : '+'}</span></button>{openQuestion === index && <p>{answer}</p>}</div>)}</div></div></section>
+
+      <section id="contato" className={styles.finalCta}><div className={styles.finalInner} data-reveal><span className={styles.finalMark}><HeartHandshake size={28} /></span><h2>Cada estudante que permanece é uma história que continua.</h2><p>Conheça o Permaneo por dentro e veja como cada pessoa pode participar desse cuidado.</p><button onClick={() => onNavigate('login')}>Vamos conhecer? <ArrowRight size={19} /></button></div></section>
     </main>
     <footer className={styles.footer}><div className={styles.footerInner}><div className={styles.brandStatic}><img src={logo} alt="" /><strong>Permane<span>o</span></strong></div><span>Tecnologia para perceber. Pessoas para acolher.</span><span>Permaneo · Projeto · 2026</span></div></footer>
   </div>;

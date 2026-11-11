@@ -269,6 +269,8 @@ export default function Platform() {
 
   const handleClick = (event) => {
     const target = event.target instanceof Element ? event.target : null;
+    // The landing page owns its semantic controls; delegation is for exported Figma screens.
+    if (page === 'home' && target?.closest('[data-name="Home Permaneo"]')) return;
     const element = target?.closest('button, a[href], [role="button"], [role="link"]')
       || target?.closest('[data-name="Ver perfil"], [data-name^="Faltou ·"], [data-name="Buscar por nome"]');
     if (!element) return;
