@@ -27,6 +27,9 @@ try {
   root = createRoot(document.getElementById('root'));
   root.render(React.createElement(ErrorBoundary, null, React.createElement(App)));
   await waitFor(() => document.querySelector('[data-name="Home Permaneo"] button'), 'home');
+  assert.ok(document.querySelector('video[loop][muted] source[src$=".mp4"]'), 'home has looping video');
+  assert.ok(document.getElementById('equipe')?.textContent.includes('Kerolaine'), 'team section is present');
+  assert.ok(document.getElementById('solucoes')?.textContent.includes('Licença por escola'), 'business model is visible');
   // Clicking the label inside a control must behave like clicking its boundary.
   [...document.querySelectorAll('button')].find((button) => button.textContent.includes('Acessar plataforma')).click();
   await waitFor(() => document.querySelector('[role="radiogroup"]'), 'login');
