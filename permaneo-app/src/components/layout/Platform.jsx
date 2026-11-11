@@ -469,7 +469,8 @@ export default function Platform() {
         {page === 'frequencia' && (
           <FrequenciaIntegrada onVoltar={() => navigate('login')} dark={dark} onToggleTheme={toggleTheme} />
         )}
-        {page !== 'login' && page !== 'frequencia' && <ActiveScreen />}
+        {page === 'home' && <ActiveScreen dark={dark} onToggleTheme={toggleTheme} onNavigate={navigate} />}
+        {page !== 'home' && page !== 'login' && page !== 'frequencia' && <ActiveScreen />}
       </Suspense>
         {modal && (
           <Modal labelledBy="dialog-title" onClose={() => setModal('')}>

@@ -26,9 +26,9 @@ try {
   document.body.innerHTML = '<div id="root"></div>';
   root = createRoot(document.getElementById('root'));
   root.render(React.createElement(ErrorBoundary, null, React.createElement(App)));
-  await waitFor(() => document.querySelector('[data-name="CTA / Acessar"][role="link"]'), 'home');
+  await waitFor(() => document.querySelector('[data-name="Home Permaneo"] button'), 'home');
   // Clicking the label inside a control must behave like clicking its boundary.
-  document.querySelector('[data-name="CTA / Acessar"] p').click();
+  [...document.querySelectorAll('button')].find((button) => button.textContent.includes('Acessar plataforma')).click();
   await waitFor(() => document.querySelector('[role="radiogroup"]'), 'login');
   const radios = [...document.querySelectorAll('[role="radio"]')];
   radios[1].querySelector('strong').click();
