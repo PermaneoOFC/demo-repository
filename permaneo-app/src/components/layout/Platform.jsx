@@ -171,6 +171,12 @@ export default function Platform() {
         card.setAttribute('tabindex', '0');
         card.setAttribute('aria-pressed', String(selected));
       });
+      root.querySelectorAll('[data-name="aside.sticky"] [data-name="a.px-2"]').forEach((brand) => {
+        if (!brand.querySelector('[data-name="Logo Permaneo · Vínculo · Vetor"]')) return;
+        brand.setAttribute('role', 'button');
+        brand.setAttribute('tabindex', '0');
+        brand.setAttribute('aria-label', 'Permaneo, voltar para a Home');
+      });
       root.querySelectorAll('a:not([href])').forEach((link) => {
         if (link.matches('[data-name^="Estudante ·"]')) {
           link.setAttribute('role', 'group');
@@ -269,6 +275,13 @@ export default function Platform() {
 
   const handleClick = (event) => {
     const target = event.target instanceof Element ? event.target : null;
+    const brand = target?.closest('[data-name="aside.sticky"] [data-name="a.px-2"]');
+    if (brand?.querySelector('[data-name="Logo Permaneo · Vínculo · Vetor"]')) {
+      event.preventDefault();
+      navigate('home');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      return;
+    }
     const element = target?.closest('button, a[href], [role="button"], [role="link"]')
       || target?.closest('[data-name="Ver perfil"], [data-name^="Faltou ·"], [data-name="Buscar por nome"]');
     if (!element) return;
