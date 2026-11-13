@@ -51,6 +51,10 @@ export default function HomeRevamp({ dark = false, onToggleTheme, onSelectRole, 
   const profile = profiles[selectedProfile];
   const ProfileIcon = profile.icon;
   const closeMenu = () => setMenuOpen(false);
+  const goToSection = (id) => {
+    setMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+  };
 
   return (
     <div className={styles.landing} data-local-content data-name="Permaneo / Home">
@@ -61,10 +65,10 @@ export default function HomeRevamp({ dark = false, onToggleTheme, onSelectRole, 
             <span>Permane<strong>o</strong></span>
           </Link>
           <nav className={styles.desktopNav} aria-label="Navegação principal">
-            <a href="#proposta">A proposta</a>
-            <a href="#como-funciona">Como funciona</a>
-            <a href="#perfis">Para quem</a>
-            <a href="#solucao">A plataforma</a>
+            <button type="button" onClick={() => goToSection("proposta")}>A proposta</button>
+            <button type="button" onClick={() => goToSection("como-funciona")}>Como funciona</button>
+            <button type="button" onClick={() => goToSection("perfis")}>Para quem</button>
+            <button type="button" onClick={() => goToSection("solucao")}>A plataforma</button>
           </nav>
           <div className={styles.headerActions}>
             <button className={styles.themeButton} type="button" onClick={onToggleTheme} aria-label={dark ? 'Ativar tema claro' : 'Ativar tema escuro'} title={dark ? 'Tema claro' : 'Tema escuro'}>
@@ -78,10 +82,10 @@ export default function HomeRevamp({ dark = false, onToggleTheme, onSelectRole, 
         </div>
         {menuOpen && (
           <nav className={styles.mobileNav} aria-label="Navegação para celular" id="permaneo-home-menu">
-            <a href="#proposta" onClick={closeMenu}>A proposta</a>
-            <a href="#como-funciona" onClick={closeMenu}>Como funciona</a>
-            <a href="#perfis" onClick={closeMenu}>Para quem</a>
-            <a href="#solucao" onClick={closeMenu}>A plataforma</a>
+            <button type="button" onClick={() => goToSection("proposta")}>A proposta</button>
+            <button type="button" onClick={() => goToSection("como-funciona")}>Como funciona</button>
+            <button type="button" onClick={() => goToSection("perfis")}>Para quem</button>
+            <button type="button" onClick={() => goToSection("solucao")}>A plataforma</button>
             <Link to="/login" onClick={closeMenu}>Explorar demonstração <ArrowUpRight size={17} /></Link>
           </nav>
         )}
@@ -94,7 +98,7 @@ export default function HomeRevamp({ dark = false, onToggleTheme, onSelectRole, 
             <p>Uma escola que percebe cedo, se aproxima e caminha junto. O Permaneo conecta informações e pessoas para apoiar a permanência de cada estudante.</p>
             <div className={styles.heroActions}>
               <Link to="/login" className={styles.primaryButton}>Conhecer na prática <ArrowUpRight size={20} aria-hidden="true" /></Link>
-              <a href="#proposta" className={styles.textButton}>Entenda a proposta <ArrowRight size={19} aria-hidden="true" /></a>
+              <button type="button" onClick={() => goToSection("proposta")} className={styles.textButton}>Entenda a proposta <ArrowRight size={19} aria-hidden="true" /></button>
             </div>
             <p className={styles.demoDisclaimer}><ShieldCheck size={17} aria-hidden="true" /> Experiência demonstrativa com dados fictícios</p>
           </div>
