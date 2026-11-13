@@ -41,8 +41,8 @@
 .brand strong{color:#3c8866}
 :global(html[data-theme="dark"]) .brand strong{color:#b2dfbf}
 .desktopNav{display:flex;align-items:center;gap:clamp(15px,2.5vw,37px)}
-.desktopNav a{font-size:13px;font-weight:700;color:var(--muted);transition:color .2s}
-.desktopNav a:hover{color:var(--ink)}
+.desktopNav :is(a,button){font-size:13px;font-weight:700;color:var(--muted);transition:color .2s}
+.desktopNav :is(a,button):hover{color:var(--ink)}
 .headerActions{display:flex;align-items:center;gap:12px}
 .themeButton{width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:50%;color:var(--ink);background:transparent}
 .themeButton:hover{background:var(--wash)}
@@ -59,7 +59,7 @@
 .heroText>p:not(.demoDisclaimer){max-width:49ch;font-size:clamp(16px,1.35vw,19px);color:var(--muted);line-height:1.85}
 .heroActions{display:flex;flex-wrap:wrap;align-items:center;gap:24px;margin:36px 0 24px}
 .primaryButton{min-height:58px;padding:0 26px;color:#fff!important;background:var(--green-dark)}
-.textButton{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:800;border-bottom:1px solid currentColor;padding:12px 0}
+.textButton{border:0;background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:800;border-bottom:1px solid currentColor;padding:12px 0}
 .textButton:hover{color:#34846b}
 .demoDisclaimer{display:flex;align-items:center;gap:9px;font-size:12px!important;font-weight:600;color:var(--muted);line-height:1.4!important}
 .demoDisclaimer svg{color:#34846b;flex-shrink:0}
@@ -158,8 +158,8 @@
 .footerBrand p{grid-column:1/-1;margin-top:15px;color:#bcd2c9;font-size:14px}
 .footerMain>div:not(:first-child){display:flex;flex-direction:column;gap:13px}
 .footerMain h3{font:700 13px Sora,sans-serif;margin-bottom:6px}
-.footerMain a{font-size:13px;color:#bcd2c9}
-.footerMain a:hover{text-decoration:underline;text-underline-offset:5px;color:#fff}
+.footerMain :is(a,button){font-size:13px;color:#bcd2c9}
+.footerMain :is(a,button):hover{text-decoration:underline;text-underline-offset:5px;color:#fff}
 .footerMain>div:last-child p{font-size:12px;color:#acc8bc}
 .footerBottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;max-width:1224px;margin:0 auto;padding-top:20px;border-top:1px solid #3d5d52;color:#b4d0c4;font-size:12px}
 @media(max-width:1100px){
@@ -174,8 +174,8 @@
   .desktopNav,.headerCta{display:none}
   .mobileToggle{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line);border-radius:11px;background:var(--paper);color:var(--ink);cursor:pointer}
   .mobileNav{display:flex;flex-direction:column;gap:0;padding:8px 20px 19px;background:var(--paper);border-top:1px solid var(--line)}
-  .mobileNav a{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:11px 8px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px}
-  .mobileNav a:last-child{color:#34846b}
+  .mobileNav :is(a,button){display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:11px 8px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px}
+  .mobileNav :is(a,button):last-child{color:#34846b}
   .hero{grid-template-columns:minmax(0,1fr);gap:65px;padding-top:62px}
   .hero h1{max-width:13ch;font-size:clamp(45px,8vw,74px)}
   .heroText>p:not(.demoDisclaimer){max-width:60ch}
@@ -253,3 +253,10 @@
 .solutionLink:hover{text-decoration:underline;text-underline-offset:4px;color:#fff}
 .privacyLink{padding:0;border:0;background:transparent;color:#b4d0c4;font:500 12px Manrope,sans-serif;cursor:pointer}
 .privacyLink:hover{text-decoration:underline;text-underline-offset:4px;color:#fff}
+
+.desktopNav button,.mobileNav button,.footerMain button{padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer;font-family:inherit}
+.desktopNav button{font-size:13px;font-weight:700;color:var(--muted)}
+.mobileNav button{width:100%;font-size:14px;font-weight:700;color:var(--ink)}
+.footerMain button{width:max-content;font-size:13px;color:#bcd2c9}
+.landing :is(#proposta,#como-funciona,#perfis,#solucao){scroll-margin-top:92px}
+@media(max-width:850px){.landing :is(#proposta,#como-funciona,#perfis,#solucao){scroll-margin-top:80px}}
