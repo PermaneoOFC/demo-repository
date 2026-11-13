@@ -23,6 +23,7 @@
 .exitLink{display:flex;align-items:center;gap:11px;min-height:40px;padding:8px 10px;border-radius:9px;color:var(--app-muted);text-decoration:none;font-size:12px;font-weight:700}
 .exitLink:hover{color:var(--shell-accent);background:var(--app-bg)}
 .mobileToggle,.mobileExit{display:none}
+.mobileExit{text-decoration:none}
 .workspace{flex:1;min-width:0;max-width:calc(100% - 258px);overflow:clip}
 .header{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:82px;padding:13px clamp(18px,2.8vw,42px);border-bottom:1px solid var(--app-border);background:var(--shell-header)}
 .headerContext{display:flex;flex-direction:column;gap:6px;min-width:0}
