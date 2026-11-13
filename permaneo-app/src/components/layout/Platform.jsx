@@ -6,6 +6,7 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Platform.module.css';
 import LoginPage from '../../pages/Login/LoginPage.jsx';
+import HomeRevamp from '../../pages/Landing/HomeRevamp.jsx';
 import loginPhoto from '../../images/school-0.jpg';
 import logo from '../../images/logo.svg';
 import utilityStyles from './Layout.module.css';
@@ -846,7 +847,7 @@ export default function Platform() {
         ) : page === 'frequencia' ? (
           <FrequenciaIntegrada onVoltar={() => navigate('login')} dark={dark} onToggleTheme={() => setDark(value => !value)} />
         ) : page === 'home' ? (
-          <ActiveScreen />
+          <HomeRevamp dark={dark} onToggleTheme={() => setDark((value) => !value)} />
         ) : (
           <AppShell
             role={shellRole}
