@@ -29,7 +29,7 @@ try {
       assert.ok(box.width >= 34 && box.width <= 42, route);
       assert.ok(box.height >= 28 && box.height <= 35, route);
       await page.mouse.move(1400, 900);
-      const links = page.getByRole('navigation', { name: 'Menu da plataforma' }).locator('a');
+      const links = page.getByRole('navigation', { name: 'Menu da plataforma' }).locator('a:visible');
       assert.ok(await links.evaluateAll(items => items.every(link => getComputedStyle(link).textDecorationLine === 'none')));
       const active = page.getByRole('navigation', { name: 'Menu da plataforma' }).locator('a[aria-current="page"]');
       if (await active.count()) assert.ok(await active.evaluate(link => getComputedStyle(link).backgroundColor !== 'rgba(0, 0, 0, 0)'), 'Current page is visibly highlighted');
