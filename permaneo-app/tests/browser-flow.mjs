@@ -15,7 +15,7 @@ try {
     await expect(page.getByRole('link', {name: 'Conhecer na prática'})).toBeVisible();
     const hero = page.locator('img[src*="school-0"]');
     await expect(hero).toBeVisible();
-    assert.ok(await hero.evaluate(image => image.complete && image.naturalWidth > 0), 'Optimized static hero image is loaded');
+    await expect.poll(() => hero.evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
     if (widgetsAvailable) {
       await expect(page.locator('#userwayAccessibilityIcon')).toBeVisible({timeout: 20000});
       await expect(page.locator('#vlibras-access-wrapper button')).toBeVisible({timeout: 20000});
