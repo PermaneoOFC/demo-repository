@@ -217,7 +217,7 @@ export default function HomeRevamp({ dark = false, onToggleTheme, onSelectRole, 
       <footer className={styles.footer}>
         <div className={styles.footerMain}>
           <div className={styles.footerBrand}><img src={logo} alt="" width="38" height="31" /><strong>Permaneo</strong><p>Toda trajetória merece continuar.</p></div>
-          <div><h3>Explore</h3><a href="#proposta">A proposta</a><a href="#como-funciona">Como funciona</a><a href="#perfis">Para quem</a></div>
+          <div><h3>Explore</h3><button type="button" onClick={() => goToSection("proposta")}>A proposta</button><button type="button" onClick={() => goToSection("como-funciona")}>Como funciona</button><button type="button" onClick={() => goToSection("perfis")}>Para quem</button></div>
           <div><h3>Demonstração</h3><Link to="/login">Acessar plataforma</Link><Link to="/student" onClick={() => onSelectRole?.('student')}>Espaço do estudante</Link><p>Ambiente com dados fictícios.</p></div>
         </div>
         <div className={styles.footerBottom}><span>© {new Date().getFullYear()} Permaneo · Feito para apoiar a permanência escolar.</span><button type="button" className={styles.privacyLink} onClick={onPrivacy}>Privacidade e cuidado com as pessoas</button></div>
