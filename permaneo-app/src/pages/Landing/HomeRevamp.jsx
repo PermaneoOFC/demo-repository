@@ -45,7 +45,7 @@ const steps = [
   { number: '03', title: 'Acompanhar', description: 'A equipe organiza próximos passos e registra o cuidado ao longo do tempo.', icon: HeartHandshake }
 ];
 
-export default function HomeRevamp({ dark = false, onToggleTheme }) {
+export default function HomeRevamp({ dark = false, onToggleTheme, onSelectRole, onPrivacy, onSolution }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState(0);
   const profile = profiles[selectedProfile];
@@ -53,7 +53,7 @@ export default function HomeRevamp({ dark = false, onToggleTheme }) {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <div className={styles.landing} data-local-content>
+    <div className={styles.landing} data-local-content data-name="Permaneo / Home">
       <header className={styles.header}>
         <div className={styles.headerInner}>
           <Link to="/home" className={styles.brand} onClick={closeMenu} aria-label="Permaneo, início">
@@ -140,6 +140,7 @@ export default function HomeRevamp({ dark = false, onToggleTheme }) {
               <h2 id="plataforma-title">Uma visão conectada. Decisões mais humanas.</h2>
               <p>Da visão geral da escola aos detalhes de cada estudante, o Permaneo organiza o que importa para o acompanhamento.</p>
               <Link to="/login" className={styles.lightButton}>Entrar na demonstração <ArrowUpRight size={19} aria-hidden="true" /></Link>
+              <button type="button" className={styles.solutionLink} onClick={onSolution}>Conhecer as modalidades da solução <ArrowRight size={16} aria-hidden="true" /></button>
             </div>
             <div className={styles.mockDashboard} aria-label="Exemplo ilustrativo do painel do Permaneo">
               <div className={styles.mockTop}><span><img src={logo} alt="" width="26" height="22" /> Permaneo</span><span>Demonstração</span></div>
@@ -195,7 +196,7 @@ export default function HomeRevamp({ dark = false, onToggleTheme }) {
               <h3>{profile.title}</h3>
               <p>{profile.description}</p>
               <ul>{profile.items.map(item => <li key={item}><Check size={17} aria-hidden="true" />{item}</li>)}</ul>
-              <Link to={profile.route} className={styles.roleLink}>Explorar este perfil <ArrowUpRight size={19} aria-hidden="true" /></Link>
+              <Link to={profile.route} onClick={() => onSelectRole?.(profile.key)} className={styles.roleLink}>Explorar este perfil <ArrowUpRight size={19} aria-hidden="true" /></Link>
             </div>
           </div>
         </section>
@@ -213,9 +214,9 @@ export default function HomeRevamp({ dark = false, onToggleTheme }) {
         <div className={styles.footerMain}>
           <div className={styles.footerBrand}><img src={logo} alt="" width="38" height="31" /><strong>Permaneo</strong><p>Toda trajetória merece continuar.</p></div>
           <div><h3>Explore</h3><a href="#proposta">A proposta</a><a href="#como-funciona">Como funciona</a><a href="#perfis">Para quem</a></div>
-          <div><h3>Demonstração</h3><Link to="/login">Acessar plataforma</Link><Link to="/student">Espaço do estudante</Link><p>Ambiente com dados fictícios.</p></div>
+          <div><h3>Demonstração</h3><Link to="/login">Acessar plataforma</Link><Link to="/student" onClick={() => onSelectRole?.('student')}>Espaço do estudante</Link><p>Ambiente com dados fictícios.</p></div>
         </div>
-        <div className={styles.footerBottom}><span>© {new Date().getFullYear()} Permaneo · Feito para apoiar a permanência escolar.</span><span>Privacidade e cuidado com as pessoas.</span></div>
+        <div className={styles.footerBottom}><span>© {new Date().getFullYear()} Permaneo · Feito para apoiar a permanência escolar.</span><button type="button" className={styles.privacyLink} onClick={onPrivacy}>Privacidade e cuidado com as pessoas</button></div>
       </footer>
     </div>
   );
