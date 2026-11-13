@@ -11,14 +11,11 @@ try {
     page.on('pageerror', error => errors.push(error.message));
     if (!widgetsAvailable) await page.route(/https:\/\/(?:cdn\.userway\.org|vlibras\.gov\.br)\//, route => route.abort());
     await page.goto(baseURL + '/#/home');
-    await expect(page.locator('[data-name="CTA / Acessar"]')).toBeVisible();
-    const hero = page.locator('img[src*="hero-school"]');
+    await expect(page.getByRole('heading', {name: /Toda trajetória merece continuar/})).toBeVisible();
+    await expect(page.getByRole('link', {name: 'Conhecer na prática'})).toBeVisible();
+    const hero = page.locator('img[src*="school-0"]');
     await expect(hero).toBeVisible();
-    await expect(hero).toHaveJSProperty('naturalWidth', 720);
-    const firstFrame = await hero.screenshot();
-    await page.waitForTimeout(500);
-    const nextFrame = await hero.screenshot();
-    assert.ok(!firstFrame.equals(nextFrame), 'Original homepage GIF animates');
+    assert.ok(await hero.evaluate(image => image.complete && image.naturalWidth > 0), 'Optimized static hero image is loaded');
     if (widgetsAvailable) {
       await expect(page.locator('#userwayAccessibilityIcon')).toBeVisible({timeout: 20000});
       await expect(page.locator('#vlibras-access-wrapper button')).toBeVisible({timeout: 20000});
@@ -42,7 +39,7 @@ try {
     // Enter each profile through the real login controls, without backend credentials.
     for (const [index, route] of ['director','teacher','student'].entries()) {
       await page.goto(baseURL + '/#/home');
-      await page.locator('[data-name="CTA / Acessar"]').click();
+      await page.getByRole('link', {name: 'Conhecer na prática'}).click();
       await expect(page.getByRole('radiogroup')).toBeVisible();
       await page.getByRole('radio').nth(index).click();
       await page.getByRole('button', {name: 'Explorar sem preencher', exact: true}).click();
