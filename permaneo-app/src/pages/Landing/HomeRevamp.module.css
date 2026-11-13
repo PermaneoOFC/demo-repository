@@ -248,3 +248,8 @@
 @media(prefers-reduced-motion:reduce){
   .landing :is(button,a),.photoFrame{transition:none;transform:none}
 }
+
+.solutionLink{display:inline-flex;align-items:center;gap:9px;margin-top:17px;padding:8px 0;border:0;background:transparent;color:#d1e8d7;font:700 12px Manrope,sans-serif;cursor:pointer}
+.solutionLink:hover{text-decoration:underline;text-underline-offset:4px;color:#fff}
+.privacyLink{padding:0;border:0;background:transparent;color:#b4d0c4;font:500 12px Manrope,sans-serif;cursor:pointer}
+.privacyLink:hover{text-decoration:underline;text-underline-offset:4px;color:#fff}
