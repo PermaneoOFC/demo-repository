@@ -847,7 +847,7 @@ export default function Platform() {
         ) : page === 'frequencia' ? (
           <FrequenciaIntegrada onVoltar={() => navigate('login')} dark={dark} onToggleTheme={() => setDark(value => !value)} />
         ) : page === 'home' ? (
-          <HomeRevamp dark={dark} onToggleTheme={() => setDark((value) => !value)} />
+          <HomeRevamp dark={dark} onToggleTheme={() => setDark((value) => !value)} onSelectRole={setRole} onPrivacy={() => setModal('privacy')} onSolution={() => setModal('solution')} />
         ) : (
           <AppShell
             role={shellRole}
