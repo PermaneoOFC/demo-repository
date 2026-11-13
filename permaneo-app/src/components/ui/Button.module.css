@@ -7,3 +7,12 @@
 .ghost:hover { background: var(--app-bg); }
 .button:active { filter: brightness(.95); }
 @media (prefers-reduced-motion: reduce) { .button { transition: none; } }
+
+
+/* Estados de ação consistentes com a nova linguagem visual. */
+.button{min-height:48px;border-radius:11px;font-weight:750}
+.primary{background:#205e50}
+.primary:hover{background:#174a40}
+.primary:focus-visible{outline:3px solid #8eceaf;outline-offset:3px}
+.secondary:hover{border-color:#34846b}
+.ghost:hover{color:#287358}
