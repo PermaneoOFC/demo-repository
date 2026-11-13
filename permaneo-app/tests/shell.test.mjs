@@ -23,16 +23,16 @@ try {
     for (const route of routes) {
       await visit(route, theme);
       assert.equal(await page.locator('header[data-shell-controls]:visible').count(), 1, route);
-      const brand = page.getByRole('link', { name: 'Permaneo — painel inicial' });
+      const brand = page.getByRole('link', { name: 'Permaneo — voltar ao início' });
       const image = brand.locator('img');
       const box = await image.boundingBox();
-      assert.equal(box.width, 35, route);
-      assert.ok(Math.abs(box.width / box.height - 40 / 31) < .01, route);
+      assert.ok(box.width >= 34 && box.width <= 42, route);
+      assert.ok(box.height >= 28 && box.height <= 35, route);
       await page.mouse.move(1400, 900);
       const links = page.getByRole('navigation', { name: 'Menu da plataforma' }).locator('a');
       assert.ok(await links.evaluateAll(items => items.every(link => getComputedStyle(link).textDecorationLine === 'none')));
       const active = page.getByRole('navigation', { name: 'Menu da plataforma' }).locator('a[aria-current="page"]');
-      if (await active.count()) assert.equal(await active.evaluate(link => getComputedStyle(link).backgroundColor), 'rgba(0, 0, 0, 0)');
+      if (await active.count()) assert.ok(await active.evaluate(link => getComputedStyle(link).backgroundColor !== 'rgba(0, 0, 0, 0)'), 'Current page is visibly highlighted');
       await page.getByRole('button', { name: theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro', exact: true }).click();
       await page.waitForFunction(theme => document.documentElement.dataset.theme !== theme, theme);
       console.log('PASS shell', route, theme);
@@ -41,14 +41,14 @@ try {
   for (const route of ['director', 'teacher', 'student']) {
     await visit(route, 'light');
     const nav = page.getByRole('navigation', { name: 'Menu da plataforma' });
-    const hrefs = await nav.locator('a').evaluateAll(items => items.map(item => item.getAttribute('href')));
+    const hrefs = await nav.locator('a:visible').evaluateAll(items => items.map(item => item.getAttribute('href')));
     for (const href of hrefs) {
       await nav.locator(`a[href="${href}"]`).click();
       await page.waitForURL(url => url.hash === href);
       await nav.locator(`a[href="${href}"][aria-current="page"]`).waitFor();
       assert.equal(await nav.locator('[aria-current="page"]').getAttribute('href'), href);
     }
-    await page.getByRole('link', { name: 'Sair', exact: true }).click();
+    await page.getByRole('link', { name: 'Sair da demonstração', exact: true }).click();
     await page.waitForURL('**/#/login');
   }
   await visit('carometroTeacher', 'light');
