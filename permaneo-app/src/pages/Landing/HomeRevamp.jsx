@@ -97,7 +97,7 @@ export default function HomeRevamp({ dark = false, onToggleTheme, onSelectRole, 
             <h1 id="hero-title">Toda trajetória merece <em>continuar.</em></h1>
             <p>Uma escola que percebe cedo, se aproxima e caminha junto. O Permaneo conecta informações e pessoas para apoiar a permanência de cada estudante.</p>
             <div className={styles.heroActions}>
-              <Link to="/login" className={styles.primaryButton}>Conhecer na prática <ArrowUpRight size={20} aria-hidden="true" /></Link>
+              <Link to="/login" className={styles.primaryButton} data-name="CTA / Acessar">Conhecer na prática <ArrowUpRight size={20} aria-hidden="true" /></Link>
               <button type="button" onClick={() => goToSection("proposta")} className={styles.textButton}>Entenda a proposta <ArrowRight size={19} aria-hidden="true" /></button>
             </div>
             <p className={styles.demoDisclaimer}><ShieldCheck size={17} aria-hidden="true" /> Experiência demonstrativa com dados fictícios</p>
