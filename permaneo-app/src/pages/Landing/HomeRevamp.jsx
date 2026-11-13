@@ -87,7 +87,7 @@ export default function HomeRevamp({ dark = false, onToggleTheme }) {
         )}
       </header>
 
-      <main id="home-main" className={styles.main}>
+      <div id="home-main" className={styles.main}>
         <section className={styles.hero} aria-labelledby="hero-title">
           <div className={styles.heroText}>
             <h1 id="hero-title">Toda trajetória merece <em>continuar.</em></h1>
@@ -207,7 +207,7 @@ export default function HomeRevamp({ dark = false, onToggleTheme }) {
           </div>
           <Link to="/login" className={styles.closingCta}>Explorar o Permaneo <ArrowUpRight size={20} aria-hidden="true" /></Link>
         </section>
-      </main>
+      </div>
 
       <footer className={styles.footer}>
         <div className={styles.footerMain}>
