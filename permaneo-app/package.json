@@ -13,7 +13,8 @@
     "test:student": "node tests/student.test.mjs",
     "test:shell": "node tests/shell.test.mjs",
     "test:profile": "node tests/profile.test.mjs",
-    "test:widgets": "node tests/accessibility-browser.mjs"
+    "test:widgets": "node tests/accessibility-browser.mjs",
+    "test:home": "node tests/home-revamp.test.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
