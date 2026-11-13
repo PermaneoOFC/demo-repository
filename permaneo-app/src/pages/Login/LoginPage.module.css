@@ -25,3 +25,36 @@
 /* Complete Figma token fallbacks. */
 .studentDemoLink { display:block; padding:10px; color:var(--app-text); text-align:center; font-weight:600; border-radius:10px; }
 .studentDemoLink:hover { background:var(--app-bg); }
+
+
+/* Alinha o acesso demonstrativo à identidade renovada da plataforma. */
+.login{background:var(--app-bg)}
+.story{background:color-mix(in srgb,var(--app-bg) 80%,#d6eac8);padding:clamp(30px,4vw,70px)}
+.brand{padding:10px 14px;border:1px solid var(--app-border);border-radius:14px;box-shadow:0 10px 26px rgba(19,62,47,.05)}
+.photo{border-radius:24px;box-shadow:0 26px 54px rgba(19,62,47,.13)}
+.message{padding:5px 0 0}
+.message h1{max-width:14ch;font-size:clamp(34px,3.3vw,52px);line-height:1.19;letter-spacing:-.035em}
+.message p{font-size:15px}
+.access{background:var(--app-surface)}
+.form{max-width:540px;gap:12px}
+.form h2{font-size:clamp(29px,2.6vw,39px);line-height:1.25;letter-spacing:-.03em}
+.form .error{border-left:1px solid #ba8c52;border-radius:10px}
+.toolbar a{min-height:44px;font-weight:700}
+.toolbar a:hover{color:#287358}
+.studentDemoLink{text-underline-offset:4px}
+@media(max-width:760px){
+ .login{display:flex;flex-direction:column}
+ .story{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:20px;padding:15px 20px;border-bottom:1px solid var(--app-border)}
+ .story .brand{padding:7px 10px;font-size:19px;box-shadow:none}
+ .story .brand img{width:28px;height:auto}
+ .story .photo{width:100px;height:58px;aspect-ratio:auto;border-radius:10px;box-shadow:none;object-fit:cover}
+ .story .message{display:none}
+ .access{gap:25px;padding:20px 20px 34px}
+ .form{margin:0 auto}
+ .form h2{font-size:30px}
+ .profiles{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:420px){
+ .story .photo{display:none}
+ .access{padding:18px 16px 30px}
+}
