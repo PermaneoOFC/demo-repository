@@ -6,3 +6,11 @@
 .indicator { position: absolute; right: 12px; top: 12px; display: grid; place-items: center; width: 19px; height: 19px; border: 1px solid var(--app-border); border-radius: 50%; }
 .selected .indicator { border-color: #246579; background: #246579; color: white; }
 @media (prefers-reduced-motion: reduce) { .option { transition: none; } }
+
+
+.option{min-height:146px;border-width:1px;border-radius:13px;padding:17px;gap:11px}
+.option:hover{border-color:#33856a}
+.selected{border-color:#33856a;background:color-mix(in srgb,var(--app-surface) 78%,#b7e3c8);box-shadow:inset 0 0 0 1px #33856a}
+.selected .indicator{border-color:#266b56;background:#266b56}
+.option:focus-visible{outline:3px solid #91cdb1;outline-offset:2px}
+@media(max-width:760px){.option{min-height:92px;flex-direction:row;align-items:center;gap:12px}.option strong{min-width:90px}.option>span:not(.indicator){font-size:11px;max-width:28ch}.indicator{position:static!important;flex:0 0 19px;margin-left:auto}}
