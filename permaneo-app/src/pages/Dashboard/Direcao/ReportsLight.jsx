@@ -126,7 +126,7 @@ function Component08RelatoriosClaro() {
                   </div>
                 </a>
                 <div className="bg-[var(--permaneo-warning-bg,#fff3e1)] content-stretch flex flex-col items-start px-[8px] relative rounded-[var(--corner-radius\/33554400,33554400px)] shrink-0" data-node-id="I2009:9419;29:11315" data-name="9 não lidas">
-                  <a className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-1,'Manrope:Bold')] font-bold justify-center leading-[0] relative shrink-0 text-[0px] text-[color:var(--permaneo-warning,#8a530d)] whitespace-nowrap" href="https://preview--aspire-and-achieve-tool.lovable.app/app/notificacoes" data-node-id="I2009:9419;29:11316" target="_blank">
+                  <a className="[word-break:break-word] flex flex-col font-[family-name:var(--font-family\/font-1,'Manrope:Bold')] font-bold justify-center leading-[0] relative shrink-0 text-[0px] text-[color:var(--permaneo-warning,#8a530d)] whitespace-nowrap" href="#/directorNotifications" data-node-id="I2009:9419;29:11316">
                     <p className="cursor-pointer font-['Manrope:Bold'] leading-[16px] text-[12px]">9</p>
                   </a>
                 </div>

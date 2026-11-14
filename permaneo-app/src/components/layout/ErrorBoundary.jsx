@@ -16,7 +16,9 @@ export default class ErrorBoundary extends Component {
         <h1>Não foi possível abrir esta tela.</h1>
         <p>O Permaneo encontrou um erro. Recarregue para tentar novamente.</p>
         <pre>{this.state.error.message}</pre>
-        <button type="button" onClick={() => window.location.reload()}>Tentar novamente</button>
+        <button type="button" onClick={() => window.location.reload()}>
+          Tentar novamente
+        </button>
         <a href={window.location.pathname}>Voltar ao início</a>
       </section>
     );
