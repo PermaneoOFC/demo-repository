@@ -1,0 +1,51 @@
+export const technologies = [
+  { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg' },
+  { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg' },
+  { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
+  { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+  { name: 'Git/GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg' },
+];
+
+export const members = [
+  {
+    id: 'joao', name: 'João Victor Torres Pereira', photo: '/images/equipe/joao.webp',
+    role: 'Product Owner / Vendas', specialty: 'Back-end',
+    highlights: 'APIs, lógica de servidor e desenvolvimento back-end',
+    responsibilities: 'Priorização do produto, participação em vendas e desenvolvimento de APIs e lógica de servidor do Permaneo.',
+    related: [],
+    linkedin: 'https://br.linkedin.com/in/jo%C3%A3o-victortorrespereira',
+  },
+  {
+    id: 'gabriel', name: 'Gabriel Rodrigues Gomes', photo: '/images/equipe/gabriel.webp',
+    role: 'Documentarista / Desenvolvedor / IA', specialty: 'Front-end & Inteligência Artificial',
+    highlights: 'React, JavaScript, interfaces e IA',
+    responsibilities: 'Desenvolvimento de interfaces, documentação do projeto e iniciativas de inteligência artificial no Permaneo.',
+    related: ['React', 'JavaScript'],
+    linkedin: 'https://br.linkedin.com/in/gabriel-rodrigues-rgg',
+  },
+  {
+    id: 'iago', name: 'Iago Santos', photo: '/images/equipe/iago.webp',
+    role: 'Desenvolvedor / IA', specialty: 'Front-end & Inteligência Artificial',
+    highlights: 'React, JavaScript, interfaces e IA',
+    responsibilities: 'Desenvolvimento de interfaces e funcionalidades de inteligência artificial no Permaneo.',
+    related: ['React', 'JavaScript'],
+    linkedin: 'https://www.linkedin.com/in/iagosm-oliveira/',
+  },
+  {
+    id: 'caique', name: 'Caique Vinicius', photo: '/images/equipe/caique.webp',
+    role: 'Scrum Master / Financeiro', specialty: 'Desenvolvimento & Gestão',
+    highlights: 'Desenvolvimento, Scrum e gestão financeira',
+    responsibilities: 'Desenvolvimento do projeto, organização das entregas com Scrum e gestão financeira do Permaneo.',
+    related: [],
+    linkedin: 'https://www.linkedin.com/in/caique-vinicius-5150b643b/',
+  },
+  {
+    id: 'diego', name: 'Diego Armando', photo: '/images/equipe/diego.webp',
+    role: 'Desenvolvedor / Financeiro', specialty: 'Desenvolvimento',
+    highlights: 'Programação, implementação e financeiro',
+    responsibilities: 'Programação e implementação de funcionalidades, com participação nas atividades financeiras do Permaneo.',
+    related: [],
+    linkedin: 'https://www.linkedin.com/in/diego-armando-698142316/',
+  },
+];

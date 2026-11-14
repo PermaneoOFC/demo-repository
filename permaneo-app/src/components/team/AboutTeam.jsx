@@ -1,245 +1,159 @@
-import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Code2, HeartHandshake, Linkedin, X } from 'lucide-react';
-import './AboutTeam.css';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, HeartHandshake } from "lucide-react";
+import { TeamCard } from "./TeamCard";
+import { TeamMemberModal } from "./TeamMemberModal";
+import { members as teamMembers } from "./team-data.js";
+import "./AboutTeam.css";
+import { memberIndex, nearestPosition, POSITION_ANGLE, TEAM_POSITIONS, snapPosition, wheelIntent } from "./team-motion.js";
 
-const technologies = [
-  { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg' },
-  { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg' },
-  { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
-  { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
-  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
-  { name: 'Git/GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg' },
-];
-
-const members = [
-  {
-    id: 'joao', name: 'João Victor Torres Pereira', photo: '/images/equipe/joao.webp',
-    role: 'Product Owner / Vendas', specialty: 'Back-end',
-    highlights: 'APIs, lógica de servidor e desenvolvimento back-end',
-    responsibilities: 'Priorização do produto, participação em vendas e desenvolvimento de APIs e lógica de servidor do Permaneo.',
-    related: [],
-    linkedin: 'https://br.linkedin.com/in/jo%C3%A3o-victortorrespereira',
-  },
-  {
-    id: 'gabriel', name: 'Gabriel Rodrigues Gomes', photo: '/images/equipe/gabriel.webp',
-    role: 'Documentarista / IA', specialty: 'Front-end & Inteligência Artificial',
-    highlights: 'React, JavaScript, interfaces e IA',
-    responsibilities: 'Desenvolvimento de interfaces, documentação do projeto e iniciativas de inteligência artificial no Permaneo.',
-    related: ['React', 'JavaScript'],
-    linkedin: 'https://br.linkedin.com/in/gabriel-rodrigues-rgg',
-  },
-  {
-    id: 'iago', name: 'Iago Santos', photo: '/images/equipe/iago.webp',
-    role: 'Desenvolvedor / IA', specialty: 'Front-end & Inteligência Artificial',
-    highlights: 'React, JavaScript, interfaces e IA',
-    responsibilities: 'Desenvolvimento de interfaces e funcionalidades de inteligência artificial no Permaneo.',
-    related: ['React', 'JavaScript'],
-    linkedin: 'https://www.linkedin.com/in/iagosm-oliveira/',
-  },
-  {
-    id: 'caique', name: 'Caique Vinicius', photo: '/images/equipe/caique.webp',
-    role: 'Scrum Master / Financeiro', specialty: 'Desenvolvimento & Gestão',
-    highlights: 'Desenvolvimento, Scrum e gestão financeira',
-    responsibilities: 'Desenvolvimento do projeto, organização das entregas com Scrum e gestão financeira do Permaneo.',
-    related: [],
-    linkedin: 'https://www.linkedin.com/in/caique-vinicius-5150b643b/',
-  },
-  {
-    id: 'diego', name: 'Diego Armando', photo: '/images/equipe/diego.webp',
-    role: 'Desenvolvedor / Financeiro', specialty: 'Desenvolvimento',
-    highlights: 'Programação, implementação e financeiro',
-    responsibilities: 'Programação e implementação de funcionalidades, com participação nas atividades financeiras do Permaneo.',
-    related: [],
-    linkedin: 'https://www.linkedin.com/in/diego-armando-698142316/',
-  },
-];
-
-function TechList({ only }) {
-  return <div className="tech-list">
-    {technologies.filter((tech) => !only || only.includes(tech.name)).map((tech) =>
-      <span className="tech-symbol" key={tech.name} tabIndex={0} title={tech.name} aria-label={tech.name}>
-        <img src={tech.icon} alt={tech.name} width="20" height="20" loading="lazy" />
-      </span>
-    )}
-  </div>;
-}
-
-function TeamModal({ member, onClose, theme }) {
-  const closeRef = useRef(null);
-  useEffect(() => {
-    if (!member) return undefined;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    closeRef.current?.focus();
-    const onKeyDown = (event) => {
-      if (event.key === 'Escape') onClose();
-      if (event.key === 'Tab') {
-        const modal = document.getElementById('permaneo-team-modal');
-        if (!modal) return;
-        const elements = [...modal.querySelectorAll('a[href],button:not([disabled])')];
-        if (!elements.length) return;
-        if (event.shiftKey && document.activeElement === elements[0]) { event.preventDefault(); elements[elements.length - 1].focus(); }
-        else if (!event.shiftKey && document.activeElement === elements[elements.length - 1]) { event.preventDefault(); elements[0].focus(); }
-      }
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => { document.body.style.overflow = previousOverflow; document.removeEventListener('keydown', onKeyDown); };
-  }, [member, onClose]);
-  if (!member) return null;
-  return createPortal(
-    <div className="team-modal-overlay" data-team-theme={theme} onClick={(event) => { event.stopPropagation(); if (event.target === event.currentTarget) onClose(); }}>
-      <div id="permaneo-team-modal" className="team-modal" role="dialog" aria-modal="true" aria-labelledby="team-modal-title" aria-describedby="team-modal-description" onMouseDown={(event) => event.stopPropagation()}>
-        <img src={member.photo} alt={'Foto de ' + member.name} className="team-modal-photo" width="800" height="800" />
-        <div className="team-modal-body">
-          <h2 className="team-modal-name" id="team-modal-title">{member.name}</h2>
-          <p className="team-modal-role">{member.role}</p>
-          <span className="team-specialty"><Code2 aria-hidden="true" />{member.specialty}</span>
-          <h3>Responsabilidades no Permaneo</h3>
-          <p id="team-modal-description">{member.responsibilities}</p>
-          <h3>Destaques</h3><p>{member.highlights}</p>
-          {member.related.length > 0 && <><h3>Tecnologias relacionadas</h3><TechList only={member.related} /></>}
-          <h3>Stack compartilhada do projeto</h3><TechList />
-          <a className="team-modal-link" href={member.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin aria-hidden="true" size={17} /> Ver LinkedIn <ArrowUpRight size={16} /></a>
-        </div>
-        <button ref={closeRef} className="team-modal-close" onClick={onClose} aria-label="Fechar perfil"><X size={19} /></button>
-      </div>
-    </div>,
-    document.body
-  );
-}
-
-function TeamCard({ member, index, onSelect }) {
-  return <article className="team-card">
-    <div className="team-photo-wrap">
-      <img className="team-photo" src={member.photo} alt={'Foto de ' + member.name} width="350" height="350" loading="lazy" />
-      <span className="team-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-    </div>
-    <div className="team-card-body">
-      <h3 className="team-name">{member.name}</h3>
-      <p className="team-role">{member.role}</p>
-      <span className="team-specialty"><Code2 aria-hidden="true" />{member.specialty}</span>
-      <p className="team-details">{member.highlights}</p>
-      <div className="team-stack">
-        <span className="team-stack-label">Stack do projeto</span>
-        <TechList />
-      </div>
-      <div className="team-card-actions">
-        <button type="button" className="team-profile-button" onClick={() => onSelect(member)}>
-          Conhecer integrante <ArrowUpRight size={14} aria-hidden="true" />
-        </button>
-        <a className="team-linkedin" href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={'LinkedIn de ' + member.name}><Linkedin size={19} /></a>
-      </div>
-    </div>
-  </article>;
-}
-
-export default function AboutTeam({ theme = 'light' }) {
+export default function AboutTeam({ theme = "light" }) {
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(0);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const stage = useRef(null);
+  const rotor = useRef(null);
+  const position = useRef(0);
+  const target = useRef(0);
+  const animation = useRef(0);
   const activeRef = useRef(0);
-  const carouselRef = useRef(null);
-  const dragRef = useRef(null);
-  const suppressClickRef = useRef(false);
-  const getMaxIndex = () => members.length - (window.matchMedia('(max-width: 640px)').matches ? 1 : window.matchMedia('(max-width: 900px)').matches ? 2 : 3);
-  const getSlides = () => carouselRef.current?.querySelectorAll('.team-slide') || [];
-  const moveTo = (index) => {
-    const element = carouselRef.current;
-    if (!element) return;
-    const next = Math.max(0, Math.min(getMaxIndex(), index));
-    const slide = getSlides()[next];
-    if (!slide) return;
-    const left = slide.getBoundingClientRect().left - getSlides()[0].getBoundingClientRect().left;
-    element.scrollTo({ left, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-    activeRef.current = next;
-    setActive(next);
-  };
-  const onScroll = () => {
-    const element = carouselRef.current;
-    const slides = getSlides();
-    if (!element || slides.length < 2) return;
-    const step = slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
-    if (step > 0) {
-      const next = Math.min(getMaxIndex(), Math.max(0, Math.round(element.scrollLeft / step)));
-      activeRef.current = next;
-      setActive(next);
-    }
-  };
-  useEffect(() => {
-    const element = carouselRef.current;
-    if (!element) return undefined;
-    const observer = new ResizeObserver(() => {
-      const slides = getSlides();
-      if (!slides.length) return;
-      const next = Math.min(activeRef.current, getMaxIndex());
-      element.scrollLeft = slides[next].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
-      activeRef.current = next;
-      setActive(next);
-    });
-    observer.observe(element);
-    return () => observer.disconnect();
+  const opener = useRef(null);
+  const suppressClick = useRef(false);
+  const wheelTime = useRef(-Infinity);
+  const drag = useRef(null);
+
+  const paint = useCallback((value) => {
+    position.current = value;
+    rotor.current?.style.setProperty("--drum-angle", `${-value * POSITION_ANGLE}deg`);
+    const index = memberIndex(value);
+    if (activeRef.current !== index) { activeRef.current = index; setActive(index); }
   }, []);
-  const onPointerDown = (event) => {
-    if (event.pointerType !== 'mouse' || event.button !== 0) return;
-    dragRef.current = { id: event.pointerId, x: event.clientX, left: event.currentTarget.scrollLeft, dragging: false };
-  };
-  const onPointerMove = (event) => {
-    const drag = dragRef.current;
-    if (!drag || drag.id !== event.pointerId) return;
-    const distance = event.clientX - drag.x;
-    if (!drag.dragging && Math.abs(distance) < 6) return;
-    if (!drag.dragging) {
-      drag.dragging = true;
-      event.currentTarget.setPointerCapture(event.pointerId);
-      event.currentTarget.classList.add('is-dragging');
-    }
-    event.preventDefault();
-    event.currentTarget.scrollLeft = drag.left - distance;
-  };
-  const onPointerEnd = (event) => {
-    const drag = dragRef.current;
-    if (!drag || drag.id !== event.pointerId) return;
-    if (drag.dragging) {
-      suppressClickRef.current = true;
-      event.currentTarget.classList.remove('is-dragging');
-      if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
-      window.setTimeout(() => { suppressClickRef.current = false; }, 100);
-    }
-    dragRef.current = null;
-  };
-  const onKeyDown = (event) => {
-    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft' || event.key === 'Home' || event.key === 'End') {
+
+  const settle = useCallback((value) => {
+    cancelAnimationFrame(animation.current);
+    target.current = value;
+    if (reducedMotion) { paint(value); return; }
+    let last = 0;
+    const step = (now) => {
+      const dt = last ? Math.min((now - last) / 1000, 0.05) : 1 / 60;
+      last = now;
+      const gap = target.current - position.current;
+      if (Math.abs(gap) < 0.001) { paint(target.current); return; }
+      paint(position.current + gap * (1 - Math.exp(-10 * dt)));
+      animation.current = requestAnimationFrame(step);
+    };
+    animation.current = requestAnimationFrame(step);
+  }, [paint, reducedMotion]);
+
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(preference.matches);
+    update(); preference.addEventListener("change", update);
+    return () => { preference.removeEventListener("change", update); cancelAnimationFrame(animation.current); };
+  }, []);
+  useEffect(() => {
+    const node = stage.current;
+    if (!node || selected !== null) return;
+    const wheel = (event) => {
+      if (event.ctrlKey || !wheelIntent(event.deltaX, event.deltaY, event.shiftKey)) return;
       event.preventDefault();
-      moveTo(event.key === 'Home' ? 0 : event.key === 'End' ? getMaxIndex() : active + (event.key === 'ArrowRight' ? 1 : -1));
+      if (Math.abs(event.deltaX || event.deltaY) < 12 || performance.now() - wheelTime.current < 550) return;
+      wheelTime.current = performance.now();
+      settle(target.current + Math.sign(event.deltaX || event.deltaY));
+    };
+    node.addEventListener("wheel", wheel, { passive: false });
+    return () => node.removeEventListener("wheel", wheel);
+  }, [settle, selected]);
+
+  const openMember = (index) => {
+    if (suppressClick.current) {
+      suppressClick.current = false;
+      return;
+    }
+    if (index !== active) { settle(nearestPosition(Math.round(target.current), index)); return; }
+    cancelAnimationFrame(animation.current);
+    paint(Math.round(position.current)); target.current = position.current;
+    opener.current = document.activeElement instanceof HTMLElement ? document.activeElement : stage.current;
+    setSelected(index);
+  };
+  const endDrag = (cancelled = false) => {
+    const current = drag.current;
+    if (!current) return;
+    drag.current = null;
+    stage.current?.removeAttribute("data-dragging");
+    if (current.horizontal) {
+      suppressClick.current = true;
+      const velocity = performance.now() - current.time < 100 ? current.velocity : 0;
+      settle(cancelled ? Math.round(position.current) : snapPosition(position.current, velocity));
     }
   };
-  return <section id="equipe" className="team-section" data-team-theme={theme} aria-labelledby="team-heading">
-    <div className="team-eyebrow team-reveal">Nossa equipe</div>
-    <div className="team-heading-row team-reveal">
-      <div>
-        <h2 id="team-heading" className="team-heading">As pessoas por trás<br />do <span>Permaneo.</span></h2>
-        <p className="team-subtitle">Diferentes habilidades, um mesmo propósito: transformar tecnologia em oportunidades para que mais estudantes continuem suas trajetórias.</p>
-      </div>
-      <div className="team-count"><strong>05</strong><span>pessoas,<br />um propósito.</span></div>
-    </div>
-    <div className="team-divider team-reveal" />
-    <div ref={carouselRef} className="team-carousel" role="region" tabIndex={0} aria-roledescription="carrossel" aria-label="Integrantes da equipe" onScroll={onScroll} onKeyDown={onKeyDown} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerEnd} onPointerCancel={onPointerEnd} onDragStart={(event) => event.preventDefault()} onClickCapture={(event) => { if (suppressClickRef.current) { event.preventDefault(); event.stopPropagation(); suppressClickRef.current = false; } }}>
-      <div className="team-grid">
-        {members.map((member, index) =>
-          <div className="team-slide team-reveal" key={member.id}><TeamCard member={member} index={index} onSelect={setSelected} /></div>
-        )}
-      </div>
-    </div>
-    <div className="team-carousel-controls">
-      <div className="team-dots">{members.map((member, index) =>
-        <button key={member.id} type="button" className="team-dot" aria-label={'Mostrar ' + member.name} aria-current={active === index} onClick={() => moveTo(index)} />
-      )}</div>
-      <div className="team-arrows">
-        <button type="button" aria-label="Integrante anterior" disabled={active === 0} onClick={() => moveTo(active - 1)}><ArrowLeft size={18} /></button>
-        <button type="button" aria-label="Próximo integrante" disabled={active >= getMaxIndex()} onClick={() => moveTo(active + 1)}><ArrowRight size={18} /></button>
-      </div>
-    </div>
-    <div className="team-bottom"><HeartHandshake aria-hidden="true" size={17} /><span>Construindo oportunidades, juntos.</span></div>
-    <TeamModal member={selected} onClose={() => setSelected(null)} theme={theme} />
-  </section>;
+
+  return (
+    <>
+      <section id="equipe" data-team-theme={theme} className="team-section" aria-labelledby="team-heading">
+        <div className="team-eyebrow team-reveal">Nossa equipe</div>
+        <div className="team-heading-row team-reveal">
+          <div>
+            <h2 id="team-heading" className="team-heading">As pessoas por trás<br />do <span>Permaneo.</span></h2>
+            <p className="team-subtitle">Diferentes habilidades, um mesmo propósito: transformar tecnologia em oportunidades para que mais estudantes continuem suas trajetórias.</p>
+          </div>
+          <div className="team-count"><strong>05</strong><span>pessoas,<br />um propósito.</span></div>
+        </div>
+        <div className="team-divider team-reveal" />
+        <div className="team-drum-region" data-book-open={selected !== null} data-reduced-motion={reducedMotion}>
+          <div ref={stage} className="team-drum-stage" role="region" tabIndex={0} aria-label="Integrantes da equipe" aria-roledescription="roda de perfis" data-scene-ready="true"
+            onKeyDown={event => {
+              suppressClick.current = false;
+              if (event.altKey || event.ctrlKey || event.metaKey || selected !== null) return;
+              if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); event.currentTarget.focus({ preventScroll: true }); settle(target.current + (event.key === "ArrowRight" ? 1 : -1)); }
+              if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) { event.preventDefault(); openMember(active); }
+            }}
+            onPointerDown={event => {
+              if (event.button !== 0 || selected !== null || (event.target instanceof Element && event.target.closest("a"))) return;
+              suppressClick.current = false;
+              drag.current = { id: event.pointerId, x: event.clientX, y: event.clientY, start: position.current, last: position.current, time: performance.now(), velocity: 0, horizontal: false };
+            }}
+            onPointerMove={event => {
+              const current = drag.current;
+              if (!current || current.id !== event.pointerId) return;
+              const dx = event.clientX - current.x;
+              if (!current.horizontal) {
+                if (Math.abs(event.clientY - current.y) > Math.abs(dx) && Math.abs(event.clientY - current.y) > 8) { drag.current = null; return; }
+                if (Math.abs(dx) < 8) return;
+                current.horizontal = true;
+                cancelAnimationFrame(animation.current);
+                event.currentTarget.setPointerCapture(event.pointerId);
+                event.currentTarget.setAttribute("data-dragging", "true");
+              }
+              const value = current.start - dx / (event.currentTarget.clientWidth < 600 ? 210 : 290);
+              const now = performance.now();
+              current.velocity = (value - current.last) / Math.max(1, now - current.time);
+              current.time = now; current.last = value;
+              paint(value);
+            }}
+            onPointerUp={() => endDrag()} onPointerCancel={() => endDrag(true)} onLostPointerCapture={() => endDrag(true)}>
+            <div ref={rotor} className="team-drum-rotor">
+              {teamMembers.map((member, index) => <div className="team-drum-face" key={member.id} data-index={index} data-distance={(index - active + TEAM_POSITIONS) % TEAM_POSITIONS} data-active={active === index} aria-hidden={active !== index}>
+                <TeamCard member={member} index={index} active={active === index} onSelect={() => openMember(index)} />
+              </div>)}
+            </div>
+          </div>
+          <div className="team-drum-controls">
+            <button type="button" aria-label="Integrante anterior" onClick={() => settle(target.current - 1)}><ArrowLeft /></button>
+            <div className="team-drum-pagination">
+              <span className="team-drum-counter" aria-hidden="true">0{active + 1}<span> / 05</span></span>
+              <div className="team-dots">{teamMembers.map((member, index) => <button type="button" key={member.id} className="team-dot" aria-label={`Mostrar ${member.name}`} aria-current={active === index} onClick={() => settle(nearestPosition(Math.round(target.current), index))} />)}</div>
+            </div>
+            <button type="button" aria-label="Próximo integrante" onClick={() => settle(target.current + 1)}><ArrowRight /></button>
+          </div>
+          <p className="sr-only" role="status" aria-live="polite">{active + 1} de 5: {teamMembers[active]?.name}</p>
+        </div>
+        <div className="team-bottom"><HeartHandshake aria-hidden="true" /><span>Construindo oportunidades, juntos.</span></div>
+      </section>
+      {selected !== null && <TeamMemberModal theme={theme} initialIndex={selected} reducedMotion={reducedMotion} onClose={() => setSelected(null)} onRestoreFocus={() => {
+        const trigger = opener.current;
+        if (trigger?.isConnected && !trigger.closest("[inert]")) trigger.focus();
+        else stage.current?.focus();
+      }} />}
+    </>
+  );
 }
