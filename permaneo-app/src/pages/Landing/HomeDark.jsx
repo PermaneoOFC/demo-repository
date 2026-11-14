@@ -29,6 +29,7 @@ import imgIconGraduation from '../../images/figma/dc80b8c503c590b8e941.svg';
 
 
 import styles from './HomeDark.module.css';
+import AboutTeam from '../../components/team/AboutTeam.jsx';
 
 
 
@@ -465,6 +466,7 @@ function Component01HomeEscuroSuave() {
           </a>
         </div>
       </div>
+      <AboutTeam theme="dark" />
       <div className="bg-[#263b48] content-stretch flex flex-col gap-[32px] items-start overflow-clip px-[164px] py-[36px] relative shrink-0 w-[1920px]" data-node-id="2009:10149" data-name="Rodapé">
         <div className="content-stretch flex items-start justify-between overflow-clip relative shrink-0 w-[1592px]" data-node-id="2009:10150" data-name="Identidade e privacidade">
           <div className="content-stretch flex gap-[12px] items-center overflow-clip relative shrink-0 w-[250px]" data-node-id="2009:10151" data-name="Marca Permaneo">
