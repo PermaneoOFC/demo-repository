@@ -14,9 +14,12 @@
     "test:shell": "node tests/shell.test.mjs",
     "test:profile": "node tests/profile.test.mjs",
     "test:classroom": "node tests/classroom.test.mjs",
-    "test:widgets": "node tests/accessibility-browser.mjs"
+    "test:widgets": "node tests/accessibility-browser.mjs",
+    "test:pricing": "node --test tests/pricing.test.mjs",
+    "test:commercial": "node tests/commercial-browser.mjs"
   },
   "dependencies": {
+    "gsap": "^3.15.1",
     "lucide-react": "^0.468.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

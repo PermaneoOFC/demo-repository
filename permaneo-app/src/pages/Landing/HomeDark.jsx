@@ -1,3 +1,4 @@
+import CommercialSection, { scrollToCommercial } from './commercial/CommercialSection.jsx';
 import SchoolJourney, { SchoolMedia } from './SchoolJourney.jsx';
 import imgVinculoSimboloVetorial from '../../images/figma/e191467ad637ee9ff857.svg';
 import imgIconeSun from '../../images/figma/fe2b6270a3045abf29b1.svg';
@@ -57,6 +58,7 @@ function Component01HomeEscuroSuave() {
           </p>
         </div>
         <div className="[word-break:break-word] content-stretch cursor-pointer flex gap-[40px] items-center leading-[0] overflow-clip relative shrink-0 text-[#dee8ef] text-[15px] text-left whitespace-nowrap" data-node-id="2009:10011" data-name="Menu">
+          <button type="button" data-local-content onClick={() => scrollToCommercial('modelo-de-negocio')}><p className="leading-[22px]">Planos</p></button>
           <button className="block font-[family-name:var(--font-family\/font-2,'Manrope:SemiBold')] font-[var(--font\/weight-semibold,600)] relative shrink-0" data-node-id="2009:10012">
             <p className="leading-[22px]">A proposta</p>
           </button>
@@ -444,6 +446,7 @@ function Component01HomeEscuroSuave() {
           </div>
         </div>
       </div>
+      <CommercialSection />
       <div className="bg-[#246579] content-stretch flex flex-col items-start overflow-clip px-[164px] py-[64px] relative shrink-0 w-[1920px]" data-node-id="2009:10143" data-name="Toda história continua">
         <div className="content-stretch flex items-center justify-between overflow-clip relative shrink-0 w-[1592px]" data-node-id="2009:10144" data-name="Convite à demonstração">
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 text-[#f3f8fb] w-[1100px]" data-node-id="2009:10145" data-name="Mensagem final">
@@ -486,8 +489,8 @@ function Component01HomeEscuroSuave() {
           <button className="block relative shrink-0 text-[color:var(--brand,#a8e0ed)]" data-node-id="2027:3985">
             <p className="leading-[21px]">Privacidade na proposta</p>
           </button>
-          <button className="block relative shrink-0 text-[#dee8ef]" data-node-id="2027:3986">
-            <p className="leading-[21px]">Simulador · Em breve</p>
+          <button type="button" data-local-content onClick={() => scrollToCommercial('calculadora-investimento')} className="block relative shrink-0 text-[#dee8ef]" data-node-id="2027:3986">
+            <p className="leading-[21px]">Simular investimento</p>
           </button>
         </div>
       </div>

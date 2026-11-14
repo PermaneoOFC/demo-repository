@@ -1,0 +1,32 @@
+import { ChartNoAxesCombined, BellRing, ContactRound, HeartHandshake, ClipboardCheck, NotebookPen, CalendarDays, UsersRound } from 'lucide-react';
+
+// Status describes this checkout, not a promise of production integration.
+export const features = [
+  { id: 'dashboards', icon: ChartNoAxesCombined, title: 'Indicadores escolares', status: 'Em demonstração',
+    summary: 'Dashboards para reunir os sinais da escola e apoiar decisões da coordenação.',
+    detail: 'Os painéis atuais apresentam indicadores e gráficos com dados fictícios. A integração dos indicadores com registros reais ainda não está disponível nesta demonstração.',
+    preview: 'director', route: 'director' },
+  { id: 'alerts', icon: BellRing, title: 'Alertas de frequência', status: 'Automação planejada',
+    summary: 'Atenção aos sinais em 5%, 8%, 10% e 15% de faltas acumuladas.',
+    detail: 'Os níveis previstos são 5% (atenção), 8% (risco de evasão), 10% (intervenção) e 15% (ação urgente). As telas de notificações são demonstrativas; o disparo automático nesses níveis, SMS e e-mail ainda não estão integrados. Um alerta apoia a análise humana e não determina, sozinho, a situação de um estudante.', route: 'directorNotifications' },
+  { id: 'profiles', icon: ContactRound, title: 'Carômetro e histórico', status: 'Demonstração local',
+    summary: 'Cada estudante com seu histórico e suas anotações individuais.',
+    detail: 'Explore perfis fictícios, histórico e registros de acompanhamento. As novas anotações da demonstração ficam no navegador, sem compartilhamento com uma escola.',
+    preview: 'carometroManagement', route: 'carometroManagement' },
+  { id: 'support', icon: HeartHandshake, title: 'Acompanhamento pedagógico', status: 'Demonstração local',
+    summary: 'Um espaço reservado para solicitar apoio e iniciar uma conversa.',
+    detail: 'O fluxo demonstra a solicitação de apoio à coordenação ou a professores. Os pedidos ficam no navegador e não são enviados. A reserva de acesso entre usuários depende da futura integração e dos controles de acesso.', route: 'studentSupport' },
+  { id: 'attendance', icon: ClipboardCheck, title: 'Registro de chamada', status: 'Demonstração local',
+    summary: 'Organize a frequência das turmas no dia a dia escolar.',
+    detail: 'A chamada permite experimentar o registro da frequência em turmas fictícias. Nesta versão, os registros são locais: não há sincronização com a base de uma instituição.', route: 'teacherAttendance' },
+  { id: 'reports', icon: NotebookPen, title: 'Relatórios de aula', status: 'Em demonstração',
+    summary: 'Contexto sobre as aulas para dar continuidade ao acompanhamento.',
+    detail: 'As telas de relatórios e acompanhamento usam exemplos demonstrativos. A consolidação de relatórios de aula com dados reais e o compartilhamento entre perfis ainda dependem de integração.', route: 'reports' },
+  { id: 'calendar', icon: CalendarDays, title: 'Calendário escolar', status: 'Demonstração local',
+    summary: 'Datas, atividades e compromissos em uma visão organizada.',
+    detail: 'O calendário permite navegar por meses e consultar atividades demonstrativas. Não há sincronização com calendários externos ou com a agenda real de uma escola.',
+    preview: 'studentCalendar', route: 'studentCalendar' },
+  { id: 'roles', icon: UsersRound, title: 'Três perfis, uma escola', status: 'Em demonstração',
+    summary: 'Professor, estudante e coordenação com suas próprias perspectivas.',
+    detail: 'Os três percursos podem ser explorados no login demonstrativo. A troca de perfil nesta versão não constitui autenticação nem controle de acesso de produção.', route: 'login' },
+];
