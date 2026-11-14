@@ -13,6 +13,7 @@
     "test:student": "node tests/student.test.mjs",
     "test:shell": "node tests/shell.test.mjs",
     "test:profile": "node tests/profile.test.mjs",
+    "test:classroom": "node tests/classroom.test.mjs",
     "test:widgets": "node tests/accessibility-browser.mjs"
   },
   "dependencies": {
