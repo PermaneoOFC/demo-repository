@@ -1,0 +1,65 @@
+.journey {
+  align-self: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(28px, 5vw, 64px) clamp(20px, 8vw, 164px);
+  background: #edf5f2;
+  color: #203c46;
+  font: 1rem/1.6 Manrope, Arial, sans-serif;
+}
+
+:global([data-theme='dark']) .journey {
+  background: #314857;
+  color: #f3f8fb;
+}
+
+.journey h2 {
+  font: 650 clamp(24px, 3vw, 40px)/1.2 Sora, Arial, sans-serif;
+  margin: 0 0 12px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 20px;
+  margin-top: 24px;
+  max-width: 1000px;
+}
+
+.controls {
+  display: grid;
+  gap: 8px;
+}
+
+.controls button, .mediaToggle {
+  min-height: 44px;
+  border: 1px solid currentColor;
+  border-radius: 10px;
+  padding: 8px 14px;
+  color: inherit;
+  text-align: left;
+}
+
+.controls button[aria-pressed='true'], .mediaToggle {
+  background: #22586a;
+  color: #fff;
+}
+
+.mediaToggle {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+}
+
+.example {
+  border: 1px solid currentColor;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.example h3 { font-weight: 700; margin-bottom: 8px; }
+
+@media (max-width: 640px) {
+  .layout { grid-template-columns: 1fr; }
+}
