@@ -59,16 +59,14 @@ function Component01HomeEscuroSuave() {
           </p>
         </div>
         <div className="[word-break:break-word] content-stretch cursor-pointer flex gap-[40px] items-center leading-[0] overflow-clip relative shrink-0 text-[#dee8ef] text-[15px] text-left whitespace-nowrap" data-node-id="2009:10011" data-name="Menu">
-          <button type="button" data-local-content onClick={() => scrollToCommercial('modelo-de-negocio')}><p className="leading-[22px]">Planos</p></button>
+          <button type="button" data-local-content onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth' })}><p className="leading-[22px]">Home</p></button>
           <button className="block font-[family-name:var(--font-family\/font-2,'Manrope:SemiBold')] font-[var(--font\/weight-semibold,600)] relative shrink-0" data-node-id="2009:10012">
             <p className="leading-[22px]">A proposta</p>
           </button>
-          <button className="block font-[family-name:var(--font-family\/font-2,'Manrope:SemiBold')] font-[var(--font\/weight-semibold,600)] relative shrink-0" data-node-id="2009:10013">
-            <p className="leading-[22px]">Como funciona</p>
-          </button>
           <button className="block font-['Manrope:SemiBold'] font-semibold relative shrink-0" data-node-id="2009:10015">
-            <p className="leading-[22px]">Para quem</p>
+            <p className="leading-[22px]">Sobre nós</p>
           </button>
+          <button type="button" data-local-content onClick={() => scrollToCommercial('modelo-de-negocio')}><p className="leading-[22px]">Planos</p></button>
         </div>
         <div className="content-stretch cursor-pointer flex gap-[16px] items-center overflow-clip relative shrink-0 w-[330px]" data-node-id="2009:10016" data-name="Acesso e tema">
           <a className="bg-[var(--permaneo-surface,#354c5d)] border border-[var(--permaneo-border,#7692a4)] border-solid content-stretch flex items-start overflow-clip p-[12px] relative rounded-[var(--radius-control,10px)] shrink-0 size-[48px]" data-node-id="2009:10017" data-name="Alternar tema">

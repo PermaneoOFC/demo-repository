@@ -539,8 +539,7 @@ export default function Platform() {
       }
       const sections = [
         ['a proposta', '[data-name^="A proposta ·"]'],
-        ['como funciona', '[data-name="Como funciona"]'],
-        ['para quem', '[data-name="Perfis da plataforma"]'],
+        ['sobre nos', '#equipe'],
       ];
       const section = sections.find(([title]) => label.includes(title));
       if (section) {

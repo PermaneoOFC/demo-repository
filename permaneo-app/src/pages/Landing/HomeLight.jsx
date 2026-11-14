@@ -185,16 +185,14 @@ function Component01HomeClaroPadrao() {
           </p>
         </div>
         <div className="[word-break:break-word] content-stretch cursor-pointer flex gap-[40px] items-center leading-[0] overflow-clip relative shrink-0 text-[15px] text-[color:var(--permaneo-muted,#4e6575)] text-left whitespace-nowrap" data-node-id="2009:7555" data-name="Menu">
-          <button type="button" data-local-content onClick={() => scrollToCommercial('modelo-de-negocio')}><p className="leading-[22px]">Planos</p></button>
+          <button type="button" data-local-content onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth' })}><p className="leading-[22px]">Home</p></button>
           <button className="block font-[family-name:var(--font-family\/font-2,'Manrope:SemiBold')] font-[var(--font\/weight-semibold,600)] relative shrink-0" data-node-id="2009:7556">
             <p className="leading-[22px]">A proposta</p>
           </button>
-          <button className="block font-[family-name:var(--font-family\/font-2,'Manrope:SemiBold')] font-[var(--font\/weight-semibold,600)] relative shrink-0" data-node-id="2009:7557">
-            <p className="leading-[22px]">Como funciona</p>
-          </button>
           <button className="block font-['Manrope:SemiBold'] font-semibold relative shrink-0" data-node-id="2009:7559">
-            <p className="leading-[22px]">Para quem</p>
+            <p className="leading-[22px]">Sobre nós</p>
           </button>
+          <button type="button" data-local-content onClick={() => scrollToCommercial('modelo-de-negocio')}><p className="leading-[22px]">Planos</p></button>
         </div>
         <div className="content-stretch cursor-pointer flex gap-[16px] items-center overflow-clip relative shrink-0 w-[330px]" data-node-id="2009:7560" data-name="Acesso e tema">
           <a className="bg-[var(--permaneo-surface,white)] border border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex items-start overflow-clip p-[12px] relative rounded-[var(--radius-control,10px)] shrink-0 size-[48px]" data-node-id="2009:7561" data-name="Alternar tema">
