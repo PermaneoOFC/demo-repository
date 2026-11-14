@@ -31,6 +31,7 @@ import imgVinculoSimboloVetorial1 from '../../images/figma/725f6d0f6e5e0301065d.
 
 
 import styles from './HomeLight.module.css';
+import AboutTeam from '../../components/team/AboutTeam.jsx';
 
 
 
@@ -474,6 +475,7 @@ function Component01HomeClaroPadrao() {
           </a>
         </div>
       </div>
+      <AboutTeam theme="light" />
       <div className="bg-[var(--bg,#f7f9f8)] content-stretch flex flex-col gap-[32px] items-start overflow-clip px-[164px] py-[36px] relative shrink-0 w-[1920px]" data-node-id="2009:7693" data-name="Rodapé">
         <div className="content-stretch flex items-start justify-between overflow-clip relative shrink-0 w-[1592px]" data-node-id="2009:7694" data-name="Identidade e privacidade">
           <div className="content-stretch flex gap-[12px] items-center overflow-clip relative shrink-0 w-[250px]" data-node-id="2009:7695" data-name="Marca Permaneo">
