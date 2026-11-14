@@ -1,3 +1,4 @@
+import CommercialSection, { scrollToCommercial } from './commercial/CommercialSection.jsx';
 import imgIconGrid from '../../images/figma/d7ee6606d9ddda0df6b2.svg';
 import imgIconArrow from '../../images/figma/b6e662e57223a14872b2.svg';
 import imgIconBook from '../../images/figma/246c5630bee904b4a4c8.svg';
@@ -183,6 +184,7 @@ function Component01HomeClaroPadrao() {
           </p>
         </div>
         <div className="[word-break:break-word] content-stretch cursor-pointer flex gap-[40px] items-center leading-[0] overflow-clip relative shrink-0 text-[15px] text-[color:var(--permaneo-muted,#4e6575)] text-left whitespace-nowrap" data-node-id="2009:7555" data-name="Menu">
+          <button type="button" data-local-content onClick={() => scrollToCommercial('modelo-de-negocio')}><p className="leading-[22px]">Planos</p></button>
           <button className="block font-[family-name:var(--font-family\/font-2,'Manrope:SemiBold')] font-[var(--font\/weight-semibold,600)] relative shrink-0" data-node-id="2009:7556">
             <p className="leading-[22px]">A proposta</p>
           </button>
@@ -453,6 +455,7 @@ function Component01HomeClaroPadrao() {
       <div className="bg-[var(--surface,white)] content-stretch flex flex-col items-start overflow-clip px-[164px] py-[48px] relative shrink-0 w-[1920px]" data-node-id="2009:7646" data-name="Três perfis · Uma escola conectada">
         <PermaneoSitePerfisDaHome className="content-stretch flex gap-[72px] items-start relative shrink-0 w-[1592px]" />
       </div>
+      <CommercialSection />
       <div className="bg-[#245c67] content-stretch flex flex-col items-start overflow-clip px-[164px] py-[64px] relative shrink-0 w-[1920px]" data-node-id="2009:7687" data-name="Toda história continua">
         <div className="content-stretch flex items-center justify-between overflow-clip relative shrink-0 w-[1592px]" data-node-id="2009:7688" data-name="Convite à demonstração">
           <div className="[word-break:break-word] content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 text-[color:var(--permaneo-on-brand,white)] w-[1100px]" data-node-id="2009:7689" data-name="Mensagem final">
