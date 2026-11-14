@@ -2,7 +2,7 @@ import imgIconGrid from '../../images/figma/d7ee6606d9ddda0df6b2.svg';
 import imgIconArrow from '../../images/figma/b6e662e57223a14872b2.svg';
 import imgIconBook from '../../images/figma/246c5630bee904b4a4c8.svg';
 import imgIconGraduation from '../../images/figma/67466946abb091be59de.svg';
-import imgVideoCotidianoEscolarGifEmLooping from '../../images/hero-school.gif';
+import SchoolJourney, { SchoolMedia } from './SchoolJourney.jsx';
 import imgVinculoSimboloVetorial from '../../images/figma/b9617e1108578bf4478b.svg';
 import imgIconeSun from '../../images/figma/9b3e4d81507d448f0ca2.svg';
 import imgIconeCheck from '../../images/figma/b4320ab29a2c5eb481f3.svg';
@@ -222,12 +222,12 @@ function Component01HomeClaroPadrao() {
             </p>
           </div>
           <p className="[word-break:break-word] font-['Manrope:Regular'] font-normal leading-[29px] relative shrink-0 text-[20px] text-[color:var(--permaneo-muted,#4e6575)] w-[650px]" data-node-id="2009:7570">
-            Mais presença. Mais vínculos. Uma escola que percebe cedo e caminha junto com cada estudante.
+            Acompanhe a frequência escolar, entenda o contexto das faltas e organize o apoio a cada estudante.
           </p>
           <div className="content-stretch cursor-pointer flex gap-[16px] items-start overflow-clip relative shrink-0 w-[740px]" data-node-id="2009:7571" data-name="Ações da apresentação">
             <a className="bg-[var(--permaneo-brand,#24647b)] content-stretch flex h-[56px] items-center justify-center px-[22px] py-[12px] relative rounded-[var(--radius-control,10px)] shrink-0" data-node-id="2009:7572" data-name="CTA / Explorar">
               <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[16px] text-[color:var(--permaneo-on-brand,white)] text-left whitespace-nowrap" data-node-id="I2009:7572;325:16">
-                Explorar a plataforma
+                Explorar a demonstração
               </p>
             </a>
             <button className="bg-[var(--permaneo-surface,white)] border border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex h-[56px] items-center justify-center px-[22px] py-[12px] relative rounded-[var(--radius-control,10px)] shrink-0" data-node-id="2009:7573" data-name="CTA / Conhecer">
@@ -247,7 +247,7 @@ function Component01HomeClaroPadrao() {
         </div>
         <div className="content-stretch flex flex-col gap-[16px] items-start overflow-clip relative shrink-0 w-[780px]" data-node-id="2009:7578" data-name="Vídeo de abertura e mensagem">
           <div className="h-[438.75px] relative rounded-[24px] shrink-0 w-[780px]" data-node-id="2117:2392" data-name="Vídeo · Cotidiano escolar · GIF em looping">
-            <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[24px] size-full" src={imgVideoCotidianoEscolarGifEmLooping} />
+            <SchoolMedia className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[24px] size-full" />
           </div>
           <div className="bg-[var(--permaneo-surface,white)] border border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch flex gap-[16px] items-start overflow-clip p-[20px] relative rounded-[var(--radius-control,10px)] shrink-0 w-[780px]" data-node-id="2009:7580" data-name="Presença e vínculo · Legenda do vídeo">
             <div className="relative shrink-0 size-[28px]" data-node-id="2009:7581" data-name="Ícone / heart">
@@ -407,6 +407,7 @@ function Component01HomeClaroPadrao() {
         </div>
       </div>
       <div className="[word-break:break-word] bg-[var(--soft,#eaf1ee)] content-stretch flex flex-col gap-[24px] items-start overflow-clip px-[164px] py-[48px] relative shrink-0 w-[1920px]" data-node-id="2009:7626" data-name="Como funciona">
+        <SchoolJourney />
         <p className="font-['Manrope:Medium'] font-medium leading-[20px] relative shrink-0 text-[13px] text-[color:var(--permaneo-brand,#24647b)] w-[1592px]" data-node-id="2009:7627">
           COMO FUNCIONA
         </p>
@@ -463,7 +464,7 @@ function Component01HomeClaroPadrao() {
           Dois caminhos. O mesmo compromisso com a permanência.
         </p>
         <p className="[word-break:break-word] font-['Manrope:Regular'] font-normal leading-[30px] relative shrink-0 text-[18px] text-[color:var(--permaneo-muted,#4e6575)] w-[1592px]" data-node-id="2009:7656">
-          Escolha a plataforma completa ou amplie o acompanhamento com câmeras integradas.
+          Conheça a plataforma na demonstração e veja quais integrações ainda estão em estudo.
         </p>
         <div className="content-stretch flex gap-[24px] items-start overflow-clip relative shrink-0 w-[1592px]" data-node-id="2009:7657" data-name="Duas soluções Permaneo">
           <div className="bg-[var(--surface,white)] border border-[var(--line,#d7e2e3)] border-solid content-stretch flex flex-col gap-[24px] items-start p-[32px] relative rounded-[var(--radius-control,10px)] shrink-0 w-[784px]" data-node-id="2095:2394" data-name="Solução / Permaneo Plataforma">
@@ -498,21 +499,21 @@ function Component01HomeClaroPadrao() {
               Permaneo Inteligente
             </p>
             <p className="[word-break:break-word] font-['Manrope:Regular'] font-normal h-[50px] leading-[25px] relative shrink-0 text-[16px] text-[color:var(--muted,#536a72)] w-[720px]" data-node-id="I2095:2408;2095:2382">
-              Plataforma completa + câmeras com reconhecimento facial por IA.
+              Proposta em avaliação para integrar registros de entrada e saída. Câmeras e biometria estão fora da demonstração.
             </p>
             <div className="[word-break:break-word] content-stretch flex flex-col font-semibold gap-[4px] items-start overflow-clip relative shrink-0 w-[720px]" data-node-id="I2095:2408;2095:2383" data-name="Contratação">
               <p className="font-['Sora:SemiBold'] h-[38px] leading-[37px] relative shrink-0 text-[28px] text-[color:var(--brand,#246579)] w-[720px]" data-node-id="I2095:2408;2095:2384">
-                Implantação + assinatura
+                Em estudo
               </p>
               <p className="font-['Manrope:SemiBold'] h-[22px] leading-[22px] relative shrink-0 text-[14px] text-[color:var(--muted,#536a72)] w-[720px]" data-node-id="I2095:2408;2095:2385">
-                Equipamentos, integração e suporte
+                Sujeito a validação com escolas
               </p>
             </div>
             <div className="[word-break:break-word] content-stretch flex flex-col font-['Manrope:Regular'] font-normal gap-[10px] items-start leading-[25px] overflow-clip relative shrink-0 text-[16px] text-[color:var(--ink,#203c46)] w-[720px] whitespace-pre-wrap" data-node-id="I2095:2408;2095:2386" data-name="Incluído na solução">
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2408;2095:2387">{`\u2713  Todos os recursos da plataforma`}</p>
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2408;2095:2388">{`\u2713  Entradas e sa\xEDdas nos pontos monitorados`}</p>
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2408;2095:2389">{`\u2713  C\xE2meras integradas ao acompanhamento escolar`}</p>
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2408;2095:2390">{`\u2713  Instala\xE7\xE3o, configura\xE7\xE3o e suporte da solu\xE7\xE3o`}</p>
+              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2408;2095:2387">Registros de entrada e saída</p>
+              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2408;2095:2388">Alternativas sem biometria</p>
+              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2408;2095:2389">Revisão humana dos registros</p>
+              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2408;2095:2390">Avaliação de privacidade</p>
             </div>
             <button className="bg-[var(--brand,#246579)] content-stretch cursor-pointer flex h-[50px] items-center justify-center px-[20px] py-[13px] relative rounded-[10px] shrink-0 w-[300px]" data-node-id="I2095:2408;2095:2391" data-name="Conhecer solução">
               <p className="[word-break:break-word] font-['Manrope:Bold'] font-bold leading-[22px] relative shrink-0 text-[12px] text-[color:var(--onbrand,white)] text-left whitespace-nowrap" data-node-id="I2095:2408;2095:2391;2024:3371">
@@ -584,7 +585,7 @@ function Component01HomeClaroPadrao() {
           </div>
           <a className="bg-[var(--permaneo-surface,white)] border border-[var(--permaneo-border,#d7e2ea)] border-solid content-stretch cursor-pointer flex h-[56px] items-center justify-center px-[22px] py-[12px] relative rounded-[var(--radius-control,10px)] shrink-0" data-node-id="2009:7692" data-name="CTA / Experimentar">
             <p className="[word-break:break-word] font-['Manrope:SemiBold'] font-semibold leading-[24px] relative shrink-0 text-[16px] text-[color:var(--permaneo-text,#203746)] text-left whitespace-nowrap" data-node-id="I2009:7692;325:18">
-              Vamos conhecer?
+              Explorar a demonstração
             </p>
           </a>
         </div>
