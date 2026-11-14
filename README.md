@@ -3,7 +3,7 @@
 ![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-246579)
 ![Demo Day PROA](https://img.shields.io/badge/Origem-Demo%20Day%20PROA-246579)
 
-O **Permaneo** é um protótipo web de acompanhamento escolar para apoiar a prevenção da evasão. A proposta é reunir frequência, desempenho e histórico de acompanhamento para que a equipe escolar possa entender o contexto das faltas e agir mais cedo.
+O **Permaneo** é um protótipo de acompanhamento escolar para apoiar a prevenção da evasão. A versão atual demonstra como frequência, desempenho e histórico de acompanhamento podem ajudar a equipe escolar a entender o contexto das faltas e agir mais cedo. O protótipo usa dados fictícios e roda no navegador.
 
 ## Diretrizes do projeto
 
@@ -35,10 +35,22 @@ Use a URL mostrada no terminal. Em macOS ou Linux, troque `npm.cmd` por `npm`.
 | Perfil | O que explorar na demonstração |
 | --- | --- |
 | Coordenação | Painel, Carômetro, acompanhamento, alertas e relatórios |
-| Professor | Turmas, chamada, Carômetro e notificações |
+| Professor | Minhas Turmas, Minha Sala, chamada, Carômetro e notificações |
 | Estudante | Painel, frequência demonstrativa e espaço do estudante |
 
-Na tela de login, escolha um perfil e clique em **Explorar sem preencher**. Os dados são fictícios e as alterações locais ficam no navegador.
+No login, escolha um perfil e selecione **Explorar sem preencher**. Os assentos, as observações e os demais registros locais da demonstração ficam no navegador usado para criá-los.
+
+### Área demonstrativa do aluno
+
+O login oferece o link **Acessar área do aluno (demonstração)**. O perfil Aluno também abre essa área, recuperada da versão **commit aluno** do repositório `gabrielrgg/Permaneo-OFC`.
+
+O menu inclui Meu dia, Atividades, Calendário, Disciplinas, Avisos, Plano de estudos, Pedidos de apoio e Meu espaço. Entregas de atividades com respostas, avisos lidos, metas e pedidos demonstrativos ficam salvos no navegador, inclusive após recarregar; nada é enviado à escola. A navegação usa rotas como `#/student` e também aceita os links antigos como `#student`.
+
+Execute `npm.cmd run test:student` em `permaneo-app` para validar os fluxos e as oito telas nos temas claro/escuro, em celular, tablet e computador. É necessário ter Google Chrome instalado.
+
+### Recuperação completa da plataforma
+
+Os três perfis usam a versão completa anterior à inclusão dos widgets, com perfis de estudantes, registros, cadastro local, filtros e configurações recuperados. UserWay e VLibras continuam ativos; o UserWay fica abaixo do VLibras na lateral direita. A fonte consultada, os recursos e as verificações estão em [Recuperação da plataforma](Documentacao/Restauracao.md).
 
 ## Equipe
 

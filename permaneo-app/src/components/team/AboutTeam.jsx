@@ -65,7 +65,7 @@ function TechList({ only }) {
   </div>;
 }
 
-function TeamModal({ member, onClose }) {
+function TeamModal({ member, onClose, theme }) {
   const closeRef = useRef(null);
   useEffect(() => {
     if (!member) return undefined;
@@ -88,7 +88,7 @@ function TeamModal({ member, onClose }) {
   }, [member, onClose]);
   if (!member) return null;
   return createPortal(
-    <div className="team-modal-overlay" onMouseDown={onClose}>
+    <div className="team-modal-overlay" data-team-theme={theme} onMouseDown={onClose}>
       <div id="permaneo-team-modal" className="team-modal" role="dialog" aria-modal="true" aria-labelledby="team-modal-title" aria-describedby="team-modal-description" onMouseDown={(event) => event.stopPropagation()}>
         <img src={member.photo} alt={'Foto de ' + member.name} className="team-modal-photo" width="800" height="800" />
         <div className="team-modal-body">
@@ -134,7 +134,7 @@ function TeamCard({ member, index, onSelect }) {
   </article>;
 }
 
-export default function AboutTeam() {
+export default function AboutTeam({ theme = 'light' }) {
   const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(0);
   const carouselRef = useRef(null);
@@ -151,7 +151,7 @@ export default function AboutTeam() {
     const step = element.querySelector('.team-slide')?.getBoundingClientRect().width || 1;
     setActive(Math.min(members.length - 1, Math.max(0, Math.round(element.scrollLeft / step))));
   };
-  return <section id="equipe" className="team-section" aria-labelledby="team-heading">
+  return <section id="equipe" className="team-section" data-team-theme={theme} aria-labelledby="team-heading">
     <div className="team-eyebrow team-reveal">Nossa equipe</div>
     <div className="team-heading-row team-reveal">
       <div>
@@ -178,6 +178,6 @@ export default function AboutTeam() {
       </div>
     </div>
     <div className="team-bottom"><HeartHandshake aria-hidden="true" size={17} /><span>Construindo oportunidades, juntos.</span></div>
-    <TeamModal member={selected} onClose={() => setSelected(null)} />
+    <TeamModal member={selected} onClose={() => setSelected(null)} theme={theme} />
   </section>;
 }
