@@ -1,6 +1,6 @@
 # Acessibilidade
 
-O app inclui temas claro e escuro, foco visível, seleção de perfil por teclado e mensagens de erro anunciadas por leitores de tela. A tela de frequência integrada usa rótulos de formulário, tabela com cabeçalhos semânticos e situação expressa em texto. Em telas estreitas, a tabela pode ser rolada horizontalmente.
+O app inclui temas claro e escuro, foco visível, seleção de perfil por teclado e mensagens de erro anunciadas por leitores de tela. A sala virtual pode ser operada pelo teclado e oferece uma visualização alternativa em lista.
 
 Os alertas do protótipo devem apoiar conversas e intervenções pedagógicas. A interface usa linguagem de acompanhamento, com atenção ao contexto de cada estudante.
 
@@ -32,7 +32,7 @@ npm.cmd run build
 
 Os testes de navegador usam Google Chrome instalado. `BASE_URL` permite testar outra URL. A bateria percorre 35 rotas nos temas claro/escuro e larguras de 390, 900 e 1440 px, verificando erros de renderização, imagens e transbordamento horizontal. Também testa entrada demonstrativa nos três perfis, abertura dos widgets, fechamento do VLibras e navegação com os scripts externos indisponíveis. A área completa do aluno tem uma bateria adicional (`npm.cmd run test:student`) para entregas, filtros, persistência, calendário, metas, avisos e apoio. Capturas locais ficam em `test-results/`, ignorado pelo Git.
 
-Os testes demonstrativos não comprovam conexão com a API/MySQL nem validam a qualidade da tradução automática. Essas verificações precisam do ambiente de backend e de revisão humana.
+A qualidade da tradução automática precisa de revisão humana.
 
 A home usa a mídia original de `gabrielrgg/Permaneo-OFC/src/imagens/hero-school.png`, copiada sem alterar o conteúdo para `src/images/hero-school.gif`. Apesar da extensão `.png` no repositório antigo, a assinatura do arquivo é `GIF89a`: trata-se de um GIF animado. As duas versões de tema usam esse mesmo arquivo local. A análise anterior de que o histórico só continha uma imagem estática foi corrigida após conferir o formato real do arquivo.
 
