@@ -2,8 +2,8 @@ import ClassAttendance from '../../../components/students/ClassAttendance.jsx';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
-  ArrowLeft, ArrowRight, Armchair, BookOpen, ChevronDown, Grid2X2, Info,
-  LayoutGrid, List, Maximize, Minus, Plus, Search, Shuffle, UsersRound, X,
+  ArrowLeft, ArrowRight, Armchair, BookOpen, Camera, ChevronDown, DoorOpen, Eye, Grid2X2, Info,
+  LayoutGrid, List, Maximize, Minus, Move3D, PanelsTopLeft, Plus, Search, Shuffle, UsersRound, X,
 } from 'lucide-react';
 import {
   atencoes, categorias, chaveObservacoes, dataFormatada, faltasConsecutivas, hoje, lerLocal,
@@ -52,6 +52,14 @@ function listaOpcoes(turmas, campo, rotulo) {
     .sort((a, b) => a.localeCompare(b, 'pt-BR', { numeric: true })).map((valor) => [valor, valor])];
 }
 
+function MiniaturaSala({ total }) {
+  return <div className={styles.roomThumb} aria-hidden="true" data-students={Math.min(total, 12)}>
+    <span className={styles.thumbBoard} />
+    <span className={styles.thumbTeacher} />
+    <span className={styles.thumbSeats}>{Array.from({ length: Math.min(total, 12) }, (_, index) => <i key={index} />)}</span>
+  </div>;
+}
+
 function MinhasTurmas({ turmas, linkSala }) {
   const [busca, setBusca] = useState('');
   const [serie, setSerie] = useState('');
@@ -75,6 +83,7 @@ function MinhasTurmas({ turmas, linkSala }) {
         const acompanhamento = turma.estudantes.filter((aluno) => ['attention', 'priority'].includes(situacaoAluno(aluno))).length;
         return <article className={styles.classCard} key={turma.id}>
           <header><span className={styles.classIcon}>{icon(UsersRound, 22)}</span><span>{turmaMeta(turma)}</span></header>
+          <MiniaturaSala total={turma.estudantes.length} />
           <h3>{turma.nome}</h3>
           <dl className={styles.classMetrics}>
             <div><dt>Estudantes</dt><dd>{turma.estudantes.length}</dd></div>
@@ -88,8 +97,9 @@ function MinhasTurmas({ turmas, linkSala }) {
   </>;
 }
 
-function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen }) {
+function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen, selecionado }) {
   const [zoom, setZoom] = useState(100);
+  const [camera, setCamera] = useState('isometrica');
   const viewport = useRef(null);
   const drag = useRef(null);
   const tooltipId = useId();
@@ -97,6 +107,12 @@ function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen 
   const total = Math.max(6, ordem.length);
   const nomeVisivel = new Set(visiveis.map((aluno) => aluno.id));
   const colunas = ordem.length <= 9 ? 3 : ordem.length <= 24 ? 4 : 5;
+  useEffect(() => {
+    if (!selecionado) return;
+    const seat = [...(viewport.current?.querySelectorAll('[data-student-id]') || [])]
+      .find((item) => item.dataset.studentId === String(selecionado));
+    if (seat) viewport.current.scrollTo({ left: Math.max(0, seat.offsetLeft - viewport.current.clientWidth / 2), top: Math.max(0, seat.offsetTop - viewport.current.clientHeight / 2), behavior: 'smooth' });
+  }, [selecionado]);
   function mover(event) {
     if (event.target !== event.currentTarget) return;
     const botoes = { ArrowLeft: [-64, 0], ArrowRight: [64, 0], ArrowUp: [0, -64], ArrowDown: [0, 64] };
@@ -108,18 +124,35 @@ function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen 
   }
   return <section className={styles.map} aria-label="Mapa de assentos">
     <div className={styles.mapBar}>
-      <span>{icon(LayoutGrid, 16)} Planta da sala</span>
+      <span>{icon(LayoutGrid, 16)} Ambiente da turma</span>
       <div className={styles.zoom} role="group" aria-label="Zoom do mapa">
-        <button type="button" aria-label="Reduzir zoom" disabled={zoom <= 75} onClick={() => setZoom(zoom - 25)}>{icon(Minus)}</button>
+        <button type="button" aria-label="Reduzir zoom" disabled={zoom <= 75} onClick={() => setZoom(Math.max(75, zoom - 25))}>{icon(Minus)}</button>
         <output aria-live="polite">{zoom}%</output>
-        <button type="button" aria-label="Aumentar zoom" disabled={zoom >= 175} onClick={() => setZoom(zoom + 25)}>{icon(Plus)}</button>
+        <button type="button" aria-label="Aumentar zoom" disabled={zoom >= 150} onClick={() => setZoom(Math.min(150, zoom + 25))}>{icon(Plus)}</button>
         <button type="button" aria-label="Restaurar zoom e posição" onClick={() => {
           setZoom(100);
+          setCamera('isometrica');
           viewport.current.scrollTo(0, 0);
-        }}>{icon(Maximize, 15)}</button>
+        }}>{icon(Maximize, 15)}<span className={styles.controlLabel}>Centralizar</span></button>
       </div>
     </div>
+    <div className={styles.sceneControls} role="group" aria-label="Perspectiva da sala">
+      <span>Perspectiva</span>
+      {[
+        ['isometrica', 'Isométrica', Move3D],
+        ['professor', 'Professor', Eye],
+        ['superior', 'Superior', PanelsTopLeft],
+      ].map(([id, label, Icon]) => <button key={id} type="button" aria-pressed={camera === id} onClick={() => setCamera(id)}>
+        {icon(Icon, 15)}{label}
+      </button>)}
+      <span className={styles.dragHint}>{icon(Camera, 14)} Arraste para explorar</span>
+    </div>
     <div className={styles.viewport} ref={viewport} tabIndex={0} role="region" aria-label="Planta rolável; use as setas para mover" onKeyDown={mover}
+      onWheel={(event) => {
+        if (!event.ctrlKey && !event.metaKey) return;
+        event.preventDefault();
+        setZoom((current) => Math.max(75, Math.min(150, current + (event.deltaY < 0 ? 10 : -10))));
+      }}
       onPointerDown={(event) => {
         if (event.pointerType !== 'mouse' || event.button !== 0 || event.target.closest('button')) return;
         const el = event.currentTarget;
@@ -131,17 +164,24 @@ function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen 
         event.currentTarget.scrollTo(drag.current.x - event.clientX, drag.current.y - event.clientY);
       }}
       onLostPointerCapture={() => { drag.current = null; }}>
-      <div className={styles.floor} style={{ '--zoom': escala, '--cols': colunas }}>
-        <div className={styles.front}>
-          <div className={styles.board}>Quadro</div>
-          <div className={styles.teacherDesk}>Mesa do professor</div>
+      <div className={styles.scene} data-camera={camera} style={{ '--cols': colunas, '--zoom': escala, '--scene-width': `${Math.max(360, (colunas * 150 + 84) * escala)}px` }}>
+        <div className={styles.wall} aria-hidden="true">
+          <div className={styles.window}><i /><i /><i /><i /></div>
+          <div className={styles.clock}><span>10:10</span></div>
+          <div className={styles.board}>Sala de aprendizagem<span>Aprender · participar · continuar</span></div>
+          <div className={styles.window}><i /><i /><i /><i /></div>
         </div>
-        <div className={styles.desks}>
+        <div className={styles.floor} style={{ '--zoom': escala, '--cols': colunas }}>
+          <div className={styles.sideWindow} aria-hidden="true"><i /><i /><i /><i /></div>
+          <div className={styles.entry} aria-hidden="true"><span>{icon(DoorOpen, 20)}</span><small>Entrada</small></div>
+          <div className={styles.plant} aria-hidden="true"><i /><i /><i /><b /></div>
+          <div className={styles.front}><div className={styles.teacherDesk}><span>Mesa do professor</span><i /></div></div>
+          <div className={styles.desks}>
           {Array.from({ length: total }, (_, index) => {
             const aluno = alunos.get(ordem[index]);
             const disponivel = aluno && nomeVisivel.has(aluno.id);
             const cadeira = 'Carteira ' + (index + 1);
-            return <div key={index} className={styles.seat} data-empty={!aluno} data-faded={!disponivel}>
+            return <div key={index} className={styles.seat} data-empty={!aluno} data-faded={!disponivel} data-student-id={aluno?.id} data-selected={selecionado === aluno?.id}>
               {disponivel ? <button type="button" className={styles.desk}
                 aria-label={editing ? cadeira + ': ' + aluno.nome : aluno.nome}
                 aria-pressed={editing ? origem === index : undefined}
@@ -161,6 +201,7 @@ function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen 
               <small aria-hidden="true">{String(index + 1).padStart(2, '0')}</small>
             </div>;
           })}
+          </div>
         </div>
       </div>
     </div>
@@ -381,7 +422,7 @@ function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNot
     {!visiveis.length && <p className={styles.empty}>{estudantes.length ? 'Nenhum estudante corresponde aos filtros.' : 'Não há estudantes matriculados nesta turma.'}</p>}
     {!!visiveis.length && (view === 'mapa'
       ? <Mapa turma={turma} alunos={alunos} visiveis={visiveis} ordem={ordem} editing={!!rascunho}
-        origem={origem} onSeat={assento} onOpen={abrir} />
+        origem={origem} onSeat={assento} onOpen={abrir} selecionado={selecionado} />
       : <CarteirasAlternativas view={view} alunos={visiveis} onOpen={abrir} />)}
     <div className={styles.legend} aria-label="Legenda de acompanhamento">
       {Object.entries(situacoes).map(([id, label]) => <span className={styles.signal} key={id}><i data-status={id} aria-hidden="true" />{label}</span>)}
