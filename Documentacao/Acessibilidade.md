@@ -30,7 +30,7 @@ npm.cmd run test:browser
 npm.cmd run build
 ```
 
-Os testes de navegador usam Google Chrome instalado. `BASE_URL` permite testar outra URL. A bateria percorre 29 rotas nos temas claro/escuro e larguras de 390, 900 e 1440 px, verificando erros de renderização, imagens e transbordamento horizontal. Também testa entrada demonstrativa nos três perfis, abertura dos widgets, fechamento do VLibras e navegação com os scripts externos indisponíveis. Capturas locais ficam em `test-results/`, ignorado pelo Git.
+Os testes de navegador usam Google Chrome instalado. `BASE_URL` permite testar outra URL. A bateria percorre 35 rotas nos temas claro/escuro e larguras de 390, 900 e 1440 px, verificando erros de renderização, imagens e transbordamento horizontal. Também testa entrada demonstrativa nos três perfis, abertura dos widgets, fechamento do VLibras e navegação com os scripts externos indisponíveis. A área completa do aluno tem uma bateria adicional (`npm.cmd run test:student`) para entregas, filtros, persistência, calendário, metas, avisos e apoio. Capturas locais ficam em `test-results/`, ignorado pelo Git.
 
 Os testes demonstrativos não comprovam conexão com a API/MySQL nem validam a qualidade da tradução automática. Essas verificações precisam do ambiente de backend e de revisão humana.
 
