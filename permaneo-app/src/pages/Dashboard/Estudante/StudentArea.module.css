@@ -316,3 +316,101 @@
     overflow-wrap: anywhere;
   }
 }
+
+.area {
+  --portal-accent: #246579;
+  --portal-hero: #174b5d;
+  --portal-glow: #37818a;
+  font-family: 'Public Sans', sans-serif;
+  gap: 22px;
+}
+.area[data-accent='floresta'], .hero[data-accent='floresta'] {
+  --portal-accent: #227457;
+  --portal-hero: #1d5347;
+  --portal-glow: #397d68;
+}
+.area[data-accent='violeta'], .hero[data-accent='violeta'] {
+  --portal-accent: #624887;
+  --portal-hero: #45345e;
+  --portal-glow: #76568c;
+}
+:global([data-theme='dark']) .area { --portal-accent: #a8e0ed; }
+:global([data-theme='dark']) .area[data-accent='floresta'] { --portal-accent: #a1e5c7; }
+:global([data-theme='dark']) .area[data-accent='violeta'] { --portal-accent: #dec8ff; }
+.area h1, .area h2, .area h3, .metric {
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  min-height: 188px;
+  padding: clamp(20px, 5vw, 46px);
+  border-radius: 28px;
+  color: #fff;
+  background: radial-gradient(ellipse at 95% 125%, var(--portal-glow) 0 46%, transparent 47%),
+    var(--portal-hero);
+}
+.hero[data-cover='ondas'] {
+  background: repeating-radial-gradient(ellipse at 105% 130%, #ffffff12 0 1px, transparent 2px 23px), var(--portal-hero);
+}
+.hero[data-cover='lisa'] { background: var(--portal-hero); }
+.hero h1 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.06; }
+.hero p { margin-top: 10px; color: #effaff; overflow-wrap: anywhere; }
+.heroAvatar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 12vw, 118px);
+  aspect-ratio: 1;
+  border-radius: 34% 48% 37% 48%;
+  border: 1px solid #ffffff80;
+  background: #ffffff26;
+}
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.controls button:disabled { opacity: .45; }
+.widgets { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; }
+.widgets .card { grid-column: span 2; }
+.widgets .card:is([data-widget='work'], [data-widget='calendar']) { grid-column: span 3; }
+.widgets .card > a { margin-top: auto; }
+.area .card, .area .goal { border-radius: 22px; }
+.area .primary { background: var(--portal-hero); color: #fff; }
+.area .secondary { color: var(--portal-accent); border-radius: 999px; }
+.metric { font-size: 38px; color: var(--portal-accent); }
+.area progress, .area input { accent-color: var(--portal-accent); }
+.area .row progress { max-width: 45%; }
+.area[data-density='compacto'] { gap: 12px; }
+.area[data-density='compacto'] .card { padding: 14px; gap: 8px; }
+.area[data-scale='grande'] :is(p, label, span, small, a, button, input, select, textarea, b) { font-size: 1.125rem; }
+.form select { min-height: 44px; padding: 8px; border: 1px solid var(--app-border); border-radius: 8px; color: var(--app-text); background: var(--app-surface); }
+.area .check { display: flex; align-items: center; gap: 10px; min-height: 44px; }
+.area .check input { width: 20px; min-height: 20px; }
+@media (prefers-reduced-motion: no-preference) {
+  .area[data-motion='true'] .goal[data-complete='true'] { animation: complete 280ms ease-out; }
+  @keyframes complete { 40% { transform: translateY(-3px); border-color: var(--portal-accent); } }
+}
+@media (max-width: 1200px) {
+  .widgets .card { grid-column: span 3; }
+}
+@media (max-width: 640px) {
+  .widgets { grid-template-columns: 1fr; }
+  .widgets .card, .widgets .card:is([data-widget='work'], [data-widget='calendar']) { grid-column: auto; }
+}
+.controls button[aria-pressed='true'] { background: var(--portal-hero); color: #fff; }
+.area :is(.filters, .row) :is(input, select) {
+  min-height: 44px;
+  padding: 8px;
+  border: 1px solid var(--app-border);
+  border-radius: 8px;
+  background: var(--app-surface);
+  color: var(--app-text);
+}
+.tableScroll { width: 100%; overflow-x: auto; }
+.attendanceTable { width: 100%; border-spacing: 4px; }
+.attendanceTable :is(th, td) { padding: 10px; text-align: center; white-space: nowrap; }
+.attendanceTable th[scope='row'] { text-align: left; }
+.attendanceTable td { border-radius: 8px; background: var(--app-bg); }
+.attendanceTable td[data-presence='P'] { background: #d6f1e5; color: #174d3b; }
+.attendanceTable td[data-presence='A'] { background: #ffebce; color: #65410f; }
+.attendanceTable td[data-presence='J'] { background: #dceaf9; color: #254963; }

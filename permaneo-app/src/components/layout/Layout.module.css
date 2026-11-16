@@ -522,3 +522,16 @@
   .marker :global([data-name^="header."] [class~="whitespace-nowrap"]) { white-space: normal; }
   .marker :global([data-name="Busca e situação"]) { grid-template-columns: minmax(0, 1fr); }
 }
+.marker :global([data-name="Grade de estudantes"][data-view-mode="compact"]) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+}
+.marker :global([data-name="Grade de estudantes"][data-view-mode="compact"] > [data-name^="Estudante ·"]) {
+  min-width: 0;
+  padding: 12px;
+  gap: 8px;
+}
+.marker :global([data-name="Grade de estudantes"][data-view-mode="compact"] [data-name="Foto"]) {
+  width: 36px;
+  height: 36px;
+}
