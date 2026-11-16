@@ -915,6 +915,13 @@ export default function Platform() {
                 records={records}
                 onStartFollowup={(student) => { setFollowupStudent(student); setModal('record'); }}
               />
+            ) : page === 'director' ? (
+              <ActiveScreen records={records} classAttendance={classAttendance} localStudents={localStudents} onOpenProfile={(key) => {
+                const local = localStudents.find((student) => student.id === key);
+                if (local) { setLocalStudent(local); return; }
+                returnPage.current = page;
+                navigate('Profile' + key + 'Management');
+              }} />
             ) : page === 'directorFollowup' ? (
               <ActiveScreen records={records} setRecords={setRecords} classAttendance={classAttendance} onOpenProfile={(key) => {
                 returnPage.current = page;
