@@ -1,15 +1,45 @@
 # Acessibilidade
 
-O app inclui temas claro e escuro, foco visível, seleção de perfil por teclado e mensagens de erro anunciadas por leitores de tela.
+O app inclui temas claro e escuro, foco visível, seleção de perfil por teclado e mensagens de erro anunciadas por leitores de tela. A sala virtual pode ser operada pelo teclado e oferece uma visualização alternativa em lista.
 
 Os alertas do protótipo devem apoiar conversas e intervenções pedagógicas. A interface usa linguagem de acompanhamento, com atenção ao contexto de cada estudante.
 
 ## Recursos globais
 
+### Preservação da interface
+
+As regras de tokens e responsividade recuperadas do repositório anterior ficam nos CSS Modules das telas e no `Layout.module.css`. Elas são necessárias porque as classes exportadas do Figma não são compiladas por Tailwind neste projeto. Removê-las pode manter o build funcionando e, mesmo assim, quebrar a interface.
+
+O reset dos botões é limitado a `:where(#root) button`: a baixa especificidade permite que os CSS Modules definam a aparência e evita modificar os controles externos do UserWay. Os componentes de botão usados fora de outros botões usam elementos nativos, preservando a navegação por teclado. Os widgets são iniciados após a montagem inicial do React e ficam fora da árvore do aplicativo.
+
+### Testes de regressão
+
+Na pasta `permaneo-app`, execute:
+
+```powershell
+npm.cmd ci
+npm.cmd test
+npm.cmd run test:accessibility
+npm.cmd run dev -- --host 127.0.0.1
+```
+
+Com o servidor aberto, em outro terminal na mesma pasta:
+
+```powershell
+npm.cmd run test:browser
+npm.cmd run build
+```
+
+Os testes de navegador usam Google Chrome instalado. `BASE_URL` permite testar outra URL. A bateria percorre 35 rotas nos temas claro/escuro e larguras de 390, 900 e 1440 px, verificando erros de renderização, imagens e transbordamento horizontal. Também testa entrada demonstrativa nos três perfis, abertura dos widgets, fechamento do VLibras e navegação com os scripts externos indisponíveis. A área completa do aluno tem uma bateria adicional (`npm.cmd run test:student`) para entregas, filtros, persistência, calendário, metas, avisos e apoio. Capturas locais ficam em `test-results/`, ignorado pelo Git.
+
+A qualidade da tradução automática precisa de revisão humana.
+
+A home usa a mídia original de `gabrielrgg/Permaneo-OFC/src/imagens/hero-school.png`, copiada sem alterar o conteúdo para `src/images/hero-school.gif`. Apesar da extensão `.png` no repositório antigo, a assinatura do arquivo é `GIF89a`: trata-se de um GIF animado. As duas versões de tema usam esse mesmo arquivo local. A análise anterior de que o histórico só continha uma imagem estática foi corrigida após conferir o formato real do arquivo.
+
 O ponto de entrada `permaneo-app/src/main.jsx` carrega os widgets uma vez por abertura do site, fora do ciclo de renderização do React. Assim, permanecem disponíveis na landing page, login e telas de direção, professor e estudante, nos dois temas.
 
 - **VLibras:** tradução automática de português para Libras, pelo script oficial. O botão fica à direita.
-- **UserWay:** menu de acessibilidade em português, com botão na cor do Permaneo no canto inferior esquerdo, separado do VLibras. As funções disponíveis dependem da configuração e do plano da conta UserWay.
+- **UserWay:** menu de acessibilidade em português, com botão na cor do Permaneo à direita, 12 px abaixo do VLibras. As funções disponíveis dependem da configuração e do plano da conta UserWay.
 
 ### Configuração do UserWay
 
