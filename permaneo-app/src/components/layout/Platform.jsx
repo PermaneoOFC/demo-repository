@@ -194,6 +194,14 @@ export default function Platform() {
         card.setAttribute('tabindex', '0');
         card.setAttribute('aria-pressed', String(selected));
       });
+      root.querySelectorAll('[data-name="aside.sticky"] [data-name="Logo Permaneo · Vínculo · Vetor"]').forEach((logo) => {
+        const brand = logo.closest('[data-name="a.px-2"]');
+        if (!brand) return;
+        brand.setAttribute('role', 'button');
+        brand.setAttribute('tabindex', '0');
+        brand.setAttribute('aria-label', 'Permaneo, voltar à página inicial');
+        brand.style.cursor = 'pointer';
+      });
       root.querySelectorAll('a:not([href])').forEach((link) => {
         if (link.matches('[data-name^="Estudante ·"]')) {
           link.setAttribute('role', 'group');
@@ -363,6 +371,18 @@ export default function Platform() {
     setToast(message);
     clearTimeout(toastTimer.current);
     toastTimer.current = setTimeout(() => setToast(''), 2800);
+  };
+
+  const handleHomeBrandClick = (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const sidebar = target.closest('[data-name="aside.sticky"]');
+    const logo = sidebar?.querySelector('[data-name="Logo Permaneo · Vínculo · Vetor"]');
+    const brand = logo?.closest('[data-name="a.px-2"]');
+    if (!brand?.contains(target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    navigate('home');
   };
 
   const handleClick = (event) => {
@@ -807,6 +827,7 @@ export default function Platform() {
       data-theme={dark ? 'dark' : 'light'}
       data-selected-role={role}
       data-notifications-read={notificationsRead}
+      onClickCapture={handleHomeBrandClick}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
     >
