@@ -26,6 +26,7 @@ export function TeamCard({ member, index, active }) {
         <p className="team-role">{member.role}</p>
         <span className="team-specialty"><Code2 aria-hidden="true" />{member.specialty}</span>
         <p className="team-details">{member.responsibilities}</p>
+        <p className="team-highlights"><strong>Especialidades:</strong> {member.highlights}</p>
         <button type="button" className="team-expand" aria-expanded={expanded}
           aria-label={`${expanded ? 'Recolher' : 'Expandir'} detalhes de ${member.name}`}
           onClick={() => setExpanded((value) => !value)}>
