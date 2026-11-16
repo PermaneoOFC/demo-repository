@@ -15,7 +15,7 @@ export const members = [
     responsibilities: 'Priorização do produto, participação em vendas e desenvolvimento de APIs e lógica de servidor do Permaneo.',
     related: [],
     linkedin: 'https://br.linkedin.com/in/jo%C3%A3o-victortorrespereira',
-    github: 'https://github.com/JoaoAllMighth',
+    github: 'https://github.com/JoaoAllMight',
   },
   {
     id: 'gabriel', name: 'Gabriel Rodrigues Gomes', photo: '/images/equipe/gabriel.webp',
