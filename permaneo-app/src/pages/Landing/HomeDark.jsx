@@ -1,4 +1,4 @@
-import imgVideoCotidianoEscolarGifEmLooping from '../../images/hero.svg';
+import imgVideoCotidianoEscolarGifEmLooping from '../../images/hero-school.gif';
 import imgVinculoSimboloVetorial from '../../images/figma/e191467ad637ee9ff857.svg';
 import imgIconeSun from '../../images/figma/fe2b6270a3045abf29b1.svg';
 import imgIconeCheck from '../../images/figma/77c6456ac3a4ff07bc3c.svg';
