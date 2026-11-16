@@ -1,0 +1,78 @@
+name: Arquivar e limpar branches auxiliares
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/limpeza-unica-branches.yml
+
+permissions:
+  contents: write
+
+jobs:
+  consolidacao:
+    if: github.repository == 'PermaneoOFC/demo-repository'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preservar commits em tags e remover branches secundarias
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          node <<'NODE'
+          const repo = process.env.GH_REPO;
+          const token = process.env.GH_TOKEN;
+          if (repo !== 'PermaneoOFC/demo-repository' || !token) throw Error('Repositório ou autenticação ausentes');
+          const endpoint = `https://api.github.com/repos/${repo}`;
+          async function api(path, opts = {}) {
+            const response = await fetch(endpoint + path, {
+              ...opts,
+              headers: {
+                Accept: 'application/vnd.github+json',
+                Authorization: `Bearer ${token}`,
+                'X-GitHub-Api-Version': '2022-11-28',
+                ...(opts.headers || {})
+              }
+            });
+            if (!response.ok) {
+              const detail = await response.text();
+              const error = new Error(`${opts.method || 'GET'} ${path}: ${response.status} ${detail}`);
+              error.status = response.status;
+              throw error;
+            }
+            return response.status === 204 ? null : response.json();
+          }
+          const branches = await api('/branches?per_page=100');
+          const candidates = branches.filter(branch => branch.name !== 'main');
+          console.log(`Branches secundárias encontradas: ${candidates.length}`);
+          // Primeiro preservar todas as pontas; jamais apagar antes do backup.
+          for (const branch of candidates) {
+            const tag = `arquivo-20261114-${branch.commit.sha.slice(0, 16)}`;
+            const refPath = `/git/ref/tags/${tag}`;
+            let existing;
+            try { existing = await api(refPath); }
+            catch (error) { if (error.status !== 404) throw error; }
+            if (existing) {
+              if (existing.object?.sha !== branch.commit.sha) throw Error(`Tag divergente: ${tag}`);
+            } else {
+              await api('/git/refs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: `refs/tags/${tag}`, sha: branch.commit.sha }) });
+            }
+            console.log(`Recuperação garantida: ${tag}`);
+          }
+          // Confirmar que ninguém atualizou a branch durante o arquivamento.
+          const current = await api('/branches?per_page=100');
+          for (const branch of candidates) {
+            const found = current.find(entry => entry.name === branch.name);
+            if (!found) continue;
+            if (found.commit.sha !== branch.commit.sha) {
+              console.warn(`Preservada por alteração simultânea: ${branch.name}`);
+              continue;
+            }
+            const safePath = branch.name.split('/').map(encodeURIComponent).join('/');
+            await api(`/git/refs/heads/${safePath}`, { method: 'DELETE' });
+            console.log(`Branch auxiliar excluída: ${branch.name}`);
+          }
+          const remaining = await api('/branches?per_page=100');
+          console.log('Branches restantes:', remaining.map(branch => branch.name).join(', '));
+          if (remaining.some(branch => branch.name !== 'main')) throw Error('Limpeza parcial: revisar branches alteradas simultaneamente');
+          NODE
