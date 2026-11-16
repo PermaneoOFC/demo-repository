@@ -13,3 +13,37 @@
 @media(prefers-reduced-motion:reduce){.home *{animation:none!important;transition:none!important}.storyProgress span{transform:scaleX(1)!important}}
 
 .homeWrapper{width:100%}
+
+
+/* Ajustes pontuais para telas pequenas; a versão desktop permanece intacta. */
+@media (max-width: 800px) {
+  .home { max-width: 100%; }
+  .heroInner > *, .storyGrid > *, .rolesGrid > *, .solutionGrid > * { min-width: 0; }
+  .navOpen { max-height: calc(100dvh - 68px); overflow-y: auto; }
+  .heroVisual, .imageFrame, .demoWindow, .rolePanel { min-width: 0; max-width: 100%; }
+  .hero h1, .sectionIntro h2, .storyStep h3, .rolePanel h3 { overflow-wrap: break-word; }
+}
+@media (max-width: 550px) {
+  .hero { min-height: 0; }
+  .hero h1 { font-size: clamp(34px, 9vw, 44px); }
+  .heroActions .button, .heroActions .secondaryButton { width: 100%; min-width: 0; white-space: normal; text-align: center; }
+  .heroVisual { max-width: 100%; }
+  .floatingAlert { max-width: min(242px, calc(100% - 16px)); }
+  .imageCaption { max-width: calc(100% - 12px); white-space: normal; }
+  .demoHeading, .demoFooter, .roleMiniCard { min-width: 0; }
+  .demoHeading > span, .roleMiniCard > span { min-width: 0; }
+  .demoCard h4, .demoHeading strong, .roleMiniCard strong { overflow-wrap: anywhere; }
+  .footerInner { min-width: 0; }
+}
+@media (max-width: 360px) {
+  .sectionInner, .headerInner, .heroInner, .footerInner { width: calc(100% - 28px); }
+  .brand { font-size: 20px; }
+  .brand img { width: 30px; }
+  .headerActions { gap: 6px; }
+  .themeButton, .menuButton { min-width: 38px; height: 38px; }
+  .imageFrame { height: 235px; }
+  .floatingAlert { top: 18px; }
+  .imageCaption { bottom: 4px; }
+  .windowBar { padding-inline: 12px; gap: 8px; }
+  .livePill { font-size: 8px; }
+}
