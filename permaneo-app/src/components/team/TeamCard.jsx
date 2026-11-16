@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ChevronDown, ChevronUp, Code2, Github, Linkedin } from 'lucide-react';
+import { Code2, Github, Linkedin } from 'lucide-react';
 import { technologies } from './team-data.js';
 
 export function TechList({ only }) {
@@ -14,9 +13,8 @@ export function TechList({ only }) {
 }
 
 export function TeamCard({ member, index, active }) {
-  const [expanded, setExpanded] = useState(false);
   return (
-    <article className="team-card" data-expanded={expanded} aria-label={member.name}>
+    <article className="team-card" aria-label={member.name}>
       <div className="team-photo-wrap">
         <img className="team-photo" src={member.photo} alt={member.name} width={800} height={800} loading="eager" draggable={false} />
         <span className="team-number" aria-hidden="true">0{index + 1}</span>
@@ -27,12 +25,6 @@ export function TeamCard({ member, index, active }) {
         <span className="team-specialty"><Code2 aria-hidden="true" />{member.specialty}</span>
         <p className="team-details">{member.responsibilities}</p>
         <p className="team-highlights"><strong>Especialidades:</strong> {member.highlights}</p>
-        <button type="button" className="team-expand" aria-expanded={expanded}
-          aria-label={`${expanded ? 'Recolher' : 'Expandir'} detalhes de ${member.name}`}
-          onClick={() => setExpanded((value) => !value)}>
-          {expanded ? 'Recolher detalhes' : 'Expandir card'}
-          {expanded ? <ChevronUp size={16} aria-hidden="true" /> : <ChevronDown size={16} aria-hidden="true" />}
-        </button>
         <div className="team-stack">
           <span className="team-stack-label">Tecnologias</span>
           <TechList only={member.related.length ? member.related : undefined} />
