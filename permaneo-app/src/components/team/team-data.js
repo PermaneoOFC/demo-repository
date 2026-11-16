@@ -15,6 +15,7 @@ export const members = [
     responsibilities: 'Priorização do produto, participação em vendas e desenvolvimento de APIs e lógica de servidor do Permaneo.',
     related: [],
     linkedin: 'https://br.linkedin.com/in/jo%C3%A3o-victortorrespereira',
+    github: 'https://github.com/search?q=Jo%C3%A3o+Victor+Torres+Pereira&type=users',
   },
   {
     id: 'gabriel', name: 'Gabriel Rodrigues Gomes', photo: '/images/equipe/gabriel.webp',
@@ -23,6 +24,7 @@ export const members = [
     responsibilities: 'Desenvolvimento de interfaces, documentação do projeto e iniciativas de inteligência artificial no Permaneo.',
     related: ['React', 'JavaScript'],
     linkedin: 'https://br.linkedin.com/in/gabriel-rodrigues-rgg',
+    github: 'https://github.com/gabrielrgg',
   },
   {
     id: 'iago', name: 'Iago Santos', photo: '/images/equipe/iago.webp',
@@ -31,6 +33,7 @@ export const members = [
     responsibilities: 'Desenvolvimento de interfaces e funcionalidades de inteligência artificial no Permaneo.',
     related: ['React', 'JavaScript'],
     linkedin: 'https://www.linkedin.com/in/iagosm-oliveira/',
+    github: 'https://github.com/search?q=Iago+Santos+Permaneo&type=users',
   },
   {
     id: 'caique', name: 'Caique Vinicius', photo: '/images/equipe/caique.webp',
@@ -39,6 +42,7 @@ export const members = [
     responsibilities: 'Desenvolvimento do projeto, organização das entregas com Scrum e gestão financeira do Permaneo.',
     related: [],
     linkedin: 'https://www.linkedin.com/in/caique-vinicius-5150b643b/',
+    github: 'https://github.com/search?q=Caique+Vinicius+Permaneo&type=users',
   },
   {
     id: 'diego', name: 'Diego Armando', photo: '/images/equipe/diego.webp',
@@ -47,5 +51,6 @@ export const members = [
     responsibilities: 'Programação e implementação de funcionalidades, com participação nas atividades financeiras do Permaneo.',
     related: [],
     linkedin: 'https://www.linkedin.com/in/diego-armando-698142316/',
+    github: 'https://github.com/search?q=Diego+Armando+Permaneo&type=users',
   },
 ];

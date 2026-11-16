@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { TeamCard } from "./TeamCard";
-import { TeamMemberModal } from "./TeamMemberModal";
 import { members as teamMembers } from "./team-data.js";
 import "./AboutTeam.css";
 import { memberIndex, nearestPosition, POSITION_ANGLE, TEAM_POSITIONS, snapPosition, wheelIntent } from "./team-motion.js";
 
 export default function AboutTeam({ theme = "light" }) {
-  const [selected, setSelected] = useState(null);
   const [active, setActive] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const stage = useRef(null);
@@ -16,7 +14,6 @@ export default function AboutTeam({ theme = "light" }) {
   const target = useRef(0);
   const animation = useRef(0);
   const activeRef = useRef(0);
-  const opener = useRef(null);
   const suppressClick = useRef(false);
   const wheelTime = useRef(-Infinity);
   const drag = useRef(null);
@@ -52,7 +49,7 @@ export default function AboutTeam({ theme = "light" }) {
   }, []);
   useEffect(() => {
     const node = stage.current;
-    if (!node || selected !== null) return;
+    if (!node) return;
     const wheel = (event) => {
       if (event.ctrlKey || !wheelIntent(event.deltaX, event.deltaY, event.shiftKey)) return;
       event.preventDefault();
@@ -62,19 +59,8 @@ export default function AboutTeam({ theme = "light" }) {
     };
     node.addEventListener("wheel", wheel, { passive: false });
     return () => node.removeEventListener("wheel", wheel);
-  }, [settle, selected]);
+  }, [settle]);
 
-  const openMember = (index) => {
-    if (suppressClick.current) {
-      suppressClick.current = false;
-      return;
-    }
-    if (index !== active) { settle(nearestPosition(Math.round(target.current), index)); return; }
-    cancelAnimationFrame(animation.current);
-    paint(Math.round(position.current)); target.current = position.current;
-    opener.current = document.activeElement instanceof HTMLElement ? document.activeElement : stage.current;
-    setSelected(index);
-  };
   const endDrag = (cancelled = false) => {
     const current = drag.current;
     if (!current) return;
@@ -104,16 +90,15 @@ export default function AboutTeam({ theme = "light" }) {
             <span>{member.name.split(' ')[0]}</span>
           </button>)}
         </div>
-        <div className="team-drum-region" data-book-open={selected !== null} data-reduced-motion={reducedMotion}>
+        <div className="team-drum-region" data-reduced-motion={reducedMotion}>
           <div ref={stage} className="team-drum-stage" role="region" tabIndex={0} aria-label="Integrantes da equipe" aria-roledescription="roda de perfis" data-scene-ready="true"
             onKeyDown={event => {
               suppressClick.current = false;
-              if (event.altKey || event.ctrlKey || event.metaKey || selected !== null) return;
+              if (event.altKey || event.ctrlKey || event.metaKey) return;
               if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); event.currentTarget.focus({ preventScroll: true }); settle(target.current + (event.key === "ArrowRight" ? 1 : -1)); }
-              if ((event.key === "Enter" || event.key === " ") && event.target === event.currentTarget) { event.preventDefault(); openMember(active); }
             }}
             onPointerDown={event => {
-              if (event.button !== 0 || selected !== null || (event.target instanceof Element && event.target.closest("a"))) return;
+              if (event.button !== 0 || (event.target instanceof Element && event.target.closest("a"))) return;
               suppressClick.current = false;
               drag.current = { id: event.pointerId, x: event.clientX, y: event.clientY, start: position.current, last: position.current, time: performance.now(), velocity: 0, horizontal: false };
             }}
@@ -138,7 +123,7 @@ export default function AboutTeam({ theme = "light" }) {
             onPointerUp={() => endDrag()} onPointerCancel={() => endDrag(true)} onLostPointerCapture={() => endDrag(true)}>
             <div ref={rotor} className="team-drum-rotor">
               {teamMembers.map((member, index) => <div className="team-drum-face" key={member.id} data-index={index} data-distance={(index - active + TEAM_POSITIONS) % TEAM_POSITIONS} data-active={active === index} aria-hidden={active !== index}>
-                <TeamCard member={member} index={index} active={active === index} onSelect={() => openMember(index)} />
+                <TeamCard member={member} index={index} active={active === index} />
               </div>)}
             </div>
           </div>
@@ -152,11 +137,6 @@ export default function AboutTeam({ theme = "light" }) {
           <p className="sr-only" role="status" aria-live="polite">{active + 1} de 5: {teamMembers[active]?.name}</p>
         </div>
       </section>
-      {selected !== null && <TeamMemberModal theme={theme} initialIndex={selected} reducedMotion={reducedMotion} onClose={() => setSelected(null)} onRestoreFocus={() => {
-        const trigger = opener.current;
-        if (trigger?.isConnected && !trigger.closest("[inert]")) trigger.focus();
-        else stage.current?.focus();
-      }} />}
     </>
   );
 }
