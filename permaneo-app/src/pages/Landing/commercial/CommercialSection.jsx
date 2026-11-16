@@ -5,11 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CommercialDialog from './CommercialDialog.jsx';
 import InvestmentCalculator from './InvestmentCalculator.jsx';
 import ProposalForm from './ProposalForm.jsx';
-import { PLANS, money } from './pricing.js';
+import { PLANS, estimateInvestment, money } from './pricing.js';
 import { features } from './features.js';
 import styles from './CommercialSection.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
+const sample = estimateInvestment(100);
 
 export function scrollToCommercial(id) {
   const target = document.getElementById(id);
@@ -23,19 +24,13 @@ function PlanCard({ plan, onSelect }) {
   const data = PLANS[plan];
   return <article className={`${styles.planCard} ${annual ? styles.annualCard : ''}`} data-plan={plan}>
     <div className={styles.cardHeader}><h3>{data.name}</h3>{annual && <span className={styles.badge}>Melhor custo-benefício</span>}</div>
-    <p className={styles.muted}>{annual ? 'Continuidade para acompanhar cada trajetória.' : 'Flexibilidade para começar no seu tempo.'}</p>
     <div className={styles.planPrice}><span>Plataforma</span><p><strong>{money(data.fixed).replace(',00', '')}</strong><span>/mês</span></p></div>
     <p className={styles.studentPrice}>+ <strong>{money(data.student)}</strong> por aluno/mês</p>
     <ul className={styles.checkList}>
       <li><Check size={18} aria-hidden="true" /> {data.term}</li>
-      <li><Check size={18} aria-hidden="true" /> Todas as funcionalidades essenciais incluídas</li>
-      <li><Check size={18} aria-hidden="true" /> Mesmos recursos nas duas modalidades</li>
     </ul>
-    {annual ? <div className={styles.planNote}>
-      <p><strong>{money(252000)}</strong> pela plataforma ao ano<br /><strong>{money(7080)}</strong> por aluno ao ano</p>
-      <p>Economize <strong>{money(46800)}</strong> na plataforma + <strong>{money(960)}</strong> por aluno ao ano, em comparação com 12 meses do mensal.</p>
-    </div> : <div className={styles.planNote}><p>Valor fixo da plataforma + quantidade de alunos. Uma composição simples para planejar o investimento da sua escola.</p></div>}
-    <button type="button" className={annual ? styles.primary : styles.secondary} onClick={() => onSelect(plan)}>Conhecer plano <ArrowUpRight size={19} aria-hidden="true" /></button>
+    <div className={styles.planNote}><p>Para 100 alunos <strong>{money(annual ? sample.annualEquivalent : sample.monthly)}/mês</strong>{annual ? ' em valor equivalente' : ''}.</p></div>
+    <button type="button" className={annual ? styles.primary : styles.secondary} onClick={() => onSelect(plan)}>Ver detalhes do plano <ArrowUpRight size={19} aria-hidden="true" /></button>
   </article>;
 }
 
@@ -57,7 +52,7 @@ function FutureVision() {
         <Camera /><span className={styles.flowLine} /><Cpu /><span className={styles.flowLine} /><UsersRound /><span className={styles.flowLine} /><ShieldCheck />
       </div>
       <button className={styles.futureToggle} type="button" aria-expanded={expanded} aria-controls="future-details" onClick={() => setExpanded(!expanded)}>
-        <span className={styles.futureIntro}><span className={styles.futureBadge}>Em estudo — Funcionalidade futura</span><span className={styles.futureTitle}>Integração com câmeras e inteligência artificial</span><span>Uma possibilidade em pesquisa, ainda não disponível comercialmente.</span></span>
+        <span className={styles.futureIntro}><span className={styles.futureBadge}>Em estudo</span><span className={styles.futureTitle}>Integração com câmeras e inteligência artificial</span><span>A pesquisa considera a privacidade de estudantes, a base legal para uso de imagens e a validação humana do registro de presença.</span></span>
         <span className={styles.expandLabel}>{expanded ? 'Recolher possibilidades' : 'Conhecer possibilidades'}<ChevronDown size={22} aria-hidden="true" /></span>
       </button>
       <div id="future-details" className={styles.futureDetails} hidden={!expanded}>
@@ -97,19 +92,19 @@ export default function CommercialSection() {
   return <div ref={root} className={styles.commercial} data-local-content>
     <section className={styles.plans} id="modelo-de-negocio" tabIndex={-1} aria-labelledby="plans-title">
       <div className={styles.sectionHeading}>
-        <h2 id="plans-title">Uma plataforma. Mais oportunidades para cada estudante.</h2>
-        <p>Um investimento simples e transparente para acompanhar estudantes, antecipar dificuldades e apoiar decisões escolares.</p>
+        <h2 id="plans-title">Planos para instituições de ensino</h2>
+        <p>Compare o valor fixo da plataforma e o custo por aluno. As duas modalidades incluem os mesmos recursos.</p>
       </div>
       <div className={styles.planGrid} aria-label="Planos Permaneo" id="planos">
         {Object.keys(PLANS).map((key) => <PlanCard key={key} plan={key} onSelect={(value) => { setPlan(value); setModal({ type: 'plan' }); }} />)}
       </div>
-      <div className={styles.planFootnote}><p>Contratação por instituição · B2B/B2G · Valores em reais<br />Os mesmos recursos nos dois planos. Confira abaixo o estágio atual de cada funcionalidade.</p><button type="button" className={styles.textButton} onClick={() => scrollToCommercial('calculadora-investimento')}>Simular investimento <ArrowDown size={18} aria-hidden="true" /></button></div>
+      <div className={styles.planFootnote}><p>Para 100 alunos, o anual representa <strong>{money(sample.savings)} de economia em 12 meses.</strong></p><button type="button" className={styles.textButton} onClick={() => scrollToCommercial('calculadora-investimento')}>Simular investimento <ArrowDown size={18} aria-hidden="true" /></button></div>
     </section>
 
     <section id="calculadora-investimento" className={styles.calculatorSection} tabIndex={-1} aria-label="Calculadora de investimento"><InvestmentCalculator {...calculatorProps} /></section>
 
     <section id="funcionalidades-incluidas" className={styles.features} tabIndex={-1} aria-labelledby="features-title">
-      <div className={styles.sectionHeading}><h2 id="features-title">Tudo que sua escola precisa, em uma só plataforma.</h2><p>Os mesmos recursos, qualquer que seja o plano. Explore cada funcionalidade e veja o que já pode ser experimentado na demonstração.</p></div>
+      <div className={styles.sectionHeading}><h2 id="features-title">Recursos da plataforma</h2><p>Veja o que já pode ser experimentado na demonstração e o que está planejado.</p></div>
       <div className={styles.featureGrid}>
         {features.map(({ id, icon: Icon, title, status, summary }) => <button key={id} type="button" className={styles.featureCard} onClick={() => setModal({ type: 'feature', id })}>
           <span className={styles.featureTop}><Icon size={25} aria-hidden="true" /><ArrowUpRight size={18} aria-hidden="true" /></span>
@@ -121,7 +116,7 @@ export default function CommercialSection() {
 
     <FutureVision />
 
-    <section id="contato-comercial" className={styles.contact} aria-labelledby="contact-title"><div><h2 id="contact-title">Vamos pensar na sua escola?</h2><p>Conte com uma proposta que considere a sua instituição e os seus estudantes.</p></div><button className={styles.primary} type="button" onClick={openContact}>Solicitar proposta <ArrowRight size={20} aria-hidden="true" /></button></section>
+    <section id="contato-comercial" tabIndex={-1} className={styles.contact} aria-labelledby="contact-title"><div><h2 id="contact-title">Proposta para sua escola</h2><p>Prepare um resumo com os dados da instituição e a modalidade desejada para baixar e compartilhar.</p></div><button className={styles.primary} type="button" onClick={openContact}>Solicitar proposta <ArrowRight size={20} aria-hidden="true" /></button></section>
 
     {modal && <CommercialDialog key={modal.type} title={modal.type === 'plan' ? PLANS[plan].name : modal.type === 'contact' ? 'Solicitar proposta' : selectedFeature.title} onClose={close}>
       {modal.type === 'plan' && <div className={styles.planDetails}>

@@ -22,14 +22,10 @@ export function TeamCard({ member, index, active, onSelect }) {
         <h3 className="team-name">{member.name}</h3>
         <p className="team-role">{member.role}</p>
         <span className="team-specialty"><Code2 aria-hidden="true" />{member.specialty}</span>
-        <p className="team-details">{member.highlights}</p>
-        <div className="team-stack">
-          <span className="team-stack-label">Stack do projeto</span>
-          <TechList />
-        </div>
+        <p className="team-details">{member.responsibilities}</p>
         <div className="team-card-actions">
           <button type="button" className="team-profile-button" tabIndex={active ? 0 : -1} onClick={event => { event.stopPropagation(); onSelect(member); }} aria-label={`Conhecer ${member.name}`}>Clique para conhecer <ArrowUpRight aria-hidden="true" /></button>
-          <a className="team-linkedin" tabIndex={active ? 0 : -1} href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${member.name}`} onClick={event => event.stopPropagation()}><Linkedin aria-hidden="true" /></a>
+          <a className="team-linkedin" tabIndex={active ? 0 : -1} href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${member.name}`} onClick={event => event.stopPropagation()}><Linkedin aria-hidden="true" /><span>LinkedIn</span></a>
         </div>
       </div>
     </article>

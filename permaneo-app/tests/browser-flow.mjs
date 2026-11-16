@@ -12,13 +12,14 @@ try {
     if (!widgetsAvailable) await page.route(/https:\/\/(?:cdn\.userway\.org|vlibras\.gov\.br)\//, route => route.abort());
     await page.goto(baseURL + '/#/home');
     await expect(page.locator('[data-name="CTA / Acessar"]')).toBeVisible();
-    const hero = page.locator('img[src*="hero-school"]');
+    const hero = page.locator('video[src*="hero-school"]');
     await expect(hero).toBeVisible();
-    await expect(hero).toHaveJSProperty('naturalWidth', 720);
-    const firstFrame = await hero.screenshot();
-    await page.waitForTimeout(500);
-    const nextFrame = await hero.screenshot();
-    assert.ok(!firstFrame.equals(nextFrame), 'Original homepage GIF animates');
+    await expect(hero).toHaveJSProperty('videoWidth', 720);
+    await expect.poll(() => hero.evaluate(video => video.currentTime)).toBeGreaterThan(0);
+    await page.getByRole('button', { name: 'Pausar animação' }).click();
+    await expect(hero).toHaveJSProperty('paused', true);
+    await page.getByRole('button', { name: 'Reproduzir animação' }).click();
+    await expect(hero).toHaveJSProperty('paused', false);
     if (widgetsAvailable) {
       await expect(page.locator('#userwayAccessibilityIcon')).toBeVisible({timeout: 20000});
       await expect(page.locator('#vlibras-access-wrapper button')).toBeVisible({timeout: 20000});

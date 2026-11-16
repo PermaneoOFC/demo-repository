@@ -134,7 +134,12 @@
 .team-drum-face .team-name { font-size: 23px; min-height: 56px; max-width: none; }
 .team-drum-face .team-role { margin-bottom: 12px; }
 .team-drum-face .team-specialty { font-size: 10px; white-space: normal; }
-.team-drum-face .team-details { display: none; }
+.team-drum-face .team-details { max-height: none; opacity: 1; margin-top: 10px; }
+.team-portraits { display: flex; justify-content: center; gap: clamp(6px, 2vw, 20px); margin-block: 18px 8px; }
+.team-portraits button { display: grid; justify-items: center; gap: 5px; padding: 3px; color: var(--card-foreground); font-size: .78rem; }
+.team-portraits img { width: clamp(40px, 11vw, 64px); height: auto; aspect-ratio: 1; object-fit: cover; border: 2px solid transparent; border-radius: 50%; }
+.team-portraits button[aria-pressed="true"] img { border-color: var(--primary); }
+.team-linkedin { min-height: 44px; align-items: center; gap: 5px; font-size: .75rem; }
 .team-drum-face .team-stack { margin-top: 16px; padding-top: 15px; }
 .team-drum-face .team-card-actions { margin-top: 12px; }
 .team-drum-controls { display: flex; justify-content: center; gap: 28px; align-items: center; margin-top: 8px; }
