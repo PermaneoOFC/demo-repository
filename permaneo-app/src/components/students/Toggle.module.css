@@ -1,0 +1,1 @@
+.toggle{width:40px;height:24px;border-radius:20px;background:var(--app-border);padding:3px;display:flex;align-items:center;flex-shrink:0}.toggle span{width:18px;height:18px;background:white;border-radius:50%;transition:transform .15s}.toggle[aria-checked=true]{background:#246579}.toggle[aria-checked=true] span{transform:translateX(16px)}

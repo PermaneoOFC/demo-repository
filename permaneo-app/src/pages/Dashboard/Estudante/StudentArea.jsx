@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation } from '../../../components/student/studentNavigation.js';
+import { Link, useLocation } from 'react-router-dom';
 import StudentActivities from '../../../components/student/StudentActivities.jsx';
 import StudentCalendar from '../../../components/student/StudentCalendar.jsx';
 import StudentPlan from '../../../components/student/StudentPlan.jsx';
