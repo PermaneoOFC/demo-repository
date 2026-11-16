@@ -1,0 +1,15 @@
+/* Keep the two launchers together. Only position the closed UserWay launcher;
+   its menu and the VLibras shadow DOM retain their own styles. */
+body .uwy.userway_p2 .userway_buttons_wrapper {
+  /* The widget's identity transform otherwise makes fixed children relative
+     to this zero-size wrapper instead of the viewport. */
+  transform: none !important;
+}
+body .uwy.userway_p2 .uai {
+  position: fixed !important;
+  top: calc(50vh + 32px) !important;
+  right: 10px !important;
+  bottom: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
