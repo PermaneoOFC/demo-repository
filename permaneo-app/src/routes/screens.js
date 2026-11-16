@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-import { frequenciaIntegrada } from '../services/frequenciaApi.js';
 import StudentArea from '../pages/Dashboard/Estudante/StudentArea.jsx';
 import LoginPage from '../pages/Login/LoginPage.jsx';
 export const HomeLight = lazy(() => import('../pages/Landing/HomeLight.jsx'));
@@ -14,6 +13,7 @@ const ReportsLight = lazy(() => import('../pages/Dashboard/Direcao/ReportsLight.
 const ReportsDark = lazy(() => import('../pages/Dashboard/Direcao/ReportsDark.jsx'));
 const DirectorSettingsLight = lazy(() => import('../pages/Dashboard/Direcao/DirectorSettingsLight.jsx'));
 const DirectorSettingsDark = lazy(() => import('../pages/Dashboard/Direcao/DirectorSettingsDark.jsx'));
+const TeacherRoom = lazy(() => import('../pages/Dashboard/Professor/MinhaSala.jsx'));
 const TeacherClassesLight = lazy(() => import('../pages/Dashboard/Professor/TeacherClassesLight.jsx'));
 const TeacherClassesDark = lazy(() => import('../pages/Dashboard/Professor/TeacherClassesDark.jsx'));
 const TeacherFollowupLight = lazy(() => import('../pages/Dashboard/Professor/TeacherFollowupLight.jsx'));
@@ -84,7 +84,9 @@ export const pages = {
   directorNotifications: [DirectorNotificationsLight, DirectorNotificationsDark],
   reports: [ReportsLight, ReportsDark],
   directorSettings: [DirectorSettingsLight, DirectorSettingsDark],
-  teacher: [TeacherClassesLight, TeacherClassesDark],
+  teacher: [TeacherRoom, TeacherRoom],
+  teacherRoom: [TeacherRoom, TeacherRoom],
+  teacherAttendance: [TeacherClassesLight, TeacherClassesDark],
   teacherFollowup: [TeacherFollowupLight, TeacherFollowupDark],
   teacherNotifications: [TeacherNotificationsLight, TeacherNotificationsDark],
   teacherSettings: [TeacherSettingsLight, TeacherSettingsDark],
@@ -101,7 +103,6 @@ export const pages = {
 };
 
 export const resolvePage = (value) => {
-  if (value === 'frequencia' && frequenciaIntegrada) return value;
   if (pages[value]) return value;
   const match = value.match(/^Profile(.+)(Management|Teacher)$/);
   return match && profiles[match[1]] ? value : 'home';

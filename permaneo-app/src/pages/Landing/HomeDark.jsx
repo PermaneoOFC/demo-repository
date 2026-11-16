@@ -66,9 +66,6 @@ function Component01HomeEscuroSuave() {
           <button className="block font-['Manrope:SemiBold'] font-semibold relative shrink-0" data-node-id="2009:10015">
             <p className="leading-[22px]">Para quem</p>
           </button>
-          <button className="block font-[family-name:var(--font-family\/font-2,'Manrope:SemiBold')] font-[var(--font\/weight-semibold,600)] relative shrink-0" data-node-id="2009:10014">
-            <p className="leading-[22px]">Soluções</p>
-          </button>
         </div>
         <div className="content-stretch cursor-pointer flex gap-[16px] items-center overflow-clip relative shrink-0 w-[330px]" data-node-id="2009:10016" data-name="Acesso e tema">
           <a className="bg-[var(--permaneo-surface,#354c5d)] border border-[var(--permaneo-border,#7692a4)] border-solid content-stretch flex items-start overflow-clip p-[12px] relative rounded-[var(--radius-control,10px)] shrink-0 size-[48px]" data-node-id="2009:10017" data-name="Alternar tema">
@@ -443,122 +440,6 @@ function Component01HomeEscuroSuave() {
             </a>
             <p className="[word-break:break-word] font-['Manrope:Regular'] font-normal leading-[18px] relative shrink-0 text-[#dee8ef] text-[12px] w-[696px]" data-node-id="I2027:3905;2027:3707">
               Prévia com dados fictícios.
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#405c6c] content-stretch flex flex-col gap-[32px] items-start overflow-clip px-[164px] py-[48px] relative shrink-0 w-[1920px]" data-node-id="2009:10109" data-name="Soluções e modelo de negócio">
-        <p className="[word-break:break-word] font-['Manrope:Medium'] font-medium leading-[20px] relative shrink-0 text-[13px] text-[color:var(--permaneo-brand,#a7e1ef)] w-[1592px]" data-node-id="2009:10110">
-          DUAS SOLUÇÕES · CONTRATAÇÃO POR ESCOLA
-        </p>
-        <p className="[word-break:break-word] font-['Sora:SemiBold'] font-semibold leading-[52px] relative shrink-0 text-[40px] text-[color:var(--permaneo-text,#f4f8fc)] w-[1592px]" data-node-id="2009:10111">
-          Dois caminhos. O mesmo compromisso com a permanência.
-        </p>
-        <p className="[word-break:break-word] font-['Manrope:Regular'] font-normal leading-[30px] relative shrink-0 text-[#dee8ef] text-[18px] w-[1592px]" data-node-id="2009:10112">
-          Conheça a plataforma na demonstração e veja quais integrações ainda estão em estudo.
-        </p>
-        <div className="content-stretch flex gap-[24px] items-start overflow-clip relative shrink-0 w-[1592px]" data-node-id="2009:10113" data-name="Duas soluções Permaneo">
-          <div className="bg-[#2b4353] border border-[#8ca6b6] border-solid content-stretch flex flex-col gap-[24px] items-start p-[32px] relative rounded-[var(--radius-control,10px)] shrink-0 w-[784px]" data-node-id="2095:2422" data-name="Solução / Permaneo Plataforma">
-            <p className="[word-break:break-word] font-['Sora:SemiBold'] font-semibold h-[38px] leading-[37px] relative shrink-0 text-[28px] text-[color:var(--ink,#f3f8fb)] w-[720px]" data-node-id="I2095:2422;2095:2368">
-              Permaneo Plataforma
-            </p>
-            <p className="[word-break:break-word] font-['Manrope:Regular'] font-normal h-[50px] leading-[25px] relative shrink-0 text-[#dee8ef] text-[16px] w-[720px]" data-node-id="I2095:2422;2095:2369">
-              Gestão do acompanhamento escolar em um só lugar.
-            </p>
-            <div className="[word-break:break-word] content-stretch flex flex-col font-semibold gap-[4px] items-start overflow-clip relative shrink-0 w-[720px]" data-node-id="I2095:2422;2095:2370" data-name="Contratação">
-              <p className="font-['Sora:SemiBold'] h-[38px] leading-[37px] relative shrink-0 text-[28px] text-[color:var(--brand,#a8e0ed)] w-[720px]" data-node-id="I2095:2422;2095:2371">
-                Assinatura por escola
-              </p>
-              <p className="font-['Manrope:SemiBold'] h-[22px] leading-[22px] relative shrink-0 text-[#dee8ef] text-[14px] w-[720px]" data-node-id="I2095:2422;2095:2372">
-                Mensal ou anual
-              </p>
-            </div>
-            <div className="[word-break:break-word] content-stretch flex flex-col font-['Manrope:Regular'] font-normal gap-[10px] items-start leading-[25px] overflow-clip relative shrink-0 text-[16px] text-[color:var(--ink,#f3f8fb)] w-[720px] whitespace-pre-wrap" data-node-id="I2095:2422;2095:2373" data-name="Incluído na solução">
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2422;2095:2374">{`\u2713  Frequ\xEAncia, notas e hist\xF3rico dos estudantes`}</p>
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2422;2095:2375">{`\u2713  Alertas e acompanhamento de a\xE7\xF5es de apoio`}</p>
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2422;2095:2376">{`\u2713  Relat\xF3rios para dire\xE7\xE3o e professores`}</p>
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2422;2095:2377">{`\u2713  Acesso para gest\xE3o, professores e estudantes`}</p>
-            </div>
-            <button className="bg-[var(--brand,#a8e0ed)] content-stretch cursor-pointer flex h-[50px] items-center justify-center px-[20px] py-[13px] relative rounded-[10px] shrink-0 w-[300px]" data-node-id="I2095:2422;2095:2378" data-name="Conhecer solução">
-              <p className="[word-break:break-word] font-['Manrope:Bold'] font-bold leading-[22px] relative shrink-0 text-[12px] text-[color:var(--onbrand,#183b4c)] text-left whitespace-nowrap" data-node-id="I2095:2422;2095:2378;2024:3371">
-                Conhecer a plataforma
-              </p>
-            </button>
-          </div>
-          <div className="bg-[#2b4353] border border-[#8ca6b6] border-solid content-stretch flex flex-col gap-[24px] items-start p-[32px] relative rounded-[var(--radius-control,10px)] shrink-0 w-[784px]" data-node-id="2095:2436" data-name="Solução / Permaneo Inteligente">
-            <p className="[word-break:break-word] font-['Sora:SemiBold'] font-semibold h-[38px] leading-[37px] relative shrink-0 text-[28px] text-[color:var(--ink,#f3f8fb)] w-[720px]" data-node-id="I2095:2436;2095:2381">
-              Permaneo Inteligente
-            </p>
-            <p className="[word-break:break-word] font-['Manrope:Regular'] font-normal h-[50px] leading-[25px] relative shrink-0 text-[#dee8ef] text-[16px] w-[720px]" data-node-id="I2095:2436;2095:2382">
-              Proposta em avaliação para integrar registros de entrada e saída. Câmeras e biometria estão fora da demonstração.
-            </p>
-            <div className="[word-break:break-word] content-stretch flex flex-col font-semibold gap-[4px] items-start overflow-clip relative shrink-0 w-[720px]" data-node-id="I2095:2436;2095:2383" data-name="Contratação">
-              <p className="font-['Sora:SemiBold'] h-[38px] leading-[37px] relative shrink-0 text-[28px] text-[color:var(--brand,#a8e0ed)] w-[720px]" data-node-id="I2095:2436;2095:2384">
-                Em estudo
-              </p>
-              <p className="font-['Manrope:SemiBold'] h-[22px] leading-[22px] relative shrink-0 text-[#dee8ef] text-[14px] w-[720px]" data-node-id="I2095:2436;2095:2385">
-                Sujeito a validação com escolas
-              </p>
-            </div>
-            <div className="[word-break:break-word] content-stretch flex flex-col font-['Manrope:Regular'] font-normal gap-[10px] items-start leading-[25px] overflow-clip relative shrink-0 text-[16px] text-[color:var(--ink,#f3f8fb)] w-[720px] whitespace-pre-wrap" data-node-id="I2095:2436;2095:2386" data-name="Incluído na solução">
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2436;2095:2387">Registros de entrada e saída</p>
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2436;2095:2388">Alternativas sem biometria</p>
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2436;2095:2389">Revisão humana dos registros</p>
-              <p className="h-[25px] relative shrink-0 w-[720px]" data-node-id="I2095:2436;2095:2390">Avaliação de privacidade</p>
-            </div>
-            <button className="bg-[var(--brand,#a8e0ed)] content-stretch cursor-pointer flex h-[50px] items-center justify-center px-[20px] py-[13px] relative rounded-[10px] shrink-0 w-[300px]" data-node-id="I2095:2436;2095:2391" data-name="Conhecer solução">
-              <p className="[word-break:break-word] font-['Manrope:Bold'] font-bold leading-[22px] relative shrink-0 text-[12px] text-[color:var(--onbrand,#183b4c)] text-left whitespace-nowrap" data-node-id="I2095:2436;2095:2391;2024:3371">
-                Conhecer a integração
-              </p>
-            </button>
-          </div>
-        </div>
-        <p className="[word-break:break-word] font-['Manrope:Medium'] font-medium leading-[20px] relative shrink-0 text-[#dee8ef] text-[13px] w-[1592px]" data-node-id="2009:10122">
-          Investimento sob consulta, conforme o porte da escola e a estrutura de implantação.
-        </p>
-      </div>
-      <div className="[word-break:break-word] bg-[#263b48] content-stretch flex flex-col gap-[24px] items-start overflow-clip px-[164px] py-[48px] relative shrink-0 w-[1920px]" data-node-id="2009:10123" data-name="Implantação gradual">
-        <p className="font-['Manrope:Medium'] font-medium leading-[20px] relative shrink-0 text-[13px] text-[color:var(--permaneo-brand,#a7e1ef)] w-[1592px]" data-node-id="2009:10124">
-          CONSTRUÍDO COM A ESCOLA
-        </p>
-        <p className="font-['Sora:SemiBold'] font-semibold leading-[52px] relative shrink-0 text-[40px] text-[color:var(--permaneo-text,#f4f8fc)] w-[1592px]" data-node-id="2009:10125">
-          Começa com uma conversa. Cresce com a confiança.
-        </p>
-        <div className="content-stretch flex gap-[24px] items-start overflow-clip relative shrink-0 w-[1592px]" data-node-id="2009:10126" data-name="Etapas da implantação">
-          <div className="bg-[#3e596b] border border-[#8ca6b6] border-solid content-stretch flex flex-col gap-[16px] h-[240px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[380px]" data-node-id="2009:10127" data-name="Escutar a escola">
-            <p className="font-['Manrope:Medium'] font-medium leading-[20px] relative shrink-0 text-[13px] text-[color:var(--permaneo-green,#9be1c2)] w-[332px] whitespace-pre-wrap" data-node-id="2009:10128">{`01  /  Implanta\xE7\xE3o`}</p>
-            <p className="font-['Sora:SemiBold'] font-semibold leading-[32px] relative shrink-0 text-[22px] text-[color:var(--permaneo-text,#f4f8fc)] w-[332px]" data-node-id="2009:10129">
-              Escutar a escola
-            </p>
-            <p className="font-['Manrope:Regular'] font-normal leading-[23px] relative shrink-0 text-[#dee8ef] text-[16px] w-[332px]" data-node-id="2009:10130">
-              Compreender a realidade e os desafios de permanência.
-            </p>
-          </div>
-          <div className="bg-[#3e596b] border border-[#8ca6b6] border-solid content-stretch flex flex-col gap-[16px] h-[240px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[380px]" data-node-id="2009:10131" data-name="Demonstrar e validar">
-            <p className="font-['Manrope:Medium'] font-medium leading-[20px] relative shrink-0 text-[13px] text-[color:var(--permaneo-green,#9be1c2)] w-[332px] whitespace-pre-wrap" data-node-id="2009:10132">{`02  /  Implanta\xE7\xE3o`}</p>
-            <p className="font-['Sora:SemiBold'] font-semibold leading-[32px] relative shrink-0 text-[22px] text-[color:var(--permaneo-text,#f4f8fc)] w-[332px]" data-node-id="2009:10133">
-              Demonstrar e validar
-            </p>
-            <p className="font-['Manrope:Regular'] font-normal leading-[23px] relative shrink-0 text-[#dee8ef] text-[16px] w-[332px]" data-node-id="2009:10134">
-              Apresentar a plataforma e propor um projeto-piloto.
-            </p>
-          </div>
-          <div className="bg-[#3e596b] border border-[#8ca6b6] border-solid content-stretch flex flex-col gap-[16px] h-[240px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[380px]" data-node-id="2009:10135" data-name="Preparar a equipe">
-            <p className="font-['Manrope:Medium'] font-medium leading-[20px] relative shrink-0 text-[13px] text-[color:var(--permaneo-green,#9be1c2)] w-[332px] whitespace-pre-wrap" data-node-id="2009:10136">{`03  /  Implanta\xE7\xE3o`}</p>
-            <p className="font-['Sora:SemiBold'] font-semibold leading-[32px] relative shrink-0 text-[22px] text-[color:var(--permaneo-text,#f4f8fc)] w-[332px]" data-node-id="2009:10137">
-              Preparar a equipe
-            </p>
-            <p className="font-['Manrope:Regular'] font-normal leading-[23px] relative shrink-0 text-[#dee8ef] text-[16px] w-[332px]" data-node-id="2009:10138">
-              Orientar os profissionais e organizar o acompanhamento.
-            </p>
-          </div>
-          <div className="bg-[#3e596b] border border-[#8ca6b6] border-solid content-stretch flex flex-col gap-[16px] h-[240px] items-start overflow-clip p-[24px] relative rounded-[16px] shrink-0 w-[380px]" data-node-id="2009:10139" data-name="Acompanhar e expandir">
-            <p className="font-['Manrope:Medium'] font-medium leading-[20px] relative shrink-0 text-[13px] text-[color:var(--permaneo-green,#9be1c2)] w-[332px] whitespace-pre-wrap" data-node-id="2009:10140">{`04  /  Implanta\xE7\xE3o`}</p>
-            <p className="font-['Sora:SemiBold'] font-semibold leading-[32px] relative shrink-0 text-[22px] text-[color:var(--permaneo-text,#f4f8fc)] w-[332px]" data-node-id="2009:10141">
-              Acompanhar e expandir
-            </p>
-            <p className="font-['Manrope:Regular'] font-normal leading-[23px] relative shrink-0 text-[#dee8ef] text-[16px] w-[332px]" data-node-id="2009:10142">
-              Avaliar a experiência e ampliar por indicação e parcerias.
             </p>
           </div>
         </div>

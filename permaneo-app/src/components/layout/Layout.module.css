@@ -406,15 +406,13 @@
 .marker :global([data-name^="01 · Home"] > :not([data-name="Navegação principal"]) > [class*="w-["]){width:100%!important;}
 .marker :global([data-name="Hero · Pessoas e permanência"]),
 .marker :global([data-name="Desafio e demonstração"]),
-.marker :global([data-name="Permaneo / Site / Perfis da Home"]),
-.marker :global([data-name="Duas soluções Permaneo"]){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3.75vw,72px)!important;}
+.marker :global([data-name="Permaneo / Site / Perfis da Home"]){display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,3.75vw,72px)!important;}
 .marker :global([data-name="Hero · Pessoas e permanência"] > *),
 .marker :global([data-name="Desafio e demonstração"] > *),
-.marker :global([data-name="Permaneo / Site / Perfis da Home"] > *),
-.marker :global([data-name="Duas soluções Permaneo"] > *){width:100%!important;}
+.marker :global([data-name="Permaneo / Site / Perfis da Home"] > *){width:100%!important;}
 .marker :global([data-name="Três pilares"]){display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px!important;}
-.marker :global([data-name="Quatro passos"]),.marker :global([data-name="Etapas da implantação"]){display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px!important;}
-.marker :global([data-name="Três pilares"] > *),.marker :global([data-name="Quatro passos"] > *),.marker :global([data-name="Etapas da implantação"] > *){width:100%!important;height:auto!important;min-height:116px;}
+.marker :global([data-name="Quatro passos"]){display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px!important;}
+.marker :global([data-name="Três pilares"] > *),.marker :global([data-name="Quatro passos"] > *){width:100%!important;height:auto!important;min-height:116px;}
 .marker :global([data-name="Vídeo de abertura e mensagem"] > :first-child){width:100%!important;height:auto!important;aspect-ratio:16/9;}
 .marker :global([data-node-id="2009:7569"]),.marker :global([data-node-id="2009:7569"] p){font-size:clamp(34px,3.75vw,72px)!important;line-height:1.17!important;}
 .marker :global([data-name="Convite à demonstração"]){gap:24px;}
@@ -424,13 +422,13 @@
 @media(max-width:1100px){
  .marker :global([data-name="Navegação principal"]){flex-wrap:wrap;gap:24px;padding-block:24px!important;}
  .marker :global([data-name="Navegação principal"] [data-name="Menu"]){order:3;justify-content:center;width:100%!important;}
- .marker :global([data-name="Quatro passos"]),.marker :global([data-name="Etapas da implantação"]){grid-template-columns:repeat(2,minmax(0,1fr));}
+ .marker :global([data-name="Quatro passos"]){grid-template-columns:repeat(2,minmax(0,1fr));}
 }
 @media(max-width:760px){
- .marker :global([data-name="Hero · Pessoas e permanência"]),.marker :global([data-name="Desafio e demonstração"]),.marker :global([data-name="Permaneo / Site / Perfis da Home"]),.marker :global([data-name="Duas soluções Permaneo"]),.marker :global([data-name="Três pilares"]){grid-template-columns:minmax(0,1fr);}
+ .marker :global([data-name="Hero · Pessoas e permanência"]),.marker :global([data-name="Desafio e demonstração"]),.marker :global([data-name="Permaneo / Site / Perfis da Home"]),.marker :global([data-name="Três pilares"]){grid-template-columns:minmax(0,1fr);}
  .marker :global([data-name^="01 · Home"] [class~="whitespace-nowrap"]){white-space:normal!important;}
  .marker :global([data-name="Convite à demonstração"]),.marker :global([data-name="Identidade e privacidade"]){flex-direction:column;gap:24px;}
- .marker :global([data-name="Quatro passos"]),.marker :global([data-name="Etapas da implantação"]){grid-template-columns:minmax(0,1fr);}
+ .marker :global([data-name="Quatro passos"]){grid-template-columns:minmax(0,1fr);}
  .marker :global([data-name="Navegação principal"] [data-name="Menu"]){flex-wrap:wrap;gap:16px!important;}
 }
 

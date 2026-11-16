@@ -11,6 +11,7 @@ import {
   CalendarDays,
   ClipboardList,
   ListChecks,
+  Armchair,
 } from 'lucide-react';
 import logo from '../../images/logo.svg';
 import styles from './AppShell.module.css';
@@ -32,7 +33,8 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
         ['studentSpace', 'Meu espaço', UserRound],
       ]
     : [
-        [dashboard, teacher ? 'Minhas turmas' : 'Painel da escola', LayoutDashboard],
+        [dashboard, teacher ? 'Minhas Turmas' : 'Painel da escola', LayoutDashboard],
+        ...(teacher ? [['teacherRoom', 'Minha Sala', Armchair], ['teacherAttendance', 'Chamada', ListChecks]] : []),
         [teacher ? 'teacherFollowup' : 'directorFollowup', 'Acompanhamento', HeartHandshake],
         [teacher ? 'carometroTeacher' : 'carometroManagement', 'Carômetro', BookOpen],
         [notificationPage, 'Notificações', Bell],

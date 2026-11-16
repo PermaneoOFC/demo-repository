@@ -39,7 +39,7 @@ try {
       assert.ok(await page.evaluate(() => !!window.VLibrasWidget), 'VLibras initialized');
       await page.reload();
     }
-    // Enter each profile through the real login controls, without backend credentials.
+    // Enter each profile through the demonstration login.
     for (const [index, route] of ['director','teacher','student'].entries()) {
       await page.goto(baseURL + '/#/home');
       await page.locator('[data-name="CTA / Acessar"]').click();

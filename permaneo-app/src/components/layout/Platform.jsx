@@ -2,7 +2,7 @@ import StudentProfile from '../students/StudentProfile.jsx';
 import AppShell from './AppShell.jsx';
 import { demoStudents } from '../../data/students.js';
 import { pages, profiles, resolvePage, HomeLight } from '../../routes/screens.js';
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Platform.module.css';
 import LoginPage from '../../pages/Login/LoginPage.jsx';
@@ -16,9 +16,6 @@ import DemoForm from '../students/DemoForm.jsx';
 import useLocalStorage from '../../hooks/useLocalStorage.js';
 import AddStudentForm from '../students/AddStudentForm.jsx';
 import LocalProfile from '../../pages/Dashboard/Carometro/LocalProfile.jsx';
-import { frequenciaIntegrada } from '../../services/frequenciaApi.js';
-
-const FrequenciaIntegrada = lazy(() => import('../../pages/Dashboard/Frequencia/FrequenciaIntegrada.jsx'));
 
 const normalize = (value = '') =>
   value
@@ -46,6 +43,7 @@ export default function Platform() {
         ? 'student'
         : 'director'
   );
+  const classroomPage = page === 'teacher' || page === 'teacherRoom';
   const [toast, setToast] = useState('');
   const [modal, setModal] = useState('');
   const [records, setRecords] = useLocalStorage('permaneo-demo-records', []);
@@ -75,6 +73,7 @@ export default function Platform() {
   });
   const toastTimer = useRef();
   const returnPage = useRef(null);
+  const returnClassroom = useRef(null);
   const returnScroll = useRef(0);
   const modalOpener = useRef(null);
   const isProfile = page.startsWith('Profile');
@@ -100,6 +99,16 @@ export default function Platform() {
       ),
     [searchQuery, classFilter, localStudents]
   );
+
+  const openClassroomProfile = (id) => {
+    returnClassroom.current = location.pathname + location.search;
+    const cadastro = localStudents.find((aluno) => aluno.id === id);
+    if (cadastro) {
+      setLocalStudent(cadastro);
+      return;
+    }
+    routerNavigate('/Profile' + id + 'Teacher', { state: { fromClassroom: true } });
+  };
 
   const navigate = (destination) => {
     const nextPage = resolvePage(destination);
@@ -528,15 +537,10 @@ export default function Platform() {
         setModal('privacy');
         return;
       }
-      if (label.includes('conhecer a plataforma') || label.includes('conhecer a integracao')) {
-        setModal('solution');
-        return;
-      }
       const sections = [
         ['a proposta', '[data-name^="A proposta ·"]'],
         ['como funciona', '[data-name="Como funciona"]'],
         ['para quem', '[data-name="Perfis da plataforma"]'],
-        ['solucoes', '[data-name="Soluções e modelo de negócio"]'],
       ];
       const section = sections.find(([title]) => label.includes(title));
       if (section) {
@@ -841,10 +845,7 @@ export default function Platform() {
             onToggleTheme={() => setDark((value) => !value)}
             photo={loginPhoto}
             logo={logo}
-            frequenciaIntegrada={frequenciaIntegrada}
           />
-        ) : page === 'frequencia' ? (
-          <FrequenciaIntegrada onVoltar={() => navigate('login')} dark={dark} onToggleTheme={() => setDark(value => !value)} />
         ) : page === 'home' ? (
           <ActiveScreen />
         ) : (
@@ -860,19 +861,31 @@ export default function Platform() {
                 records={records.filter((r) => r.student === localStudent.name)}
                 onBack={() => setLocalStudent(null)}
                 onRecord={() => setModal('record')}
+                fromClassroom={classroomPage}
               />
             ) : isProfile ? (
               <StudentProfile
+                backLabel={location.state?.fromClassroom && returnClassroom.current ? 'Voltar à sala' : undefined}
                 key={profileName + shellRole}
                 studentKey={profileName}
                 records={records.filter((record) => record.student === profileName)}
                 onBack={() => {
+                  if (location.state?.fromClassroom && returnClassroom.current) {
+                    routerNavigate(returnClassroom.current);
+                    return;
+                  }
                   navigate(
                     returnPage.current ||
                       (shellRole === 'teacher' ? 'carometroTeacher' : 'carometroManagement')
                   );
                 }}
                 onRecord={() => setModal('record')}
+              />
+            ) : classroomPage ? (
+              <ActiveScreen
+                room={page.endsWith('Room')}
+                localStudents={localStudents}
+                onOpenProfile={openClassroomProfile}
               />
             ) : (
               <ActiveScreen />
@@ -899,21 +912,15 @@ export default function Platform() {
               }}
             />
           )}
-          {['privacy', 'solution', 'contact'].includes(modal) && (
+          {['privacy', 'contact'].includes(modal) && (
             <>
               <h2 id="dialog-title">
-                {modal === 'privacy'
-                  ? 'Privacidade na proposta'
-                  : modal === 'contact'
-                    ? 'Contato acolhedor'
-                    : 'Soluções Permaneo'}
+                {modal === 'privacy' ? 'Privacidade na demonstração' : 'Contato acolhedor'}
               </h2>
               <p>
                 {modal === 'contact'
-                  ? 'Este canal não envia mensagens. Na aplicação, estará disponível somente quando autorizado e configurado.'
-                  : modal === 'privacy'
-                    ? 'A demonstração usa dados fictícios. Não informe dados reais de estudantes nem de familiares. A demonstração não coleta dados biométricos nem envia pedidos de apoio a escolas.'
-                    : 'O Permaneo Plataforma pode ser explorado com dados fictícios. A modalidade Permaneo Inteligente está em estudo, sem câmeras ou reconhecimento facial na demonstração.'}
+                  ? 'A opção de contato faz parte da demonstração. Nenhuma mensagem é enviada.'
+                  : 'A demonstração usa dados fictícios. Use apenas exemplos. Assentos, observações e outras alterações de demonstração ficam salvos neste navegador.'}
               </p>
             </>
           )}
