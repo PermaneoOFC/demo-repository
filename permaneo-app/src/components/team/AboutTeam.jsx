@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, HeartHandshake } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { TeamCard } from "./TeamCard";
 import { TeamMemberModal } from "./TeamMemberModal";
 import { members as teamMembers } from "./team-data.js";
@@ -89,16 +89,21 @@ export default function AboutTeam({ theme = "light" }) {
 
   return (
     <>
-      <section id="equipe" data-team-theme={theme} className="team-section" aria-labelledby="team-heading">
-        <div className="team-eyebrow team-reveal">Nossa equipe</div>
+      <section id="equipe" tabIndex={-1} data-team-theme={theme} className="team-section" aria-labelledby="team-heading">
         <div className="team-heading-row team-reveal">
           <div>
-            <h2 id="team-heading" className="team-heading">As pessoas por trás<br />do <span>Permaneo.</span></h2>
-            <p className="team-subtitle">Diferentes habilidades, um mesmo propósito: transformar tecnologia em oportunidades para que mais estudantes continuem suas trajetórias.</p>
+            <h2 id="team-heading" className="team-heading">A equipe do <span>Permaneo</span></h2>
+            <p className="team-subtitle">Escolha uma foto para conhecer a contribuição de cada integrante.</p>
           </div>
-          <div className="team-count"><strong>05</strong><span>pessoas,<br />um propósito.</span></div>
         </div>
         <div className="team-divider team-reveal" />
+        <div className="team-portraits" role="group" aria-label="Selecionar integrante">
+          {teamMembers.map((member, index) => <button key={member.id} type="button" aria-label={`Mostrar ${member.name}`}
+            aria-pressed={active === index} onClick={() => settle(nearestPosition(Math.round(target.current), index))}>
+            <img src={member.photo} alt="" width="64" height="64" loading="lazy" />
+            <span>{member.name.split(' ')[0]}</span>
+          </button>)}
+        </div>
         <div className="team-drum-region" data-book-open={selected !== null} data-reduced-motion={reducedMotion}>
           <div ref={stage} className="team-drum-stage" role="region" tabIndex={0} aria-label="Integrantes da equipe" aria-roledescription="roda de perfis" data-scene-ready="true"
             onKeyDown={event => {
@@ -141,13 +146,11 @@ export default function AboutTeam({ theme = "light" }) {
             <button type="button" aria-label="Integrante anterior" onClick={() => settle(target.current - 1)}><ArrowLeft /></button>
             <div className="team-drum-pagination">
               <span className="team-drum-counter" aria-hidden="true">0{active + 1}<span> / 05</span></span>
-              <div className="team-dots">{teamMembers.map((member, index) => <button type="button" key={member.id} className="team-dot" aria-label={`Mostrar ${member.name}`} aria-current={active === index} onClick={() => settle(nearestPosition(Math.round(target.current), index))} />)}</div>
             </div>
             <button type="button" aria-label="Próximo integrante" onClick={() => settle(target.current + 1)}><ArrowRight /></button>
           </div>
           <p className="sr-only" role="status" aria-live="polite">{active + 1} de 5: {teamMembers[active]?.name}</p>
         </div>
-        <div className="team-bottom"><HeartHandshake aria-hidden="true" /><span>Construindo oportunidades, juntos.</span></div>
       </section>
       {selected !== null && <TeamMemberModal theme={theme} initialIndex={selected} reducedMotion={reducedMotion} onClose={() => setSelected(null)} onRestoreFocus={() => {
         const trigger = opener.current;
