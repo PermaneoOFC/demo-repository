@@ -273,15 +273,31 @@ export default function Platform() {
     toastTimer.current = setTimeout(() => setToast(''), 2800);
   };
 
+  // A marca aparece com estruturas distintas nas telas exportadas do Figma.
+  // Usar captura garante a navegação antes dos links internos de cada tela.
+  const isHomeBrand = (target) => {
+    if (!(target instanceof Element)) return false;
+    const sidebar = target.closest('[data-name="aside.sticky"]');
+    if (sidebar) {
+      const logo = sidebar.querySelector('[data-name="Logo Permaneo · Vínculo · Vetor"]');
+      if (logo) {
+        const header = logo.closest('[data-name="a.px-2"]') || logo.parentElement?.parentElement;
+        if (header?.contains(target)) return true;
+      }
+    }
+    return Boolean(target.closest('a[href="#home"]')?.closest('section'));
+  };
+
+  const returnHome = (event) => {
+    if (!isHomeBrand(event.target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    navigate('home');
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
+
   const handleClick = (event) => {
     const target = event.target instanceof Element ? event.target : null;
-    const brand = target?.closest('[data-name="aside.sticky"] [data-name="a.px-2"]');
-    if (brand?.querySelector('[data-name="Logo Permaneo · Vínculo · Vetor"]')) {
-      event.preventDefault();
-      navigate('home');
-      window.scrollTo({ top: 0, behavior: 'auto' });
-      return;
-    }
     const element = target?.closest('button, a[href], [role="button"], [role="link"]')
       || target?.closest('[data-name="Ver perfil"], [data-name^="Faltou ·"], [data-name="Buscar por nome"]');
     if (!element) return;
@@ -470,6 +486,7 @@ export default function Platform() {
       className={styles.canvas + ' ' + utilityStyles.marker}
       data-theme={dark ? 'dark' : 'light'}
       data-selected-role={role}
+      onClickCapture={returnHome}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
     >
