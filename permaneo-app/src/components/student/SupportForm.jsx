@@ -40,7 +40,7 @@ export default function SupportForm() {
       data-local-content
       onClick={(event) => event.stopPropagation()}
     >
-      <h2>Vamos conversar?</h2>
+      <h2>Precisa conversar? Estamos aqui para ouvir.</h2>
       <p>Conte o que está acontecendo. Vamos pensar juntos no próximo passo.</p>
       <form onSubmit={saveRequest}>
         <TextField
@@ -82,7 +82,7 @@ export default function SupportForm() {
         </Button>
       </form>
       <small>
-        Nesta demonstração, o pedido fica apenas neste navegador e não é enviado à escola.
+        O destinatário indica com quem você gostaria de falar. Nesta demonstração, o registro pode ser visto por quem usa este navegador. Use apenas exemplos fictícios.
       </small>
       {sent && (
         <p className={styles.success} role="status">

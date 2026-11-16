@@ -1,4 +1,5 @@
-import { NavLink, Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import {
   Bell,
   LayoutDashboard,
@@ -12,6 +13,8 @@ import {
   ClipboardList,
   ListChecks,
   Armchair,
+  Ellipsis,
+  PanelLeftClose,
 } from 'lucide-react';
 import logo from '../../images/logo.svg';
 import styles from './AppShell.module.css';
@@ -19,18 +22,25 @@ import styles from './AppShell.module.css';
 export default function AppShell({ role, dark, notificationsRead, onToggleTheme, children }) {
   const teacher = role === 'teacher';
   const student = role === 'student';
+  const [collapsed, setCollapsed] = useState(false);
+  const [more, setMore] = useState(false);
+  const { pathname } = useLocation();
+  useEffect(() => setMore(false), [pathname]);
+  const mainDestinations = ['student', 'studentCalendar', 'studentJourney'];
   const dashboard = student ? 'student' : teacher ? 'teacher' : 'director';
   const notificationPage = teacher ? 'teacherNotifications' : 'directorNotifications';
   const entries = student
     ? [
-        ['student', 'Meu dia', LayoutDashboard],
+        ['student', 'Início', LayoutDashboard],
         ['studentActivities', 'Atividades', ClipboardList],
         ['studentCalendar', 'Calendário', CalendarDays],
         ['studentSubjects', 'Disciplinas', BookOpen],
-        ['studentNotices', 'Avisos', Bell],
-        ['studentPlan', 'Plano de estudos', ListChecks],
-        ['studentSupport', 'Pedidos de apoio', HeartHandshake],
+        ['studentNotices', 'Notificações', Bell],
+        ['studentPlan', 'Minhas Metas', ListChecks],
+        ['studentSupport', 'Apoio', HeartHandshake],
         ['studentSpace', 'Meu espaço', UserRound],
+        ['studentJourney', 'Minha Jornada', ChartNoAxesColumn],
+        ['studentSettings', 'Configurações', Settings],
       ]
     : [
         [dashboard, teacher ? 'Minhas Turmas' : 'Painel da escola', LayoutDashboard],
@@ -48,6 +58,8 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
     <div
       className={styles.shell}
       data-app-shell
+      data-student-shell={student || undefined}
+      data-collapsed={student && collapsed}
       onClick={(event) => {
         if (event.target.closest('[data-shell-controls]')) event.stopPropagation();
       }}
@@ -59,9 +71,9 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
             Permane<span className={styles.brandEnd}>o</span>
           </span>
         </Link>
-        <nav className={styles.navigation} aria-label="Menu da plataforma">
+        <nav id="platform-menu" className={styles.navigation} data-more={student && more} aria-label="Menu da plataforma">
           {entries.map(([path, label, Icon]) => (
-            <NavLink key={path} to={'/' + path} end className={styles.navLink}>
+            <NavLink key={path} to={'/' + path} end className={styles.navLink} data-mobile-main={student && mainDestinations.includes(path)} aria-label={label} title={student && collapsed ? label : undefined}>
               <Icon size={18} aria-hidden="true" />
               <span>{label}</span>
               {path === notificationPage && !notificationsRead && (
@@ -69,6 +81,9 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
               )}
             </NavLink>
           ))}
+          {student && <button type="button" className={styles.more} aria-expanded={more} onClick={() => setMore(!more)}>
+            <Ellipsis size={20} aria-hidden="true" /><span>Mais</span>
+          </button>}
         </nav>
         <div className={styles.account}>
           <div className={styles.identity}>
@@ -88,6 +103,8 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
         <header className={styles.header} data-shell-controls>
           <p>Escola Estadual Horizonte · Demonstração</p>
           <div className={styles.actions}>
+            {student && <button className={styles.collapse} aria-controls="platform-menu" aria-expanded={!collapsed} aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'} onClick={() => setCollapsed(!collapsed)}><PanelLeftClose size={20} aria-hidden="true" /></button>}
+            {student && <Link to="/studentNotices" className={styles.notifications} aria-label="Abrir notificações"><Bell size={18} aria-hidden="true" /></Link>}
             {!student && (
               <Link
                 to={'/' + notificationPage}

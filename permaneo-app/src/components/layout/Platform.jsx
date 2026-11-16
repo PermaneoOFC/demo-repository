@@ -43,9 +43,21 @@ export default function Platform() {
         ? 'student'
         : 'director'
   );
+  const studentPage = page.startsWith('student');
+  const [studentPreferences, setStudentPreferences] = useLocalStorage('permaneo-student-camila-preferences', {});
+  const [systemDark, setSystemDark] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches);
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const sync = () => setSystemDark(media.matches);
+    media.addEventListener('change', sync);
+    return () => media.removeEventListener('change', sync);
+  }, []);
+  const studentTheme = studentPreferences.theme || (dark ? 'dark' : 'light');
+  const effectiveDark = studentPage ? studentTheme === 'dark' || (studentTheme === 'auto' && systemDark) : dark;
   const classroomPage = page === 'teacher' || page === 'teacherRoom';
   const [toast, setToast] = useState('');
   const [modal, setModal] = useState('');
+  const [classAttendance, setClassAttendance] = useLocalStorage('permaneo-demo-class-attendance', {});
   const [records, setRecords] = useLocalStorage('permaneo-demo-records', []);
   const [localStudents, setLocalStudents] = useLocalStorage('permaneo-demo-students', []);
   const [localStudent, setLocalStudent] = useState(null);
@@ -261,15 +273,20 @@ export default function Platform() {
     if (!root) return undefined;
     const applyViewMode = () => {
       const grid = root.querySelector('[data-name="Grade de estudantes"]');
-      if (grid) grid.setAttribute('data-view-mode', viewMode);
-      root.querySelectorAll('[data-name="Cartões"], [data-name="Lista"]').forEach((button) => {
-        button.setAttribute(
-          'aria-pressed',
-          String(
-            normalize(button.getAttribute('data-name')) ===
-              (viewMode === 'cards' ? 'cartoes' : 'lista')
-          )
-        );
+      if (!grid) return;
+      grid.setAttribute('data-view-mode', viewMode);
+      const list = root.querySelector('[data-name="Lista"]');
+      if (list && !root.querySelector('[data-name="Compacto"]')) {
+        const compact = list.cloneNode(false);
+        compact.removeAttribute('id');
+        compact.removeAttribute('data-node-id');
+        compact.setAttribute('data-name', 'Compacto');
+        compact.textContent = 'Compacto';
+        list.after(compact);
+      }
+      const modes = { Cartões: 'cards', Lista: 'list', Compacto: 'compact' };
+      root.querySelectorAll('[data-name="Cartões"], [data-name="Lista"], [data-name="Compacto"]').forEach((button) => {
+        button.setAttribute('aria-pressed', String(modes[button.getAttribute('data-name')] === viewMode));
       });
     };
     applyViewMode();
@@ -660,7 +677,7 @@ export default function Platform() {
         role === 'teacher'
           ? 'teacherSettings'
           : role === 'student'
-            ? 'studentSpace'
+            ? 'studentSettings'
             : 'directorSettings'
       );
       return;
@@ -670,8 +687,8 @@ export default function Platform() {
       setViewMode('cards');
       return;
     }
-    if (page.startsWith('carometro') && actionName === 'lista') {
-      setViewMode('list');
+    if (page.startsWith('carometro') && ['lista', 'compacto'].includes(actionName)) {
+      setViewMode(actionName === 'lista' ? 'list' : 'compact');
       return;
     }
     if (page.startsWith('carometro') && actionName.includes('exibir todos')) {
@@ -827,7 +844,7 @@ export default function Platform() {
   return (
     <div
       className={styles.canvas + ' ' + utilityStyles.marker}
-      data-theme={dark ? 'dark' : 'light'}
+      data-theme={effectiveDark ? 'dark' : 'light'}
       data-selected-role={role}
       data-notifications-read={notificationsRead}
       onClickCapture={handleHomeBrandClick}
@@ -850,9 +867,11 @@ export default function Platform() {
         ) : (
           <AppShell
             role={shellRole}
-            dark={dark}
+            dark={effectiveDark}
             notificationsRead={notificationsRead}
-            onToggleTheme={() => setDark((value) => !value)}
+            onToggleTheme={() => studentPage
+              ? setStudentPreferences((previous) => ({ ...previous, theme: effectiveDark ? 'light' : 'dark' }))
+              : setDark((value) => !value)}
           >
             {localStudent ? (
               <LocalProfile
@@ -864,7 +883,7 @@ export default function Platform() {
               />
             ) : isProfile ? (
               <StudentProfile
-                backLabel={location.state?.fromClassroom && returnClassroom.current ? 'Voltar à sala' : undefined}
+                backLabel={location.state?.fromClassroom && returnClassroom.current ? 'Voltar à sala' : returnPage.current === 'directorFollowup' ? 'Voltar ao acompanhamento' : undefined}
                 key={profileName + shellRole}
                 studentKey={profileName}
                 records={records.filter((record) => record.student === profileName)}
@@ -880,14 +899,26 @@ export default function Platform() {
                 }}
                 onRecord={() => setModal('record')}
               />
+            ) : page === 'directorFollowup' ? (
+              <ActiveScreen records={records} setRecords={setRecords} classAttendance={classAttendance} onOpenProfile={(key) => {
+                returnPage.current = page;
+                returnScroll.current = window.scrollY;
+                navigate('Profile' + key + 'Management');
+              }} />
             ) : classroomPage ? (
               <ActiveScreen
+                classAttendance={classAttendance}
+                onSaveAttendance={(id, date, statuses) => setClassAttendance((previous) => ({
+                  ...previous, [id]: { ...previous[id], [date]: statuses },
+                }))}
                 room={page.endsWith('Room')}
                 localStudents={localStudents}
                 onOpenProfile={openClassroomProfile}
               />
             ) : (
-              <ActiveScreen />
+              <ActiveScreen {...(studentPage && {
+                studentPreferences, setPreferences: setStudentPreferences, studentTheme,
+              })} />
             )}
           </AppShell>
         )}

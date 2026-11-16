@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import useLocalStorage from '../../hooks/useLocalStorage.js';
 import styles from '../../pages/Dashboard/Estudante/StudentArea.module.css';
 
-export default function StudentPlan() {
-  const [goals, setGoals] = useLocalStorage('permaneo-student-goals', []);
+export default function StudentPlan({ goals, setGoals }) {
+  const [date, setDate] = useState('');
   const [title, setTitle] = useState('');
   return (
     <section className={styles.section}>
@@ -14,9 +13,10 @@ export default function StudentPlan() {
           if (!title.trim()) return;
           setGoals((list) => [
             ...list,
-            { id: crypto.randomUUID(), title: title.trim(), done: false },
+            { id: crypto.randomUUID(), title: title.trim(), date, done: false },
           ]);
           setTitle('');
+          setDate('');
         }}
       >
         <h2>Um passo de cada vez</h2>
@@ -31,6 +31,7 @@ export default function StudentPlan() {
             placeholder="Ex.: revisar frações por 20 minutos"
           />
         </label>
+        <label>Prazo opcional<input type="date" value={date} onChange={(event) => setDate(event.target.value)} /></label>
         <button className={styles.primary} disabled={!title.trim()}>
           Adicionar meta
         </button>
@@ -39,7 +40,7 @@ export default function StudentPlan() {
         {goals.filter((goal) => goal.done).length} de {goals.length} metas concluídas.
       </p>
       {goals.map((goal) => (
-        <div className={styles.goal} key={goal.id}>
+        <div className={styles.goal} data-complete={goal.done} key={goal.id}>
           <label>
             <input
               type="checkbox"
@@ -52,6 +53,7 @@ export default function StudentPlan() {
             />
             {goal.title}
           </label>
+          {goal.date && <small>Até {new Date(goal.date + 'T12:00:00').toLocaleDateString('pt-BR')}</small>}
           <button
             className={styles.secondary}
             aria-label={'Excluir meta: ' + goal.title}
