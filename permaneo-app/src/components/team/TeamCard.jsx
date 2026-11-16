@@ -14,7 +14,7 @@ export function TechList({ only }) {
 
 export function TeamCard({ member, index, active }) {
   return (
-    <article className="team-card" aria-label={member.name}>
+    <article className="team-card" data-member={member.id} aria-label={member.name}>
       <div className="team-photo-wrap">
         <img className="team-photo" src={member.photo} alt={member.name} width={800} height={800} loading="eager" draggable={false} />
         <span className="team-number" aria-hidden="true">0{index + 1}</span>
