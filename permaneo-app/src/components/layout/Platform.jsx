@@ -907,6 +907,7 @@ export default function Platform() {
               />
             ) : page.startsWith('carometro') ? (
               <CarometroExperience
+                key={page}
                 role={shellRole}
                 dark={effectiveDark}
                 localStudents={localStudents}
