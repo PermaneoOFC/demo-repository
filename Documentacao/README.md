@@ -16,12 +16,10 @@ As ausências podem se concentrar em um componente curricular enquanto o estudan
 
 ## Resumo executivo
 
-O Permaneo propõe concentrar frequência, desempenho e acompanhamento em uma plataforma para escolas. O protótipo apresenta os painéis dos três perfis. A primeira integração persistente cobre autenticação e frequência. O modelo de licença para escolas segue em avaliação.
+O Permaneo propõe reunir frequência, desempenho e acompanhamento em uma plataforma para escolas. A versão atual é um protótipo web com os painéis de Coordenação, Professor e Estudante. Os dados são fictícios, e os registros feitos na demonstração ficam no navegador.
 
 ## Documentação técnica
 
 - [Arquitetura e fluxo de dados](Arquitetura.md)
 - [Tecnologias](tecnologias.md)
 - [Acessibilidade](Acessibilidade.md)
-- [API e exemplos](../api_permaneo/docs/)
-- [Banco de dados](../database/)

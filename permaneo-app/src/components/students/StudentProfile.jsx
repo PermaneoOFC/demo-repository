@@ -16,6 +16,7 @@ import {
   Info,
 } from 'lucide-react';
 import { getStudentProfile } from '../../data/studentProfiles.js';
+import { categorias, atencoes, dataFormatada, ordenarObservacoes } from '../../data/sala.js';
 import useLocalStorage from '../../hooks/useLocalStorage.js';
 import styles from './StudentProfile.module.css';
 
@@ -35,7 +36,7 @@ const displayDate = (value) =>
     ? new Date(value.length === 10 ? value + 'T12:00:00' : value).toLocaleDateString('pt-BR')
     : 'Sem data definida';
 
-export default function StudentProfile({ studentKey, records, onBack, onRecord }) {
+export default function StudentProfile({ studentKey, records, onBack, onRecord, backLabel = 'Carômetro' }) {
   const student = getStudentProfile(studentKey);
   const [tab, setTab] = useState('attendance');
   const [attendanceFilter, setAttendanceFilter] = useState('all');
@@ -73,7 +74,7 @@ export default function StudentProfile({ studentKey, records, onBack, onRecord }
       <div className={styles.topline}>
         <button type="button" className={styles.back} data-name="← Carômetro" onClick={onBack}>
           <ArrowLeft size={16} />
-          Carômetro
+          {backLabel}
         </button>
         <span className={styles.eyebrow}>Perfil do estudante · Ano letivo 2026</span>
       </div>
@@ -354,17 +355,15 @@ export default function StudentProfile({ studentKey, records, onBack, onRecord }
               <h2>Observações dos professores</h2>
               <p className={styles.muted}>Registros sobre participação e aprendizagem.</p>
               <div className={styles.notes}>
-                {[...notes]
-                  .reverse()
-                  .concat(student.observations)
+                {ordenarObservacoes([...notes, ...student.observations])
                   .map((entry) => (
                     <article key={entry.id}>
                       <div className={styles.row}>
                         <strong>{entry.author}</strong>
-                        <time>{entry.date}</time>
+                        <time>{entry.date || dataFormatada(entry.data)}</time>
                       </div>
-                      <small>{entry.subject}</small>
-                      <p>{entry.text}</p>
+                      <small>{entry.categoria ? categorias[entry.categoria] + ' · ' + atencoes[entry.atencao] : entry.subject}</small>
+                      <p>{entry.descricao || entry.text}</p>
                     </article>
                   ))}
               </div>

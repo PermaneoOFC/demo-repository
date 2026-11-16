@@ -1,13 +1,11 @@
 # Arquitetura
 
-O repositório reúne quatro módulos independentes. O navegador renderiza o app React. Na tela de frequência integrada, o app chama a API REST na mesma origem. Os controllers recebem os pedidos, os serviços aplicam as regras de acesso, e os repositórios Spring Data leem ou gravam no MySQL.
+O Permaneo é um protótipo web em React. O Vite gera os arquivos estáticos do app. A navegação por hash permite abrir as telas em hospedagem estática.
 
-| Etapa | Fluxo integrado |
+| Etapa | Fluxo na demonstração |
 | --- | --- |
-| Login | E-mail e senha → validação BCrypt → emissão de token JWT |
-| Consulta | Token → perfil e identificação da conta → consulta filtrada → tabela |
-| Registro | Token de coordenação ou professor → verificação de turma → atualização transacional → confirmação na tela |
+| Entrada | A pessoa escolhe Coordenação, Professor ou Estudante para explorar as respectivas telas |
+| Consulta | O frontend usa os dados fictícios do projeto e os registros salvos no navegador |
+| Registro | Assentos, observações e outras alterações demonstrativas são salvos no armazenamento local do navegador |
 
-O protótipo usa rotas por hash para abrir as telas em hospedagem estática. As telas existentes continuam divididas por tema e organizadas por domínio em `permaneo-app/src/pages`. A rota `#frequencia` só fica disponível com a integração ativada.
-
-O banco trabalha com registros por componente e data. O cálculo de faltas consecutivas, o histórico de contato e as notificações automáticas permanecem como evolução de produto.
+Cada navegador tem seus próprios registros. A seleção de perfil serve para navegar pela demonstração e não autentica contas reais. As telas ficam organizadas por área em `permaneo-app/src/pages`.
