@@ -5,6 +5,7 @@ import { ArrowDown, ArrowRight, BookOpen, Check, ChevronRight, GraduationCap, He
 import logo from '../../images/logo.svg';
 import schoolPhoto from '../../images/hero-school-home.webp';
 import styles from './HomeExperience.module.css';
+import AboutTeam from '../../components/team/AboutTeam.jsx';
 
 const stages = [
   { number: '01', title: 'Perceber cedo', short: 'Um sinal aparece', description: 'A frequência é acompanhada com contexto. Quando as faltas se repetem, a equipe recebe um sinal para olhar mais de perto.', icon: TrendingUp, tag: 'Sinal de atenção', cardTitle: 'Faltas consecutivas', cardBody: 'Lucas Gomes · 9º A', detail: '3 faltas registradas nesta semana' },
@@ -152,6 +153,8 @@ export default function HomeExperience({ dark, onToggleTheme, onNavigate }) {
       </section>
 
       <section id="solucoes" className={styles.solutions}><div className={styles.sectionInner}><div className={styles.sectionIntro} data-reveal><p className={styles.kicker}>04 / SOLUÇÕES</p><h2>Tecnologia para perceber. Pessoas para acolher.</h2><p>O Permaneo conecta informações e pessoas para que a escola organize o acompanhamento com cuidado.</p></div><div className={styles.solutionGrid}><article data-reveal><span className={styles.solutionIcon}><LayoutDashboard size={26} /></span><h3>Plataforma Permaneo</h3><p>Painéis, frequência, alertas e registros de acompanhamento em uma experiência para a equipe escolar.</p><button onClick={() => onNavigate('login')}>Ver a demonstração <ArrowRight size={17} /></button></article><article data-reveal><span className={styles.solutionIcon}><Sparkles size={26} /></span><h3>Permaneo Inteligente</h3><p>Uma proposta de integração para ampliar as formas de registrar presença e apoiar a tomada de decisão.</p><button onClick={() => goTo('contato')}>Conhecer a proposta <ArrowRight size={17} /></button></article></div></div></section>
+
+      <AboutTeam />
 
       <section id="contato" className={styles.finalCta}><div className={styles.finalInner} data-reveal><span className={styles.finalMark}><HeartHandshake size={28} /></span><h2>Cada estudante que permanece é uma história que continua.</h2><p>Explore a demonstração nos perfis de gestão, professor e estudante.</p><button onClick={() => onNavigate('login')}>Vamos conhecer? <ArrowRight size={19} /></button></div></section>
     </main>
