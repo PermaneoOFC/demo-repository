@@ -29,3 +29,9 @@ npm run preview
 ```
 
 A opção **Explorar sem preencher** abre as telas com dados fictícios. As alterações feitas na demonstração ficam no navegador.
+
+## Área do professor: Minhas Turmas e Minha Sala
+
+Entre como Professor na demonstração para acessar os cartões das turmas. A sala oferece planta com zoom, Carômetro e lista. Use **Editar assentos** para trocar estudantes de lugar ou movê-los para uma carteira livre. Abra um estudante para ver o histórico e registrar uma observação. No modo fictício, os mapas e as observações ficam neste navegador. A chamada existente está no item **Chamada** do menu.
+
+Valide a interface e a persistência local com `npm run test:classroom`.

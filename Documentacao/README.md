@@ -16,7 +16,7 @@ As ausências podem se concentrar em um componente curricular enquanto o estudan
 
 ## Resumo executivo
 
-O Permaneo propõe concentrar frequência, desempenho e acompanhamento em uma plataforma para escolas. O protótipo apresenta os painéis dos três perfis. O protótipo usa dados fictícios e salva as alterações demonstrativas no navegador.
+O Permaneo propõe reunir frequência, desempenho e acompanhamento em uma plataforma para escolas. A versão atual é um protótipo web com os painéis de Coordenação, Professor e Estudante. Os dados são fictícios, e os registros feitos na demonstração ficam no navegador.
 
 ## Documentação técnica
 
