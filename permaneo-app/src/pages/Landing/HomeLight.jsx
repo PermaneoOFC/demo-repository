@@ -2,7 +2,7 @@ import imgIconGrid from '../../images/figma/d7ee6606d9ddda0df6b2.svg';
 import imgIconArrow from '../../images/figma/b6e662e57223a14872b2.svg';
 import imgIconBook from '../../images/figma/246c5630bee904b4a4c8.svg';
 import imgIconGraduation from '../../images/figma/67466946abb091be59de.svg';
-import imgVideoCotidianoEscolarGifEmLooping from '../../images/hero.svg';
+import imgVideoCotidianoEscolarGifEmLooping from '../../images/hero-school.gif';
 import imgVinculoSimboloVetorial from '../../images/figma/b9617e1108578bf4478b.svg';
 import imgIconeSun from '../../images/figma/9b3e4d81507d448f0ca2.svg';
 import imgIconeCheck from '../../images/figma/b4320ab29a2c5eb481f3.svg';

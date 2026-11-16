@@ -12,6 +12,13 @@ try {
     if (!widgetsAvailable) await page.route(/https:\/\/(?:cdn\.userway\.org|vlibras\.gov\.br)\//, route => route.abort());
     await page.goto(baseURL + '/#home');
     await expect(page.locator('[data-name="CTA / Acessar"]')).toBeVisible();
+    const hero = page.locator('img[src*="hero-school"]');
+    await expect(hero).toBeVisible();
+    await expect(hero).toHaveJSProperty('naturalWidth', 720);
+    const firstFrame = await hero.screenshot();
+    await page.waitForTimeout(500);
+    const nextFrame = await hero.screenshot();
+    assert.ok(!firstFrame.equals(nextFrame), 'Original homepage GIF animates');
     if (widgetsAvailable) {
       await expect(page.locator('#userwayAccessibilityIcon')).toBeVisible({timeout: 20000});
       await expect(page.locator('#vlibras-access-wrapper button')).toBeVisible({timeout: 20000});
@@ -44,7 +51,7 @@ try {
       if (route === 'director') {
         await page.locator('[data-name="Carômetro"]').first().click();
         await expect(page).toHaveURL(/#carometroManagement$/);
-        await page.locator('[data-name="Buscar por nome"]').click();
+        await page.locator('[data-name^="Buscar por nome"]').click();
         await expect(page.getByRole('dialog')).toBeVisible();
         await page.getByRole('button', {name: 'Fechar janela', exact: true}).click();
         await page.locator('[data-name="Ver perfil"]').first().click();
