@@ -1,14 +1,12 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './Platform.module.css';
 import LoginPage from '../../pages/Login/LoginPage.jsx';
-import { frequenciaIntegrada } from '../../services/frequenciaApi.js';
 import loginPhoto from '../../images/school-0.jpg';
 import logo from '../../images/logo.svg';
 import utilityStyles from './Layout.module.css';
 import Modal from '../ui/Modal.jsx';
 import TextField from '../ui/TextField.jsx';
 
-const FrequenciaIntegrada = lazy(() => import('../../pages/Dashboard/Frequencia/FrequenciaIntegrada.jsx'));
 const HomeLight = lazy(() => import('../../pages/Landing/HomeLight.jsx'));
 const HomeDark = lazy(() => import('../../pages/Landing/HomeDark.jsx'));
 const DirectorDashboardLight = lazy(() => import('../../pages/Dashboard/Direcao/DirectorDashboardLight.jsx'));
@@ -65,7 +63,6 @@ const pages = {
 };
 
 const resolvePage = (value) => {
-  if (value === 'frequencia' && frequenciaIntegrada) return value;
   if (Object.hasOwn(pages, value)) return value;
   const match = value.match(/^Profile(.+)(Management|Teacher)$/);
   return match && Object.hasOwn(profiles, match[1]) ? value : 'home';
@@ -493,14 +490,10 @@ export default function Platform() {
       <Suspense fallback={<div className={styles.loading}>Carregando Permaneo…</div>}>
         {page === 'login' && (
           <LoginPage role={role} onSelectRole={setRole} onNavigate={navigate}
-            dark={dark} onToggleTheme={toggleTheme} photo={loginPhoto} logo={logo}
-            frequenciaIntegrada={frequenciaIntegrada} />
-        )}
-        {page === 'frequencia' && (
-          <FrequenciaIntegrada onVoltar={() => navigate('login')} dark={dark} onToggleTheme={toggleTheme} />
+            dark={dark} onToggleTheme={toggleTheme} photo={loginPhoto} logo={logo} />
         )}
         {page === 'home' && <ActiveScreen dark={dark} onToggleTheme={toggleTheme} onNavigate={navigate} />}
-        {page !== 'home' && page !== 'login' && page !== 'frequencia' && <ActiveScreen />}
+        {page !== 'home' && page !== 'login' && <ActiveScreen />}
       </Suspense>
         {modal && (
           <Modal labelledBy="dialog-title" onClose={() => setModal('')}>
