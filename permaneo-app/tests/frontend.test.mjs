@@ -35,9 +35,10 @@ try {
   await page.getByLabel('Buscar estudante').fill('Lucas');
   await expect(page.getByRole('button', { name: /Camila Rocha/ })).toHaveCount(0);
   await page.getByLabel('Buscar estudante').fill('');
-  await page.getByLabel('Turma').selectOption('8º A');
+  const turmaSelect = page.getByRole('combobox', { name: /^Turma/ });
+  await turmaSelect.selectOption('8º A');
   await expect(page.getByRole('button', { name: /Lucas Gomes/ })).toHaveCount(0);
-  await page.getByLabel('Turma').selectOption('');
+  await turmaSelect.selectOption('');
   await page.getByRole('button', { name: /Lucas Gomes/ }).first().click();
   await expect(page.getByRole('tab', { name: 'Visão geral' })).toHaveAttribute('aria-selected', 'true');
   await page.getByRole('tab', { name: 'Desempenho' }).click();
