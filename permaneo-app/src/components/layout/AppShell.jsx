@@ -51,7 +51,7 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
       }}
     >
       <aside className={styles.sidebar} data-shell-controls aria-label="Menu lateral">
-        <Link to={'/' + dashboard} className={styles.brand} aria-label="Permaneo — painel inicial">
+        <Link to="/home" className={styles.brand} aria-label="Permaneo — voltar à Home">
           <img src={logo} alt="" />
           <span>
             Permane<span className={styles.brandEnd}>o</span>
