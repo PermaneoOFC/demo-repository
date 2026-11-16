@@ -1,3 +1,4 @@
+import ClassAttendance from '../../../components/students/ClassAttendance.jsx';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
@@ -298,7 +299,8 @@ function PerfilPainel({ aluno, turma, onClose, onOpenProfile, onNota }) {
   </dialog>;
 }
 
-function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNota, onSaveMap }) {
+function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNota, onSaveMap, classAttendance, onSaveAttendance }) {
+  const [chamada, setChamada] = useState(false);
   const [rascunho, setRascunho] = useState(null);
   const [origem, setOrigem] = useState(null);
   const [aviso, setAviso] = useState('');
@@ -353,6 +355,8 @@ function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNot
         setAviso('');
       }}>{icon(Shuffle)} Editar assentos</button>}
     </div>
+    <button type="button" className={acao} aria-expanded={chamada} disabled={!!rascunho} onClick={() => setChamada(!chamada)}>{chamada ? 'Fechar chamada' : 'Fazer chamada'}</button>
+    {chamada && <ClassAttendance turma={turma} attendance={classAttendance[turma.id] || {}} onSave={(date, statuses) => onSaveAttendance(turma.id, date, statuses)} />}
     <div className={styles.roomTools}>
       <div className={styles.views} role="group" aria-label="Visualização">
         {views.map(([id, label, Icon]) => <button key={id} type="button" disabled={!!rascunho}
@@ -392,7 +396,7 @@ function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNot
   </>;
 }
 
-export default function MinhaSala({ room, localStudents, onOpenProfile }) {
+export default function MinhaSala({ room, localStudents, onOpenProfile, classAttendance, onSaveAttendance }) {
   const [query, setQuery] = useSearchParams();
   const [, atualizarDemo] = useState(0);
   const turmas = turmasDemo.map((turma) => ({ ...turma, assentos: lerLocal(mapaLocal(turma.id)),
@@ -426,7 +430,7 @@ export default function MinhaSala({ room, localStudents, onOpenProfile }) {
     </header>
     {room && turma ? <Sala key={turma.id} turma={turma} turmas={turmas}
       view={view} busca={query.get('q') ?? ''} status={query.get('status') ?? ''}
-      change={change} onOpenProfile={onOpenProfile} onNota={onNota} onSaveMap={onSaveMap} />
+      change={change} onOpenProfile={onOpenProfile} onNota={onNota} classAttendance={classAttendance} onSaveAttendance={onSaveAttendance} onSaveMap={onSaveMap} />
     : <MinhasTurmas turmas={turmas} linkSala={linkSala} />}
   </div>;
 }

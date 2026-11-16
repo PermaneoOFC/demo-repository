@@ -1,3 +1,4 @@
+import Monitoring from '../pages/Dashboard/Direcao/Monitoring.jsx';
 import { lazy } from 'react';
 import StudentArea from '../pages/Dashboard/Estudante/StudentArea.jsx';
 import LoginPage from '../pages/Login/LoginPage.jsx';
@@ -5,8 +6,6 @@ export const HomeLight = lazy(() => import('../pages/Landing/HomeLight.jsx'));
 const HomeDark = lazy(() => import('../pages/Landing/HomeDark.jsx'));
 const DirectorDashboardLight = lazy(() => import('../pages/Dashboard/Direcao/DirectorDashboardLight.jsx'));
 const DirectorDashboardDark = lazy(() => import('../pages/Dashboard/Direcao/DirectorDashboardDark.jsx'));
-const DirectorFollowupLight = lazy(() => import('../pages/Dashboard/Direcao/DirectorFollowupLight.jsx'));
-const DirectorFollowupDark = lazy(() => import('../pages/Dashboard/Direcao/DirectorFollowupDark.jsx'));
 const DirectorNotificationsLight = lazy(() => import('../pages/Dashboard/Direcao/DirectorNotificationsLight.jsx'));
 const DirectorNotificationsDark = lazy(() => import('../pages/Dashboard/Direcao/DirectorNotificationsDark.jsx'));
 const ReportsLight = lazy(() => import('../pages/Dashboard/Direcao/ReportsLight.jsx'));
@@ -80,7 +79,7 @@ export const pages = {
   home: [HomeLight, HomeDark],
   login: [LoginPage, LoginPage],
   director: [DirectorDashboardLight, DirectorDashboardDark],
-  directorFollowup: [DirectorFollowupLight, DirectorFollowupDark],
+  directorFollowup: [Monitoring, Monitoring],
   directorNotifications: [DirectorNotificationsLight, DirectorNotificationsDark],
   reports: [ReportsLight, ReportsDark],
   directorSettings: [DirectorSettingsLight, DirectorSettingsDark],
@@ -91,7 +90,9 @@ export const pages = {
   teacherNotifications: [TeacherNotificationsLight, TeacherNotificationsDark],
   teacherSettings: [TeacherSettingsLight, TeacherSettingsDark],
   student: [StudentArea, StudentArea],
-  studentSpace: [StudentSpaceLight, StudentSpaceDark],
+  studentSpace: [StudentArea, StudentArea],
+  studentJourney: [StudentArea, StudentArea],
+  studentSettings: [StudentArea, StudentArea],
   studentActivities: [StudentArea, StudentArea],
   studentCalendar: [StudentArea, StudentArea],
   studentSubjects: [StudentArea, StudentArea],
