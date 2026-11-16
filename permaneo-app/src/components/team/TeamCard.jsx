@@ -27,7 +27,7 @@ export function TeamCard({ member, index, active }) {
         <p className="team-highlights"><strong>Especialidades:</strong> {member.highlights}</p>
         <div className="team-stack">
           <span className="team-stack-label">Tecnologias</span>
-          <TechList only={member.related.length ? member.related : undefined} />
+          <TechList />
         </div>
         <div className="team-card-actions">
           <a className="team-github" tabIndex={active ? 0 : -1} href={member.github} target="_blank" rel="noopener noreferrer" aria-label={`GitHub de ${member.name}`}><Github aria-hidden="true" /><span>GitHub</span></a>
