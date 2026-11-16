@@ -46,8 +46,8 @@
 :is(.secondary, .theme):hover { border-color: var(--accent); }
 .hero { position: relative; isolation: isolate; min-height: clamp(540px, calc(100vh - 74px), 820px); overflow: hidden; border-bottom: 1px solid var(--line); background: #203b42; }
 .hero::after { position: absolute; z-index: -1; inset: 0; content: ''; background: linear-gradient(90deg, rgba(22, 47, 53, .88) 0%, rgba(22, 47, 53, .67) 52%, rgba(22, 47, 53, .34) 100%), linear-gradient(0deg, rgba(15, 34, 40, .42), transparent 55%); }
-.heroInner { position: relative; z-index: 1; display: flex; align-items: center; min-height: inherit; padding-block: clamp(48px, 8vw, 100px); }
-.heroCopy { display: grid; gap: 20px; max-width: 650px; color: #f3f8fb; }
+.heroInner { position: relative; z-index: 1; pointer-events: none; display: flex; align-items: center; min-height: inherit; padding-block: clamp(48px, 8vw, 100px); }
+.heroCopy { pointer-events: auto; display: grid; gap: 20px; max-width: 650px; color: #f3f8fb; }
 .hero h1 { font-size: clamp(2.65rem, 5.6vw, 5.3rem); line-height: .98; text-wrap: balance; }
 .hero em { color: #a1e5c7; }
 .heroCopy > p { font-size: clamp(1rem, 1.65vw, 1.18rem); max-width: 42ch; color: rgba(243, 248, 251, .92); }
