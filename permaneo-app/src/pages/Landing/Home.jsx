@@ -96,8 +96,8 @@ export default function Home({ dark, onToggleTheme }) {
         <figure className={styles.preview}>
           <img
             src={`${import.meta.env.BASE_URL}previews/${profile.preview}.${profile.previewExt || 'webp'}`}
-            width={profile.preview === 'teacher' ? 720 : 1440}
-            height={profile.preview === 'teacher' ? 393 : 1000}
+            width={profile.preview === 'teacher' ? 1200 : 1440}
+            height={profile.preview === 'teacher' ? 833 : 1000}
             alt={`Captura da demonstração do perfil ${profile.label}`}
             loading="lazy"
           />
