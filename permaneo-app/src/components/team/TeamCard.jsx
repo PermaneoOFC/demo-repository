@@ -1,19 +1,20 @@
-import { ArrowUpRight, Code2, Linkedin } from 'lucide-react';
+import { Github, Linkedin } from 'lucide-react';
 import { technologies } from './team-data.js';
 
 export function TechList({ only }) {
-  return <div className="tech-list">
+  return <div className="tech-list" aria-label="Tecnologias">
     {technologies.filter((tech) => !only || only.includes(tech.name)).map((tech) =>
-      <span className="tech-symbol" key={tech.name} title={tech.name} aria-label={tech.name}>
+      <span className="tech-symbol" key={tech.name} title={tech.name}>
         <img src={tech.icon} alt={tech.name} width="20" height="20" loading="lazy" />
+        <span>{tech.name}</span>
       </span>
     )}
   </div>;
 }
 
-export function TeamCard({ member, index, active, onSelect }) {
+export function TeamCard({ member, index, active }) {
   return (
-    <article className="team-card" onClick={() => onSelect(member)} aria-label={member.name}>
+    <article className="team-card" aria-label={member.name}>
       <div className="team-photo-wrap">
         <img className="team-photo" src={member.photo} alt={member.name} width={800} height={800} loading="eager" draggable={false} />
         <span className="team-number" aria-hidden="true">0{index + 1}</span>
@@ -23,8 +24,12 @@ export function TeamCard({ member, index, active, onSelect }) {
         <p className="team-role">{member.role}</p>
         <span className="team-specialty"><Code2 aria-hidden="true" />{member.specialty}</span>
         <p className="team-details">{member.responsibilities}</p>
+        <div className="team-stack">
+          <span className="team-stack-label">Tecnologias</span>
+          <TechList only={member.related.length ? member.related : undefined} />
+        </div>
         <div className="team-card-actions">
-          <button type="button" className="team-profile-button" tabIndex={active ? 0 : -1} onClick={event => { event.stopPropagation(); onSelect(member); }} aria-label={`Conhecer ${member.name}`}>Clique para conhecer <ArrowUpRight aria-hidden="true" /></button>
+          <a className="team-github" tabIndex={active ? 0 : -1} href={member.github} target="_blank" rel="noopener noreferrer" aria-label={`GitHub de ${member.name}`}><Github aria-hidden="true" /><span>GitHub</span></a>
           <a className="team-linkedin" tabIndex={active ? 0 : -1} href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${member.name}`} onClick={event => event.stopPropagation()}><Linkedin aria-hidden="true" /><span>LinkedIn</span></a>
         </div>
       </div>

@@ -140,6 +140,14 @@
 .team-portraits img { width: clamp(40px, 11vw, 64px); height: auto; aspect-ratio: 1; object-fit: cover; border: 2px solid transparent; border-radius: 50%; }
 .team-portraits button[aria-pressed="true"] img { border-color: var(--primary); }
 .team-linkedin { min-height: 44px; align-items: center; gap: 5px; font-size: .75rem; }
+.team-github { min-height: 44px; display: inline-flex; align-items: center; gap: 5px; color: var(--muted-foreground); font-size: .75rem; text-decoration: none; }
+.team-github:hover, .team-linkedin:hover { color: var(--primary); }
+.team-github svg { width: 17px; height: 17px; }
+.team-drum-face .team-details { max-height: 50px; }
+.team-drum-face .team-stack { margin-top: 10px; padding-top: 10px; }
+.team-drum-face .tech-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.team-drum-face .tech-symbol { display: inline-flex; align-items: center; gap: 4px; min-height: 28px; padding: 3px 7px; border-radius: 999px; background: var(--muted); color: var(--card-foreground); font-size: 10px; }
+.team-drum-face .tech-symbol img { width: 16px; height: 16px; }
 .team-drum-face .team-stack { margin-top: 16px; padding-top: 15px; }
 .team-drum-face .team-card-actions { margin-top: 12px; }
 .team-drum-controls { display: flex; justify-content: center; gap: 28px; align-items: center; margin-top: 8px; }
