@@ -6,6 +6,36 @@ Os alertas do protótipo devem apoiar conversas e intervenções pedagógicas. A
 
 ## Recursos globais
 
+### Preservação da interface
+
+As regras de tokens e responsividade recuperadas do repositório anterior ficam nos CSS Modules das telas e no `Layout.module.css`. Elas são necessárias porque as classes exportadas do Figma não são compiladas por Tailwind neste projeto. Removê-las pode manter o build funcionando e, mesmo assim, quebrar a interface.
+
+O reset dos botões é limitado a `:where(#root) button`: a baixa especificidade permite que os CSS Modules definam a aparência e evita modificar os controles externos do UserWay. Os componentes de botão usados fora de outros botões usam elementos nativos, preservando a navegação por teclado. Os widgets são iniciados após a montagem inicial do React e ficam fora da árvore do aplicativo.
+
+### Testes de regressão
+
+Na pasta `permaneo-app`, execute:
+
+```powershell
+npm.cmd ci
+npm.cmd test
+npm.cmd run test:accessibility
+npm.cmd run dev -- --host 127.0.0.1
+```
+
+Com o servidor aberto, em outro terminal na mesma pasta:
+
+```powershell
+npm.cmd run test:browser
+npm.cmd run build
+```
+
+Os testes de navegador usam Google Chrome instalado. `BASE_URL` permite testar outra URL. A bateria percorre 29 rotas nos temas claro/escuro e larguras de 390, 900 e 1440 px, verificando erros de renderização, imagens e transbordamento horizontal. Também testa entrada demonstrativa nos três perfis, abertura dos widgets, fechamento do VLibras e navegação com os scripts externos indisponíveis. Capturas locais ficam em `test-results/`, ignorado pelo Git.
+
+Os testes demonstrativos não comprovam conexão com a API/MySQL nem validam a qualidade da tradução automática. Essas verificações precisam do ambiente de backend e de revisão humana.
+
+A mídia da home disponível no histórico consultado é uma imagem estática (`hero.svg`, com PNG incorporado). Não foi localizado vídeo/GIF original nos históricos dos dois repositórios; a imagem foi preservada, sem inventar uma animação substituta.
+
 O ponto de entrada `permaneo-app/src/main.jsx` carrega os widgets uma vez por abertura do site, fora do ciclo de renderização do React. Assim, permanecem disponíveis na landing page, login e telas de direção, professor e estudante, nos dois temas.
 
 - **VLibras:** tradução automática de português para Libras, pelo script oficial. O botão fica à direita.
