@@ -53,8 +53,17 @@
   padding: 0;
   border-radius: 50%;
 }
-.media { position: relative; margin: 0; min-width: 0; }
-.media video { display: block; width: 100%; height: auto; border-radius: 20px; background: var(--paper); aspect-ratio: 720 / 404; }
+.media { position: relative; margin: 0; min-width: 0; overflow: hidden; border-radius: 20px; }
+.media video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+  background: var(--paper);
+  aspect-ratio: 720 / 404;
+  filter: blur(4px) brightness(.82) saturate(.92);
+  transform: scale(1.035);
+}
 .media figcaption { margin-top: 8px; color: var(--muted); font-size: .8rem; }
 
 .example {
