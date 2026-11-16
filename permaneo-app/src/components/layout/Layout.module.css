@@ -289,3 +289,32 @@
     flex-basis: 100%;
   }
 }
+
+
+/* Refinamentos móveis não invasivos nas telas exportadas do Figma. */
+@media (max-width: 760px) {
+  .marker { width: 100%; min-width: 0; max-width: 100%; }
+  .marker :global([data-name="div.min-w-0"]) { min-width: 0 !important; }
+  .marker :global([data-name="Menu da plataforma"]) {
+    max-width: 100%;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .marker :global(img), .marker :global(video), .marker :global(svg) {
+    max-width: 100%;
+  }
+  .marker :global(input), .marker :global(select), .marker :global(textarea) {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .marker :global(table) {
+    width: max-content;
+    min-width: 100%;
+  }
+  .marker :global([data-name="Grade de estudantes"]) { min-width: 0 !important; }
+}
+@media (max-width: 520px) {
+  .marker :global([data-name="div.min-w-0"]) { width: 100% !important; }
+  .marker :global([data-name^="Estudante ·"]) { min-width: 0 !important; }
+  .marker :global([data-name="Grade de estudantes"][data-view-mode="list"] > [data-name^="Estudante ·"]) { min-width: 0; }
+}
