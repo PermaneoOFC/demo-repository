@@ -1,0 +1,180 @@
+@font-face { font-family: 'Bricolage Grotesque'; src: url('../../../styles/fonts/BricolageGrotesque.ttf') format('truetype'); font-style: normal; font-weight: 400 800; font-display: swap; }
+@font-face { font-family: 'Public Sans'; src: url('../../../styles/fonts/PublicSans.ttf') format('truetype'); font-style: normal; font-weight: 400 700; font-display: swap; }
+
+.commercial {
+  --brand: #246579; --ink: #203c46; --muted: #536a72; --paper: #fff; --canvas: #f7f9f8; --line: #cbdcde; --tint: #e8f3f5; --green: #227457; --green-bg: #e6f3ec; --focus: #246579;
+  width: 100%; min-width: 0; color: var(--ink); background: var(--canvas); font: 400 16px/1.6 'Public Sans', sans-serif;
+}
+:global([data-theme='dark']) .commercial { --brand: #a8e0ed; --ink: #f3f8fb; --muted: #cfdee7; --paper: #354e5e; --canvas: #2b3f4d; --line: #718d9e; --tint: #304f5e; --green: #a1e5c7; --green-bg: #254d43; --focus: #a8e0ed; }
+/* This self-contained section owns its gutters, unlike generated Home blocks. */
+.commercial.commercial[data-local-content] { padding-inline: 0 !important; }
+.commercial *, .commercial *::before, .commercial *::after { box-sizing: border-box; }
+.commercial ::selection { background: #a8e0ed; color: #203c46; }
+.commercial :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+.commercial section[tabindex='-1']:focus { outline: none; }
+.commercial h2, .commercial h3, .futureTitle, .resultPrice, .planPrice strong, .modalPrices strong { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; letter-spacing: -.025em; }
+.commercial h2 { font-size: clamp(32px, 3.5vw, 48px); line-height: 1.12; text-wrap: balance; }
+.commercial h3 { font-size: 24px; line-height: 1.2; }
+.commercial p { line-height: 1.6; }
+.commercial svg { flex: 0 0 auto; stroke-width: 1.7; }
+.commercial button, .commercial a { -webkit-tap-highlight-color: transparent; }
+.plans, .features, .future, .contact, .calculatorSection { width: min(1180px, calc(100% - 64px)); margin-inline: auto; scroll-margin-top: 32px; }
+.plans { padding-block: 88px 36px; }
+.sectionHeading { max-width: 790px; margin-bottom: 40px; }
+.sectionHeading > p { max-width: 68ch; color: var(--muted); margin-top: 22px; font-size: 17px; }
+.planGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.planCard { display: flex; flex-direction: column; min-width: 0; padding: 32px; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; transition: transform .25s ease, border-color .25s ease; }
+.annualCard { background: var(--tint); border-color: var(--brand); }
+.cardHeader { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+.badge, .futureBadge { display: inline-block; width: fit-content; border-radius: 6px; padding: 5px 10px; font-size: 12px; line-height: 1.5; font-weight: 600; background: var(--green-bg); color: var(--green); }
+.muted { color: var(--muted); font-size: 14px; }
+.planPrice { margin-top: 30px; }
+.planPrice > span { font-size: 14px; color: var(--muted); }
+.planPrice p { display: flex; align-items: baseline; gap: 8px; }
+.planPrice strong { font-size: clamp(42px, 4vw, 56px); line-height: 1.15; font-variant-numeric: tabular-nums; }
+.planPrice p > span { color: var(--muted); }
+.studentPrice { margin-top: 10px; }
+.studentPrice strong { font-size: 23px; font-weight: 600; }
+.checkList { list-style: none; padding: 24px 0; margin: 24px 0 0; border-top: 1px solid var(--line); display: grid; gap: 12px; font-size: 14px; }
+.checkList li { display: flex; gap: 10px; align-items: start; }
+.checkList svg { color: var(--green); margin-top: 2px; }
+.planNote { margin-bottom: 26px; font-size: 13px; color: var(--muted); display: grid; gap: 12px; }
+.primary, .secondary { min-height: 48px; border-radius: 10px; padding: 13px 20px; font-size: 15px; font-weight: 600; display: inline-flex; justify-content: center; align-items: center; gap: 12px; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+.commercial .primary { color: #fff; background: #246579; border: 1px solid #246579; }
+:global([data-theme='dark']) .commercial .primary { color: #203c46; background: #a8e0ed; border-color: #a8e0ed; }
+.commercial .secondary { color: var(--brand); background: var(--paper); border: 1px solid var(--brand); }
+.planCard > button { margin-top: auto; width: 100%; }
+.commercial button:active, .commercial a:active { transform: translateY(1px); }
+.planFootnote { display: flex; align-items: start; justify-content: space-between; gap: 24px; margin-top: 24px; }
+.planFootnote p { font-size: 13px; color: var(--muted); }
+.textButton { display: inline-flex; gap: 8px; align-items: center; min-height: 44px; color: var(--brand); font-size: 14px; font-weight: 600; white-space: nowrap; }
+.calculatorSection { padding-block: 16px 56px; }
+.calculator { display: grid; grid-template-columns: .85fr 1.15fr; border-radius: 16px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
+.calculatorControls { padding: 36px; display: flex; flex-direction: column; align-items: start; }
+.calculatorControls > p { margin-block: 16px 24px; color: var(--muted); font-size: 14px; }
+.calculatorControls label { font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+.commercial input { border: 1px solid var(--line); border-radius: 8px; background: var(--canvas); color: var(--ink); padding: 12px 14px; min-height: 48px; min-width: 0; width: 100%; caret-color: var(--brand); }
+.calculatorControls > input { max-width: 240px; font-size: 24px; font-variant-numeric: tabular-nums; }
+.commercial input[aria-invalid='true'] { border-color: #b23b35; }
+.calculatorControls > .small, .calculatorControls > .error { margin-top: 10px; font-size: 12px; }
+.commercial .error { color: #a7332d; }
+:global([data-theme='dark']) .commercial .error { color: #ffbcb8; }
+.planSwitch { display: flex; padding: 4px; gap: 4px; background: var(--canvas); border: 1px solid var(--line); border-radius: 10px; }
+.planSwitch button { padding: 9px 24px; min-height: 44px; border-radius: 6px; color: var(--muted); font-size: 14px; font-weight: 600; }
+.planSwitch button[aria-pressed='true'] { color: #fff; background: #246579; }
+.calculatorResult { background: var(--tint); padding: 36px; display: flex; flex-direction: column; justify-content: center; font-variant-numeric: tabular-nums; }
+.calculatorResult > p:first-child { font-size: 13px; }
+.calculatorResult .resultPrice { font-size: clamp(34px, 3.8vw, 46px); line-height: 1.25; margin-top: 8px; }
+.resultPrice span { font: 400 14px 'Public Sans', sans-serif; letter-spacing: 0; margin-left: 6px; }
+.breakdown { margin-top: 8px; font-size: 12px; color: var(--muted); }
+.totals { margin: 22px 0; padding-bottom: 18px; border-bottom: 1px solid var(--line); font-size: 14px; }
+.totals > div { display: flex; justify-content: space-between; gap: 16px; }
+.totals dd { margin: 0; font-weight: 700; white-space: nowrap; }
+.comparison { width: 100%; border-collapse: collapse; font-size: 13px; }
+.comparison caption { text-align: left; margin-bottom: 12px; font-weight: 600; }
+.comparison th { text-align: left; font-weight: 500; }
+.comparison th, .comparison td { padding: 8px 4px; }
+.comparison thead { font-size: 11px; color: var(--muted); }
+.comparison td, .comparison thead th:not(:first-child) { text-align: right; }
+.comparison tbody tr[aria-selected='true'] { color: var(--brand); font-weight: 700; }
+.calculatorResult .savings { margin-top: 18px; padding: 13px 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; color: var(--green); font-size: 13px; }
+.small { font-size: 12px; color: var(--muted); }
+.custom { display: grid; gap: 18px; justify-items: start; }
+.custom > svg { color: var(--brand); }
+.custom p { color: var(--muted); font-size: 14px; }
+.features { padding-block: 48px 72px; }
+.featureGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.commercial .featureCard { display: flex; flex-direction: column; gap: 14px; padding: 24px; border: 1px solid var(--line); background: var(--paper); text-align: left; border-radius: 12px; transition: border-color .2s ease, transform .2s ease; }
+.featureTop { display: flex; justify-content: space-between; width: 100%; color: var(--brand); margin-bottom: 8px; }
+.featureCard > strong { font-size: 17px; line-height: 1.3; font-weight: 600; }
+.featureCard > span:not(.featureTop):not(.featureStatus) { font-size: 13px; line-height: 1.6; color: var(--muted); }
+.featureStatus { color: var(--brand); font-size: 11px; line-height: 1.4; font-weight: 600; }
+.featureCard .featureStatus { margin-top: auto; padding-top: 8px; }
+.availability { max-width: 85ch; font-size: 12px; color: var(--muted); margin-top: 24px; }
+.future { padding-block: 48px 64px; border-top: 1px solid var(--line); }
+.futureCard { border-radius: 16px; background: var(--tint); overflow: hidden; }
+.flow { display: flex; align-items: center; max-width: 620px; margin: 0 auto; padding: 42px 32px 20px; color: var(--brand); }
+.flow > svg { width: 42px; height: 42px; padding: 6px; }
+.flowLine { flex: 1; height: 1px; position: relative; background: var(--line); margin-inline: 12px; }
+.flowLine::after { content: ''; position: absolute; top: -2px; left: 0; width: 18px; height: 5px; border-radius: 3px; background: var(--brand); animation: dataFlow 2s ease-in-out 2; animation-play-state: paused; }
+.future[data-flow-active='true'] .flowLine::after { animation-play-state: running; }
+.flowLine:nth-of-type(2)::after { animation-delay: .2s; }
+.flowLine:nth-of-type(3)::after { animation-delay: .4s; }
+@keyframes dataFlow { 0% { left: 0; opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { left: calc(100% - 18px); opacity: 0; } }
+.futureToggle { display: flex; align-items: end; justify-content: space-between; gap: 32px; width: 100%; padding: 24px 36px 36px; text-align: left; }
+.futureIntro { display: flex; flex-direction: column; align-items: start; gap: 16px; max-width: 660px; }
+.futureBadge { background: var(--paper); color: var(--brand); }
+.futureTitle { font-size: 30px; line-height: 1.15; text-wrap: balance; }
+.futureIntro > span:last-child { color: var(--muted); font-size: 14px; }
+.expandLabel { display: flex; align-items: center; gap: 10px; color: var(--brand); font-size: 13px; font-weight: 600; }
+.expandLabel svg { transition: transform .25s ease; }
+.futureToggle[aria-expanded='true'] .expandLabel svg { transform: rotate(180deg); }
+.futureDetails { padding: 0 36px 36px; animation: expand .3s ease-out; }
+@keyframes expand { from { opacity: .6; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+.futurePossibilities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; border-top: 1px solid var(--line); padding-top: 28px; }
+.futurePossibilities h3 { font-size: 20px; line-height: 1.35; }
+.futurePossibilities p { color: var(--muted); font-size: 14px; margin-top: 14px; }
+.safeguards { display: flex; gap: 16px; border-top: 1px solid var(--line); margin-top: 32px; padding-top: 24px; }
+.safeguards > svg { color: var(--green); }
+.safeguards h3 { font-size: 20px; }
+.safeguards p { font-size: 13px; color: var(--muted); margin-top: 12px; max-width: 100ch; }
+.contact { padding: 12px 0 72px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.contact h2 { font-size: 32px; }
+.contact p { font-size: 15px; color: var(--muted); margin-top: 16px; max-width: 55ch; }
+.contact > button { flex-shrink: 0; }
+.dialog { position: fixed; width: min(900px, calc(100% - 32px)); max-height: calc(100dvh - 40px); margin: auto; padding: 32px; overflow-y: auto; overscroll-behavior: contain; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); color: var(--ink); font: 400 15px/1.6 'Public Sans', sans-serif; scrollbar-color: var(--line) var(--paper); }
+.dialog::backdrop { background: rgb(15 36 44 / .65); }
+.dialogHeader { display: flex; align-items: start; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+.dialogHeader h2 { font-size: 32px; }
+.close { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 8px; color: var(--ink); }
+.planDetails { display: grid; gap: 24px; }
+.modalPrices { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-block: 20px; border-block: 1px solid var(--line); }
+.modalPrices p { display: grid; gap: 8px; font-size: 14px; color: var(--muted); }
+.modalPrices strong { color: var(--ink); font-size: 32px; }
+.modalPrices small { font: 400 14px 'Public Sans', sans-serif; margin-left: 5px; }
+.benefitList { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; margin: -10px 0 0; padding-left: 20px; font-size: 13px; }
+.benefitList span { color: var(--muted); }
+.compact { grid-template-columns: .8fr 1.2fr; }
+.compact .calculatorControls, .compact .calculatorResult { padding: 24px; }
+.compact h3 { font-size: 22px; }
+.compact .resultPrice { font-size: 32px; }
+.compact .planSwitch button { padding-inline: 18px; }
+.contract { font-size: 12px; color: var(--muted); }
+.featureDetails { display: grid; gap: 20px; }
+.featureDetails figure { margin: 0; }
+.featureDetails img { height: auto; width: 100%; border: 1px solid var(--line); border-radius: 8px; }
+.featureDetails figcaption { font-size: 12px; color: var(--muted); margin-top: 8px; }
+.featureDetails a { justify-self: start; }
+.proposalForm { display: grid; gap: 24px; }
+.proposalForm > p { color: var(--muted); font-size: 14px; }
+.formFields { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.formFields label { display: grid; gap: 8px; font-size: 14px; font-weight: 600; }
+.prepared { padding-top: 20px; border-top: 1px solid var(--line); display: grid; gap: 14px; }
+.prepared h3 { font-size: 24px; }
+.prepared pre { white-space: pre-wrap; overflow-wrap: anywhere; font: 400 13px/1.7 'Public Sans', sans-serif; background: var(--canvas); padding: 16px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .planCard:hover, .featureCard:hover { transform: translateY(-5px); border-color: var(--brand); } .primary:hover, .secondary:hover { transform: translateY(-2px); } }
+@media (hover: hover) { .commercial .primary:hover { background: #1d5263; color: #fff; } .commercial .secondary:hover, .close:hover { background: var(--tint); } .textButton:hover { text-decoration: underline; text-underline-offset: 4px; } }
+@media (max-width: 1000px) { .featureGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .planCard { padding: 26px; } .calculatorControls, .calculatorResult { padding: 28px; } .futureToggle { align-items: start; flex-direction: column; gap: 24px; } }
+@media (max-width: 700px) {
+  .plans, .features, .future, .contact, .calculatorSection { width: calc(100% - 36px); }
+  .plans { padding-top: 56px; } .sectionHeading { margin-bottom: 28px; } .sectionHeading > p { font-size: 15px; margin-top: 18px; }
+  .planGrid, .calculator, .compact, .futurePossibilities { grid-template-columns: 1fr; }
+  .planCard { padding: 24px; } .planGrid { gap: 20px; }
+  .planFootnote, .contact { flex-direction: column; gap: 18px; align-items: start; }
+  .calculatorControls, .calculatorResult { padding: 24px; } .calculatorSection { padding-bottom: 24px; }
+  .calculatorControls > input { max-width: none; }
+  .featureGrid { gap: 12px; } .commercial .featureCard { padding: 18px; gap: 12px; } .featureCard > strong { font-size: 15px; }
+  .features { padding-bottom: 44px; } .future { padding-top: 40px; }
+  .futureTitle { font-size: 26px; } .futureToggle { padding: 20px 24px 28px; } .futureDetails { padding: 0 24px 28px; }
+  .flow { padding: 28px 18px 12px; } .flowLine { margin-inline: 4px; } .flow > svg { width: 36px; height: 36px; }
+  .contact { padding-bottom: 48px; } .contact > button { width: 100%; }
+  .dialog { padding: 22px; max-height: calc(100dvh - 24px); width: calc(100% - 24px); }
+  .dialogHeader h2 { font-size: 27px; } .modalPrices { gap: 12px; } .modalPrices strong { font-size: 27px; }
+  .benefitList, .formFields { grid-template-columns: 1fr; }
+  .compact .calculatorControls, .compact .calculatorResult { padding: 18px; }
+  .comparison { font-size: 12px; } .comparison th, .comparison td { padding-inline: 2px; }
+  .totals > div { flex-wrap: wrap; gap: 4px 16px; }
+}
+@media (max-width: 600px) { .featureGrid { grid-template-columns: 1fr; } }
+@media (max-width: 370px) { .modalPrices { grid-template-columns: 1fr; } .compact .resultPrice { font-size: 28px; } }
+@media (prefers-reduced-motion: reduce) { .commercial *, .commercial *::before, .commercial *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
