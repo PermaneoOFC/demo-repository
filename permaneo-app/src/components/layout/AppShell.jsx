@@ -1,3 +1,4 @@
+import StudentPortrait from '../students/StudentPortrait.jsx';
 import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import {
@@ -87,7 +88,7 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
         </nav>
         <div className={styles.account}>
           <div className={styles.identity}>
-            <span className={styles.avatar}>{initials}</span>
+            {student ? <StudentPortrait student={{ id: 'Camila', name }} className={styles.avatar} decorative /> : <span className={styles.avatar}>{initials}</span>}
             <span>
               {name}
               <small>{description}</small>

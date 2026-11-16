@@ -1,3 +1,4 @@
+import StudentPortrait from '../students/StudentPortrait.jsx';
 import { useState } from 'react';
 import { Aperture, Mountain, Orbit, Waves } from 'lucide-react';
 import styles from '../../pages/Dashboard/Estudante/StudentArea.module.css';
@@ -17,7 +18,7 @@ export const defaultPreferences = {
 
 export function Avatar({ name }) {
   const Icon = avatars[name] || Orbit;
-  return <span className={styles.heroAvatar}><Icon size={48} aria-hidden="true" /></span>;
+  return <span className={styles.heroAvatar}><StudentPortrait student={{ id: 'Camila', name: 'Camila Rocha' }} className={styles.heroPortrait} loading="eager" /><span className={styles.avatarBadge} title={`Símbolo pessoal: ${name}`}><Icon size={20} aria-hidden="true" /></span></span>;
 }
 
 export default function StudentSpace({ preferences, update, settings, onboarding, onFinish }) {

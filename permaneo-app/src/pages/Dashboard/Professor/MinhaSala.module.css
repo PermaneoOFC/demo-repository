@@ -289,3 +289,5 @@
   .list li > button { grid-template-columns: auto 1fr auto; }
   .list button > .signal { grid-column: 2 / -1; grid-row: 2; }
 }
+
+.seat:hover .avatar img,.seat:focus-visible .avatar img{transform:scale(1.045)}
