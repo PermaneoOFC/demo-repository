@@ -11,7 +11,7 @@ try {
   const errors = [];
   const requests = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  page.on('request', (request) => { if (new URL(request.url()).pathname.startsWith('/api/')) requests.push(request.url()); });
+  page.on('request', (request) => { if (request.url().startsWith('http://127.0.0.1:5185/api/')) requests.push(request.url()); });
   const base = 'http://127.0.0.1:5185/#/';
   await page.goto(base + 'login');
   await page.getByRole('radio', { name: /Professor/ }).click();
