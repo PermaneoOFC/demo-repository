@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage.js';
-import styles from './StudentPlan.module.css';
+import styles from '../../pages/Dashboard/Estudante/StudentArea.module.css';
 
 export default function StudentPlan() {
   const [goals, setGoals] = useLocalStorage('permaneo-student-goals', []);

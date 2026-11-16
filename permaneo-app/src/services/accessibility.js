@@ -30,9 +30,9 @@ export function initializeAccessibility(userWayAccount = '') {
   loadWidget('permaneo-userway', 'https://cdn.userway.org/widget.js', {
     'data-account': account,
     'data-language': 'pt',
-    'data-position': '5',
+    'data-position': '2',
     'data-color': '#246579',
-    'data-size': 'large',
+    'data-size': 'small',
     'data-mobile': 'true',
   });
 }

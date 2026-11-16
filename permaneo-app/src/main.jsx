@@ -4,6 +4,7 @@ import styles from './main.module.css';
 import App from './App.jsx';
 import ErrorBoundary from './components/layout/ErrorBoundary.jsx';
 import './global.css';
+import './styles/accessibility.css';
 import { initializeAccessibility } from './services/accessibility.js';
 
 const rootElement = document.getElementById('root');
