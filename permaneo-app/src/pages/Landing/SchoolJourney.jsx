@@ -11,7 +11,7 @@ const steps = [
   { label: 'Rever a evolução', title: 'Consultar os próximos registros', description: 'A equipe verifica o retorno às aulas e decide se precisa ajustar o apoio.', icon: CalendarCheck, facts: [['Últimas duas aulas', 'Presença registrada'], ['Apoio', 'Retorno combinado']] },
 ];
 
-export function SchoolMedia({ className }) {
+export function SchoolMedia({ className, background = false }) {
   const video = useRef(null);
   const [source, setSource] = useState(null);
   const [playing, setPlaying] = useState(false);
@@ -21,7 +21,7 @@ export function SchoolMedia({ className }) {
       setSource(schoolVideo);
     }
   }, []);
-  return <figure className={styles.media}>
+  return <figure className={background ? `${styles.media} ${styles.heroBackground}` : styles.media}>
     <video ref={video} className={className} src={source || undefined} poster={schoolPhoto} width="720" height="404"
       autoPlay={Boolean(source)} muted loop playsInline aria-hidden="true"
       onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)}
@@ -33,7 +33,7 @@ export function SchoolMedia({ className }) {
         else if (playing) video.current.pause();
         else video.current.play().catch(() => {});
       }}>{playing ? <Pause size={19} /> : <Play size={19} />}</button>}
-    <figcaption>Cenas ilustrativas do cotidiano escolar.</figcaption>
+    {!background && <figcaption>Cenas ilustrativas do cotidiano escolar.</figcaption>}
   </figure>;
 }
 
