@@ -1,0 +1,26 @@
+.field {
+  display: grid;
+  gap: 7px;
+  width: 100%;
+  margin: 14px 0;
+  color: var(--app-text);
+  font: 700 13px/1.4 Manrope, sans-serif;
+}
+
+.control {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--app-border);
+  border-radius: 9px;
+  background: var(--app-surface);
+  color: var(--app-text);
+  font: 400 14px Manrope, sans-serif;
+}
+
+.control:focus-visible {
+  border-color: #246579;
+  outline: 3px solid #a8e0ed;
+  outline-offset: 1px;
+}
