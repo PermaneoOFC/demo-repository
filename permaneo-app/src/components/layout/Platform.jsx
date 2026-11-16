@@ -533,17 +533,17 @@ export default function Platform() {
         return;
       }
       const sections = [
-        ['a proposta', '2009:7591'],
-        ['como funciona', '2009:7626'],
-        ['para quem', '2009:7646'],
-        ['solucoes', '2009:7653'],
+        ['a proposta', '[data-name^="A proposta ·"]'],
+        ['como funciona', '[data-name="Como funciona"]'],
+        ['para quem', '[data-name="Perfis da plataforma"]'],
+        ['solucoes', '[data-name="Soluções e modelo de negócio"]'],
       ];
       const section = sections.find(([title]) => label.includes(title));
       if (section) {
         prevent();
         document
-          .querySelector('[data-node-id="' + section[1] + '"]')
-          ?.scrollIntoView({ behavior: 'smooth' });
+          .querySelector(section[1])
+          ?.scrollIntoView({ behavior: window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ? 'auto' : 'smooth' });
         return;
       }
       if (/acessar|explorar|demonstracao|vamos conhecer|perfil/.test(label)) {
@@ -912,8 +912,8 @@ export default function Platform() {
                 {modal === 'contact'
                   ? 'Este canal não envia mensagens. Na aplicação, estará disponível somente quando autorizado e configurado.'
                   : modal === 'privacy'
-                    ? 'Cuidado com as pessoas. Respeito aos dados. Os dados deste ambiente são fictícios. Os pedidos de apoio são destinados à equipe autorizada da escola.'
-                    : 'Permaneo Plataforma: assinatura por escola, mensal ou anual. Permaneo Inteligente: plataforma completa com câmeras integradas. Investimento sob consulta conforme o porte da escola.'}
+                    ? 'A demonstração usa dados fictícios. Não informe dados reais de estudantes nem de familiares. A demonstração não coleta dados biométricos nem envia pedidos de apoio a escolas.'
+                    : 'O Permaneo Plataforma pode ser explorado com dados fictícios. A modalidade Permaneo Inteligente está em estudo, sem câmeras ou reconhecimento facial na demonstração.'}
               </p>
             </>
           )}
