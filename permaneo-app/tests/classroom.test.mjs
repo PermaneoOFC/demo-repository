@@ -29,8 +29,9 @@ try {
   for (const control of attendanceButtons) await expect(control).toHaveAttribute('aria-pressed', 'false');
   await attendanceButtons[0].click();
   await dialog.getByRole('button', { name: 'Camila Rocha: Falta justificada' }).click();
-  await expect(dialog.getByText('2', { exact: true }).first()).toBeVisible();
-  await dialog.getByRole('button', { name: /Revisar chamada · 2\/2/ }).click();
+  const reviewButton = dialog.getByRole('button', { name: /Revisar chamada · 2\/2/ });
+  await expect(reviewButton).toBeEnabled();
+  await reviewButton.click();
   const review = page.getByRole('dialog', { name: 'Revisar chamada' });
   await expect(review).toContainText('Lucas Gomes');
   await expect(review).toContainText('Camila Rocha');
