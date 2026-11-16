@@ -143,20 +143,13 @@
 .team-github { min-height: 44px; display: inline-flex; align-items: center; gap: 5px; color: var(--muted-foreground); font-size: .75rem; text-decoration: none; }
 .team-github:hover, .team-linkedin:hover { color: var(--primary); }
 .team-github svg { width: 17px; height: 17px; }
-.team-expand { display: inline-flex; align-items: center; gap: 5px; min-height: 40px; margin-top: 6px; color: var(--primary); font-size: .75rem; font-weight: 650; }
-.team-expand:hover { text-decoration: underline; text-underline-offset: 3px; }
-.team-drum-face .team-card { height: 480px; transition: height 280ms ease, box-shadow 400ms, transform 650ms; }
-.team-drum-face .team-photo-wrap { height: 145px; transition: height 250ms ease; }
-.team-drum-stage:has(.team-card[data-expanded="true"]) { height: 696px; transition: height 280ms ease; }
-.team-drum-stage:has(.team-card[data-expanded="true"]) .team-drum-rotor { height: 678px; transition: height 280ms ease; }
-.team-drum-face .team-card[data-expanded="true"] { height: 660px; }
-.team-drum-face .team-card[data-expanded="true"] .team-photo-wrap { height: 215px; }
-.team-drum-face .team-details { max-height: 0; opacity: 0; margin-top: 0; transition: max-height 220ms ease, opacity 220ms ease, margin 220ms ease; }
-.team-drum-face .team-highlights { max-height: 0; opacity: 0; overflow: hidden; margin: 0; font-size: 11px; line-height: 1.6; color: var(--muted-foreground); transition: max-height 220ms ease, opacity 220ms ease, margin 220ms ease; }
+.team-drum-face .team-card { height: 660px; transition: box-shadow 400ms, transform 650ms; }
+.team-drum-stage { height: 696px; }
+.team-drum-rotor { height: 678px; }
+.team-drum-face .team-photo-wrap { height: 215px; }
+.team-drum-face .team-card .team-details { max-height: 96px; opacity: 1; overflow: visible; margin-top: 10px; }
+.team-drum-face .team-highlights { max-height: 80px; opacity: 1; overflow: visible; margin: 6px 0 0; font-size: 11px; line-height: 1.6; color: var(--muted-foreground); }
 .team-drum-face .team-highlights strong { color: var(--card-foreground); }
-.team-drum-face .team-card[data-expanded="true"] .team-details { max-height: 70px; opacity: 1; margin-top: 10px; }
-.team-drum-face .team-card[data-expanded="true"] .team-highlights { max-height: 70px; opacity: 1; margin-top: 6px; }
-.team-drum-face .team-card:not([data-expanded="true"]):is(:hover, :focus-within) .team-details { max-height: 0; opacity: 0; margin-top: 0; }
 .team-drum-face .team-stack { margin-top: 7px; padding-top: 8px; }
 .team-drum-face .tech-list { display: flex; flex-wrap: wrap; gap: 7px; }
 .team-drum-face .tech-symbol { display: inline-flex; align-items: center; gap: 4px; min-height: 28px; padding: 3px 7px; border-radius: 999px; background: var(--muted); color: var(--card-foreground); font-size: 10px; }
@@ -214,14 +207,10 @@
 }
 @media (max-width: 640px) {
   .team-drum-region { --drum-radius: 220px; --drum-width: 260px; }
-  .team-drum-stage { perspective: 800px; height: 524px; }
-  .team-drum-rotor { top: 14px; height: 496px; }
-  .team-drum-face .team-card { height: 480px; }
-  .team-drum-stage:has(.team-card[data-expanded="true"]) { height: 686px; }
-  .team-drum-stage:has(.team-card[data-expanded="true"]) .team-drum-rotor { height: 668px; }
-  .team-drum-face .team-card[data-expanded="true"] { height: 650px; }
-  .team-drum-face .team-photo-wrap { height: 150px; }
-  .team-drum-face .team-card[data-expanded="true"] .team-photo-wrap { height: 195px; }
+  .team-drum-stage { perspective: 800px; height: 686px; }
+  .team-drum-rotor { top: 14px; height: 668px; }
+  .team-drum-face .team-card { height: 650px; }
+  .team-drum-face .team-photo-wrap { height: 195px; }
   .team-drum-face .team-card-body { padding: 14px; }
   .team-drum-face .team-name { font-size: 21px; min-height: 52px; }
   .team-drum-face .team-role { font-size: 11px; }
