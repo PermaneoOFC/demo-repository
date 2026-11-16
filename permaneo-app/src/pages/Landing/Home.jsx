@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useHref, useLocation } from 'react-router-dom';
-import { ArrowDown, ArrowDownRight, ArrowRight, Armchair, BookOpen, CalendarDays, Moon, School, Sun } from 'lucide-react';
+import { ArrowDown, ArrowDownRight, ArrowRight, BookOpen, CalendarDays, Moon, School, Sun } from 'lucide-react';
 import logo from '../../images/logo.svg';
 import AboutTeam from '../../components/team/AboutTeam.jsx';
 import CommercialSection from './commercial/CommercialSection.jsx';
@@ -14,7 +14,7 @@ const sections = [
 
 const profiles = [
   { label: 'Direção e coordenação', icon: School, route: 'director', preview: 'director', title: 'Combine o próximo passo de apoio', text: 'Cruze frequência e alertas para organizar intervenções e acompanhar os retornos da equipe.' },
-  { label: 'Professor', icon: BookOpen, route: 'teacher', title: 'Organize a turma e faça a chamada', text: 'Visualize as carteiras, registre presença e abra o perfil de um estudante a partir da sala virtual.' },
+  { label: 'Professor', icon: BookOpen, route: 'teacher', preview: 'teacher', previewExt: 'svg', title: 'Explore a sala virtual e acompanhe sua turma', text: 'Visualize as carteiras e os estudantes, abra perfis e faça a chamada na área Minhas Turmas.' },
   { label: 'Estudante', icon: CalendarDays, route: 'student', preview: 'studentCalendar', title: 'Planeje sua semana no seu ritmo', text: 'Consulte atividades e prazos, organize metas pessoais e conheça o espaço de apoio.' },
 ];
 
@@ -94,15 +94,14 @@ export default function Home({ dark, onToggleTheme }) {
           <Link to={'/' + profile.route} className={styles.primary}>Ver demonstração <ArrowDownRight size={19} aria-hidden="true" /></Link>
         </div>
         <figure className={styles.preview}>
-          {profile.preview ? <img src={`${import.meta.env.BASE_URL}previews/${profile.preview}.webp`} width="1440" height="1000"
-            alt={`Captura da demonstração do perfil ${profile.label}`} loading="lazy" /> :
-            <div className={styles.roomPreview}>
-              <div><Armchair size={20} aria-hidden="true" /><strong>Sala Virtual · 9º A</strong></div>
-              <p>Quadro</p>
-              <div className={styles.desks}><span>Lucas Gomes</span><span>Camila Rocha</span></div>
-              <Link to="/teacherRoom?turma=9a" className={styles.secondary}>Abrir sala virtual <ArrowRight size={16} aria-hidden="true" /></Link>
-            </div>}
-          <figcaption>{profile.preview ? 'Captura da demonstração com dados fictícios.' : 'Prévia esquemática com dados fictícios.'}</figcaption>
+          <img
+            src={`${import.meta.env.BASE_URL}previews/${profile.preview}.${profile.previewExt || 'webp'}`}
+            width={profile.preview === 'teacher' ? 720 : 1440}
+            height={profile.preview === 'teacher' ? 393 : 1000}
+            alt={`Captura da demonstração do perfil ${profile.label}`}
+            loading="lazy"
+          />
+          <figcaption>Captura da demonstração com dados fictícios.</figcaption>
         </figure>
       </div>
     </section>
