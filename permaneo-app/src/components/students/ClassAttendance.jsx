@@ -1,9 +1,9 @@
+import StudentPortrait from './StudentPortrait.jsx';
 import { useMemo, useState } from 'react';
 import { ArrowLeft, Check, CheckCircle2, Circle, Search, X } from 'lucide-react';
 import { hoje, presencas } from '../../data/sala.js';
 import styles from './ClassAttendance.module.css';
 
-const initials = (name) => name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
 const statuses = [['PRESENTE', 'Presente'], ['AUSENTE', 'Ausente'], ['JUSTIFICADA', 'Falta justificada']];
 
 export default function ClassAttendance({ turma, attendance = {}, attendanceMeta = {}, onSave, onClose }) {
@@ -42,7 +42,7 @@ export default function ClassAttendance({ turma, attendance = {}, attendanceMeta
         <div className={styles.roster}>{matching.map((student) => {
           const current = draft[student.id] || 'NAO_REGISTRADA';
           const completedMark = statuses.some(([value]) => value === current);
-          return <article className={styles.studentRow} key={student.id}><span className={styles.photo}>{student.foto ? <img src={student.foto} alt={`Foto de ${student.nome}`} /> : <span>{initials(student.nome)}</span>}</span><div className={styles.name}><strong>{student.nome}</strong><small>{completedMark ? presencas[current] : 'Marcação pendente'}</small></div><div className={styles.statusButtons} role="group" aria-label={`Marcação para ${student.nome}`}>{statuses.map(([value, label]) => <button type="button" key={value} data-status={value.toLowerCase()} aria-label={`${student.nome}: ${label}`} aria-pressed={current === value} title={label} onClick={() => mark(student.id, value)}>{current === value ? <Check size={15} /> : <Circle size={15} />}<span>{label}</span></button>)}</div></article>;
+          return <article className={styles.studentRow} key={student.id}><StudentPortrait student={student} className={styles.photo} decorative /><div className={styles.name}><strong>{student.nome}</strong><small>{completedMark ? presencas[current] : 'Marcação pendente'}</small></div><div className={styles.statusButtons} role="group" aria-label={`Marcação para ${student.nome}`}>{statuses.map(([value, label]) => <button type="button" key={value} data-status={value.toLowerCase()} aria-label={`${student.nome}: ${label}`} aria-pressed={current === value} title={label} onClick={() => mark(student.id, value)}>{current === value ? <Check size={15} /> : <Circle size={15} />}<span>{label}</span></button>)}</div></article>;
         })}</div>
         {!matching.length && <p className={styles.empty}>Nenhum estudante corresponde à busca.</p>}
         <section className={styles.history}><h3>Chamadas anteriores</h3>{calls.length ? <ul>{calls.slice(0, 5).map(([callDate, students]) => <li key={callDate}><span>{new Date(`${callDate}T12:00:00`).toLocaleDateString('pt-BR')} · {attendanceMeta[callDate] || 'Aula'}</span><span>{turma.estudantes.filter((student) => students[student.id] && students[student.id] !== 'NAO_REGISTRADA').length}/{turma.estudantes.length} registros concluídos</span></li>)}</ul> : <p>Esta turma ainda não tem chamadas salvas.</p>}</section>

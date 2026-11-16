@@ -1,3 +1,4 @@
+import StudentPortrait from '../../../components/students/StudentPortrait.jsx';
 import { useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, BookOpen, CalendarDays, CheckCircle2, ChevronLeft, ChevronRight, CircleAlert, ClipboardList, GraduationCap, HeartHandshake, History, LayoutGrid, List, MessageSquareText, Plus, Search, ShieldCheck, UsersRound, X } from 'lucide-react';
 import { demoStudents } from '../../../data/students.js';
@@ -8,14 +9,11 @@ import styles from './CarometroExperience.module.css';
 const modes = [['cards', 'Cartões', LayoutGrid], ['list', 'Lista', List], ['compact', 'Compacto', ClipboardList]];
 const tabs = [['overview', 'Visão geral', BookOpen], ['attendance', 'Frequência', CalendarDays], ['performance', 'Desempenho', GraduationCap], ['notes', 'Observações', MessageSquareText], ['followup', 'Acompanhamento', HeartHandshake], ['history', 'Histórico', History]];
 const formatDate = (value) => value ? new Date(value.length === 10 ? value + 'T12:00:00' : value).toLocaleDateString('pt-BR') : 'Sem data';
-const initials = (name = '') => name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
 const gradeName = (student) => student.grade || student.className?.match(/(\d+)º/)?.[1] && `${student.className.match(/(\d+)º/)[1]}º ano` || 'Ensino fundamental';
 const asIsoDate = (value = '') => value.includes('/') ? value.split('/').reverse().join('-') : value;
 
 function Photo({ student, large = false }) {
-  return <span className={`${styles.photo} ${large ? styles.photoLarge : ''}`}>
-    {student.photo ? <img src={student.photo} alt={`Foto de ${student.name}`} /> : <span aria-label={`Sem foto cadastrada para ${student.name}`}>{initials(student.name)}</span>}
-  </span>;
+  return <StudentPortrait student={student} className={`${styles.photo} ${large ? styles.photoLarge : ''}`} loading={large ? 'eager' : 'lazy'} decorative={!large} />;
 }
 
 function AttendanceBar({ value }) {

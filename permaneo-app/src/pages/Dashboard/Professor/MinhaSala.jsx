@@ -1,3 +1,4 @@
+import StudentPortrait from '../../../components/students/StudentPortrait.jsx';
 import ClassAttendance from '../../../components/students/ClassAttendance.jsx';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -19,11 +20,7 @@ const acao = styles.action;
 const icon = (Icon, size = 17) => <Icon size={size} aria-hidden="true" />;
 
 function Avatar({ aluno }) {
-  const iniciais = aluno.nome.trim().split(/\s+/).slice(0, 2).map((word) => word[0]).join('');
-  const variante = [...String(aluno.id)].reduce((acc, letter) => acc + letter.codePointAt(0), 0) % 4;
-  return <span className={styles.avatar} data-variant={variante} aria-hidden="true">
-    {aluno.foto ? <img src={aluno.foto} alt="" /> : iniciais}
-  </span>;
+  return <StudentPortrait student={aluno} className={styles.avatar} decorative />;
 }
 
 function Sinal({ aluno, texto = false }) {

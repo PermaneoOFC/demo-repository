@@ -414,3 +414,7 @@
 .attendanceTable td[data-presence='P'] { background: #d6f1e5; color: #174d3b; }
 .attendanceTable td[data-presence='A'] { background: #ffebce; color: #65410f; }
 .attendanceTable td[data-presence='J'] { background: #dceaf9; color: #254963; }
+
+.heroAvatar{position:relative}
+.heroPortrait{width:100%;height:100%;border-radius:inherit}
+.avatarBadge{position:absolute;right:-4px;bottom:-4px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--portal-hero);color:#fff;border:2px solid var(--app-surface)}

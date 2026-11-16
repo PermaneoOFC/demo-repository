@@ -1,4 +1,5 @@
-﻿import { useRef, useState } from 'react';
+import StudentPortrait from './StudentPortrait.jsx';
+import { useRef, useState } from 'react';
 import {
   ArrowLeft,
   Plus,
@@ -44,11 +45,6 @@ export default function StudentProfile({ studentKey, records, onBack, onRecord, 
   const [saved, setSaved] = useState(false);
   const [notes, setNotes] = useLocalStorage('permaneo-profile-notes-' + studentKey, []);
   const tabRefs = useRef([]);
-  const initials = student.name
-    .split(' ')
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join('');
   const gradeAverage = average(student.grades.map((row) => average(row.scores)));
   const visibleAttendance = student.recentAttendance.filter(
     (row) => attendanceFilter === 'all' || row.absent
@@ -80,7 +76,7 @@ export default function StudentProfile({ studentKey, records, onBack, onRecord, 
       </div>
       <header className={styles.identity}>
         <div className={styles.student}>
-          <div className={styles.avatar}>{initials}</div>
+          <StudentPortrait student={student} className={styles.avatar} loading="eager" />
           <div>
             <h1>{student.name}</h1>
             <p>

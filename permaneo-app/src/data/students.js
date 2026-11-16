@@ -7,4 +7,8 @@ export const demoStudents = [
   { name: 'Lívia Martins', key: 'Livia', className: '8º A' },
   { name: 'Ana Beatriz', key: 'AnaBeatriz', className: '8º A' },
   { name: 'Heitor', key: 'Heitor', className: '8º A' },
-];
+].map((student) => ({
+  ...student,
+  id: student.key,
+  photo: `/images/estudantes/${student.key}.webp`,
+}));
