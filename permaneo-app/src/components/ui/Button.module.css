@@ -1,0 +1,9 @@
+.button { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-height: 44px; padding: 12px 20px; border: 1px solid transparent; border-radius: 10px; font: 600 14px/1.4 Manrope, sans-serif; cursor: pointer; transition: background-color .16s, border-color .16s; }
+.primary { background: #246579; color: #fff; }
+.primary:hover { background: #1c5263; }
+.secondary { background: var(--app-surface); color: var(--app-text); border-color: var(--app-border); }
+.secondary:hover { background: var(--app-bg); border-color: #246579; }
+.ghost { background: transparent; color: var(--app-text); }
+.ghost:hover { background: var(--app-bg); }
+.button:active { filter: brightness(.95); }
+@media (prefers-reduced-motion: reduce) { .button { transition: none; } }
