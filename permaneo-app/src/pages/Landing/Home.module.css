@@ -1,0 +1,93 @@
+.home {
+  --ink: #203c46;
+  --muted: #4e6870;
+  --paper: #fff;
+  --canvas: #f7f9f8;
+  --soft: #e8f2ed;
+  --line: #cbdcde;
+  --accent: #227457;
+  --button: #246579;
+  --on-button: #fff;
+  background: var(--canvas);
+  color: var(--ink);
+  font: 400 1rem/1.6 'Public Sans', Arial, sans-serif;
+}
+:global([data-theme='dark']) .home {
+  --ink: #f3f8fb;
+  --muted: #cfdee7;
+  --paper: #354e5e;
+  --canvas: #2b3f4d;
+  --soft: #263d43;
+  --line: #718d9e;
+  --accent: #a1e5c7;
+  --button: #a8e0ed;
+  --on-button: #203c46;
+}
+.home :focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.home :is(section, figure)[id] { scroll-margin-top: 112px; }
+.home :is(h1, h2, h3) { font-family: 'Bricolage Grotesque', Arial, sans-serif; font-weight: 650; letter-spacing: -.03em; line-height: 1.08; }
+.home h2 { font-size: clamp(1.85rem, 4vw, 3rem); text-wrap: balance; }
+.header { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line); background: var(--paper); }
+.bar, .heroInner, .problem, .profiles, .footer { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
+.bar { min-height: 74px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; }
+.brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); font: 700 1.45rem/1 'Bricolage Grotesque', sans-serif; }
+.brand b, .hero em { color: var(--accent); font-style: normal; }
+.nav { grid-column: 2; grid-row: 1; display: flex; justify-content: center; gap: clamp(8px, 1.3vw, 20px); }
+.nav a { white-space: nowrap; text-decoration: none; font-size: .87rem; font-weight: 600; color: var(--muted); display: grid; align-items: center; min-height: 44px; }
+.nav a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.headerActions, .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.headerActions { grid-column: 3; grid-row: 1; }
+.primary, .secondary, .theme { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: .875rem; font-weight: 650; border-radius: 999px; text-decoration: none; padding: 9px 16px; border: 1px solid var(--line); }
+.primary { border-color: var(--button); color: var(--on-button); background: var(--button); }
+.secondary, .theme { background: var(--paper); color: var(--ink); }
+.theme { width: 44px; padding: 0; }
+.mobileLogin { display: none; }
+.primary:hover { filter: brightness(.92); }
+:is(.secondary, .theme):hover { border-color: var(--accent); }
+.hero { background: var(--soft); border-bottom: 1px solid var(--line); }
+.heroInner { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(28px, 5vw, 68px); padding-block: clamp(36px, 7vw, 92px); }
+.heroCopy { display: grid; gap: 20px; }
+.hero h1 { font-size: clamp(2.65rem, 5.6vw, 5.3rem); line-height: .98; text-wrap: balance; }
+.heroCopy > p { font-size: clamp(1rem, 1.65vw, 1.18rem); max-width: 42ch; color: var(--muted); }
+.heroCopy small { color: var(--muted); font-size: .81rem; }
+.problem { display: grid; grid-template-columns: .85fr 1fr; gap: 28px; align-items: center; padding-block: clamp(34px, 6vw, 74px); }
+.problem p, .profiles > p, .profileCopy p, .footer > p { color: var(--muted); }
+.profiles { padding-block: clamp(36px, 6vw, 78px); }
+.profiles > p { margin-top: 12px; }
+.profileControls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-block: 22px 12px; }
+.profileControls button { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 8px; border: 1px solid var(--line); border-radius: 11px; background: var(--paper); color: var(--ink); text-align: center; font-weight: 650; font-size: .9rem; }
+.profileControls button[aria-pressed='true'] { background: var(--button); border-color: var(--button); color: var(--on-button); }
+.profileControls svg { flex: none; }
+.profilePanel { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(16px, 4vw, 40px); align-items: center; padding: clamp(16px, 3.5vw, 42px); border: 1px solid var(--line); border-radius: 22px; background: var(--paper); }
+.profileCopy h3 { font-size: clamp(1.55rem, 3vw, 2.5rem); }
+.profileCopy p { margin-block: 12px 20px; }
+.preview { min-width: 0; }
+.preview img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; }
+.preview figcaption { margin-top: 7px; color: var(--muted); font-size: .78rem; }
+.roomPreview { padding: 18px; display: grid; gap: 14px; background: var(--soft); border-radius: 12px; border: 1px solid var(--line); }
+.roomPreview > div:first-child { display: flex; gap: 10px; align-items: center; }
+.roomPreview > p, .desks span { text-align: center; padding: 9px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; }
+.desks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.footer { padding-block: 30px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; }
+.footer p { flex-basis: 100%; max-width: 72ch; }
+@media (max-width: 1050px) {
+  .bar { grid-template-columns: 1fr auto; gap: 0 12px; padding-top: 10px; }
+  .headerActions { grid-column: 2; }
+  .nav { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; gap: clamp(10px, 3.5vw, 26px); }
+}
+@media (max-width: 680px) {
+  .bar, .heroInner, .problem, .profiles, .footer { width: calc(100% - 32px); }
+  .bar { gap: 0 6px; }
+  .headerActions { gap: 5px; }
+  .headerActions .secondary { display: none; }
+  .mobileLogin { display: inline-flex; align-items: center; justify-self: start; min-height: 44px; color: var(--button); font-size: .87rem; font-weight: 650; text-underline-offset: 3px; }
+  .headerActions .primary { padding-inline: 9px; font-size: .75rem; }
+  .nav { justify-content: space-between; gap: 4px; }
+  .nav a { font-size: clamp(.69rem, 3.15vw, .87rem); }
+  .heroInner, .problem, .profilePanel { grid-template-columns: 1fr; gap: 18px; }
+  .heroCopy { gap: 15px; }
+  .profileControls button { flex-direction: column; font-size: .75rem; line-height: 1.25; }
+}
+@media (max-width: 360px) {
+  .nav a { font-size: .68rem; }
+}

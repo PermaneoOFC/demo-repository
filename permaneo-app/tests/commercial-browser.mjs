@@ -51,7 +51,7 @@ try {
       await calculator.getByRole('spinbutton').fill('1.5');
       await expect(calculator.getByRole('spinbutton')).toHaveAttribute('aria-invalid', 'true');
       await calculator.getByRole('spinbutton').fill('100');
-      const opener = page.locator('[data-plan="annual"]').getByRole('button', { name: 'Conhecer plano' });
+      const opener = page.locator('[data-plan="annual"]').getByRole('button', { name: 'Ver detalhes do plano' });
       await opener.click();
       const dialog = page.getByRole('dialog');
       await expect(dialog).toBeVisible();
@@ -105,7 +105,7 @@ try {
       await future.screenshot({ path: `${capture}/${prefix}-future.png` });
       await future.getByRole('button').click();
       await expect(page.locator('#future-details')).toBeHidden();
-      await page.locator('[data-name="Menu"]').getByRole('button', { name: 'Planos', exact: true }).click();
+      await page.locator('[data-name="Menu"]').getByRole('link', { name: 'Planos', exact: true }).click();
       await expect(page).toHaveURL(/#\/home$/);
       await expect(page.locator('#modelo-de-negocio')).toBeFocused();
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth), false, 'No page overflow');

@@ -2,8 +2,7 @@ import Monitoring from '../pages/Dashboard/Direcao/Monitoring.jsx';
 import { lazy } from 'react';
 import StudentArea from '../pages/Dashboard/Estudante/StudentArea.jsx';
 import LoginPage from '../pages/Login/LoginPage.jsx';
-export const HomeLight = lazy(() => import('../pages/Landing/HomeLight.jsx'));
-const HomeDark = lazy(() => import('../pages/Landing/HomeDark.jsx'));
+export const HomeLight = lazy(() => import('../pages/Landing/Home.jsx'));
 const DirectorDashboardLight = lazy(() => import('../pages/Dashboard/Direcao/DirectorDashboardLight.jsx'));
 const DirectorDashboardDark = lazy(() => import('../pages/Dashboard/Direcao/DirectorDashboardDark.jsx'));
 const DirectorNotificationsLight = lazy(() => import('../pages/Dashboard/Direcao/DirectorNotificationsLight.jsx'));
@@ -76,7 +75,7 @@ export const profiles = {
 };
 
 export const pages = {
-  home: [HomeLight, HomeDark],
+  home: [HomeLight, HomeLight],
   login: [LoginPage, LoginPage],
   director: [DirectorDashboardLight, DirectorDashboardDark],
   directorFollowup: [Monitoring, Monitoring],

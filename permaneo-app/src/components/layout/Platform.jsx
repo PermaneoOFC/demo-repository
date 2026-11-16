@@ -863,7 +863,7 @@ export default function Platform() {
             logo={logo}
           />
         ) : page === 'home' ? (
-          <ActiveScreen />
+          <ActiveScreen dark={dark} onToggleTheme={() => setDark((value) => !value)} />
         ) : (
           <AppShell
             role={shellRole}
