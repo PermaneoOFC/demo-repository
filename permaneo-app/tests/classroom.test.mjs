@@ -37,7 +37,7 @@ try {
   await expect(review).toContainText('Camila Rocha');
   await expect(review).toContainText('Falta justificada');
   await review.getByRole('button', { name: 'Confirmar e salvar' }).click();
-  await expect(page.getByRole('status')).toContainText('Chamada salva com sucesso');
+  await expect(dialog.getByRole('status')).toContainText('Chamada salva com sucesso');
   await page.getByRole('button', { name: 'Concluir' }).click();
 
   await page.getByRole('button', { name: 'Realizar chamada' }).first().click();
