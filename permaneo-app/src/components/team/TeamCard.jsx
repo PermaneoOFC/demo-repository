@@ -1,4 +1,4 @@
-import { Github, Linkedin } from 'lucide-react';
+import { Code2, Github, Linkedin } from 'lucide-react';
 import { technologies } from './team-data.js';
 
 export function TechList({ only }) {
