@@ -32,7 +32,7 @@ export const turmasDemo = [
   ...turma,
   estudantes: demoStudents.filter((aluno) => aluno.className === turma.nome).map((aluno) => {
     const perfil = getStudentProfile(aluno.key);
-    return { id: aluno.key, nome: aluno.name, frequencia: perfil.attendance };
+    return { id: aluno.id, nome: aluno.name, foto: aluno.photo, frequencia: perfil.attendance };
   }),
 }));
 
