@@ -1,4 +1,4 @@
-import { NavLink, Link } from '../student/studentNavigation.js';
+import { NavLink, Link } from 'react-router-dom';
 import {
   Bell,
   LayoutDashboard,
@@ -13,9 +13,9 @@ import {
   ListChecks,
 } from 'lucide-react';
 import logo from '../../images/logo.svg';
-import styles from './StudentShell.module.css';
+import styles from './AppShell.module.css';
 
-export default function StudentShell({ role, dark, notificationsRead, onToggleTheme, children }) {
+export default function AppShell({ role, dark, notificationsRead, onToggleTheme, children }) {
   const teacher = role === 'teacher';
   const student = role === 'student';
   const dashboard = student ? 'student' : teacher ? 'teacher' : 'director';

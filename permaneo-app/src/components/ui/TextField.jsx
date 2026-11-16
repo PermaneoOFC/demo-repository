@@ -11,7 +11,9 @@ export default function TextField({ as: Element = 'input', label, children, id, 
       {Element === 'input' ? (
         <input className={styles.control} id={controlId} aria-label={label} {...props} />
       ) : (
-        <Element className={styles.control} id={controlId} aria-label={label} {...props}>{children}</Element>
+        <Element className={styles.control} id={controlId} aria-label={label} {...props}>
+          {children}
+        </Element>
       )}
     </label>
   );
