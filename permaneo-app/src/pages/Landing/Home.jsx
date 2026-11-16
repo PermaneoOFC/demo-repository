@@ -61,6 +61,7 @@ export default function Home({ dark, onToggleTheme }) {
       </div>
     </header>
     <section id="inicio" tabIndex={-1} className={styles.hero}>
+      <SchoolMedia background />
       <div className={styles.heroInner}>
         <div className={styles.heroCopy}>
           <h1>Toda trajetória merece <em>continuar.</em></h1>
@@ -72,7 +73,6 @@ export default function Home({ dark, onToggleTheme }) {
           <Link to="/login" className={styles.mobileLogin}>Acessar plataforma</Link>
           <small>Demonstração interativa com dados fictícios.</small>
         </div>
-        <SchoolMedia />
       </div>
     </section>
     <section id="problema" tabIndex={-1} className={styles.problem}>
