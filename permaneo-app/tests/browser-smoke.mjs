@@ -7,6 +7,7 @@ const baseline = process.argv.includes('--baseline');
 const errors = [];
 const failures = [];
 const routes = ['home','login','director','directorFollowup','directorNotifications','reports','directorSettings','teacher','teacherFollowup','teacherNotifications','teacherSettings','student','studentSpace','carometroManagement','carometroTeacher'];
+routes.push('studentActivities','studentCalendar','studentSubjects','studentNotices','studentPlan','studentSupport');
 for (const name of ['Lucas','Camila','Isabela','Eduardo','Yasmin','Livia']) routes.push(`Profile${name}Management`, `Profile${name}Teacher`);
 routes.push('ProfileAnaBeatrizManagement', 'ProfileHeitorManagement');
 const selectedRoutes = process.env.ROUTES ? process.env.ROUTES.split(',') : routes;

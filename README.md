@@ -46,6 +46,14 @@ Para testar login e frequência com persistência, siga primeiro a [configuraç�
 
 A integração com MySQL cobre login e frequência. Carômetro, alertas, notificações, relatórios e os demais painéis continuam como demonstração visual ou local. O modelo de negócio em avaliação é licença de software para escolas.
 
+### Área demonstrativa do aluno
+
+O login oferece o link **Acessar área do aluno (demonstração)**. O perfil Aluno também abre essa área, recuperada da versão **commit aluno** do repositório `gabrielrgg/Permaneo-OFC`.
+
+O menu inclui Meu dia, Atividades, Calendário, Disciplinas, Avisos, Plano de estudos, Pedidos de apoio e Meu espaço. Entregas de atividades com respostas, avisos lidos, metas e pedidos demonstrativos ficam salvos no navegador, inclusive após recarregar; nada é enviado à escola. A navegação usa as rotas por hash já existentes e aceita os links antigos com `#/`.
+
+Execute `npm.cmd run test:student` em `permaneo-app` para validar os fluxos e as oito telas nos temas claro/escuro, em celular, tablet e computador. É necessário ter Google Chrome instalado.
+
 ## Equipe
 
 Projeto de Demo Day do Instituto PROA.

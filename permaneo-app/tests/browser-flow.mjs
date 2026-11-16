@@ -47,7 +47,7 @@ try {
       await page.getByRole('radio').nth(index).click();
       await page.getByRole('button', {name: 'Explorar sem preencher', exact: true}).click();
       await expect(page).toHaveURL(new RegExp('#' + route + '$'));
-      await expect(page.locator('[data-name="aside.sticky"]')).toBeVisible();
+      await expect(page.locator(route === 'student' ? '[data-app-shell] aside' : '[data-name="aside.sticky"]')).toBeVisible();
       if (route === 'director') {
         await page.locator('[data-name="Carômetro"]').first().click();
         await expect(page).toHaveURL(/#carometroManagement$/);
@@ -58,7 +58,7 @@ try {
         await expect(page).toHaveURL(/#ProfileLucasManagement$/);
       }
       if (route === 'student') {
-        await page.getByRole('button', {name: 'Meu espaço', exact: true}).click();
+        await page.getByRole('link', {name: 'Meu espaço', exact: true}).click();
         await expect(page).toHaveURL(/#studentSpace$/);
       }
       if (widgetsAvailable) {

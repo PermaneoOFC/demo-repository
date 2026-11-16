@@ -53,6 +53,9 @@ export default function LoginPage({ role, onSelectRole, onNavigate, dark, onTogg
           {error && <p role="alert" className={styles.error}>{error}</p>}
           <Button type="submit">Entrar na demonstração</Button>
           <Button variant="secondary" onClick={() => onNavigate(role)}>Explorar sem preencher</Button>
+          <a className={styles.studentDemoLink} href="#student" onClick={(event) => {
+            event.preventDefault(); onSelectRole('student'); onNavigate('student');
+          }}>Acessar área do aluno (demonstração)</a>
           <Button variant="ghost" onClick={() => setError('Esta é uma demonstração. Use o e-mail demo@permaneo.com.br e a senha permaneo. Nenhuma conta real é necessária.')}>Esqueci minha senha</Button>
           {frequenciaIntegrada && (
             <Button variant="secondary" onClick={() => onNavigate('frequencia')}>Acessar frequência integrada</Button>
