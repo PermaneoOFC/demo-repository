@@ -1,0 +1,8 @@
+frames/
+captures/clips/
+captures/raw/
+captures/room-raw/
+__pycache__/
+.playwright/
+*.log
+audio/mix-raw.wav

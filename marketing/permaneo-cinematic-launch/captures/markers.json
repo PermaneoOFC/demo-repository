@@ -1,0 +1,19 @@
+{
+  "home": 5.169,
+  "login": 14.22,
+  "dashboard": 19.243,
+  "turma": 25.235,
+  "profile": 30.487,
+  "grades": 37.146,
+  "note": 40.597,
+  "followup": 47.699,
+  "carometro": 57.524,
+  "reports": 65.32,
+  "notifications": 71.011,
+  "switch_teacher": 74.424,
+  "classes": 79.946,
+  "room": 83.448,
+  "switch_student": 89.335,
+  "student": 94.36,
+  "end": 98.924
+}

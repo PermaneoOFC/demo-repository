@@ -1,0 +1,18 @@
+{
+  "1080p": {
+    "duration": 88,
+    "width": 1920,
+    "height": 1080,
+    "currentTime": 1.496821,
+    "error": null,
+    "paused": false
+  },
+  "vertical": {
+    "duration": 88,
+    "width": 1080,
+    "height": 1920,
+    "currentTime": 1.486441,
+    "error": null,
+    "paused": false
+  }
+}

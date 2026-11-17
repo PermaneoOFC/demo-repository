@@ -1,0 +1,50 @@
+{
+  "horizontal": {
+    "file": "permaneo-cinematic-launch-1080p.mp4",
+    "resolution": [
+      1920,
+      1080
+    ],
+    "fps": "30/1",
+    "frames": 2640,
+    "duration_seconds": 88.0,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "audio_channels": 2,
+    "subtitle_codec": "mov_text",
+    "bytes": 19627913,
+    "sha256": "a2af127b0ea12a8d2ab71dd1a4d1393422d9c125e5c19b2e72837b647252be66",
+    "full_decode": "PASS",
+    "black_segments": [],
+    "sampled_stills": 18
+  },
+  "vertical": {
+    "file": "permaneo-cinematic-launch-vertical.mp4",
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": "30/1",
+    "frames": 2640,
+    "duration_seconds": 88.0,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "sample_rate": 48000,
+    "audio_channels": 2,
+    "subtitle_codec": "mov_text",
+    "bytes": 15123400,
+    "sha256": "fece40230f5f0172fc0fa689a58ef5545fd8efe6cd35f8a023809f423715beee",
+    "full_decode": "PASS",
+    "black_segments": [],
+    "sampled_stills": 18
+  },
+  "browser": {
+    "page_errors": [],
+    "demo_observation_created": true,
+    "demo_followup_created": true,
+    "csv_downloaded": true,
+    "authorized_demo_login": true
+  },
+  "source_commit": "a0bebcdb8d1c3216e80635c48d6a7066f67de387"
+}

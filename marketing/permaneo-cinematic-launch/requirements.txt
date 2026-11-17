@@ -1,0 +1,5 @@
+Pillow>=11
+numpy>=2.1
+scipy>=1.14
+playwright>=1.50
+edge-tts==7.3.1

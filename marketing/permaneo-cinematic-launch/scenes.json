@@ -1,0 +1,15 @@
+[
+ {"id":"home","start":8,"end":18,"title":["O cuidado", "começa aqui."],"tag":"01 / CONHEÇA O PERMANEO","detail":"Informações, pessoas e cuidado.","layout":"side","crop":[0,0,1440,900],"focus":[110,250,820,700]},
+ {"id":"login","start":18,"end":25,"title":["Uma escola.","Três", "perspectivas."],"tag":"02 / ACESSO DEMONSTRATIVO","detail":"Coordenação · Professor · Estudante","layout":"side","crop":[0,0,1440,900],"focus":[780,100,1420,900]},
+ {"id":"dashboard","start":25,"end":33,"title":["Enxergue o conjunto."],"tag":"03 / PAINEL DA ESCOLA","detail":"Indicadores e filtros em uma mesma visão.","layout":"wide","crop":[260,65,1425,800],"focus":[270,290,1420,810]},
+ {"id":"turma","start":33,"end":39,"title":["Da turma", "à trajetória."],"tag":"04 / OLHAR MAIS DE PERTO","detail":"Selecione a turma. Encontre o estudante.","layout":"side","crop":[250,60,1430,895],"focus":[270,190,1420,850]},
+ {"id":"profile","start":39,"end":45,"title":["Perceber."],"tag":"05 / FREQUÊNCIA","detail":"Cada dado conta uma parte da história.","layout":"wide","crop":[280,100,1420,870],"focus":[300,280,1385,880]},
+ {"id":"grades","start":45,"end":49,"title":["Entender."],"tag":"06 / DESEMPENHO","detail":"Notas com o contexto de cada trajetória.","layout":"wide","crop":[280,150,1420,870],"focus":[300,360,1385,880]},
+ {"id":"note","start":49,"end":54,"title":["Registrar", "com atenção."],"tag":"07 / OBSERVAÇÕES","detail":"Contexto para dar continuidade ao cuidado.","layout":"side","crop":[360,60,1090,880],"focus":[380,110,1070,840]},
+ {"id":"followup","start":54,"end":60,"title":["Combinar", "o próximo", "passo."],"tag":"08 / ACOMPANHAMENTO","detail":"Registro demonstrativo salvo no navegador.","layout":"side","crop":[265,70,1425,890],"focus":[360,200,1190,850]},
+ {"id":"carometro","start":60,"end":63,"title":["Pessoas em primeiro plano."],"tag":"09 / CARÔMETRO","detail":"Uma visão individual de cada estudante.","layout":"wide","crop":[260,60,1425,880],"focus":[300,290,1400,880]},
+ {"id":"reports","start":63,"end":66,"title":["Mais organização."],"tag":"10 / RELATÓRIOS","detail":"Visão consolidada e exportação demonstrativa.","layout":"wide","crop":[260,50,1425,860],"focus":[280,220,1400,850]},
+ {"id":"notifications","start":66,"end":68,"title":["Olhar para os sinais."],"tag":"11 / NOTIFICAÇÕES","detail":"Informações de acompanhamento reunidas.","layout":"wide","crop":[260,50,1425,860],"focus":[280,180,1400,850]},
+ {"id":"room","start":68,"end":72,"title":["Uma nova", "perspectiva."],"tag":"12 / PERFIL DO PROFESSOR","detail":"Sala Virtual · organização dos assentos","layout":"side","crop":[260,60,1425,895],"focus":[390,220,1420,895]},
+ {"id":"student","start":72,"end":75,"title":["Cada estudante", "participa."],"tag":"13 / PORTAL DO ESTUDANTE","detail":"Atividades e espaço de aprendizagem.","layout":"side","crop":[260,60,1425,895],"focus":[280,150,1400,880]}
+]
