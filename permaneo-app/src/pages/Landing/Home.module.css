@@ -85,14 +85,17 @@
   .headerActions .secondary { display: none; }
   .mobileLogin { display: inline-flex; align-items: center; justify-self: start; min-height: 44px; color: #a8e0ed; font-size: .87rem; font-weight: 650; text-underline-offset: 3px; }
   .headerActions .primary { padding-inline: 9px; font-size: .75rem; }
-  .nav { justify-content: space-between; gap: 4px; }
-  .nav a { font-size: clamp(.69rem, 3.15vw, .87rem); }
+  .nav { justify-content: flex-start; gap: 14px; overflow-x: auto; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a { font-size: clamp(.78rem, 3.3vw, .87rem); }
   .hero { min-height: 620px; }
   .heroInner { padding-block: 60px; }
   .heroCopy { gap: 15px; }
+  .problem { grid-template-columns: 1fr; gap: 16px; }
   .profilePanel { grid-template-columns: 1fr; gap: 18px; }
   .profileControls button { flex-direction: column; font-size: .75rem; line-height: 1.25; }
 }
 @media (max-width: 360px) {
-  .nav a { font-size: .68rem; }
+  .nav a { font-size: .76rem; }
+  .desks { grid-template-columns: 1fr; }
 }

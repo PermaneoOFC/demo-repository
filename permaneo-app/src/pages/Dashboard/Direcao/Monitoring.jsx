@@ -9,7 +9,8 @@ const students = demoStudents.map((student) => getStudentProfile(student.key));
 const classes = [...new Set(students.map((student) => student.className))];
 const states = ['Pendente', 'Em andamento', 'Concluída'];
 
-export default function Monitoring({ records, setRecords, onOpenProfile, classAttendance }) {
+export default function Monitoring({ role = 'director', records = [], setRecords, onOpenProfile, classAttendance = {}, onStartFollowup }) {
+  const isTeacher = role === 'teacher';
   const [className, setClassName] = useState('');
   const [search, setSearch] = useState('');
   const [tab, setTab] = useState('Visão geral');
@@ -34,7 +35,10 @@ export default function Monitoring({ records, setRecords, onOpenProfile, classAt
   };
 
   return <div className={styles.area} data-local-content>
-    <header className={styles.intro}><h1>Acompanhamento escolar</h1><p>Consulte a frequência e organize os próximos passos de apoio.</p></header>
+    <header className={styles.intro}>
+      <h1>{isTeacher ? 'Acompanhamento das turmas' : 'Acompanhamento escolar'}</h1>
+      <p>{isTeacher ? 'Acompanhe a frequência dos estudantes e registre encaminhamentos pedagógicos.' : 'Consulte a frequência e organize os próximos passos de apoio.'}</p>
+    </header>
     <div className={styles.filters}>
       <label>Turma<select value={className} onChange={(event) => { setClassName(event.target.value); setDate(''); }}>
         <option value="">Todas as turmas</option>
@@ -55,7 +59,10 @@ export default function Monitoring({ records, setRecords, onOpenProfile, classAt
       <p>O alerta sinaliza frequência abaixo de 85% nos registros demonstrativos.</p>
       {alerts.map((student) => <div className={styles.row} key={student.key}>
         <div><b>{student.name}</b><small>{student.className} · {student.attendance}% de frequência</small></div>
-        <Link className={styles.secondary} to={'/Profile' + student.key + 'Management'} onClick={(event) => openProfile(student, event)}>Ver perfil de {student.name}</Link>
+        <div className={styles.controls}>
+          <Link className={styles.secondary} to={'/Profile' + student.key + (isTeacher ? 'Teacher' : 'Management')} onClick={(event) => openProfile(student, event)}>Ver perfil de {student.name}</Link>
+          {onStartFollowup && <button type="button" className={styles.primary} onClick={() => onStartFollowup(student)}>Registrar intervenção</button>}
+        </div>
       </div>)}
       {!alerts.length && <p>Nenhum alerta nesta seleção.</p>}
     </section>}
@@ -72,7 +79,7 @@ export default function Monitoring({ records, setRecords, onOpenProfile, classAt
         <table className={styles.attendanceTable}>
           <thead><tr><th scope="col">Estudante</th>{filteredDates.map((day) => <th key={day} scope="col">{displayDate(day).slice(0, 5)}</th>)}</tr></thead>
           <tbody>{visible.map((student) => <tr key={student.key}>
-            <th scope="row"><Link to={'/Profile' + student.key + 'Management'} onClick={(event) => openProfile(student, event)}>{student.name}</Link></th>
+            <th scope="row"><Link to={'/Profile' + student.key + (isTeacher ? 'Teacher' : 'Management')} onClick={(event) => openProfile(student, event)}>{student.name}</Link></th>
             {filteredDates.map((day) => {
               const entry = student.recentAttendance.find((item) => item.date === displayDate(day));
               const status = savedAttendance(student)[day]?.[student.key];
@@ -91,7 +98,7 @@ export default function Monitoring({ records, setRecords, onOpenProfile, classAt
       {group.slice().reverse().map((record, index) => {
         const student = visible.find((item) => [item.key, item.name].includes(record.student));
         return <article className={styles.row} key={record.id || record.createdAt + index}>
-          <div><b>{student.name}</b><p>{record.text}</p>
+          <div><b>{student?.name || record.student}</b><p>{record.text}</p>
             <small>{record.createdAt && new Date(record.createdAt).toLocaleDateString('pt-BR')}{record.date && ' · Retorno ' + record.date.split('-').reverse().join('/')}</small>
           </div>
           <label>Situação<select value={record.status} onChange={(event) => {
@@ -101,7 +108,7 @@ export default function Monitoring({ records, setRecords, onOpenProfile, classAt
         </article>;
       })}
       {!group.length && <p>Abra um perfil no Carômetro para registrar a primeira intervenção.</p>}
-      <Link className={styles.secondary} to="/carometroManagement">Abrir Carômetro</Link>
+      <Link className={styles.secondary} to={isTeacher ? '/carometroTeacher' : '/carometroManagement'}>Abrir Carômetro</Link>
     </section>}
     <p className={styles.demo}>Dados fictícios. As intervenções ficam neste navegador.</p>
   </div>;

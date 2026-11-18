@@ -12,7 +12,7 @@
 .navLink:hover{color:var(--shell-brand);background:var(--app-bg)}
 .badge{margin-left:auto;padding:0 7px;border-radius:99px;background:#fff3e1;color:#87530f;font-size:12px;line-height:16px}
 :global([data-theme="dark"]) .badge{background:#5d4d39;color:#ffd594}
-.account{margin-top:auto;padding:16px 8px 0;border:1px solid var(--app-border)}
+.account{margin-top:auto;padding:16px 8px 0;border-top:1px solid var(--app-border)}
 .identity{display:flex;align-items:center;gap:12px;font-size:14px}
 .identity small{display:block;color:var(--app-muted);font-size:12px}
 .avatar{display:grid;place-items:center;flex:0 0 36px;height:36px;border-radius:50%;background:var(--app-bg);color:var(--shell-brand);font-size:16px}
@@ -31,14 +31,18 @@
 .content :global([data-name="Conteúdo"]){width:100%!important;max-width:100%!important;flex:1 1 0!important}
 @media(max-width:1000px){
  .shell{flex-direction:column}
- .sidebar{position:relative;flex:0 0 auto;width:100%;height:auto;gap:12px;padding:12px 16px;border-right:0;border-bottom:1px solid var(--app-border)}
- .navigation{flex-direction:row;overflow-x:auto;gap:4px}
+ .sidebar{position:relative;flex:0 0 auto;width:100%;height:auto;display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px 12px;padding:12px 16px;border-right:0;border-bottom:1px solid var(--app-border)}
+ .brand{justify-self:start}
+ .navigation{grid-column:1/-1;grid-row:2;flex-direction:row;overflow-x:auto;gap:4px}
  .navLink{flex-shrink:0;white-space:nowrap}
- .account{display:none}
+ .account{grid-column:2;grid-row:1;margin:0;padding:0;border:0;display:flex;align-items:center;gap:10px}
+ .identity>span{display:none}
+ .account .navLink{min-height:36px;padding:6px 10px}
  .workspace{width:100%}
  .header{padding:8px 16px}
  .header p{font-size:12px}
 }
+@media(max-width:600px){.account .identity{display:none}}
 
 /* Contain wide generated tables within the workspace, away from navigation. */
 .sidebar{z-index:70}
@@ -56,14 +60,17 @@
 }
 @media (max-width: 1000px) {
   .shell[data-student-shell] { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+  .shell[data-student-shell] .sidebar { gap: 0 12px; }
   .shell[data-student-shell] .navigation {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     position: fixed;
     inset: auto 0 0;
+    z-index: 80;
     padding: 6px clamp(6px, 4vw, 48px) calc(6px + env(safe-area-inset-bottom));
     background: var(--app-surface);
     border-top: 1px solid var(--app-border);
+    box-shadow: 0 -4px 18px rgba(20, 42, 48, 0.08);
   }
   .shell[data-student-shell] :is(.navLink, .more) {
     min-height: 52px;

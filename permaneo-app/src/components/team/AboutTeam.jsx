@@ -34,8 +34,8 @@ export default function AboutTeam({ theme = "light" }) {
       const dt = last ? Math.min((now - last) / 1000, 0.05) : 1 / 60;
       last = now;
       const gap = target.current - position.current;
-      if (Math.abs(gap) < 0.001) { paint(target.current); return; }
-      paint(position.current + gap * (1 - Math.exp(-10 * dt)));
+      if (Math.abs(gap) < 0.0015) { paint(target.current); return; }
+      paint(position.current + gap * (1 - Math.exp(-14 * dt)));
       animation.current = requestAnimationFrame(step);
     };
     animation.current = requestAnimationFrame(step);
@@ -68,8 +68,10 @@ export default function AboutTeam({ theme = "light" }) {
     stage.current?.removeAttribute("data-dragging");
     if (current.horizontal) {
       suppressClick.current = true;
-      const velocity = performance.now() - current.time < 100 ? current.velocity : 0;
-      settle(cancelled ? Math.round(position.current) : snapPosition(position.current, velocity));
+      window.setTimeout(() => { suppressClick.current = false; }, 80);
+      const moved = Math.abs(position.current - current.start) > 0.04;
+      const velocity = performance.now() - current.time < 120 ? current.velocity : 0;
+      settle(cancelled && !moved ? Math.round(position.current) : snapPosition(position.current, velocity));
     }
   };
 
@@ -98,7 +100,7 @@ export default function AboutTeam({ theme = "light" }) {
               if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); event.currentTarget.focus({ preventScroll: true }); settle(target.current + (event.key === "ArrowRight" ? 1 : -1)); }
             }}
             onPointerDown={event => {
-              if (event.button !== 0 || (event.target instanceof Element && event.target.closest("a"))) return;
+              if ((event.pointerType === "mouse" && event.button !== 0) || (event.target instanceof Element && event.target.closest("a, button"))) return;
               suppressClick.current = false;
               drag.current = { id: event.pointerId, x: event.clientX, y: event.clientY, start: position.current, last: position.current, time: performance.now(), velocity: 0, horizontal: false };
             }}
@@ -106,15 +108,17 @@ export default function AboutTeam({ theme = "light" }) {
               const current = drag.current;
               if (!current || current.id !== event.pointerId) return;
               const dx = event.clientX - current.x;
+              const dy = event.clientY - current.y;
               if (!current.horizontal) {
-                if (Math.abs(event.clientY - current.y) > Math.abs(dx) && Math.abs(event.clientY - current.y) > 8) { drag.current = null; return; }
-                if (Math.abs(dx) < 8) return;
+                if (Math.abs(dy) > Math.abs(dx) * 1.25 && Math.abs(dy) > 10) { drag.current = null; return; }
+                if (Math.abs(dx) < 6) return;
                 current.horizontal = true;
                 cancelAnimationFrame(animation.current);
-                event.currentTarget.setPointerCapture(event.pointerId);
+                event.currentTarget.setPointerCapture?.(event.pointerId);
                 event.currentTarget.setAttribute("data-dragging", "true");
               }
-              const value = current.start - dx / (event.currentTarget.clientWidth < 600 ? 210 : 290);
+              const stepWidth = Math.max(150, Math.min(240, event.currentTarget.clientWidth * 0.42));
+              const value = current.start - dx / stepWidth;
               const now = performance.now();
               current.velocity = (value - current.last) / Math.max(1, now - current.time);
               current.time = now; current.last = value;
@@ -122,7 +126,12 @@ export default function AboutTeam({ theme = "light" }) {
             }}
             onPointerUp={() => endDrag()} onPointerCancel={() => endDrag(true)} onLostPointerCapture={() => endDrag(true)}>
             <div ref={rotor} className="team-drum-rotor">
-              {teamMembers.map((member, index) => <div className="team-drum-face" key={member.id} data-index={index} data-distance={(index - active + TEAM_POSITIONS) % TEAM_POSITIONS} data-active={active === index} aria-hidden={active !== index}>
+              {teamMembers.map((member, index) => <div className="team-drum-face" key={member.id} data-index={index} data-distance={(index - active + TEAM_POSITIONS) % TEAM_POSITIONS} data-active={active === index} aria-hidden={active !== index}
+                onClick={(event) => {
+                  if (suppressClick.current) { suppressClick.current = false; return; }
+                  if (event.target instanceof Element && event.target.closest("a, button")) return;
+                  if (active !== index) settle(nearestPosition(Math.round(target.current), index));
+                }}>
                 <TeamCard member={member} index={index} active={active === index} />
               </div>)}
             </div>

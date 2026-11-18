@@ -19,7 +19,7 @@
   --attention: #966009;
   --priority: #af3c39;
   --unknown: #67797b;
-  max-width: 1240px;
+  max-width: 1440px;
   margin-inline: auto;
   padding: clamp(18px, 3vw, 44px);
   color: var(--app-text);

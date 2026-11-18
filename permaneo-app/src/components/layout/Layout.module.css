@@ -27,12 +27,13 @@
 .marker :global([data-name$=":shadow"]) { pointer-events:none; }
 .marker :global([class*="flex-[1_"]) { flex:1 1 0;min-width:0; }
 .marker :global([data-name="div.ml-auto:margin"]) { padding-left:16px!important;margin-left:auto;flex:0 0 auto!important; }
-.marker :global([data-name="main.mx-auto"]) { width:100%!important;max-width:1280px;margin:0 auto;padding:32px;min-width:0; }
+.marker :global([data-name="main.mx-auto"]) { width:100%!important;max-width:1440px;margin:0 auto;padding:32px;min-width:0; }
 .marker :global([data-name="div.mb-6"]) { gap:24px!important;justify-content:space-between;flex-wrap:wrap; }
 .marker :global([class*="gap-[var(--item-spacing"]) { gap:16px!important; }
 .marker :global([data-name="div.border-t"]) { margin-top:auto; }
 .marker :global([data-name="Indicadores"]) { display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr)); }
 .marker :global([data-name="main.mx-auto"] [class*="w-["]) { max-width:100%;min-width:0; }
+@media(max-width:1360px){ .marker :global([data-name="Indicadores"]) { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 @media(max-width:1000px) {
  .marker :global([data-name="Indicadores"]) { grid-template-columns:repeat(2,minmax(0,1fr)); }
  .marker :global([data-name="main.mx-auto"] [class~="grid"]) { grid-template-columns:minmax(0,1fr)!important;height:auto!important;grid-template-rows:auto!important; }
@@ -266,6 +267,11 @@
   .marker :global([class*="grid-cols-3"]) {
     grid-template-columns: minmax(0, 1fr) !important;
   }
+
+  .marker :global([data-name="Indicadores"]),
+  .marker :global([data-name="Permaneo / Site / Linha de estudante"]) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
 }
 
 @media(max-width:1000px){
@@ -382,6 +388,10 @@
  .marker :global([data-name="Permaneo / Site / Linha de estudante"] > *){width:100%!important;}
  .marker :global([data-name="main.mx-auto"] [class~="self-stretch"]){height:auto!important;}
 }
+@media(max-width:520px){
+ .marker :global([data-name="Indicadores"]),
+ .marker :global([data-name="Permaneo / Site / Linha de estudante"]){grid-template-columns:minmax(0,1fr)!important;}
+}
 @media(max-width:1000px){
  .marker :global([data-name="icon/down"]){left:auto!important;right:16px!important;}
  .marker :global([data-name="div.ml-auto:margin"]){max-width:80px!important;min-width:0!important;width:auto!important;}
@@ -402,7 +412,7 @@
 }
 /* Fluid containers preserve the original Home composition at desktop widths. */
 .marker :global([data-name^="01 · Home"] [class*="w-["]){max-width:100%!important;min-width:0;}
-.marker :global([data-name^="01 · Home"] > *){width:100%!important;padding-inline:clamp(20px,8.54vw,164px)!important;}
+.marker :global([data-name^="01 · Home"]:not([data-local-content]) > *){width:100%!important;padding-inline:clamp(20px,8.54vw,164px)!important;}
 .marker :global([data-name^="01 · Home"] > :not([data-name="Navegação principal"]) > [class*="w-["]){width:100%!important;}
 .marker :global([data-name="Hero · Pessoas e permanência"]),
 .marker :global([data-name="Desafio e demonstração"]),
@@ -534,4 +544,10 @@
 .marker :global([data-name="Grade de estudantes"][data-view-mode="compact"] [data-name="Foto"]) {
   width: 36px;
   height: 36px;
+}
+
+.marker :global([data-app-shell] [data-name="aside.sticky"]),
+.marker :global([data-app-shell] [data-name="header.sticky"]),
+.marker :global([data-app-shell] [data-name="Contexto"]) {
+  display: none !important;
 }
