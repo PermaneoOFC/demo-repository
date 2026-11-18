@@ -17,6 +17,8 @@ O **Permaneo** é um protótipo de acompanhamento escolar para apoiar a prevenç
 | --- | --- |
 | [`permaneo-app`](permaneo-app/) | Plataforma React, JavaScript, Vite e CSS Modules |
 | [`Documentacao`](Documentacao/) | Pesquisa, jornada, arquitetura, tecnologias e acessibilidade |
+| [`AGENTS.md`](AGENTS.md) | Instruções rápidas, regras obrigatórias e padrão de commits para agentes de IA |
+| [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) | Contexto mestre, arquitetura, limites e diretrizes do projeto Permaneo |
 
 ## Como rodar
 
@@ -51,6 +53,41 @@ Execute `npm.cmd run test:student` em `permaneo-app` para validar os fluxos e as
 ### Recuperação completa da plataforma
 
 Os três perfis usam a versão completa anterior à inclusão dos widgets, com perfis de estudantes, registros, cadastro local, filtros e configurações recuperados. UserWay e VLibras continuam ativos; o UserWay fica abaixo do VLibras na lateral direita. A fonte consultada, os recursos e as verificações estão em [Recuperação da plataforma](Documentacao/Restauracao.md).
+
+## Contexto para IA e Padrões de Commit
+
+Os arquivos [`AGENTS.md`](AGENTS.md) e [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) reúnem as diretrizes do projeto, a arquitetura, as regras de negócio, o mapa de testes e os limites do protótipo para que qualquer assistente ou agente de IA trabalhe no repositório com contexto consistente.
+
+Para manter o histórico organizado e padronizado entre pessoas desenvolvedoras e IAs, utilize a convenção de commits definida em [Padrões de Commits (`iagosm-oliveira/padroes-de-commits`)](https://github.com/iagosm-oliveira/padroes-de-commits):
+
+- **Formato padrão (com emoji):** `:emoji: <tipo>: <descrição>`
+- **Formato alternativo (compatível com o hook `commit-msg.sh`):** `<tipo>(<escopo opcional>): <descrição>`
+
+### Principais tipos e emojis
+
+| Tipo | Emoji | Uso indicado |
+| --- | --- | --- |
+| `feat` | ✨ `:sparkles:` / 💄 `:lipstick:` | Novo recurso ou estilização de interface |
+| `fix` | 🐛 `:bug:` / 💥 `:boom:` | Correção de bug ou reversão de mudança ineficiente |
+| `docs` | 📚 `:books:` / 💡 `:bulb:` | Documentação e comentários |
+| `refactor` | ♻️ `:recycle:` | Refatoração sem alterar funcionalidade |
+| `test` | 🧪 `:test_tube:` / ✅ `:white_check_mark:` | Adição ou ajuste de testes |
+| `style` | 👌 `:ok_hand:` | Formatação de código, lint ou revisão de estilo |
+| `perf` | ⚡ `:zap:` | Melhorias de performance |
+| `build` | 📦 `:package:` / ➕ `:heavy_plus_sign:` / ➖ `:heavy_minus_sign:` | Arquivos de build e dependências |
+| `ci` | 🧱 `:bricks:` | Integração contínua e infraestrutura |
+| `chore` | 🔧 `:wrench:` / 🚚 `:truck:` | Configurações rotineiras, mover ou renomear arquivos |
+| `cleanup` | 🧹 `:broom:` | Limpeza de código morto ou comentado |
+| `remove` | 🗑️ `:wastebasket:` | Exclusão de arquivos ou funcionalidades obsoletas |
+
+### Exemplos
+
+```bash
+git commit -m ":sparkles: feat: adicionar filtro de turma no acompanhamento"
+git commit -m ":bug: fix: corrigir gesto de toque no carrossel da equipe"
+git commit -m ":books: docs: atualizar instruções de configuração no README"
+git commit -m "fix(dashboard): ajustar contraste no tema escuro"
+```
 
 ## Equipe
 
