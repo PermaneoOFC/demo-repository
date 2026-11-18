@@ -127,6 +127,8 @@
 .team-drum-face[data-index="3"] { --face-angle: 216deg; }
 .team-drum-face[data-index="4"] { --face-angle: 288deg; }
 .team-drum-face[data-active=true] { opacity: 1; }
+.team-drum-stage[data-dragging=true] .team-drum-face,
+.team-drum-stage[data-dragging=true] .team-drum-face .team-card { transition: none !important; }
 .team-drum-face .team-card { border-radius: 20px; backface-visibility: hidden; transition: box-shadow 400ms, transform 650ms; height: 530px; }
 .team-drum-face[data-distance="1"] .team-card { transform: rotateY(-24deg); }
 .team-drum-face[data-distance="4"] .team-card { transform: rotateY(24deg); }

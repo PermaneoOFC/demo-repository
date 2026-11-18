@@ -1,8 +1,9 @@
 .login { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); width: 100%; min-height: 100vh; color: var(--app-text); background: var(--app-surface); }
 .story { display: flex; flex-direction: column; justify-content: space-between; gap: 32px; padding: clamp(24px, 4vw, 64px); background: color-mix(in srgb, var(--app-bg) 90%, #a1e5c7); }
+.story > * { max-width: 640px; }
 .brand { display: inline-flex; align-items: center; align-self: flex-start; gap: 12px; padding: 14px 18px; border-radius: 10px; background: var(--app-surface); color: var(--app-text); text-decoration: none; font: 600 25px Sora, sans-serif; }
 .brand > span > span { color: #227457; }
-.photo { width: 100%; height: auto; aspect-ratio: 832 / 518; object-fit: cover; border-radius: 20px; }
+.photo { width: 100%; height: auto; max-height: clamp(220px, 40vh, 420px); aspect-ratio: 832 / 518; object-fit: cover; border-radius: 20px; }
 .message { padding: 12px; }
 .message small, .form > small { color: #227457; font-weight: 700; font-size: 12px; letter-spacing: .08em; }
 .message h1 { margin: 18px 0; font: 600 clamp(28px, 3vw, 42px)/1.3 Sora, sans-serif; }

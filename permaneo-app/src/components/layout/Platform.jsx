@@ -128,6 +128,15 @@ export default function Platform() {
     routerNavigate('/' + nextPage);
   };
 
+  const openStudentFromPage = (key) => {
+    const local = localStudents.find((student) => student.id === key);
+    if (local) { setLocalStudent(local); return; }
+    returnPage.current = page;
+    returnScroll.current = window.scrollY;
+    const suffix = shellRole === 'teacher' && profiles[key]?.length === 4 ? 'Teacher' : 'Management';
+    navigate('Profile' + key + suffix);
+  };
+
   useEffect(() => {
     setLocalStudent(null);
   }, [page]);
@@ -917,18 +926,45 @@ export default function Platform() {
                 onStartFollowup={(student) => { setFollowupStudent(student); setModal('record'); }}
               />
             ) : page === 'director' ? (
-              <ActiveScreen records={records} classAttendance={classAttendance} localStudents={localStudents} onOpenProfile={(key) => {
-                const local = localStudents.find((student) => student.id === key);
-                if (local) { setLocalStudent(local); return; }
-                returnPage.current = page;
-                navigate('Profile' + key + 'Management');
-              }} />
-            ) : page === 'directorFollowup' ? (
-              <ActiveScreen records={records} setRecords={setRecords} classAttendance={classAttendance} onOpenProfile={(key) => {
-                returnPage.current = page;
-                returnScroll.current = window.scrollY;
-                navigate('Profile' + key + 'Management');
-              }} />
+              <ActiveScreen records={records} classAttendance={classAttendance} localStudents={localStudents} onOpenProfile={openStudentFromPage} />
+            ) : page === 'directorFollowup' || page === 'teacherFollowup' ? (
+              <ActiveScreen
+                role={shellRole}
+                records={records}
+                setRecords={setRecords}
+                classAttendance={classAttendance}
+                onOpenProfile={openStudentFromPage}
+                onStartFollowup={(student) => { setFollowupStudent(student); setModal('record'); }}
+              />
+            ) : page === 'directorNotifications' || page === 'teacherNotifications' ? (
+              <ActiveScreen
+                role={shellRole}
+                notificationsRead={notificationsRead}
+                onSetNotificationsRead={(read) => {
+                  const next = Boolean(read);
+                  setNotificationsRead(next);
+                  try {
+                    localStorage.setItem('permaneo-demo-notifications-read', String(next));
+                  } catch {}
+                }}
+                onOpenProfile={openStudentFromPage}
+                onStartFollowup={(student) => { setFollowupStudent(student); setModal('record'); }}
+                onNotify={notify}
+              />
+            ) : page === 'directorSettings' || page === 'teacherSettings' ? (
+              <ActiveScreen
+                role={shellRole}
+                localStudents={localStudents}
+                onNotify={notify}
+              />
+            ) : page === 'reports' ? (
+              <ActiveScreen
+                records={records}
+                classAttendance={classAttendance}
+                localStudents={localStudents}
+                onOpenProfile={openStudentFromPage}
+                onNotify={notify}
+              />
             ) : classroomPage ? (
               <ActiveScreen
                 classAttendance={classAttendance}
@@ -958,7 +994,8 @@ export default function Platform() {
                 (r) => r.student === (followupStudent?.name || localStudent?.name || profileName || 'Demonstração')
               )}
               onSave={(record) => {
-                setRecords((list) => [...list, { ...record, ...(followupStudent && { responsible: 'Marcos Silva · Direção', author: 'Marcos Silva · Direção' }), createdAt: new Date().toISOString() }]);
+                const actor = shellRole === 'teacher' ? 'Renata Oliveira · Professora' : 'Marcos Silva · Direção';
+                setRecords((list) => [...list, { ...record, ...(followupStudent && { responsible: actor, author: actor }), createdAt: new Date().toISOString() }]);
                 setModal('');
                 setFollowupStudent(null);
                 notify('Registro demonstrativo salvo neste navegador.');
