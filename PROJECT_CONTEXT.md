@@ -108,9 +108,9 @@ O README informa que entregas de atividades com respostas, avisos lidos, metas e
 - seção comercial/planos na homepage;
 - testes automatizados de fluxos e telas.
 
-### 4.5 Seção comercial e planos (documentação de 14/11/2026)
+### 4.5 Seção comercial e planos (preço atualizado em 21/11/2026)
 A documentação registra dois planos com os mesmos recursos:
-- Mensal: R$ 249 + R$ 6,70 por aluno/mês.
+- Mensal: R$ 249 + R$ 6,90 por aluno/mês.
 - Anual: equivalente mensal de R$ 210 + R$ 5,90 por aluno/mês, por 12 meses.
 - Acima de 1.000 alunos: proposta sob medida, sem total fechado ou economia calculada.
 

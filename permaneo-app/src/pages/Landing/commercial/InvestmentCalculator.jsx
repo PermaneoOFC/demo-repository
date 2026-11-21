@@ -1,6 +1,6 @@
 import { useId } from 'react';
 import { ArrowUpRight, Building2 } from 'lucide-react';
-import { estimateInvestment, money } from './pricing.js';
+import { estimateInvestment, money, PLANS } from './pricing.js';
 import styles from './CommercialSection.module.css';
 
 export function PlanSwitch({ plan, onChange }) {
@@ -37,7 +37,7 @@ export default function InvestmentCalculator({ students, onStudentsChange, plan,
       </div> : <>
         <p>{annual ? 'Custo mensal equivalente · Plano Anual' : 'Custo mensal · Plano Mensal'}</p>
         <p className={styles.resultPrice}>{money(annual ? estimate.annualEquivalent : estimate.monthly)}<span>/mês</span></p>
-        <p className={styles.breakdown}>{annual ? money(21000) : money(24900)} de plataforma + {students} × {annual ? money(590) : money(670)} por aluno</p>
+        <p className={styles.breakdown}>{money(PLANS[plan].fixed)} de plataforma + {students} × {money(PLANS[plan].student)} por aluno</p>
         <dl className={styles.totals}>
           <div><dt>Total estimado em 12 meses</dt><dd>{money(annual ? estimate.annualYear : estimate.monthlyYear)}</dd></div>
         </dl>

@@ -40,7 +40,7 @@ try {
       const calculator = page.locator('#calculadora-investimento');
       await calculator.getByLabel('Quantidade de alunos', { exact: true }).fill('100');
       await expect(calculator).toContainText('R$ 800,00');
-      await expect(calculator).toContainText('R$ 1.428,00');
+      await expect(calculator).toContainText('R$ 1.668,00');
       await calculator.getByRole('button', { name: 'Mensal', exact: true }).click();
       await expect(calculator.getByText('Custo mensal · Plano Mensal', { exact: true })).toBeVisible();
       await calculator.getByLabel('Quantidade de alunos', { exact: true }).fill('1001');
@@ -62,7 +62,7 @@ try {
       await expect(dialog.getByRole('heading', { name: 'Plano Mensal', exact: true })).toBeVisible();
       await expect(dialog).toContainText('Sem fidelidade');
       await dialog.getByRole('spinbutton').fill('200');
-      await expect(dialog).toContainText('R$ 1.589,00');
+      await expect(dialog).toContainText('R$ 1.629,00');
       // Native dialog keeps keyboard focus inside and returns it to the opener.
       for (let index = 0; index < 12; index++) {
         await page.keyboard.press('Tab');
