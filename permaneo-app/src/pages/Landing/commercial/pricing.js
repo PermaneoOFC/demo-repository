@@ -1,6 +1,6 @@
 // Keep all arithmetic in integer centavos; format only at the presentation boundary.
 export const PLANS = Object.freeze({
-  monthly: Object.freeze({ name: 'Plano Mensal', fixed: 24900, student: 670, term: 'Sem fidelidade' }),
+  monthly: Object.freeze({ name: 'Plano Mensal', fixed: 24900, student: 690, term: 'Sem fidelidade' }),
   annual: Object.freeze({ name: 'Plano Anual', fixed: 21000, student: 590, term: 'Contrato de 12 meses' }),
 });
 

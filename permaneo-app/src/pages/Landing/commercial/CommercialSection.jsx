@@ -122,7 +122,7 @@ export default function CommercialSection() {
       {modal.type === 'plan' && <div className={styles.planDetails}>
         <p>{PLANS[plan].term}. Contratação por instituição (B2B/B2G), com os mesmos recursos essenciais nas duas modalidades.</p>
         <div className={styles.modalPrices}><p>Plataforma<strong>{money(PLANS[plan].fixed)}<small>/mês</small></strong></p><p>Por estudante<strong>{money(PLANS[plan].student)}<small>/mês</small></strong></p></div>
-        {plan === 'annual' && <p>{money(252000)} pela plataforma ao ano + {money(7080)} por estudante ao ano. Economia anual de {money(46800)} na plataforma + {money(960)} por estudante, comparada a 12 meses do mensal.</p>}
+        {plan === 'annual' && <p>{money(PLANS.annual.fixed * 12)} pela plataforma ao ano + {money(PLANS.annual.student * 12)} por estudante ao ano. Economia anual de {money((PLANS.monthly.fixed - PLANS.annual.fixed) * 12)} na plataforma + {money((PLANS.monthly.student - PLANS.annual.student) * 12)} por estudante, comparada a 12 meses do mensal.</p>}
         <h3>Benefícios incluídos nos dois planos</h3>
         <ul className={styles.benefitList}>{features.map((feature) => <li key={feature.id}>{feature.title} <span>· {feature.status}</span></li>)}</ul>
         <InvestmentCalculator {...calculatorProps} compact />
