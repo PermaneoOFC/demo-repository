@@ -1,11 +1,11 @@
 # Planos Permaneo e visão futura
 
-Entrega local de 14/11/2026, na homepage existente (`#/home`). Nenhuma publicação,
+Entrega inicial de 14/11/2026, com preço mensal atualizado em 21/11/2026, na homepage existente (`#/home`). Nenhuma publicação,
 cobrança, assinatura ou envio de mensagem foi realizado.
 
 ## O que mudou
 
-- Dois planos por instituição, com os mesmos recursos: mensal de R$ 249 + R$ 6,70
+- Dois planos por instituição, com os mesmos recursos: mensal de R$ 249 + R$ 6,90
   por aluno; anual equivalente a R$ 210 + R$ 5,90 por aluno/mês, por 12 meses.
 - Cards responsivos, entrada com GSAP, estados de interação e detalhes em modal.
 - Calculadora compartilhada entre homepage e modal: total mensal, projeção de
@@ -67,10 +67,10 @@ Exemplo conferido para 100 alunos:
 
 | Modalidade | Mensal/equivalente | Em 12 meses |
 | --- | ---: | ---: |
-| Mensal | R$ 919,00 | R$ 11.028,00 |
+| Mensal | R$ 939,00 | R$ 11.268,00 |
 | Anual | R$ 800,00 | R$ 9.600,00 |
 
-Economia anual: **R$ 1.428,00**.
+Economia anual: **R$ 1.668,00**.
 
 Para repetir a verificação, inicie o Vite e execute na pasta `permaneo-app`:
 
