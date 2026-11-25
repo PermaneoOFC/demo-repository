@@ -1,5 +1,5 @@
 import StudentPortrait from '../students/StudentPortrait.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import {
   Bell,
@@ -25,9 +25,14 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
   const student = role === 'student';
   const [collapsed, setCollapsed] = useState(false);
   const [more, setMore] = useState(false);
+  const menu = useRef(null);
+  const moreButton = useRef(null);
   const { pathname } = useLocation();
   useEffect(() => setMore(false), [pathname]);
-  const mainDestinations = ['student', 'studentCalendar', 'studentJourney'];
+  useEffect(() => {
+    if (more) menu.current?.querySelector('[data-mobile-main="false"]')?.focus();
+  }, [more]);
+  const mainDestinations = { student: 'Início', studentActivities: 'Estudos', studentCalendar: 'Calendário', studentNotices: 'Avisos', studentSpace: 'Perfil' };
   const dashboard = student ? 'student' : teacher ? 'teacher' : 'director';
   const notificationPage = teacher ? 'teacherNotifications' : 'directorNotifications';
   const entries = student
@@ -72,19 +77,23 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
             Permane<span className={styles.brandEnd}>o</span>
           </span>
         </Link>
-        <nav id="platform-menu" className={styles.navigation} data-more={student && more} aria-label="Menu da plataforma">
+        <nav ref={menu} id="platform-menu" className={styles.navigation} data-more={student && more} aria-label="Menu da plataforma"
+          onKeyDown={(event) => {
+            if (more && event.key === 'Escape') {
+              setMore(false);
+              moreButton.current?.focus();
+            }
+          }}>
           {entries.map(([path, label, Icon]) => (
-            <NavLink key={path} to={'/' + path} end className={styles.navLink} data-mobile-main={student && mainDestinations.includes(path)} aria-label={label} title={student && collapsed ? label : undefined}>
+            <NavLink key={path} to={'/' + path} end className={styles.navLink} data-mobile-main={student && Boolean(mainDestinations[path])} aria-label={student && collapsed ? label : undefined} title={student && collapsed ? label : undefined}>
               <Icon size={18} aria-hidden="true" />
-              <span>{label}</span>
+              <span className={student && mainDestinations[path] ? styles.desktopLabel : undefined}>{label}</span>
+              {student && mainDestinations[path] && <span className={styles.mobileLabel}>{mainDestinations[path]}</span>}
               {path === notificationPage && !notificationsRead && (
-                <span className={styles.badge}>9</span>
+                <span className={styles.badge} aria-label="Há notificações novas" />
               )}
             </NavLink>
           ))}
-          {student && <button type="button" className={styles.more} aria-expanded={more} onClick={() => setMore(!more)}>
-            <Ellipsis size={20} aria-hidden="true" /><span>Mais</span>
-          </button>}
         </nav>
         <div className={styles.account}>
           <div className={styles.identity}>
@@ -105,6 +114,7 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
           <p>Escola Estadual Horizonte · Demonstração</p>
           <div className={styles.actions}>
             {student && <button className={styles.collapse} aria-controls="platform-menu" aria-expanded={!collapsed} aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'} onClick={() => setCollapsed(!collapsed)}><PanelLeftClose size={20} aria-hidden="true" /></button>}
+            {student && <button ref={moreButton} type="button" className={styles.more} aria-label="Mais opções" aria-controls="platform-menu" aria-expanded={more} onClick={() => setMore(!more)}><Ellipsis size={20} aria-hidden="true" /></button>}
             {student && <Link to="/studentNotices" className={styles.notifications} aria-label="Abrir notificações"><Bell size={18} aria-hidden="true" /></Link>}
             {!student && (
               <Link

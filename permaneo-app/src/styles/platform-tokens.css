@@ -1,0 +1,28 @@
+:root {
+  --permaneo-blue: #246579;
+  --permaneo-green: #227457;
+  --platform-accent: #246579;
+  --platform-accent-soft: #e6f1f3;
+  --platform-mint: #e5f3eb;
+  --platform-lavender: #efebf8;
+  --platform-peach: #fbf0e2;
+  --platform-display: 'Bricolage Grotesque', 'Public Sans', sans-serif;
+  --platform-body: 'Public Sans', sans-serif;
+  --platform-radius: 20px;
+  --platform-shadow: 0 8px 24px #112f3910;
+  --platform-motion: 180ms ease;
+}
+
+:root[data-theme='dark'] {
+  --platform-accent: #a5dce8;
+  --platform-accent-soft: #304f60;
+  --platform-mint: #2b5449;
+  --platform-lavender: #494764;
+  --platform-peach: #544633;
+  --platform-shadow: 0 8px 24px #101e2a45;
+}
+
+@keyframes platform-reveal {
+  from { opacity: .55; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

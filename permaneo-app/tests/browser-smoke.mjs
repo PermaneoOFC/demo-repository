@@ -13,6 +13,7 @@ routes.push('ProfileAnaBeatrizManagement', 'ProfileHeitorManagement');
 const selectedRoutes = process.env.ROUTES ? process.env.ROUTES.split(',') : routes;
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 page.on('pageerror', error => errors.push(error.message));
+await page.route(/vlibras|userway/, route => route.fulfill({ contentType: 'application/javascript', body: '' }));
 try {
   for (const width of [1440, 900, 390]) {
   await page.setViewportSize({width, height: 1000});
@@ -21,19 +22,22 @@ try {
   await page.evaluate(dark => localStorage.setItem('permaneo-theme', dark ? 'dark' : 'light'), dark);
   await page.reload();
   for (const route of (baseline ? ['home','director','teacher','student','carometroManagement','reports'] : selectedRoutes)) {
-    await page.goto(`${baseURL}/#${route}`);
+    await page.goto(`${baseURL}/?smoke=${route}#${route}`, { waitUntil: 'domcontentloaded' });
+    await page.locator('#root > *').first().waitFor({ state: 'attached' });
     await page.getByText('Carregando Permaneo', { exact: false }).waitFor({ state: 'hidden' });
-    await page.waitForTimeout(800);
+    if (route === 'director') await page.locator('[data-school-kpis]').waitFor();
+    await page.evaluate(() => { for (const image of document.images) image.loading = 'eager'; });
+    await page.waitForFunction(() => [...document.images].every(image => image.complete && image.naturalWidth > 0));
     const result = await page.evaluate(() => ({
       width: innerWidth, scrollWidth: document.documentElement.scrollWidth,
       brokenImages: [...document.images].filter(i => !i.complete || !i.naturalWidth).map(i => i.src),
       heading: document.body.innerText.slice(0, 100),
       cta: (() => { const e = document.querySelector('[data-name="CTA / Acessar"]'); return e && getComputedStyle(e).backgroundColor; })(),
-      grid: (() => { const e = document.querySelector('[data-name="Indicadores"]'); return e && getComputedStyle(e).display; })(),
+      grid: (() => { const e = document.querySelector('[data-school-kpis]'); return e && getComputedStyle(e).display; })(),
     }));
     if (['home','director','student'].includes(route)) await page.screenshot({ path: `test-results/${baseline ? 'before' : 'after'}-${route}-${width}-${dark ? 'dark' : 'light'}.png`, fullPage: true });
     if (!baseline) {
-      assert.equal(result.brokenImages.length, 0, `${route}: broken images`);
+      assert.deepEqual(result.brokenImages, [], `${route}: broken images`);
       if (result.scrollWidth > result.width + 1) failures.push(`${width} ${route}: horizontal overflow ${result.scrollWidth}`);
       if (route === 'home') assert.ok(result.cta && result.cta !== 'rgba(0, 0, 0, 0)', 'styled homepage CTA');
       if (route === 'director') assert.equal(result.grid, 'grid');

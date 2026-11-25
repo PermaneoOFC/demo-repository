@@ -426,4 +426,12 @@
 
 .heroAvatar{position:relative}
 .heroPortrait{width:100%;height:100%;border-radius:inherit}
+
+.gradeTrend { display: flex; flex: 1 1 60%; flex-wrap: wrap; gap: 10px; max-width: 450px; }
+.gradeTrend > div { flex: 1 1 94px; }
+.gradeTrend small { display: block; }
+.person { display: flex; align-items: center; gap: 10px; }
+.personPhoto { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; }
+.attendanceTable td[data-presence='AT'] { color: #714408; background: #fff0d3; }
+.area[data-motion='false'] * { animation: none !important; transition: none !important; }
 .avatarBadge{position:absolute;right:-4px;bottom:-4px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--portal-hero);color:#fff;border:2px solid var(--app-surface)}

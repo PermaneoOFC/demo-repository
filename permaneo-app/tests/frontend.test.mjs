@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { chromium, expect } from '@playwright/test';
-import { createServer } from 'vite';
+import { browserServer } from './browser-server.mjs';
 import { demoStudents } from '../src/data/students.js';
 import { getStudentProfile } from '../src/data/studentProfiles.js';
 
@@ -9,15 +9,14 @@ for (const student of demoStudents) {
   assert.equal(profile.attendance + profile.absences, profile.totalLessons, `${student.key} frequency total`);
 }
 
-const server = await createServer({ server: { host: '127.0.0.1', port: 5174, strictPort: true } });
-await server.listen();
+const { baseURL, close } = await browserServer(5174);
 let browser;
 try {
   browser = await chromium.launch({ channel: 'chrome', headless: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  const base = 'http://127.0.0.1:5174/#/';
+  const base = baseURL + '/#/';
   const openStudent = async (route = 'carometroTeacher') => {
     await page.goto(base + route);
     await page.getByRole('heading', { name: 'Carômetro', exact: true }).waitFor();
@@ -83,5 +82,5 @@ try {
   console.log('PASS: Carômetro views, filters, profile tabs, observations, visibility, theme, and mobile layout.');
 } finally {
   await browser?.close();
-  await server.close();
+  await close();
 }

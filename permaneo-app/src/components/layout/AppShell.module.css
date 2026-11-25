@@ -10,8 +10,8 @@
 .navLink svg{flex-shrink:0}
 .navLink:global([aria-current="page"]){color:var(--shell-brand);background:transparent;font-weight:600}
 .navLink:hover{color:var(--shell-brand);background:var(--app-bg)}
-.badge{margin-left:auto;padding:0 7px;border-radius:99px;background:#fff3e1;color:#87530f;font-size:12px;line-height:16px}
-:global([data-theme="dark"]) .badge{background:#5d4d39;color:#ffd594}
+.badge{margin-left:auto;width:8px;height:8px;border-radius:50%;background:#986218}
+:global([data-theme="dark"]) .badge{background:#ffd594}
 .account{margin-top:auto;padding:16px 8px 0;border-top:1px solid var(--app-border)}
 .identity{display:flex;align-items:center;gap:12px;font-size:14px}
 .identity small{display:block;color:var(--app-muted);font-size:12px}
@@ -49,7 +49,8 @@
 .workspace{overflow:clip;max-width:calc(100% - 260px)}
 @media(max-width:1000px){.workspace{max-width:100%}}
 
-.more { display: none; }
+.more, .mobileLabel { display: none; }
+.shell .navLink[aria-current='page'] { background: var(--platform-accent-soft); }
 .collapse { display: grid; place-items: center; min-width: 44px; min-height: 44px; }
 .shell[data-student-shell] .navLink[aria-current='page'] { background: var(--app-bg); }
 @media (min-width: 1001px) {
@@ -63,7 +64,7 @@
   .shell[data-student-shell] .sidebar { gap: 0 12px; }
   .shell[data-student-shell] .navigation {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     position: fixed;
     inset: auto 0 0;
     z-index: 80;
@@ -72,7 +73,7 @@
     border-top: 1px solid var(--app-border);
     box-shadow: 0 -4px 18px rgba(20, 42, 48, 0.08);
   }
-  .shell[data-student-shell] :is(.navLink, .more) {
+  .shell[data-student-shell] .navigation .navLink {
     min-height: 52px;
     padding: 4px;
     flex-direction: column;
@@ -84,10 +85,13 @@
     text-align: center;
   }
   .shell[data-student-shell] .navLink[data-mobile-main='false'] { display: none; }
-  .shell[data-student-shell] .navigation[data-more='true'] .navLink[data-mobile-main='false'] { display: flex; order: -1; }
-  .shell[data-student-shell] .more { display: flex; }
+  .shell[data-student-shell] .navigation[data-more='true'] .navLink[data-mobile-main='false'] { display: flex; order: -1; grid-column: span 5; min-height: 39px; flex-direction: row; gap: 10px; justify-content: flex-start; padding-inline: 12px; }
+  .shell[data-student-shell] .navigation[data-more='true'] { max-height: 60dvh; overflow-y: auto; }
+  .shell[data-student-shell] .more { display: grid; place-items: center; min-width: 40px; min-height: 44px; }
+  .shell[data-student-shell] .desktopLabel { display: none; }
+  .shell[data-student-shell] .mobileLabel { display: inline; }
   .shell[data-student-shell] .collapse { display: none; }
 }
 @media (max-width: 1000px) {
-  .shell[data-student-shell] .navigation:has(.navLink[data-mobile-main='false'][aria-current='page']) .more { color: var(--shell-brand); background: var(--app-bg); }
+  .shell[data-student-shell]:has(.navLink[data-mobile-main='false'][aria-current='page']) .more { color: var(--shell-brand); background: var(--app-bg); }
 }

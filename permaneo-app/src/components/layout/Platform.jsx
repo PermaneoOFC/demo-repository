@@ -145,8 +145,11 @@ export default function Platform() {
     try {
       localStorage.setItem('permaneo-theme', dark ? 'dark' : 'light');
     } catch {}
-    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
   }, [dark]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = effectiveDark ? 'dark' : 'light';
+  }, [effectiveDark]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -860,7 +863,7 @@ export default function Platform() {
       onClick={handleClick}
       onKeyDown={handleKeyDown}
     >
-      <Suspense fallback={<div className={styles.loading}>Carregando Permaneo…</div>}>
+      <Suspense fallback={<div className={styles.loading} role="status"><div><span>Carregando Permaneo…</span><div className={styles.skeleton} aria-hidden="true"><i /><i /><i /></div></div></div>}>
         {page === 'login' ? (
           <LoginPage
             role={role}
@@ -926,7 +929,7 @@ export default function Platform() {
                 onStartFollowup={(student) => { setFollowupStudent(student); setModal('record'); }}
               />
             ) : page === 'director' ? (
-              <ActiveScreen records={records} classAttendance={classAttendance} localStudents={localStudents} onOpenProfile={openStudentFromPage} />
+              <ActiveScreen records={records} classAttendance={classAttendance} localStudents={localStudents} onOpenProfile={openStudentFromPage} notificationsRead={notificationsRead} />
             ) : page === 'directorFollowup' || page === 'teacherFollowup' ? (
               <ActiveScreen
                 role={shellRole}
@@ -968,6 +971,7 @@ export default function Platform() {
             ) : classroomPage ? (
               <ActiveScreen
                 classAttendance={classAttendance}
+                classAttendanceMeta={classAttendanceMeta}
                 onSaveAttendance={(id, date, statuses, lesson) => {
                   setClassAttendance((previous) => ({ ...previous, [id]: { ...previous[id], [date]: statuses } }));
                   setClassAttendanceMeta((previous) => ({ ...previous, [id]: { ...previous[id], [date]: lesson } }));

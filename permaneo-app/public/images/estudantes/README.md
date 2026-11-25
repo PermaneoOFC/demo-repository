@@ -1,24 +1,22 @@
-# Retratos demonstrativos
+# Retratos demonstrativos do Permaneo 2.0
 
-Oito personagens fictícios gerados individualmente para a demonstração do Permaneo.
-Nenhuma fotografia de estudante real foi utilizada como referência. Os retratos não
-representam os estudantes reais que possam ter nomes iguais aos dados de exemplo.
+Os oito retratos representam personagens fictícios. A geração integrada do ImageGen não recebeu fotografias nem dados pessoais de estudantes como referência. As duas folhas de quatro retratos foram recortadas em WebP local, 512 × 512 px, qualidade 81, com cerca de 15 a 31 KB por estudante.
 
-Arquivos WebP locais, 512 × 512 px, qualidade 84, entre 11 e 22 KB por retrato.
-O nome de cada arquivo corresponde ao ID estável em `src/data/students.js`.
-Não há dependência de serviço externo, sorteio de imagens ou vínculo pela posição na lista.
+O nome de cada arquivo corresponde ao ID estável em src/data/students.js. O componente StudentPortrait resolve esse ID ao exibir o retrato em cada ambiente e usa uma ilustração estável se a foto estiver ausente ou falhar. Cadastros locais continuam usando a foto já carregada pelo usuário.
 
-Direção dos prompts: fotografia escolar individual de personagem brasileiro fictício
-de 14 anos; cabeça e ombros; expressão natural; fundo cinza quente; iluminação difusa;
-rosto centralizado, cabelo inteiro visível; roupas casuais sem marcas; sem texto.
-Variações individuais: Lucas (cachos curtos, camiseta azul-marinho), Camila (tranças,
-camiseta azul-petróleo), Isabela (cabelo ruivo ondulado, sardas), Eduardo (cabelo preto
-com franja, óculos), Yasmin (cachos soltos, camiseta terracota), Livia (cabelo curto
-escuro, camiseta azul), AnaBeatriz (cabelo afro, camiseta lavanda), Heitor (cabelo
-castanho ondulado, camiseta verde).
+## Instruções de geração
 
-`StudentPortrait` centraliza a exibição, texto alternativo, carregamento e fallback
-ilustrado inline. Fotos enviadas para novos cadastros locais continuam preservadas.
-O fallback é usado apenas em ausência ou falha de imagem, sem novas requisições.
+Cada folha contém uma grade exata 2 × 2, sem margens ou texto. Os personagens são adolescentes brasileiros fictícios de 14 a 16 anos. Retratos escolares de cabeça e ombros, cabelo visível, luz natural suave, pele sem retoque, expressão espontânea e roupas casuais sem marca. Cada retrato recebe um ambiente escolar desfocado e um enquadramento ligeiramente diferente.
 
-Validação: `npm run test:portraits`.
+| Folha e posição | Personagem | Direção do retrato |
+| --- | --- | --- |
+| 1, superior esquerda | Lucas | Pele morena, cachos curtos, camiseta azul-marinho, sorriso tímido, parede de sala azul-petróleo clara |
+| 1, superior direita | Camila | Pele negra, tranças longas, camiseta azul-petróleo, sorriso relaxado, corredor claro |
+| 1, inferior esquerda | Isabela | Pele clara com sardas, cabelo ruivo ondulado, camiseta cinza-azulada, sorriso discreto, pátio esverdeado |
+| 1, inferior direita | Eduardo | Pele oliva clara, franja preta, óculos retangulares, camiseta cinza, biblioteca |
+| 2, superior esquerda | Yasmin | Pele morena, cachos escuros soltos, camiseta terracota, meio sorriso, corredor azul-claro |
+| 2, superior direita | Lívia | Pele morena clara, cabelo curto escuro, camiseta azul, cabeça inclinada, janela da escola |
+| 2, inferior esquerda | Ana Beatriz | Pele negra, cabelo afro arredondado, camiseta lavanda, sorriso aberto, parede verde de pátio |
+| 2, inferior direita | Heitor | Pele clara, cabelo castanho ondulado, camiseta verde-musgo, sorriso discreto, corredor de tijolos |
+
+Validação com npm run test:portraits.

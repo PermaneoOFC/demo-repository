@@ -52,11 +52,9 @@ try {
       if (route === 'director') {
         await page.getByRole('navigation', {name: 'Menu da plataforma'}).getByRole('link', {name:'Carômetro',exact:true}).click();
         await expect(page).toHaveURL(/#\/?carometroManagement$/);
-        await page.locator('[data-name^="Buscar por nome"]').click();
-        await expect(page.getByRole('dialog')).toBeVisible();
-        await page.getByRole('button', {name: 'Fechar janela', exact: true}).click();
-        await page.locator('[data-name="Ver perfil"]').first().click();
-        await expect(page).toHaveURL(/#\/?ProfileLucasManagement$/);
+        await page.getByRole('searchbox', { name: 'Buscar estudante' }).fill('Lucas');
+        await page.getByRole('button', { name: /Lucas Gomes/ }).click();
+        await expect(page.getByRole('heading', { name: 'Lucas Gomes', exact: true })).toBeVisible();
       }
       if (route === 'student') {
         await page.getByRole('link', {name: 'Meu espaço', exact: true}).click();

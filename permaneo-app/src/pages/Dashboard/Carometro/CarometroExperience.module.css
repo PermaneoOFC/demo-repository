@@ -17,3 +17,27 @@
 .attendanceCalendar{display:grid;grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:7px;margin:10px 0}.calendarDay{display:grid;justify-items:center;gap:5px;padding:8px 4px;border:1px solid var(--line);border-radius:9px;background:var(--bg)}.calendarDay small{font-size:9px;color:var(--muted)}.calendarDay b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;font-size:10px;background:var(--good-soft);color:var(--good)}.calendarDay[data-status=ausente] b{background:#fde9e7;color:var(--danger)}.calendarDay[data-status=justificada] b{background:var(--warn-soft);color:var(--warn)}.absenceSummary{display:flex;gap:18px;flex-wrap:wrap;margin:12px 0}.absenceSummary>span{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted)}.absenceSummary i{width:8px;height:8px;border-radius:50%;background:var(--danger)}.absenceSummary i[data-kind=justified]{background:var(--warn)}.absenceSummary b{color:var(--ink)}
 
 .studentCard:hover .photo img,.studentCard:focus-visible .photo img{transform:scale(1.045)}
+
+.page { font-family: var(--platform-body); }
+.pageHeader { padding: clamp(14px,2.6vw,30px); border: 1px solid var(--line); border-radius: var(--platform-radius); background: linear-gradient(110deg,var(--surface),var(--platform-accent-soft)); margin-bottom: 14px; }
+.pageHeader h1, .studentInfo strong { font-family: var(--platform-display); }
+.studentCard { border-radius: var(--platform-radius); box-shadow: var(--platform-shadow); }
+.studentCard[data-last-viewed='true'], .studentCard:focus-visible { outline: 2px solid var(--platform-accent); outline-offset: 2px; }
+.studentGrid:not(.list,.compact) .photo { height: auto; aspect-ratio: 1.15; }
+.photo img { object-position: 50% 27%; }
+.attendanceLabel small { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; }
+.attendanceLabel b { font-size: 14px; }
+.bar i { transform-origin: left center; animation: fill-attendance 440ms ease-out both; }
+@keyframes fill-attendance { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.studentGrid .statusPill { border: 1px solid var(--line); color: var(--muted); background: var(--bg); }
+.studentGrid .cardAction { min-height: 26px; }
+.search:focus-within, .classSelect:focus-within { outline: 2px solid var(--platform-accent); outline-offset: 2px; }
+.calendarDay[data-status='atrasado'] { background: #fff0d3; color: #714408; }
+@media (max-width: 550px) {
+  .pageHeader { gap: 7px; }
+  .pageHeader .scope { padding: 5px 8px; border-radius: 7px; }
+  .studentGrid:not(.list,.compact) .studentCard { border-radius: 13px; }
+  .studentGrid:not(.list,.compact) .studentInfo strong { white-space: normal; }
+  .list .studentCard, .compact .studentCard { grid-template-columns: 40px minmax(0,1fr) auto; }
+  .list .studentInfo strong, .compact .studentInfo strong { white-space: normal; }
+}

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile, mkdir, writeFile, rm } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { build } from 'esbuild';
+import { transform } from 'esbuild';
 import { Window } from 'happy-dom';
 import React, { act } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -27,8 +27,12 @@ Object.assign(globalThis, { window, document: window.document, IS_REACT_ACT_ENVI
 const cache = new URL('../node_modules/.cache/portrait-tests/', import.meta.url);
 await mkdir(cache, { recursive: true });
 const output = new URL('component.mjs', cache);
-const result = await build({ entryPoints: ['src/components/students/StudentPortrait.jsx'], bundle: true, outfile: output.pathname, write: false, format: 'esm', packages: 'external', jsx: 'automatic', loader: { '.css': 'empty' }, logLevel: 'silent' });
-await writeFile(output, result.outputFiles[0].text);
+const component = new URL('../src/components/students/StudentPortrait.jsx', import.meta.url);
+const source = (await readFile(component, 'utf8'))
+  .replace('../../data/students.js', new URL('../../data/students.js', component).href)
+  .replace("import styles from './StudentPortrait.module.css';", "const styles = { portrait: 'portrait', fallback: 'fallback' };");
+const result = await transform(source, { loader: 'jsx', jsx: 'automatic', format: 'esm' });
+await writeFile(output, result.code);
 const { default: Portrait } = await import(output.href);
 const host = document.createElement('div');
 document.body.append(host);

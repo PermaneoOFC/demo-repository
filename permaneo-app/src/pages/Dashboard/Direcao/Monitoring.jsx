@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import StudentPortrait from '../../../components/students/StudentPortrait.jsx';
 import { Link } from 'react-router-dom';
 import { getStudentProfile } from '../../../data/studentProfiles.js';
 import { demoStudents } from '../../../data/students.js';
-import { normalizar, turmasDemo } from '../../../data/sala.js';
+import { normalizar, presencas, presencasAbreviadas, turmasDemo } from '../../../data/sala.js';
 import styles from '../Estudante/StudentArea.module.css';
 
 const students = demoStudents.map((student) => getStudentProfile(student.key));
@@ -58,7 +59,7 @@ export default function Monitoring({ role = 'director', records = [], setRecords
       <h2>Alertas de frequência</h2>
       <p>O alerta sinaliza frequência abaixo de 85% nos registros demonstrativos.</p>
       {alerts.map((student) => <div className={styles.row} key={student.key}>
-        <div><b>{student.name}</b><small>{student.className} · {student.attendance}% de frequência</small></div>
+        <div className={styles.person}><StudentPortrait student={student} className={styles.personPhoto} decorative /><span><b>{student.name}</b><small>{student.className} · {student.attendance}% de frequência</small></span></div>
         <div className={styles.controls}>
           <Link className={styles.secondary} to={'/Profile' + student.key + (isTeacher ? 'Teacher' : 'Management')} onClick={(event) => openProfile(student, event)}>Ver perfil de {student.name}</Link>
           {onStartFollowup && <button type="button" className={styles.primary} onClick={() => onStartFollowup(student)}>Registrar intervenção</button>}
@@ -74,7 +75,7 @@ export default function Monitoring({ role = 'director', records = [], setRecords
           {dates.map((day) => <option key={day} value={day}>{displayDate(day)}</option>)}
         </select></label>
       </div>
-      <p>P = Presente · A = Ausente · J = Justificada · N = Sem registro</p>
+      <p>P = Presente · AT = Atrasado · A = Ausente · J = Falta justificada · — = Sem registro</p>
       <div className={styles.tableScroll}>
         <table className={styles.attendanceTable}>
           <thead><tr><th scope="col">Estudante</th>{filteredDates.map((day) => <th key={day} scope="col">{displayDate(day).slice(0, 5)}</th>)}</tr></thead>
@@ -84,9 +85,10 @@ export default function Monitoring({ role = 'director', records = [], setRecords
               const entry = student.recentAttendance.find((item) => item.date === displayDate(day));
               const status = savedAttendance(student)[day]?.[student.key];
               const code = status
-                ? { PRESENTE: 'P', AUSENTE: 'A', JUSTIFICADA: 'J', NAO_REGISTRADA: 'N' }[status]
-                : !entry ? 'N' : !entry.absent ? 'P' : entry.justified ? 'J' : 'A';
-              return <td key={day} data-presence={code}>{code}</td>;
+                ? presencasAbreviadas[status]
+                : !entry ? '—' : !entry.absent ? 'P' : entry.justified ? 'J' : 'A';
+              const label = status ? presencas[status] : Object.entries(presencasAbreviadas).find(([, letter]) => letter === code)?.[0];
+              return <td key={day} data-presence={code} title={status ? label : presencas[label]}>{code}</td>;
             })}
           </tr>)}</tbody>
         </table>

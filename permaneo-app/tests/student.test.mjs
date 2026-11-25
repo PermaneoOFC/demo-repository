@@ -1,10 +1,9 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { chromium, expect } from '@playwright/test';
-import { createServer } from 'vite';
+import { browserServer } from './browser-server.mjs';
 
-const server = await createServer({ server: { host: '127.0.0.1', port: 5181, strictPort: true } });
-await server.listen();
+const { baseURL, close } = await browserServer(5181);
 let browser;
 try {
   browser = await chromium.launch({ channel: 'chrome', headless: true });
@@ -15,10 +14,10 @@ try {
   page.on('pageerror', (error) => errors.push(error.message));
   const visit = async (route) => {
     console.log('Checking student flow:', route);
-    await page.goto('http://127.0.0.1:5181/#' + route);
+    await page.goto(baseURL + '/#' + route);
     await page.getByRole('heading', { level: 1 }).waitFor();
   };
-  await page.goto('http://127.0.0.1:5181/#login');
+  await page.goto(baseURL + '/#login');
   await page.getByRole('link', {name: 'Acessar área do aluno (demonstração)', exact: true}).click();
   await expect(page.getByRole('heading', {name: 'Meu dia', exact: true})).toBeVisible();
   await page.getByRole('link', {name: 'Atividades', exact: true}).click();
@@ -53,7 +52,7 @@ try {
   await page.getByLabel('Disciplina', { exact: true }).selectOption('Português');
   await expect(page.getByText('Nenhuma atividade com esses filtros.')).toBeVisible();
   await visit('student');
-  await expect(page.getByRole('progressbar')).toHaveAttribute('value', '1');
+  await expect(page.getByRole('progressbar', { name: 'Progresso das atividades' })).toHaveAttribute('value', '1');
 
   await visit('studentCalendar');
   const month = await page.getByRole('heading', { level: 2 }).first().textContent();
@@ -118,7 +117,7 @@ try {
       await page.setViewportSize({ width, height: 1000 });
       for (const route of routes) {
         console.log('Checking layout:', route, theme, width);
-        await page.goto('http://127.0.0.1:5181/#' + route);
+        await page.goto(baseURL + '/#' + route);
         await page.reload();
         await page.locator('[data-app-shell]').waitFor();
         await page.waitForFunction(() => !document.body.innerText.includes('Carregando Permaneo'));
@@ -150,5 +149,5 @@ try {
   );
 } finally {
   await browser?.close();
-  await server.close();
+  await close();
 }

@@ -1,17 +1,19 @@
 import StudentPortrait from '../../../components/students/StudentPortrait.jsx';
 import ClassAttendance from '../../../components/students/ClassAttendance.jsx';
 import { useEffect, useId, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
   ArrowLeft, ArrowRight, Armchair, BookOpen, Camera, CheckCircle2, ChevronDown, DoorOpen, Eye, Grid2X2, Info,
-  LayoutGrid, List, Maximize, Minus, Move3D, PanelsTopLeft, Plus, Search, Shuffle, UsersRound, X,
+  LayoutGrid, List, Maximize, Maximize2, Minus, Minimize2, Move3D, PanelsTopLeft, Plus, Redo2, Search, Shuffle, Undo2, UsersRound, X,
 } from 'lucide-react';
 import {
-  atencoes, categorias, chaveObservacoes, dataFormatada, faltasConsecutivas, hoje, lerLocal,
-  normalizar, ordemAssentos, ordenarObservacoes, perfilDemo, percentual, presencas,
+  atencoes, categorias, chamadaRegistrada, chaveObservacoes, dataFormatada, faltasConsecutivas, hoje, lerLocal,
+  normalizar, ordemAssentos, ordenarObservacoes, perfilDemo, percentual, presencas, presencasAbreviadas,
   situacaoAluno, situacoes, turmaMeta, turmasDemo,
 } from '../../../data/sala.js';
 import styles from './MinhaSala.module.css';
+import useSeatDrag from '../../../hooks/useSeatDrag.js';
 
 const views = [['mapa', 'Sala Virtual', Armchair], ['carometro', 'Carômetro', Grid2X2], ['lista', 'Lista', List]];
 const mapaLocal = (id) => 'permaneo-demo-assentos-' + id;
@@ -79,6 +81,8 @@ function MinhasTurmas({ turmas, linkSala, classAttendance, classAttendanceMeta, 
         const frequencias = turma.estudantes.map((aluno) => aluno.frequencia).filter((valor) => valor != null);
         const media = frequencias.length ? frequencias.reduce((soma, valor) => soma + valor, 0) / frequencias.length : null;
         const acompanhamento = turma.estudantes.filter((aluno) => ['attention', 'priority'].includes(situacaoAluno(aluno))).length;
+        const ultimaChamada = Object.keys(classAttendance?.[turma.id] || {}).sort().at(-1);
+        const registrosHoje = Object.values(classAttendance?.[turma.id]?.[hoje()] || {}).filter(chamadaRegistrada).length;
         return <article className={styles.classCard} key={turma.id}>
           <header><span className={styles.classIcon}>{icon(UsersRound, 22)}</span><span>{turmaMeta(turma)}</span></header>
           <MiniaturaSala total={turma.estudantes.length} />
@@ -88,6 +92,7 @@ function MinhasTurmas({ turmas, linkSala, classAttendance, classAttendanceMeta, 
             <div><dt>Frequência média</dt><dd>{percentual(media)}</dd></div>
             <div><dt>Precisam de atenção</dt><dd>{acompanhamento}</dd></div>
           </dl>
+          <p className={styles.latestCall}>{icon(CheckCircle2, 15)} {registrosHoje ? registrosHoje + ' registros na chamada de hoje' : ultimaChamada ? 'Última chamada em ' + dataFormatada(ultimaChamada) : 'Nenhuma chamada registrada'}</p>
           <div className={styles.classActions}>
             <button type="button" className={acao} data-kind="primary" onClick={() => setChamada(turma)}>{icon(CheckCircle2)} Realizar chamada</button>
             <Link to={linkSala(turma.id)} className={acao} aria-label={'Abrir sala virtual ' + turma.nome}>Sala Virtual {icon(ArrowRight)}</Link>
@@ -99,22 +104,39 @@ function MinhasTurmas({ turmas, linkSala, classAttendance, classAttendanceMeta, 
   </>;
 }
 
-function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen, selecionado }) {
+function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onDrop, onOpen, selecionado, attendance, highlight }) {
   const [zoom, setZoom] = useState(100);
   const [camera, setCamera] = useState('isometrica');
+  const [fullscreen, setFullscreen] = useState(false);
+  const [fullscreenError, setFullscreenError] = useState(false);
+  const map = useRef(null);
   const viewport = useRef(null);
   const drag = useRef(null);
+  const { preview, handlers } = useSeatDrag(viewport, onDrop);
   const tooltipId = useId();
   const escala = zoom / 100;
   const total = Math.max(6, ordem.length);
   const nomeVisivel = new Set(visiveis.map((aluno) => aluno.id));
   const colunas = ordem.length <= 9 ? 3 : ordem.length <= 24 ? 4 : 5;
   useEffect(() => {
-    if (!selecionado) return;
+    const sync = () => setFullscreen(document.fullscreenElement === map.current);
+    document.addEventListener('fullscreenchange', sync);
+    return () => document.removeEventListener('fullscreenchange', sync);
+  }, []);
+  useEffect(() => {
+    if (!selecionado && !highlight) return;
     const seat = [...(viewport.current?.querySelectorAll('[data-student-id]') || [])]
-      .find((item) => item.dataset.studentId === String(selecionado));
-    if (seat) viewport.current.scrollTo({ left: Math.max(0, seat.offsetLeft - viewport.current.clientWidth / 2), top: Math.max(0, seat.offsetTop - viewport.current.clientHeight / 2), behavior: 'smooth' });
-  }, [selecionado]);
+      .find((item) => item.dataset.studentId === String(selecionado || highlight));
+    if (seat) {
+      const view = viewport.current.getBoundingClientRect();
+      const rect = seat.getBoundingClientRect();
+      viewport.current.scrollBy({
+        left: rect.left + rect.width / 2 - view.left - view.width / 2,
+        top: rect.top + rect.height / 2 - view.top - view.height / 2,
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+      });
+    }
+  }, [selecionado, highlight]);
   function mover(event) {
     if (event.target !== event.currentTarget) return;
     const botoes = { ArrowLeft: [-64, 0], ArrowRight: [64, 0], ArrowUp: [0, -64], ArrowDown: [0, 64] };
@@ -124,7 +146,24 @@ function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen,
       event.currentTarget.scrollBy(...ajuste);
     }
   }
-  return <section className={styles.map} aria-label="Mapa de assentos">
+  function focusSeat(event, index) {
+    const directions = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -colunas, ArrowDown: colunas };
+    const step = directions[event.key];
+    if (!step) return;
+    event.preventDefault();
+    const seat = viewport.current.querySelector('[data-seat-index="' + (index + step) + '"] button');
+    seat?.focus();
+  }
+  async function toggleFullscreen() {
+    try {
+      if (fullscreen) await document.exitFullscreen();
+      else await map.current.requestFullscreen();
+      setFullscreenError(false);
+    } catch {
+      setFullscreenError(true);
+    }
+  }
+  return <section ref={map} className={styles.map} data-editing={editing} aria-label="Mapa de assentos">
     <div className={styles.mapBar}>
       <span>{icon(LayoutGrid, 16)} Ambiente da turma</span>
       <div className={styles.zoom} role="group" aria-label="Zoom do mapa">
@@ -136,8 +175,10 @@ function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen,
           setCamera('isometrica');
           viewport.current.scrollTo(0, 0);
         }}>{icon(Maximize, 15)}<span className={styles.controlLabel}>Centralizar</span></button>
+        {document.fullscreenEnabled && <button type="button" aria-label={fullscreen ? 'Sair da tela cheia' : 'Tela cheia'} onClick={toggleFullscreen}>{icon(fullscreen ? Minimize2 : Maximize2, 16)}</button>}
       </div>
     </div>
+    {fullscreenError && <p className={styles.notice} role="status">O navegador não conseguiu abrir a tela cheia.</p>}
     <div className={styles.sceneControls} role="group" aria-label="Perspectiva da sala">
       <span>Perspectiva</span>
       {[
@@ -147,7 +188,7 @@ function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen,
       ].map(([id, label, Icon]) => <button key={id} type="button" aria-pressed={camera === id} onClick={() => setCamera(id)}>
         {icon(Icon, 15)}{label}
       </button>)}
-      <span className={styles.dragHint}>{icon(Camera, 14)} Arraste para explorar</span>
+      {!editing && <span className={styles.dragHint}>{icon(Camera, 14)} Arraste para explorar</span>}
     </div>
     <div className={styles.viewport} ref={viewport} tabIndex={0} role="region" aria-label="Planta rolável; use as setas para mover" onKeyDown={mover}
       onWheel={(event) => {
@@ -183,21 +224,29 @@ function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen,
             const aluno = alunos.get(ordem[index]);
             const disponivel = aluno && nomeVisivel.has(aluno.id);
             const cadeira = 'Carteira ' + (index + 1);
-            return <div key={index} className={styles.seat} data-empty={!aluno} data-faded={!disponivel} data-student-id={aluno?.id} data-selected={selecionado === aluno?.id}>
+            const callStatus = attendance[aluno?.id];
+            const source = preview?.source ?? origem;
+            const deskHandlers = editing ? handlers(index, () => onSeat(index)) : null;
+            return <div key={index} className={styles.seat} data-seat-index={index} data-empty={!aluno}
+              data-faded={!!aluno && !disponivel} data-student-id={aluno?.id}
+              data-selected={!!aluno && (selecionado === aluno.id || highlight === aluno.id)}
+              data-drag-source={preview?.source === index} data-drop-target={preview?.target === index}
+              data-available={editing && source != null && source !== index}>
               {disponivel ? <button type="button" className={styles.desk}
+                {...(deskHandlers || { onClick: (event) => onOpen(aluno, event) })}
+                onKeyDown={editing ? (event) => { deskHandlers.onKeyDown(event); focusSeat(event, index); } : undefined}
                 aria-label={editing ? cadeira + ': ' + aluno.nome : aluno.nome}
                 aria-pressed={editing ? origem === index : undefined}
-                aria-describedby={editing ? undefined : tooltipId + index}
-                onClick={(event) => editing ? onSeat(index) : onOpen(aluno, event)}>
+                aria-describedby={editing ? undefined : tooltipId + index}>
                 <Avatar aluno={aluno} />
                 <span className={styles.deskName}>{aluno.nome.split(' ')[0]}</span>
-                <Sinal aluno={aluno} />
+                {!editing && callStatus ? <span className={styles.attendanceMark} data-call={callStatus} aria-hidden="true">{presencasAbreviadas[callStatus]}</span> : <Sinal aluno={aluno} />}
                 {!editing && <span className={styles.seatTip} id={tooltipId + index} role="tooltip">
                   <strong>{aluno.nome}</strong><span>{turma.nome} · {percentual(aluno.frequencia)}</span>
-                  <span className={styles.srOnly}>{situacoes[situacaoAluno(aluno)]}</span>
+                  <span className={styles.srOnly}>{situacoes[situacaoAluno(aluno)]}{callStatus && ' · Chamada de hoje: ' + presencas[callStatus]}</span>
                 </span>}
               </button> : editing && !aluno && origem != null
-                ? <button type="button" className={styles.emptyDesk} aria-label={cadeira + ': livre'} onClick={() => onSeat(index)}>
+                ? <button type="button" className={styles.emptyDesk} aria-label={cadeira + ': livre'} onKeyDown={(event) => focusSeat(event, index)} onClick={() => onSeat(index)}>
                   {icon(Armchair, 18)}
                 </button> : <span className={styles.emptyDesk} aria-hidden="true">{icon(Armchair, 18)}</span>}
               <small aria-hidden="true">{String(index + 1).padStart(2, '0')}</small>
@@ -207,6 +256,12 @@ function Mapa({ turma, alunos, visiveis, ordem, editing, origem, onSeat, onOpen,
         </div>
       </div>
     </div>
+    {preview && alunos.has(ordem[preview.source]) && createPortal(
+      <div className={styles.dragPreview} style={{ left: preview.x, top: preview.y }} aria-hidden="true">
+        <Avatar aluno={alunos.get(ordem[preview.source])} /><b>{alunos.get(ordem[preview.source]).nome}</b>
+      </div>,
+      document.fullscreenElement || document.body,
+    )}
   </section>;
 }
 
@@ -259,7 +314,8 @@ function ObservacaoForm({ autor, onSave, onCancel }) {
 }
 
 function PerfilPainel({ aluno, turma, onClose, onOpenProfile, onNota }) {
-  const perfil = perfilDemo(aluno.id);
+  const dados = perfilDemo(aluno.id);
+  const perfil = { ...dados, observacoes: dados.observacoes.filter((nota) => nota.visibilidade !== 'RESTRITA') };
   const [editando, setEditando] = useState(false);
   const [aviso, setAviso] = useState('');
   const dialog = useRef(null);
@@ -342,8 +398,9 @@ function PerfilPainel({ aluno, turma, onClose, onOpenProfile, onNota }) {
   </dialog>;
 }
 
-function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNota, onSaveMap }) {
-  const [rascunho, setRascunho] = useState(null);
+function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNota, onSaveMap, attendance, attendanceMeta, onSaveAttendance }) {
+  const [edicao, setEdicao] = useState(null);
+  const [chamada, setChamada] = useState(false);
   const [origem, setOrigem] = useState(null);
   const [aviso, setAviso] = useState('');
   const [erro, setErro] = useState('');
@@ -351,6 +408,7 @@ function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNot
   const opener = useRef(null);
   const estudantes = turma.estudantes;
   const alunos = new Map(estudantes.map((aluno) => [aluno.id, aluno]));
+  const rascunho = edicao?.atual;
   const ordem = rascunho || ordemAssentos(estudantes, turma.assentos);
   const filtrar = (aluno) => rascunho || (normalizar(aluno.nome).includes(normalizar(busca)) && (!status || situacaoAluno(aluno) === status));
   const visiveis = ordem.map((id) => alunos.get(id)).filter((aluno) => aluno && filtrar(aluno));
@@ -360,17 +418,34 @@ function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNot
     setSelecionado(aluno.id);
   }
   function assento(index) {
-    if (origem === null || origem === index) return setOrigem(origem === index ? null : index);
+    if (origem === null || origem === index) {
+      setOrigem(origem === index || !ordem[index] ? null : index);
+      return;
+    }
+    moverAssento(origem, index);
+  }
+  function moverAssento(de, para) {
+    if (!edicao || de === para || !alunos.has(ordem[de]) || para < 0 || para >= ordem.length) return;
     const nova = [...ordem];
-    [nova[origem], nova[index]] = [nova[index], nova[origem]];
-    setRascunho(nova);
-    const nome = alunos.get(nova[index]).nome;
-    const outroAluno = alunos.get(nova[origem]);
-    setAviso(outroAluno ? nome + ' e ' + outroAluno.nome + ' trocaram de lugar.' : nome + ' ocupou a carteira ' + (index + 1) + '.');
+    [nova[de], nova[para]] = [nova[para], nova[de]];
+    setEdicao({ atual: nova, anteriores: [...edicao.anteriores, ordem], posteriores: [] });
+    const nome = alunos.get(nova[para]).nome;
+    const outroAluno = alunos.get(nova[de]);
+    setAviso(outroAluno ? nome + ' e ' + outroAluno.nome + ' trocaram de lugar.' : nome + ' ocupou a carteira ' + (para + 1) + '.');
     setOrigem(null);
   }
+  function desfazer(refazer = false) {
+    const { atual, anteriores, posteriores } = edicao;
+    if (refazer && posteriores.length) {
+      setEdicao({ atual: posteriores[0], anteriores: [...anteriores, atual], posteriores: posteriores.slice(1) });
+    } else if (!refazer && anteriores.length) {
+      setEdicao({ atual: anteriores.at(-1), anteriores: anteriores.slice(0, -1), posteriores: [atual, ...posteriores] });
+    } else return;
+    setOrigem(null);
+    setAviso(refazer ? 'Alteração refeita.' : 'Alteração desfeita.');
+  }
   function cancelarMapa() {
-    setRascunho(null);
+    setEdicao(null);
     setOrigem(null);
     setErro('');
     setAviso('');
@@ -392,10 +467,10 @@ function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNot
     </div>
     <div className={styles.sectionHeader}>
       <div><h2>Turma {turma.nome}</h2><p>{turmaMeta(turma)} · {estudantes.length} {estudantes.length === 1 ? 'estudante' : 'estudantes'}</p></div>
-      {view === 'mapa' && estudantes.length > 0 && !rascunho && <button className={acao} type="button" onClick={() => {
-        setRascunho(ordem);
+      {view === 'mapa' && estudantes.length > 0 && !rascunho && <div className={styles.dialogActions}><button className={acao} data-kind="primary" type="button" onClick={() => setChamada(true)}>{icon(CheckCircle2)} Registrar frequência</button><button className={acao} type="button" onClick={() => {
+        setEdicao({ atual: ordem, anteriores: [], posteriores: [] });
         setAviso('');
-      }}>{icon(Shuffle)} Editar assentos</button>}
+      }}>{icon(Shuffle)} Editar mapa</button></div>}
     </div>
     <div className={styles.roomTools}>
       <div className={styles.views} role="group" aria-label="Visualização">
@@ -410,8 +485,10 @@ function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNot
     </div>
     {rascunho && <div className={styles.editBar}>
       <div><strong>Organizar assentos</strong>
-        <p>{origem == null ? 'Selecione um estudante e escolha outra carteira.' : alunos.get(ordem[origem]).nome + ' selecionado. Escolha a carteira de destino.'}</p></div>
+        <p>{origem == null ? 'Arraste os estudantes para reorganizar a sala. Você também pode selecionar duas carteiras com clique ou teclado.' : alunos.get(ordem[origem]).nome + ' selecionado. Escolha a carteira de destino.'}</p></div>
       <div className={styles.dialogActions}>
+        <button type="button" className={acao} disabled={!edicao.anteriores.length} onClick={() => desfazer()}>{icon(Undo2)} Desfazer</button>
+        <button type="button" className={acao} disabled={!edicao.posteriores.length} onClick={() => desfazer(true)}>{icon(Redo2)} Refazer</button>
         <button type="button" className={acao} data-kind="primary" onClick={guardarMapa}>Salvar mapa</button>
         <button type="button" className={acao} onClick={cancelarMapa}>Cancelar</button>
       </div>
@@ -421,12 +498,19 @@ function Sala({ turma, view, busca, status, change, turmas, onOpenProfile, onNot
     {!visiveis.length && <p className={styles.empty}>{estudantes.length ? 'Nenhum estudante corresponde aos filtros.' : 'Não há estudantes matriculados nesta turma.'}</p>}
     {!!visiveis.length && (view === 'mapa'
       ? <Mapa turma={turma} alunos={alunos} visiveis={visiveis} ordem={ordem} editing={!!rascunho}
-        origem={origem} onSeat={assento} onOpen={abrir} selecionado={selecionado} />
+        origem={origem} onSeat={assento} onDrop={moverAssento} onOpen={abrir} selecionado={selecionado}
+        attendance={attendance[hoje()] || {}} highlight={busca && visiveis.length === 1 ? visiveis[0].id : null} />
       : <CarteirasAlternativas view={view} alunos={visiveis} onOpen={abrir} />)}
     <div className={styles.legend} aria-label="Legenda de acompanhamento">
       {Object.entries(situacoes).map(([id, label]) => <span className={styles.signal} key={id}><i data-status={id} aria-hidden="true" />{label}</span>)}
     </div>
     <p className={styles.hint}>{icon(Info, 15)} Os lugares mostram a organização da turma. A situação de acompanhamento não indica presença na aula.</p>
+    {!rascunho && Object.keys(attendance[hoje()] || {}).length > 0 && <div className={styles.legend} aria-label="Chamada de hoje">
+      {Object.entries(presencasAbreviadas).filter(([state]) => state !== 'NAO_REGISTRADA').map(([state, initials]) =>
+        <span className={styles.callLegend} key={state}><b className={styles.attendanceMark} data-call={state}>{initials}</b>{presencas[state]}</span>)}
+    </div>}
+    {chamada && <ClassAttendance turma={turma} attendance={attendance} attendanceMeta={attendanceMeta}
+      onSave={onSaveAttendance} onClose={() => setChamada(false)} />}
     {alunoSelecionado && <PerfilPainel key={selecionado} aluno={alunoSelecionado} turma={turma}
       onClose={() => {
         setSelecionado(null);
@@ -443,7 +527,7 @@ export default function MinhaSala({ room, localStudents, onOpenProfile, classAtt
     estudantes: [...turma.estudantes, ...localStudents
       .filter((aluno) => aluno.className === turma.nome)
       .map((aluno) => ({ id: aluno.id, nome: aluno.name, foto: aluno.photo }))].map((aluno) => ({
-      ...aluno, atencao: ordenarObservacoes(lerLocal(chaveObservacoes(aluno.id))).find((nota) => nota.atencao)?.atencao,
+      ...aluno, atencao: ordenarObservacoes(lerLocal(chaveObservacoes(aluno.id))).find((nota) => nota.atencao && nota.visibilidade !== 'RESTRITA')?.atencao,
     })),
   }));
   const turma = turmas.find((item) => item.id === query.get('turma')) ?? turmas[0];
@@ -468,9 +552,15 @@ export default function MinhaSala({ room, localStudents, onOpenProfile, classAtt
         <p>{room ? 'Organize os assentos e acompanhe cada estudante.' : 'Escolha uma turma para abrir a sala e acompanhar os estudantes.'}</p></div>
       <span className={styles.demo}>{icon(Info, 16)} Demonstração · Dados fictícios</span>
     </header>
+    {!room && <nav className={styles.teacherLinks} aria-label="Acessos rápidos do professor">
+      <Link className={acao} to="/carometroTeacher">{icon(Search)} Buscar estudante</Link>
+      <Link className={acao} to="/teacherFollowup">{icon(BookOpen)} Registros de apoio</Link>
+    </nav>}
     {room && turma ? <Sala key={turma.id} turma={turma} turmas={turmas}
       view={view} busca={query.get('q') ?? ''} status={query.get('status') ?? ''}
-      change={change} onOpenProfile={onOpenProfile} onNota={onNota} onSaveMap={onSaveMap} />
+      change={change} onOpenProfile={onOpenProfile} onNota={onNota} onSaveMap={onSaveMap}
+      attendance={classAttendance?.[turma.id] || {}} attendanceMeta={classAttendanceMeta?.[turma.id] || {}}
+      onSaveAttendance={(date, statuses, lesson) => onSaveAttendance(turma.id, date, statuses, lesson)} />
     : <MinhasTurmas turmas={turmas} linkSala={linkSala} classAttendance={classAttendance} classAttendanceMeta={classAttendanceMeta} onSaveAttendance={onSaveAttendance} />}
   </div>;
 }
