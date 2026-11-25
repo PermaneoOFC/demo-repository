@@ -8,7 +8,7 @@ try {
   browser = await chromium.launch({ headless: true });
   await mkdir('public/previews', { recursive: true });
   for (const [name, route, heading] of [
-    ['profile-director', 'director', 'Painel da escola'],
+    ['profile-director', 'director', 'Visão geral da escola'],
     ['profile-teacher', 'teacherRoom', 'Minha Sala'],
     ['profile-student', 'student', 'Meu dia'],
   ]) {
