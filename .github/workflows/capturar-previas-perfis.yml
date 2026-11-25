@@ -16,6 +16,8 @@ jobs:
         working-directory: permaneo-app
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -48,5 +50,9 @@ jobs:
           git add public/previews/profile-*.png src/pages/Landing/Home.jsx
           if ! git diff --cached --quiet; then
             git commit -m "feat(home): atualizar capturas reais dos três perfis"
-            git push origin HEAD:refs/heads/feat/previews-reais-perfis
+            preview_commit=$(git rev-parse HEAD)
+            git fetch origin main
+            git switch --detach origin/main
+            git cherry-pick "$preview_commit"
+            git push origin HEAD:refs/heads/main
           fi
