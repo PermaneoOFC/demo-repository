@@ -95,3 +95,31 @@
 @media (max-width: 1000px) {
   .shell[data-student-shell]:has(.navLink[data-mobile-main='false'][aria-current='page']) .more { color: var(--shell-brand); background: var(--app-bg); }
 }
+
+/* Institutional navigation shared by all three profiles. */
+.sidebar { background:var(--platform-sidebar); color:var(--platform-sidebar-text); border-color:var(--platform-sidebar-line); gap:20px; }
+.sidebar .brand { color:var(--platform-sidebar-text); font-family:var(--platform-display); }
+.sidebar .brandEnd { color:#b6f0d7; }
+.sidebar .brand img { filter:drop-shadow(0 0 1px #fff); }
+.sidebar .navigation { gap:6px; }
+.shell .sidebar .navLink { color:var(--platform-sidebar-muted); font-family:var(--platform-body); border:1px solid transparent; transition:background var(--platform-motion),color var(--platform-motion),border-color var(--platform-motion); }
+.shell .sidebar .navLink:hover { color:#fff; background:var(--platform-sidebar-hover); }
+.shell .sidebar .navLink[aria-current='page'] { background:var(--platform-sidebar-active); color:#fff; border-color:var(--platform-sidebar-line); font-weight:700; }
+.sidebar .navLink:focus-visible,.sidebar .brand:focus-visible { outline:2px solid #fff; outline-offset:2px; }
+.sidebar .badge { background:#ffdb9c; }
+.sidebar .account { border-color:var(--platform-sidebar-line); }
+.sidebar .identity small { color:var(--platform-sidebar-muted); }
+.sidebar .avatar { color:#164655; background:#e8f5f6; }
+.header .collapse { color:var(--app-text); border:1px solid var(--app-border); border-radius:12px; }
+.header .collapse:hover { background:var(--app-surface); }
+@media (min-width:1001px) {
+  .sidebar { height:100dvh; overflow-y:auto; }
+  .shell[data-collapsed='true'] .sidebar .account { display:block; padding:10px 0 0; }
+  .shell[data-collapsed='true'] .sidebar .identity { display:none; }
+  .shell[data-collapsed='true'] .sidebar .brand { justify-content:center; padding-inline:0; }
+}
+@media(max-width:1000px) {
+  .shell .collapse { display:none; }
+  .shell[data-student-shell] .navigation { background:var(--platform-sidebar); border-color:var(--platform-sidebar-line); }
+}
+@media(prefers-reduced-motion:reduce) { .shell .navLink { transition:none; } }

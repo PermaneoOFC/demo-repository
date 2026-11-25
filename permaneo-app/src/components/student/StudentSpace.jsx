@@ -1,6 +1,6 @@
 import StudentPortrait from '../students/StudentPortrait.jsx';
 import { useState } from 'react';
-import { Aperture, Mountain, Orbit, Waves } from 'lucide-react';
+import { Aperture, Mountain, Orbit, Waves, ArrowUp, ArrowDown, Settings2 } from 'lucide-react';
 import styles from '../../pages/Dashboard/Estudante/StudentArea.module.css';
 
 export const avatars = { Órbita: Orbit, Onda: Waves, Serra: Mountain, Prisma: Aperture };
@@ -64,12 +64,12 @@ export default function StudentSpace({ preferences, update, settings, onboarding
       <label className={styles.check}><input type="checkbox" checked={draft.reminders} onChange={(event) => change('reminders', event.target.checked)} /> Mostrar lembretes pessoais</label>
     </div>}
     {(!settings && (!onboarding || step === 2)) && <section className={styles.card}>
-      <h2>Organização do início</h2>
+      <h2 className={styles.iconHeading} data-tone="teal"><span className={styles.featureIcon}><Settings2 size={20} aria-hidden="true" /></span>Organização do início</h2>
       {draft.order.map((id, index) => <div className={styles.row} key={id}>
         <label className={styles.check}><input type="checkbox" checked={!draft.hidden.includes(id)} onChange={() => change('hidden', draft.hidden.includes(id) ? draft.hidden.filter((key) => key !== id) : [...draft.hidden, id])} />{widgets[id]}</label>
         <div className={styles.controls}>
-          <button className={styles.secondary} disabled={index === 0} onClick={() => move(index, -1)} aria-label={'Subir ' + widgets[id]}>↑</button>
-          <button className={styles.secondary} disabled={index === draft.order.length - 1} onClick={() => move(index, 1)} aria-label={'Descer ' + widgets[id]}>↓</button>
+          <button className={styles.secondary} disabled={index === 0} onClick={() => move(index, -1)} aria-label={'Subir ' + widgets[id]}><ArrowUp size={17} aria-hidden="true" /></button>
+          <button className={styles.secondary} disabled={index === draft.order.length - 1} onClick={() => move(index, 1)} aria-label={'Descer ' + widgets[id]}><ArrowDown size={17} aria-hidden="true" /></button>
         </div>
       </div>)}
       <button className={styles.secondary} onClick={() => setDraft({ ...draft, order: defaultWidgets, hidden: [] })}>Restaurar organização padrão</button>

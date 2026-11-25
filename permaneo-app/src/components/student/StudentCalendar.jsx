@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { CalendarDays, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { formatDate } from '../../data/studentArea.js';
 import styles from '../../pages/Dashboard/Estudante/StudentArea.module.css';
 
@@ -54,11 +55,11 @@ export default function StudentCalendar({ tasks, events, personal, setPersonal }
       </div>
       <div className={styles.filters}>
         {view !== 'Lista' && <>
-          <button className={styles.secondary} aria-label={view === 'Mês' ? 'Mês anterior' : 'Semana anterior'} onClick={() => changePeriod(-1)}>←</button>
+          <button className={styles.secondary} aria-label={view === 'Mês' ? 'Mês anterior' : 'Semana anterior'} onClick={() => changePeriod(-1)}><ChevronLeft size={20} aria-hidden="true" /></button>
           <h2 aria-live="polite">{view === 'Mês'
             ? month.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
             : formatDate(dateKey(week)) + ' a ' + formatDate(dateKey(weekEnd))}</h2>
-          <button className={styles.secondary} aria-label={view === 'Mês' ? 'Próximo mês' : 'Próxima semana'} onClick={() => changePeriod(1)}>→</button>
+          <button className={styles.secondary} aria-label={view === 'Mês' ? 'Próximo mês' : 'Próxima semana'} onClick={() => changePeriod(1)}><ChevronRight size={20} aria-hidden="true" /></button>
         </>}
         <label>
           Tipo de evento
@@ -113,7 +114,8 @@ export default function StudentCalendar({ tasks, events, personal, setPersonal }
       <h2>{selected ? 'Agenda de ' + formatDate(selected) : 'Agenda'}</h2>
       {visible.length ? (
         visible.map((item) => (
-          <article className={styles.card} key={item.id}>
+          <article className={styles.card} data-tone="purple" key={item.id}>
+            <span className={styles.featureIcon}><CalendarDays size={22} aria-hidden="true" /></span>
             <span className={styles.eyebrow}>
               {item.type} · {formatDate(item.date)} · {item.time}
             </span>
@@ -141,7 +143,7 @@ export default function StudentCalendar({ tasks, events, personal, setPersonal }
         <h2>Adicionar atividade pessoal</h2>
         <label>Atividade<input name="activity" required maxLength={120} /></label>
         <label>Data<input name="date" type="date" required /></label>
-        <button className={styles.primary}>Adicionar ao calendário</button>
+        <button className={styles.primary}><Plus size={18} aria-hidden="true" /> Adicionar ao calendário</button>
       </form>
     </section>
   );
