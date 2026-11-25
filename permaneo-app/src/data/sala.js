@@ -17,7 +17,10 @@ export const situacoes = {
   priority: 'Acompanhamento prioritário',
   unknown: 'Dados insuficientes',
 };
-export const presencas = { PRESENTE: 'Presente', AUSENTE: 'Ausente', JUSTIFICADA: 'Justificada', NAO_REGISTRADA: 'Não registrada' };
+export const presencas = { PRESENTE: 'Presente', ATRASADO: 'Atrasado', AUSENTE: 'Ausente', JUSTIFICADA: 'Falta justificada', NAO_REGISTRADA: 'Não registrada' };
+export const presencasAbreviadas = { PRESENTE: 'P', ATRASADO: 'AT', AUSENTE: 'A', JUSTIFICADA: 'J', NAO_REGISTRADA: '—' };
+export const foiPresenca = (status) => status === 'PRESENTE' || status === 'ATRASADO';
+export const chamadaRegistrada = (status) => Object.hasOwn(presencas, status) && status !== 'NAO_REGISTRADA';
 export const normalizar = (texto = '') => texto.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().trim();
 export const percentual = (valor) => valor == null ? 'Sem registros' : valor.toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + '%';
 export const turmaMeta = (turma) => [turma.serie, turma.periodo].filter(Boolean).join(' · ') || 'Série e período não informados';
@@ -75,7 +78,7 @@ export function situacaoAluno(aluno) {
 export function faltasConsecutivas(aulas) {
   const registradas = aulas.filter((aula) => aula.situacao !== 'NAO_REGISTRADA');
   if (!registradas.length) return null;
-  const ultimaPresenca = registradas.findIndex((aula) => aula.situacao === 'PRESENTE');
+  const ultimaPresenca = registradas.findIndex((aula) => foiPresenca(aula.situacao));
   return ultimaPresenca === -1 ? registradas.length : ultimaPresenca;
 }
 

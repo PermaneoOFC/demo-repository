@@ -4,7 +4,7 @@ import { ArrowLeft, Check, CheckCircle2, Circle, Search, X } from 'lucide-react'
 import { hoje, presencas } from '../../data/sala.js';
 import styles from './ClassAttendance.module.css';
 
-const statuses = [['PRESENTE', 'Presente'], ['AUSENTE', 'Ausente'], ['JUSTIFICADA', 'Falta justificada']];
+const statuses = Object.entries(presencas).filter(([status]) => status !== 'NAO_REGISTRADA');
 
 export default function ClassAttendance({ turma, attendance = {}, attendanceMeta = {}, onSave, onClose }) {
   const [date, setDate] = useState(hoje());

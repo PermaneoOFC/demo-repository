@@ -16,9 +16,9 @@ export const defaultPreferences = {
   order: defaultWidgets, hidden: [], onboarded: false,
 };
 
-export function Avatar({ name }) {
+export function Avatar({ name, className = '' }) {
   const Icon = avatars[name] || Orbit;
-  return <span className={styles.heroAvatar}><StudentPortrait student={{ id: 'Camila', name: 'Camila Rocha' }} className={styles.heroPortrait} loading="eager" /><span className={styles.avatarBadge} title={`Símbolo pessoal: ${name}`}><Icon size={20} aria-hidden="true" /></span></span>;
+  return <span className={styles.heroAvatar + ' ' + className}><StudentPortrait student={{ id: 'Camila', name: 'Camila Rocha' }} className={styles.heroPortrait} loading="eager" /><span className={styles.avatarBadge} title={`Símbolo pessoal: ${name}`}><Icon size={20} aria-hidden="true" /></span></span>;
 }
 
 export default function StudentSpace({ preferences, update, settings, onboarding, onFinish }) {

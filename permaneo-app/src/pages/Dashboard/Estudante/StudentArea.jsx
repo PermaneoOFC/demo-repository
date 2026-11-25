@@ -7,7 +7,8 @@ import SupportForm from '../../../components/student/SupportForm.jsx';
 import useLocalStorage from '../../../hooks/useLocalStorage.js';
 import { initialSchoolwork, subjects, notices, formatDate } from '../../../data/studentArea.js';
 import { getStudentProfile } from '../../../data/studentProfiles.js';
-import StudentSpace, { Avatar, defaultPreferences, widgets } from '../../../components/student/StudentSpace.jsx';
+import StudentSpace, { defaultPreferences } from '../../../components/student/StudentSpace.jsx';
+import StudentHome from '../../../components/student/StudentHome.jsx';
 import styles from './StudentArea.module.css';
 
 const studentHistory = getStudentProfile('Camila');
@@ -81,40 +82,16 @@ export default function StudentArea({ studentPreferences: stored, setPreferences
   };
   return (
     <div className={styles.area} data-local-content data-accent={preferences.accent} data-density={preferences.density} data-scale={preferences.scale} data-motion={preferences.motion}>
-      <header className={route === 'student' ? styles.hero : styles.intro} data-cover={preferences.cover}>
-        <div>
-          <h1>{title}</h1>
-          {route === 'student' ? <p className={styles.greeting}>{greeting}, Camila! {subtitle}</p> : <p>{subtitle}</p>}
-        </div>
-        {route === 'student' && <Avatar name={preferences.avatar} />}
-      </header>
+      {(route !== 'student' || onboarding) && <header className={styles.intro}><h1>{title}</h1><p>{subtitle}</p></header>}
       {onboarding ? <StudentSpace preferences={preferences} update={setPreferences} onboarding onFinish={() => {
         setPreferences((current) => ({ ...current, onboarded: true }));
         setOnboardingRoute(null);
       }} /> : <>
-      {route === 'student' && <>
-        {!preferences.onboarded && <div className={styles.controls}>
-          <button className={styles.primary} onClick={() => setOnboardingRoute(route)}>Personalizar meu início</button>
-          <button className={styles.secondary} onClick={() => setPreferences({ ...stored, onboarded: true })}>Agora não</button>
-        </div>}
-        <nav className={styles.controls} aria-label="Atalhos do estudante">
-          <Link className={styles.secondary} to="/studentSpace">Editar painel</Link>
-          {preferences.order.filter((id) => !preferences.hidden.includes(id) && metrics[id]).slice(0, 2).map((id) =>
-            <Link className={styles.secondary} key={id} to={metrics[id][1]}>{widgets[id]}</Link>
-          )}
-          <Link className={styles.secondary} to="/studentJourney">Atividades recentes</Link>
-        </nav>
-        <div className={styles.widgets}>
-          {preferences.order.filter((id) => !preferences.hidden.includes(id) && metrics[id]).map((id) => {
-            const [content, destination, label] = metrics[id];
-            return <section className={styles.card} data-widget={id} key={id}>
-              <h2>{widgets[id]}</h2>
-              {id === 'work' && !pending.length ? <p>Suas atividades estão em dia.</p> : content}
-              <Link className={styles.secondary} to={destination}>{label}</Link>
-            </section>;
-          })}
-        </div>
-      </>}
+      {route === 'student' && <StudentHome greeting={greeting} history={studentHistory} preferences={preferences}
+        subjects={subjects} attendance={attendance} progress={progress} delivered={delivered} tasks={tasks}
+        pending={pending} events={upcoming} personal={personalActivities} unread={unread} metrics={metrics}
+        onCustomize={() => setOnboardingRoute(route)}
+        onDismiss={() => setPreferences((current) => ({ ...current, onboarded: true }))} />}
       {(route === 'studentSpace' || route === 'studentSettings') && <StudentSpace key={route} preferences={preferences} update={setPreferences} settings={route === 'studentSettings'} />}
       {route === 'studentSettings' && <button className={styles.secondary} onClick={() => setOnboardingRoute(route)}>Reabrir apresentação</button>}
       {route === 'studentJourney' && <>
@@ -131,7 +108,8 @@ export default function StudentArea({ studentPreferences: stored, setPreferences
           </div>)}
           <h2>Notas por etapa</h2>
           {studentHistory.grades.map((grade) => <div className={styles.row} key={grade.subject}>
-            <b>{grade.subject}</b><span>{grade.scores.map((score) => score.toLocaleString('pt-BR')).join(' · ')}</span>
+            <b>{grade.subject}</b><div className={styles.gradeTrend}>{grade.scores.map((score, index) =>
+              <div key={index}><small>Etapa {index + 1} · {score.toLocaleString('pt-BR')}</small><progress value={score} max={10} aria-label={grade.subject + ', etapa ' + (index + 1)} /></div>)}</div>
           </div>)}
         </section>
         <section className={styles.card}>

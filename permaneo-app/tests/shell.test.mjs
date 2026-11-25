@@ -1,8 +1,7 @@
 import assert from 'node:assert/strict';
 import { chromium } from '@playwright/test';
-import { createServer } from 'vite';
-const server = await createServer({ server: { host: '127.0.0.1', port: 5178, strictPort: true } });
-await server.listen();
+import { browserServer } from './browser-server.mjs';
+const { baseURL, close } = await browserServer(5178);
 let browser;
 try {
   browser = await chromium.launch({ channel: 'chrome', headless: true });
@@ -11,9 +10,12 @@ try {
   page.on('pageerror', error => errors.push(error.message));
   const routes = ['director', 'directorFollowup', 'directorNotifications', 'reports', 'directorSettings', 'teacher', 'teacherFollowup', 'teacherNotifications', 'teacherSettings', 'student', 'studentSpace', 'carometroManagement', 'carometroTeacher', 'ProfileLucasManagement', 'ProfileLucasTeacher'];
   async function visit(route, theme) {
-    await page.goto('http://127.0.0.1:5178/');
-    await page.evaluate(theme => localStorage.setItem('permaneo-theme', theme), theme);
-    await page.goto('http://127.0.0.1:5178/#/' + route);
+    await page.goto(baseURL + '/');
+    await page.evaluate(theme => {
+      localStorage.setItem('permaneo-theme', theme);
+      localStorage.setItem('permaneo-student-camila-preferences', JSON.stringify({ theme }));
+    }, theme);
+    await page.goto(baseURL + '/#/' + route);
     await page.reload();
     await page.locator('[data-app-shell]').waitFor();
     await page.waitForFunction(() => !document.body.innerText.includes('Carregando Permaneo'));
@@ -23,7 +25,7 @@ try {
     for (const route of routes) {
       await visit(route, theme);
       assert.equal(await page.locator('header[data-shell-controls]:visible').count(), 1, route);
-      const brand = page.getByRole('link', { name: 'Permaneo — painel inicial' });
+      const brand = page.getByRole('link', { name: 'Permaneo — voltar à Home' });
       const image = brand.locator('img');
       const box = await image.boundingBox();
       assert.equal(box.width, 35, route);
@@ -32,7 +34,7 @@ try {
       const links = page.getByRole('navigation', { name: 'Menu da plataforma' }).locator('a');
       assert.ok(await links.evaluateAll(items => items.every(link => getComputedStyle(link).textDecorationLine === 'none')));
       const active = page.getByRole('navigation', { name: 'Menu da plataforma' }).locator('a[aria-current="page"]');
-      if (await active.count()) assert.equal(await active.evaluate(link => getComputedStyle(link).backgroundColor), 'rgba(0, 0, 0, 0)');
+      if (await active.count()) assert.notEqual(await active.evaluate(link => getComputedStyle(link).backgroundColor), 'rgba(0, 0, 0, 0)');
       await page.getByRole('button', { name: theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro', exact: true }).click();
       await page.waitForFunction(theme => document.documentElement.dataset.theme !== theme, theme);
       console.log('PASS shell', route, theme);
@@ -52,10 +54,10 @@ try {
     await page.waitForURL('**/#/login');
   }
   await visit('carometroTeacher', 'light');
-  await page.locator('[data-name="Ver perfil"]').first().click();
-  await page.waitForURL('**/#/ProfileLucasTeacher');
-  await page.getByRole('button', { name: 'Carômetro', exact: true }).click();
-  await page.waitForURL('**/#/carometroTeacher');
+  await page.getByRole('button', { name: /Lucas Gomes/ }).click();
+  await page.getByRole('heading', { name: 'Lucas Gomes', exact: true }).waitFor();
+  await page.getByRole('button', { name: 'Voltar ao Carômetro', exact: true }).first().click();
+  await page.getByRole('heading', { name: 'Carômetro', exact: true }).waitFor();
   for (const width of [390, 768, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of ['director', 'teacher', 'student', 'carometroManagement']) {
@@ -68,5 +70,5 @@ try {
   console.log('PASS navigation, theme switching and responsive layouts');
 } finally {
   await browser?.close();
-  await server.close();
+  await close();
 }

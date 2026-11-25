@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { demoStudents } from '../../../data/students.js';
 import { getStudentProfile } from '../../../data/studentProfiles.js';
-import { turmasDemo } from '../../../data/sala.js';
+import { chamadaRegistrada, foiPresenca, turmasDemo } from '../../../data/sala.js';
 import styles from './ReportsView.module.css';
 
 const periods = ['Ano letivo (Fev–Set)', '3º Bimestre', 'Últimos 30 dias'];
@@ -27,8 +27,8 @@ function formatGrade(value) {
 }
 
 function studentAttendanceForPeriod(profile, calls, period) {
-  const callList = calls.filter((c) => ['PRESENTE', 'AUSENTE', 'JUSTIFICADA'].includes(c));
-  const callPresent = callList.filter((c) => c === 'PRESENTE').length;
+  const callList = calls.filter(chamadaRegistrada);
+  const callPresent = callList.filter(foiPresenca).length;
 
   if (period === 'Últimos 30 dias') {
     const recent = profile.recentAttendance || [];
@@ -100,9 +100,9 @@ export default function ReportsView({
     const added = localStudents.map((s) => {
       const classId = turmasDemo.find((t) => t.nome === s.className)?.id;
       const calls = Object.values(classAttendance[classId] || {}).map((map) => map?.[s.id]);
-      const valid = calls.filter((c) => ['PRESENTE', 'AUSENTE', 'JUSTIFICADA'].includes(c));
+      const valid = calls.filter(chamadaRegistrada);
       const frequency = valid.length
-        ? Math.round((valid.filter((c) => c === 'PRESENTE').length / valid.length) * 1000) / 10
+        ? Math.round((valid.filter(foiPresenca).length / valid.length) * 1000) / 10
         : (typeof s.attendance === 'number' ? s.attendance : null);
       return {
         key: s.id,

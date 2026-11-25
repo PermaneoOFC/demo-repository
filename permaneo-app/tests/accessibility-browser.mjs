@@ -27,7 +27,7 @@ try {
     await page.reload();
     await page.getByRole('link',{name:'Acessar área do aluno (demonstração)',exact:true}).click();
     await expect(page.getByRole('heading',{name:'Meu dia',exact:true})).toBeVisible();
-    await page.getByRole('link',{name:'Atividades',exact:true}).click();
+    await page.getByRole('link',{name:width === 390 ? 'Estudos' : 'Atividades',exact:true}).click();
     await expect(page.getByRole('heading',{name:'Minhas atividades',exact:true})).toBeVisible();
     await expect(page.locator('#permaneo-userway')).toHaveCount(1);
     await expect(page.locator('#permaneo-vlibras')).toHaveCount(1);

@@ -1,9 +1,8 @@
 import assert from 'node:assert/strict';
 import { chromium, expect } from '@playwright/test';
-import { createServer } from 'vite';
+import { browserServer } from './browser-server.mjs';
 
-const server = await createServer({ server: { host: '127.0.0.1', port: 5185, strictPort: true } });
-await server.listen();
+const { baseURL, close } = await browserServer(5185);
 let browser;
 try {
   browser = await chromium.launch({ channel: 'chrome', headless: true });
@@ -11,8 +10,8 @@ try {
   const errors = [];
   const requests = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  page.on('request', (request) => { if (request.url().startsWith('http://127.0.0.1:5185/api/')) requests.push(request.url()); });
-  const base = 'http://127.0.0.1:5185/#/';
+  page.on('request', (request) => { if (request.url().startsWith(baseURL + '/api/')) requests.push(request.url()); });
+  const base = baseURL + '/#/';
   await page.goto(base + 'login');
   await page.getByRole('radio', { name: /Professor/ }).click();
   await page.getByRole('button', { name: 'Explorar sem preencher' }).click();
@@ -65,5 +64,5 @@ try {
   console.log('PASS: calls in Minhas Turmas, manual attendance, review, history, profile frequency integration, and responsive layouts.');
 } finally {
   await browser?.close();
-  await server.close();
+  await close();
 }

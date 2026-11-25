@@ -291,3 +291,21 @@
 }
 
 .seat:hover .avatar img,.seat:focus-visible .avatar img{transform:scale(1.045)}
+.map[data-editing='true'] { outline: 2px solid var(--platform-accent); outline-offset: -2px; }
+.map[data-editing='true'] .desk { cursor: grab; touch-action: none; user-select: none; }
+.map[data-editing='true'] .desk:active { cursor: grabbing; }
+.map[data-editing='true'] .desk img { pointer-events: none; -webkit-user-drag: none; animation: platform-reveal 180ms ease both; }
+.seat[data-available='true'] :is(.desk,.emptyDesk) { outline: 1px dashed var(--platform-accent); outline-offset: 2px; }
+.seat[data-drop-target='true'] :is(.desk,.emptyDesk) { outline: 3px solid var(--platform-accent); background: var(--platform-mint); }
+.seat[data-drag-source='true'] .desk { opacity: .45; }
+.dragPreview { position: fixed; z-index: 1000; pointer-events: none; transform: translate(12px,12px); display: flex; align-items: center; gap: 9px; padding: 8px 12px 8px 8px; border: 1px solid var(--app-border); border-radius: 13px; background: var(--app-surface); color: var(--app-text); box-shadow: var(--platform-shadow); font: 700 14px var(--platform-body); }
+.dragPreview .avatar { width: 34px; height: 34px; }
+.attendanceMark { display: inline-grid; place-items: center; min-width: 22px; min-height: 21px; padding-inline: 4px; border-radius: 5px; font: 700 11px var(--platform-body); color: #254c60; background: #dceef8; }
+.attendanceMark[data-call='PRESENTE'] { color: #15573d; background: #ddf4e8; }
+.attendanceMark[data-call='AUSENTE'] { color: #833d34; background: #f7dedb; }
+.attendanceMark[data-call='ATRASADO'] { color: #714408; background: #fff0d3; }
+.callLegend { display: inline-flex; align-items: center; gap: 6px; }
+.teacherLinks { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.latestCall { display: flex; align-items: center; gap: 6px; color: var(--app-muted); font-size: 13px; }
+.map:fullscreen { display: flex; flex-direction: column; padding: 10px; background: var(--app-surface); }
+.map:fullscreen .viewport { flex: 1; max-height: none; }

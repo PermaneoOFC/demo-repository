@@ -1,9 +1,9 @@
 import StudentPortrait from '../../../components/students/StudentPortrait.jsx';
 import { useMemo, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, BookOpen, CalendarDays, CheckCircle2, ChevronLeft, ChevronRight, CircleAlert, ClipboardList, GraduationCap, HeartHandshake, History, LayoutGrid, List, MessageSquareText, Plus, Search, ShieldCheck, UsersRound, X } from 'lucide-react';
+import { Activity, ArrowLeft, ArrowRight, BookOpen, CalendarDays, CheckCircle2, ChevronLeft, ChevronRight, ClipboardList, GraduationCap, HeartHandshake, History, LayoutGrid, List, MessageSquareText, Plus, Search, ShieldCheck, UsersRound, X } from 'lucide-react';
 import { demoStudents } from '../../../data/students.js';
 import { getStudentProfile } from '../../../data/studentProfiles.js';
-import { atencoes, categorias, chaveObservacoes, hoje, lerLocal, normalizar, ordenarObservacoes, percentual, situacaoAluno, situacoes } from '../../../data/sala.js';
+import { atencoes, categorias, chamadaRegistrada, chaveObservacoes, foiPresenca, hoje, lerLocal, normalizar, ordenarObservacoes, percentual, presencas, presencasAbreviadas, situacaoAluno, situacoes } from '../../../data/sala.js';
 import styles from './CarometroExperience.module.css';
 
 const modes = [['cards', 'Cartões', LayoutGrid], ['list', 'Lista', List], ['compact', 'Compacto', ClipboardList]];
@@ -18,8 +18,8 @@ function Photo({ student, large = false }) {
 
 function AttendanceBar({ value }) {
   return <span className={styles.attendance}>
-    <span className={styles.attendanceLabel}><b>{percentual(value)}</b><small>no ano letivo</small></span>
-    <span className={styles.bar} role="progressbar" aria-label="Frequência geral" aria-valuemin="0" aria-valuemax="100" aria-valuenow={value ?? 0}><i style={{ width: `${Math.max(0, Math.min(100, value ?? 0))}%` }} /></span>
+    <span className={styles.attendanceLabel}><small><Activity size={13} aria-hidden="true" /> Frequência</small><b>{percentual(value)}</b></span>
+    <span className={styles.bar} role={value == null ? undefined : "progressbar"} aria-label={value == null ? undefined : "Frequência geral"} aria-valuemin={value == null ? undefined : 0} aria-valuemax={value == null ? undefined : 100} aria-valuenow={value ?? undefined}><i key={value} style={{ width: `${Math.max(0, Math.min(100, value ?? 0))}%` }} /></span>
   </span>;
 }
 
@@ -30,9 +30,9 @@ function profileFor(student) {
 }
 
 function attendanceWithCalls(base, totalLessons, calls) {
-  const marked = calls.filter((call) => call.status === 'PRESENTE' || call.status === 'AUSENTE' || call.status === 'JUSTIFICADA');
+  const marked = calls.filter((call) => chamadaRegistrada(call.status));
   if (!marked.length) return base;
-  const present = marked.filter((call) => call.status === 'PRESENTE').length;
+  const present = marked.filter((call) => foiPresenca(call.status)).length;
   const priorTotal = base == null ? 0 : totalLessons;
   const priorPresent = base == null ? 0 : (base / 100) * priorTotal;
   return Math.round(((priorPresent + present) / (priorTotal + marked.length)) * 1000) / 10;
@@ -84,13 +84,13 @@ function StudentDetails({ student, role, attendanceRecords, cases, onClose, onNa
   const calendar = [...calendarEntries.values()].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 14);
   const absences = calendar.filter((entry) => entry.status === 'AUSENTE').length;
   const justified = calendar.filter((entry) => entry.status === 'JUSTIFICADA').length;
-  const consecutiveAbsences = calls.findIndex((call) => call.status === 'PRESENTE');
+  const consecutiveAbsences = calls.findIndex((call) => foiPresenca(call.status));
   const studentCases = (cases || []).filter((item) => item.student === student.key || item.student === student.name);
   const activeCases = studentCases.filter((item) => item.status !== 'Concluída');
   const caseDetail = (item) => `${item.text || item.description || 'Ação registrada.'}${item.date ? ` Próximo retorno: ${formatDate(item.date)}.` : ''}`;
   const timeline = [
     ...notes.map((note) => ({ date: note.data || note.date, title: note.assunto || note.subject || categorias[note.categoria] || 'Observação', detail: note.descricao || note.text, who: note.autor || note.author, type: 'Observação' })),
-    ...calls.map((call) => ({ date: call.date, title: `Chamada · ${call.status === 'PRESENTE' ? 'Presente' : call.status === 'JUSTIFICADA' ? 'Falta justificada' : 'Ausente'}`, detail: 'Registro de frequência da turma.', who: 'Registro de chamada', type: 'Frequência' })),
+    ...calls.map((call) => ({ date: call.date, title: `Chamada · ${presencas[call.status]}`, detail: 'Registro de frequência da turma.', who: 'Registro de chamada', type: 'Frequência' })),
     ...studentCases.map((item) => ({ date: item.createdAt || item.date, title: item.status || 'Acompanhamento registrado', detail: caseDetail(item), who: item.author || item.responsible || 'Equipe pedagógica', type: 'Acompanhamento' })),
   ].sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
 
@@ -113,18 +113,18 @@ function StudentDetails({ student, role, attendanceRecords, cases, onClose, onNa
     <article><span>Média acadêmica</span><strong>{average == null ? '—' : average.toLocaleString('pt-BR', { maximumFractionDigits: 1 })}</strong><small>{average == null ? 'Sem notas disponíveis' : 'Disciplinas com notas · 2026'}</small></article>
     <article><span>Acompanhamento</span><strong className={styles.metricStatus}>{activeCases.length ? 'Ativo' : situacoes[situacaoAluno({ frequencia: attendance })]}</strong><small>{activeCases.length ? `${activeCases.length} registro(s) associado(s)` : 'Situação pela frequência'}</small></article>
   </div>;
-  return <section className={styles.profilePage}>
+  return <section className={styles.profilePage} data-carometro-profile>
     <div className={styles.profileTop}><button className={styles.backButton} onClick={onClose}><ArrowLeft size={17} /> Voltar ao Carômetro</button><span>Estudante · Ano letivo 2026</span></div>
     <header className={styles.profileHero}>
       <Photo student={student} large />
-      <div className={styles.profileIdentity}><span className={styles.eyebrow}>Perfil do estudante</span><h1>{student.name}</h1><p>{student.className} <i>·</i> {gradeName(student)} <i>·</i> Matrícula ativa</p><span className={styles.statusPill} data-status={currentStatus}><i />{situacoes[currentStatus]}</span></div>
+      <div className={styles.profileIdentity}><span className={styles.eyebrow}>Perfil do estudante</span><h1 tabIndex={-1}>{student.name}</h1><p>{student.className} <i>·</i> {gradeName(student)} <i>·</i> Matrícula ativa</p><span className={styles.statusPill} data-status={currentStatus}><i />{situacoes[currentStatus]}</span></div>
       <div className={styles.profileActions}><button className={styles.secondaryButton} onClick={() => setAddingNote(true)}><Plus size={16} /> Adicionar observação</button>{role === 'director' && <button className={styles.primaryButton} onClick={() => onStartFollowup?.(student)}><HeartHandshake size={16} /> Iniciar acompanhamento</button>}<div className={styles.studentPager}><button className={styles.iconButton} aria-label="Estudante anterior" onClick={() => onNavigate(-1)}><ChevronLeft size={18} /></button><span>Navegar estudantes</span><button className={styles.iconButton} aria-label="Próximo estudante" onClick={() => onNavigate(1)}><ChevronRight size={18} /></button></div></div>
     </header>
     {metricCards}
     <nav className={styles.tabs} role="tablist" aria-label="Seções do perfil">{tabs.map(([id, label, Icon], index) => <button key={id} ref={(node) => { tabRefs.current[index] = node; }} id={`profile-tab-${id}`} role="tab" aria-controls={`profile-panel-${id}`} aria-selected={tab === id} tabIndex={tab === id ? 0 : -1} onKeyDown={(event) => moveTab(event, index)} onClick={() => setTab(id)}><Icon size={16} />{label}{id === 'notes' && <span>{notes.length}</span>}</button>)}</nav>
     <div className={styles.tabPanel} id={`profile-panel-${tab}`} role="tabpanel" aria-labelledby={`profile-tab-${tab}`} tabIndex={0}>
       {tab === 'overview' && <div className={styles.overviewGrid}><section className={styles.panel}><h2>Resumo acadêmico</h2><div className={styles.subjectRows}>{grades.slice(0, 4).map((grade) => <div key={grade.subject}><span>{grade.subject}</span><strong>{(grade.scores.reduce((sum, score) => sum + score, 0) / grade.scores.length).toLocaleString('pt-BR', { maximumFractionDigits: 1 })}</strong></div>)}</div><button className={styles.textButton} onClick={() => setTab('performance')}>Ver desempenho <ArrowRight size={15} /></button></section><section className={styles.panel}><h2>Dados escolares</h2><dl className={styles.schoolData}><div><dt>Turma</dt><dd>{student.className}</dd></div><div><dt>Matrícula</dt><dd>{profile.registration}</dd></div><div><dt>Série</dt><dd>{student.grade || 'Ensino fundamental'}</dd></div><div><dt>Período</dt><dd>{student.period || 'Não informado'}</dd></div></dl></section><section className={styles.panel}><h2>Eventos recentes</h2><Timeline items={timeline.slice(0, 3)} empty="Ainda não há eventos registrados." /><button className={styles.textButton} onClick={() => setTab('history')}>Ver histórico <ArrowRight size={15} /></button></section><section className={styles.panel}><h2>Presença por bimestre</h2><div className={styles.termRows}>{profile.months.map((month) => <div key={month.month}><span>{month.month}</span><b>{Math.round(month.present / month.total * 100)}%</b><i><span style={{ width: `${Math.round(month.present / month.total * 100)}%` }} /></i></div>)}</div></section></div>}
-      {tab === 'attendance' && <div className={styles.panel}><div className={styles.panelHeading}><div><h2>Evolução da frequência</h2><p>Registros disponíveis no ano letivo de 2026</p></div><strong className={styles.bigNumber}>{percentual(attendance)}</strong></div>{profile.months.length > 0 && <div className={styles.monthChart}>{profile.months.map((month) => <div key={month.month}><div className={styles.chartTrack}><i style={{ height: `${Math.max(4, month.present / month.total * 100)}%` }} /></div><b>{Math.round(month.present / month.total * 100)}%</b><small>{month.month}</small></div>)}</div>}<h3>Calendário de presença · registros mais recentes</h3>{calendar.length ? <div className={styles.attendanceCalendar}>{calendar.map((entry) => <div className={styles.calendarDay} data-status={entry.status.toLowerCase()} key={entry.date} title={`${formatDate(entry.date)} · ${entry.status === 'PRESENTE' ? 'Presente' : entry.status === 'JUSTIFICADA' ? 'Falta justificada' : 'Ausente'}`}><small>{formatDate(entry.date).slice(0, 5)}</small><b>{entry.status === 'PRESENTE' ? 'P' : entry.status === 'JUSTIFICADA' ? 'J' : 'F'}</b></div>)}</div> : <p className={styles.empty}>Ainda não há registros para exibir no calendário.</p>}<div className={styles.absenceSummary}><span><i data-kind="absent" />Faltas não justificadas <b>{absences}</b></span><span><i data-kind="justified" />Faltas justificadas <b>{justified}</b></span></div><h3>Chamadas registradas</h3>{calls.length ? <div className={styles.dataTable}><div className={styles.tableHead}><span>Data</span><span>Registro</span><span>Origem</span></div>{calls.map((call) => <div className={styles.tableRow} key={call.date}><span>{formatDate(call.date)}</span><span>{call.status === 'PRESENTE' ? 'Presente' : call.status === 'JUSTIFICADA' ? 'Falta justificada' : 'Ausente'}</span><span>{student.className}</span></div>)}</div> : <p className={styles.empty}>As chamadas salvas em Minhas Turmas aparecerão aqui.</p>}</div>}
+      {tab === 'attendance' && <div className={styles.panel}><div className={styles.panelHeading}><div><h2>Evolução da frequência</h2><p>Registros disponíveis no ano letivo de 2026</p></div><strong className={styles.bigNumber}>{percentual(attendance)}</strong></div>{profile.months.length > 0 && <div className={styles.monthChart}>{profile.months.map((month) => <div key={month.month}><div className={styles.chartTrack}><i style={{ height: `${Math.max(4, month.present / month.total * 100)}%` }} /></div><b>{Math.round(month.present / month.total * 100)}%</b><small>{month.month}</small></div>)}</div>}<h3>Calendário de presença · registros mais recentes</h3>{calendar.length ? <div className={styles.attendanceCalendar}>{calendar.map((entry) => <div className={styles.calendarDay} data-status={entry.status.toLowerCase()} key={entry.date} title={`${formatDate(entry.date)} · ${presencas[entry.status]}`}><small>{formatDate(entry.date).slice(0, 5)}</small><b>{presencasAbreviadas[entry.status]}</b></div>)}</div> : <p className={styles.empty}>Ainda não há registros para exibir no calendário.</p>}<div className={styles.absenceSummary}><span><i data-kind="absent" />Faltas não justificadas <b>{absences}</b></span><span><i data-kind="justified" />Faltas justificadas <b>{justified}</b></span></div><h3>Chamadas registradas</h3>{calls.length ? <div className={styles.dataTable}><div className={styles.tableHead}><span>Data</span><span>Registro</span><span>Origem</span></div>{calls.map((call) => <div className={styles.tableRow} key={call.date}><span>{formatDate(call.date)}</span><span>{presencas[call.status]}</span><span>{student.className}</span></div>)}</div> : <p className={styles.empty}>As chamadas salvas em Minhas Turmas aparecerão aqui.</p>}</div>}
       {tab === 'performance' && <div className={styles.panel}><div className={styles.panelHeading}><div><h2>Desempenho por disciplina</h2><p>Notas cadastradas para o período atual</p></div>{average != null && <strong className={styles.bigNumber}>{average.toLocaleString('pt-BR', { maximumFractionDigits: 1 })}<small>média</small></strong>}</div>{grades.length ? <div className={styles.dataTable}><div className={styles.tableHead}><span>Disciplina</span><span>Notas</span><span>Média</span></div>{grades.map((grade) => <div className={styles.tableRow} key={grade.subject}><span><b>{grade.subject}</b><small>{grade.teacher}</small></span><span>{grade.scores.join(' · ')}</span><span>{(grade.scores.reduce((sum, score) => sum + score, 0) / grade.scores.length).toLocaleString('pt-BR', { maximumFractionDigits: 1 })}</span></div>)}</div> : <p className={styles.empty}>Ainda não há notas disponíveis para este estudante.</p>}</div>}
       {tab === 'notes' && <section className={styles.panel}><div className={styles.panelHeading}><div><h2>Observações pedagógicas</h2><p>Registros visíveis conforme seu perfil de acesso.</p></div><button className={styles.primaryButton} onClick={() => setAddingNote(true)}><Plus size={16} /> Nova observação</button></div><Timeline items={notes.map((note) => ({ date: note.data || note.date, title: note.assunto || note.subject || categorias[note.categoria] || 'Observação', detail: note.descricao || note.text, who: note.autor || note.author, type: note.visibilidade === 'RESTRITA' ? 'Restrita à direção' : categorias[note.categoria] || 'Equipe pedagógica', attention: atencoes[note.atencao] }))} empty="Nenhuma observação foi registrada." /></section>}
       {tab === 'followup' && <section className={styles.panel}><div className={styles.panelHeading}><div><h2>Acompanhamento</h2><p>Encaminhamentos e ações vinculados ao estudante.</p></div>{role === 'director' && <button className={styles.primaryButton} onClick={() => onStartFollowup?.(student)}><HeartHandshake size={16} /> Iniciar acompanhamento</button>}</div>{activeCases.length ? <Timeline items={activeCases.map((item) => ({ date: item.createdAt || item.date, title: item.status || 'Caso ativo', detail: caseDetail(item), who: item.author || item.responsible || 'Equipe pedagógica', type: item.status || 'Em andamento' }))} /> : <div className={styles.emptyState}><ShieldCheck size={28} /><strong>Nenhum caso ativo</strong><span>O acompanhamento será exibido aqui quando for iniciado pela equipe autorizada.</span></div>}</section>}
@@ -146,37 +146,47 @@ export default function CarometroExperience({ role = 'teacher', dark = false, lo
   const [mode, setMode] = useState('cards');
   const [page, setPage] = useState(1);
   const [selected, setSelected] = useState(initialStudentKey);
+  const lastViewed = useRef(null);
   const students = useMemo(() => [
     ...demoStudents.map((student) => ({ ...student, id: student.key })),
     ...localStudents.map((student) => ({ ...student, key: student.id, id: student.id })),
   ], [localStudents]);
   const classes = [...new Set(students.map((student) => student.className).filter(Boolean))];
   const studentsWithActiveCases = new Set(records.filter((record) => record.status !== 'Concluída').map((record) => record.student));
-  const filtered = students.filter((student) => normalizar(student.name).includes(normalizar(query)) && (!classFilter || student.className === classFilter));
+  const filtered = students.filter((student) => normalizar([student.name, student.className].filter(Boolean).join(' ')).includes(normalizar(query)) && (!classFilter || student.className === classFilter));
   const pageSize = mode === 'cards' ? 8 : 12;
   const pages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const visible = filtered.slice((page - 1) * pageSize, page * pageSize);
   const selectedIndex = students.findIndex((student) => student.id === selected);
-  function selectStudent(student) { setSelected(student.id); }
+  function selectStudent(student) {
+    lastViewed.current = student.id;
+    setSelected(student.id);
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => document.querySelector('[data-carometro-profile] h1')?.focus());
+  }
   function navigateStudent(direction) {
     if (!students.length) return;
     const next = (selectedIndex + direction + students.length) % students.length;
     setSelected(students[next].id);
   }
-  function showList() { setSelected(null); }
+  function showList() {
+    setSelected(null);
+    requestAnimationFrame(() => [...document.querySelectorAll('[data-carometro-card]')]
+      .find((card) => card.dataset.carometroCard === String(lastViewed.current))?.focus());
+  }
   return <main className={styles.page} data-local-content data-theme={dark ? 'dark' : 'light'} data-role={role}>
     {selected ? <StudentDetails student={students.find((student) => student.id === selected)} role={role} attendanceRecords={classAttendance} cases={records} onClose={initialStudentKey ? onBack : showList} onNavigate={navigateStudent} onStartFollowup={onStartFollowup} /> : <>
       <header className={styles.pageHeader}><div><span className={styles.eyebrow}>{role === 'teacher' ? 'Espaço do professor' : 'Visão institucional'}</span><h1>Carômetro</h1><p>{role === 'teacher' ? 'Acompanhe seus estudantes com uma visão clara e acolhedora.' : 'Consulte estudantes, frequência e casos de acompanhamento por turma.'}</p></div><span className={styles.scope}><UsersRound size={16} /> {role === 'teacher' ? 'Turmas vinculadas' : 'Toda a escola'}</span></header>
-      <section className={styles.summaryStrip}><div><span>Estudantes</span><strong>{students.length}</strong></div><div><span>Em acompanhamento</span><strong>{students.filter((student) => situacaoAluno({ frequencia: profileFor(student).attendance }) !== 'regular' || studentsWithActiveCases.has(student.key) || studentsWithActiveCases.has(student.name)).length}</strong></div><div><span>Turmas</span><strong>{classes.length}</strong></div><span className={styles.period}><CheckCircle2 size={16} /> Ano letivo · 2026</span></section>
-      <div className={styles.controls}><label className={styles.search}><Search size={17} /><input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }} placeholder="Buscar estudante pelo nome" aria-label="Buscar estudante" /></label><label className={styles.classSelect}><span>Turma</span><select value={classFilter} onChange={(event) => { setClassFilter(event.target.value); setPage(1); }}><option value="">Todas as turmas</option>{classes.map((value) => <option key={value}>{value}</option>)}</select></label><div className={styles.viewSwitch} role="group" aria-label="Modo de visualização">{modes.map(([id, label, Icon]) => <button type="button" key={id} aria-pressed={mode === id} onClick={() => { setMode(id); setPage(1); }}><Icon size={16} /><span>{label}</span></button>)}</div></div>
+      <section className={styles.summaryStrip}><div><span>Estudantes</span><strong>{students.length}</strong></div><div><span>Em acompanhamento</span><strong>{students.filter((student) => studentsWithActiveCases.has(student.key) || studentsWithActiveCases.has(student.name)).length}</strong></div><div><span>Turmas</span><strong>{classes.length}</strong></div><span className={styles.period}><CheckCircle2 size={16} /> Ano letivo · 2026</span></section>
+      <div className={styles.controls}><label className={styles.search}><Search size={17} /><input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }} placeholder="Buscar por nome ou turma" aria-label="Buscar estudante" /></label><label className={styles.classSelect}><span>Turma</span><select value={classFilter} onChange={(event) => { setClassFilter(event.target.value); setPage(1); }}><option value="">Todas as turmas</option>{classes.map((value) => <option key={value}>{value}</option>)}</select></label><div className={styles.viewSwitch} role="group" aria-label="Modo de visualização">{modes.map(([id, label, Icon]) => <button type="button" key={id} aria-pressed={mode === id} onClick={() => { setMode(id); setPage(1); }}><Icon size={16} /><span>{label}</span></button>)}</div></div>
       <div className={styles.results}><strong>{filtered.length} {filtered.length === 1 ? 'estudante' : 'estudantes'}</strong><span>Selecione um perfil para consultar os detalhes</span></div>
       <div className={`${styles.studentGrid} ${styles[mode]}`} data-view={mode}>
         {visible.map((student) => {
           const profile = profileFor(student);
-          const calls = Object.values(classAttendance || {}).flatMap((dateMap) => Object.entries(dateMap || {}).map(([date, statuses]) => ({ date, status: statuses?.[student.key] }))).filter((call) => call.status && call.status !== 'NAO_REGISTRADA');
+          const calls = Object.values(classAttendance || {}).flatMap((dateMap) => Object.entries(dateMap || {}).map(([date, statuses]) => ({ date, status: statuses?.[student.key] }))).filter((call) => chamadaRegistrada(call.status));
           const frequency = attendanceWithCalls(profile.attendance, profile.totalLessons, calls);
           const status = situacaoAluno({ frequencia: frequency });
-          return <button type="button" key={student.id} className={styles.studentCard} onClick={() => selectStudent(student)}>
+          return <button type="button" key={student.id} className={styles.studentCard} data-carometro-card={student.id} data-last-viewed={lastViewed.current === student.id} onClick={() => selectStudent(student)}>
             <Photo student={student} />
             <span className={styles.studentInfo}><strong>{student.name}</strong><small>{student.className} · {gradeName(student)}</small></span>
             <AttendanceBar value={frequency} />
