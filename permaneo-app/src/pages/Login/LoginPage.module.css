@@ -26,3 +26,18 @@
 /* Complete Figma token fallbacks. */
 .studentDemoLink { display:block; padding:10px; color:var(--app-text); text-align:center; font-weight:600; border-radius:10px; }
 .studentDemoLink:hover { background:var(--app-bg); }
+
+.form { font-family:var(--platform-body); gap:12px; }
+.form h2,.message h1 { font-family:var(--platform-display); }
+.access { gap:24px; }
+.credentials { display:grid; gap:12px; }
+.inputGroup { position:relative; display:flex; align-items:center; min-width:0; }
+.srOnly { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.inputGroup input { width:100%; min-width:0; min-height:52px; padding:12px 48px 12px 46px; font:inherit; color:var(--app-text); background:var(--app-bg); border:1px solid var(--app-border); border-radius:12px; transition:border-color var(--platform-motion),background var(--platform-motion); }
+.inputGroup input::placeholder { color:var(--app-muted); opacity:1; }
+.inputGroup input:focus { background:var(--app-surface); border-color:var(--platform-accent); outline:2px solid var(--platform-accent); outline-offset:1px; }
+.inputGroup input[aria-invalid='true'] { border-color:var(--study-red); }
+.inputIcon { position:absolute; left:15px; color:var(--platform-accent); pointer-events:none; }
+.passwordToggle { position:absolute; right:4px; width:44px; height:44px; display:grid; place-items:center; color:var(--app-muted); border-radius:10px; }
+.passwordToggle:hover { background:var(--platform-accent-soft); color:var(--platform-accent); }
+@media(prefers-reduced-motion:reduce) { .inputGroup input { transition:none; } }

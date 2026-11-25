@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { HeartHandshake } from 'lucide-react';
 import TextField from '../ui/TextField.jsx';
 import Button from '../ui/Button.jsx';
 import useLocalStorage from '../../hooks/useLocalStorage.js';
@@ -40,7 +41,7 @@ export default function SupportForm() {
       data-local-content
       onClick={(event) => event.stopPropagation()}
     >
-      <h2>Precisa conversar? Estamos aqui para ouvir.</h2>
+      <h2 style={{display:"flex",alignItems:"center",gap:10}}><HeartHandshake size={26} aria-hidden="true" />Precisa conversar? Estamos aqui para ouvir.</h2>
       <p>Conte o que está acontecendo. Vamos pensar juntos no próximo passo.</p>
       <form onSubmit={saveRequest}>
         <TextField

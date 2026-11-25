@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { ArrowRight, CalendarDays, CheckCircle2, Clock3, AlertCircle } from 'lucide-react';
+import { subjectVisual } from './subjectVisual.js';
 import { formatDate, subjects } from '../../data/studentArea.js';
 import styles from '../../pages/Dashboard/Estudante/StudentArea.module.css';
 
@@ -46,28 +48,35 @@ export default function StudentActivities({ tasks, onSubmit }) {
       </div>
       <p role="status">{message}</p>
       <div className={styles.grid}>
-        {visibleTasks.map((task) => (
-          <article className={styles.card} key={task.id}>
-            <span className={styles.eyebrow}>
-              {task.subject} · Até {formatDate(task.due)}
-            </span>
+        {visibleTasks.map((task) => {
+          const [tone, Icon] = subjectVisual(task.subject);
+          const overdue = !task.submittedAt && new Date(task.due + 'T23:59:59') < new Date();
+          const StatusIcon = task.submittedAt ? CheckCircle2 : overdue ? AlertCircle : Clock3;
+          return (
+          <article className={styles.card} data-tone={tone} key={task.id}>
+            <div className={styles.cardTop}>
+              <span className={styles.featureIcon}><Icon size={23} aria-hidden="true" /></span>
+              <span className={styles.badge} data-status={task.submittedAt ? 'done' : overdue ? 'late' : 'pending'}>
+                <StatusIcon size={14} aria-hidden="true" /> {task.submittedAt ? 'Entregue · demonstração' : overdue ? 'Atrasada' : 'Pendente'}
+              </span>
+            </div>
+            <span className={styles.eyebrow}>{task.subject}</span>
             <h2>{task.title}</h2>
-            <span className={styles.badge}>
-              {task.submittedAt ? 'Entregue · demonstração' : 'Pendente'}
-            </span>
+            <span className={styles.meta}><CalendarDays size={16} aria-hidden="true" /> Até {formatDate(task.due)}</span>
             <p>{task.instructions}</p>
             <button
-              className={styles.secondary}
+              className={styles.primary + ' ' + styles.cardAction}
+              aria-label={(task.submittedAt ? 'Ver resposta' : 'Abrir atividade') + ': ' + task.title}
               onClick={() => {
                 setSelected(task.id);
                 setAnswer(task.answer);
                 setMessage('');
               }}
             >
-              {task.submittedAt ? 'Ver resposta' : 'Abrir atividade'}: {task.title}
+              {task.submittedAt ? 'Ver resposta' : 'Abrir atividade'} <ArrowRight size={17} aria-hidden="true" />
             </button>
           </article>
-        ))}
+        ); })}
       </div>
       {!visibleTasks.length && <p className={styles.card}>Nenhuma atividade com esses filtros.</p>}
       {selectedTask && (
