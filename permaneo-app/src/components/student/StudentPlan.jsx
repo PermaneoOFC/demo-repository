@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Target } from 'lucide-react';
 import styles from '../../pages/Dashboard/Estudante/StudentArea.module.css';
 
 export default function StudentPlan({ goals, setGoals }) {
@@ -19,8 +20,9 @@ export default function StudentPlan({ goals, setGoals }) {
           setDate('');
         }}
       >
-        <h2>Um passo de cada vez</h2>
+        <h2 className={styles.iconHeading} data-tone="green"><span className={styles.featureIcon}><Target size={21} aria-hidden="true" /></span>Um passo de cada vez</h2>
         <p>Defina pequenas metas para sua rotina de estudos.</p>
+        {goals.length > 0 && <><p>{goals.filter((goal) => goal.done).length} de {goals.length} metas concluídas</p><progress value={goals.filter((goal) => goal.done).length} max={goals.length} aria-label="Progresso das metas" /></>}
         <label>
           Nova meta
           <input

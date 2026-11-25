@@ -435,3 +435,42 @@
 .attendanceTable td[data-presence='AT'] { color: #714408; background: #fff0d3; }
 .area[data-motion='false'] * { animation: none !important; transition: none !important; }
 .avatarBadge{position:absolute;right:-4px;bottom:-4px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--portal-hero);color:#fff;border:2px solid var(--app-surface)}
+
+/* Semantic visual language for existing student functions. */
+.area { --feature-color:var(--platform-accent); --feature-bg:var(--platform-accent-soft); }
+.area [data-tone='blue'] { --feature-color:var(--study-blue); --feature-bg:var(--study-blue-bg); }
+.area [data-tone='purple'] { --feature-color:var(--study-purple); --feature-bg:var(--study-purple-bg); }
+.area [data-tone='green'] { --feature-color:var(--study-green); --feature-bg:var(--study-green-bg); }
+.area [data-tone='orange'] { --feature-color:var(--study-orange); --feature-bg:var(--study-orange-bg); }
+.area [data-tone='teal'] { --feature-color:var(--study-teal); --feature-bg:var(--study-teal-bg); }
+.area .intro { display:flex; align-items:center; gap:16px; padding:clamp(16px,3vw,28px); background:var(--feature-bg); border:1px solid var(--app-border); border-radius:var(--platform-radius); }
+.intro > div { min-width:0; }
+.intro h1 { overflow-wrap:anywhere; }
+.featureIcon { width:48px; height:48px; flex:0 0 48px; display:inline-grid; place-items:center; border-radius:14px; color:var(--feature-color,var(--platform-accent)); background:var(--feature-bg,var(--platform-accent-soft)); }
+.intro .featureIcon { background:var(--app-surface); }
+.cardTop { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; width:100%; }
+.area .card { border-radius:var(--platform-radius); box-shadow:var(--platform-shadow); }
+.area .card[data-tone] { border-top:3px solid var(--feature-color); }
+.area .card[data-tone] h2 { color:var(--feature-color); }
+.area .card .eyebrow { color:var(--feature-color,var(--platform-accent)); }
+.meta,.iconHeading { display:flex; align-items:center; gap:10px; }
+.meta { color:var(--app-muted); font-size:13px; }
+.iconHeading .featureIcon { width:40px; height:40px; flex-basis:40px; border-radius:12px; }
+.area .badge { display:inline-flex; align-items:center; gap:6px; white-space:normal; }
+.badge[data-status='done'] { background:var(--study-green-bg); color:var(--study-green); }
+.badge[data-status='pending'] { background:var(--study-amber-bg); color:var(--study-amber); }
+.badge[data-status='late'] { background:var(--study-red-bg); color:var(--study-red); }
+.badge[data-status='info'] { background:var(--study-blue-bg); color:var(--study-blue); }
+.area :is(.primary,.secondary) { gap:8px; max-width:100%; }
+.area :is(.primary,.secondary) svg { flex-shrink:0; }
+.area .cardAction { margin-top:auto; }
+.area .goal[data-complete='true'] { background:var(--study-green-bg); }
+.area .day[aria-current='date'] { background:var(--platform-accent-soft); color:var(--platform-accent); }
+.area .filters { padding:14px; background:var(--app-surface); border:1px solid var(--app-border); border-radius:14px; }
+@media(prefers-reduced-motion:no-preference) {
+  .area[data-motion='true'] :is(.primary,.secondary,.day,.goal) { transition:background var(--platform-motion),border-color var(--platform-motion); }
+}
+@media(max-width:600px) {
+  .area .intro { align-items:flex-start; gap:12px; }
+  .area .intro .featureIcon { width:40px; height:40px; flex-basis:40px; }
+}

@@ -16,6 +16,7 @@ import {
   Armchair,
   Ellipsis,
   PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 import logo from '../../images/logo.svg';
 import styles from './AppShell.module.css';
@@ -65,7 +66,7 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
       className={styles.shell}
       data-app-shell
       data-student-shell={student || undefined}
-      data-collapsed={student && collapsed}
+      data-collapsed={collapsed}
       onClick={(event) => {
         if (event.target.closest('[data-shell-controls]')) event.stopPropagation();
       }}
@@ -85,7 +86,7 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
             }
           }}>
           {entries.map(([path, label, Icon]) => (
-            <NavLink key={path} to={'/' + path} end className={styles.navLink} data-mobile-main={student && Boolean(mainDestinations[path])} aria-label={student && collapsed ? label : undefined} title={student && collapsed ? label : undefined}>
+            <NavLink key={path} to={'/' + path} end className={styles.navLink} data-mobile-main={student && Boolean(mainDestinations[path])} aria-label={collapsed ? label : undefined} title={label}>
               <Icon size={18} aria-hidden="true" />
               <span className={student && mainDestinations[path] ? styles.desktopLabel : undefined}>{label}</span>
               {student && mainDestinations[path] && <span className={styles.mobileLabel}>{mainDestinations[path]}</span>}
@@ -103,9 +104,9 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
               <small>{description}</small>
             </span>
           </div>
-          <Link className={styles.navLink} to="/login">
+          <Link className={styles.navLink} to="/login" aria-label="Sair" title="Sair">
             <LogOut size={16} aria-hidden="true" />
-            Sair
+            <span>Sair</span>
           </Link>
         </div>
       </aside>
@@ -113,7 +114,7 @@ export default function AppShell({ role, dark, notificationsRead, onToggleTheme,
         <header className={styles.header} data-shell-controls>
           <p>Escola Estadual Horizonte · Demonstração</p>
           <div className={styles.actions}>
-            {student && <button className={styles.collapse} aria-controls="platform-menu" aria-expanded={!collapsed} aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'} onClick={() => setCollapsed(!collapsed)}><PanelLeftClose size={20} aria-hidden="true" /></button>}
+            <button type="button" className={styles.collapse} aria-controls="platform-menu" aria-expanded={!collapsed} aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'} onClick={() => setCollapsed(!collapsed)}>{collapsed ? <PanelLeftOpen size={20} aria-hidden="true" /> : <PanelLeftClose size={20} aria-hidden="true" />}</button>
             {student && <button ref={moreButton} type="button" className={styles.more} aria-label="Mais opções" aria-controls="platform-menu" aria-expanded={more} onClick={() => setMore(!more)}><Ellipsis size={20} aria-hidden="true" /></button>}
             {student && <Link to="/studentNotices" className={styles.notifications} aria-label="Abrir notificações"><Bell size={18} aria-hidden="true" /></Link>}
             {!student && (

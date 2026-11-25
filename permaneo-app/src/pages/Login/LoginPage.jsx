@@ -1,9 +1,8 @@
 
 import { useState } from 'react';
-import { ArrowLeft, Sun, Moon, LayoutDashboard, BookOpen, GraduationCap } from 'lucide-react';
+import { ArrowLeft, Sun, Moon, LayoutDashboard, BookOpen, GraduationCap, Mail, LockKeyhole, Eye, EyeOff } from 'lucide-react';
 import Button from '../../components/ui/Button.jsx';
 import ProfileOption from '../../components/ui/ProfileOption.jsx';
-import TextField from '../../components/ui/TextField.jsx';
 import styles from './LoginPage.module.css';
 
 const profiles = [
@@ -16,6 +15,7 @@ export default function LoginPage({ role, onSelectRole, onNavigate, dark, onTogg
   const [email, setEmail] = useState('demo@permaneo.com.br');
   const [password, setPassword] = useState('permaneo');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const enter = (event) => {
     event.preventDefault();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('Informe um e-mail válido para a demonstração.'); return; }
@@ -48,9 +48,20 @@ export default function LoginPage({ role, onSelectRole, onNavigate, dark, onTogg
           <div className={styles.profiles} role="radiogroup" aria-label="Perfil de acesso">
             {profiles.map((profile) => <ProfileOption key={profile.value} {...profile} selected={role === profile.value} onSelect={onSelectRole} />)}
           </div>
-          <TextField label="E-mail de demonstração" type="email" value={email} onChange={(event) => { setEmail(event.target.value); setError(''); }} autoComplete="off" />
-          <TextField label="Senha de demonstração" type="password" value={password} onChange={(event) => { setPassword(event.target.value); setError(''); }} autoComplete="off" />
-          {error && <p role="alert" className={styles.error}>{error}</p>}
+          <div className={styles.credentials}>
+            <div className={styles.inputGroup}>
+              <label className={styles.srOnly} htmlFor="demo-email">E-mail de demonstração</label>
+              <Mail size={19} aria-hidden="true" className={styles.inputIcon} />
+              <input id="demo-email" type="email" placeholder="E-mail de demonstração" value={email} onChange={(event) => { setEmail(event.target.value); setError(''); }} autoComplete="off" aria-invalid={Boolean(error && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))} aria-describedby={error ? 'demo-login-error' : undefined} />
+            </div>
+            <div className={styles.inputGroup}>
+              <label className={styles.srOnly} htmlFor="demo-password">Senha de demonstração</label>
+              <LockKeyhole size={19} aria-hidden="true" className={styles.inputIcon} />
+              <input id="demo-password" type={showPassword ? 'text' : 'password'} placeholder="Senha de demonstração" value={password} onChange={(event) => { setPassword(event.target.value); setError(''); }} autoComplete="off" aria-invalid={Boolean(error && !password.trim())} aria-describedby={error ? 'demo-login-error' : undefined} />
+              <button type="button" className={styles.passwordToggle} aria-label={showPassword ? 'Ocultar senha' : 'Mostrar senha'} onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff size={19} aria-hidden="true" /> : <Eye size={19} aria-hidden="true" />}</button>
+            </div>
+          </div>
+          {error && <p id="demo-login-error" role="alert" className={styles.error}>{error}</p>}
           <Button type="submit">Entrar na demonstração</Button>
           <Button variant="secondary" onClick={() => onNavigate(role)}>Explorar sem preencher</Button>
           <a className={styles.studentDemoLink} href="#/student" onClick={(event) => {
