@@ -13,9 +13,9 @@ const sections = [
 ];
 
 const profiles = [
-  { label: 'Direção e coordenação', icon: School, route: 'director', preview: 'director', title: 'Combine o próximo passo de apoio', text: 'Cruze frequência e alertas para organizar intervenções e acompanhar os retornos da equipe.' },
-  { label: 'Professor', icon: BookOpen, route: 'teacher', preview: 'teacher', previewExt: 'svg', title: 'Explore a sala virtual e acompanhe sua turma', text: 'Visualize as carteiras e os estudantes, abra perfis e faça a chamada na área Minhas Turmas.' },
-  { label: 'Estudante', icon: CalendarDays, route: 'student', preview: 'studentCalendar', title: 'Planeje sua semana no seu ritmo', text: 'Consulte atividades e prazos, organize metas pessoais e conheça o espaço de apoio.' },
+  { label: 'Direção e coordenação', icon: School, route: 'director', preview: 'profile-director', previewExt: 'png', title: 'Combine o próximo passo de apoio', text: 'Cruze frequência e alertas para organizar intervenções e acompanhar os retornos da equipe.' },
+  { label: 'Professor', icon: BookOpen, route: 'teacher', preview: 'profile-teacher', previewExt: 'png', title: 'Explore a sala virtual e acompanhe sua turma', text: 'Visualize as carteiras e os estudantes, abra perfis e faça a chamada na área Minhas Turmas.' },
+  { label: 'Estudante', icon: CalendarDays, route: 'student', preview: 'profile-student', previewExt: 'png', title: 'Planeje sua semana no seu ritmo', text: 'Consulte atividades e prazos, organize metas pessoais e conheça o espaço de apoio.' },
 ];
 
 function SectionLink({ id, children, className }) {
@@ -96,8 +96,8 @@ export default function Home({ dark, onToggleTheme }) {
         <figure className={styles.preview}>
           <img
             src={`${import.meta.env.BASE_URL}previews/${profile.preview}.${profile.previewExt || 'webp'}`}
-            width={profile.preview === 'teacher' ? 1200 : 1440}
-            height={profile.preview === 'teacher' ? 833 : 1000}
+            width={1440}
+            height={1000}
             alt={`Captura da demonstração do perfil ${profile.label}`}
             loading="lazy"
           />
