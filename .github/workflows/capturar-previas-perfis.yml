@@ -1,0 +1,52 @@
+name: Capturar prévias dos perfis
+on:
+  push:
+    branches: ['feat/previews-reais-perfis']
+    paths:
+      - 'permaneo-app/tests/capture-profile-previews.mjs'
+      - '.github/workflows/capturar-previas-perfis.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: permaneo-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: permaneo-app/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node tests/capture-profile-previews.mjs
+      - run: |
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+          const path = 'src/pages/Landing/Home.jsx';
+          let s = readFileSync(path, 'utf8');
+          s = s.replace("preview: 'director',", "preview: 'profile-director', previewExt: 'png',");
+          s = s.replace("preview: 'teacher', previewExt: 'svg',", "preview: 'profile-teacher', previewExt: 'png',");
+          s = s.replace("preview: 'studentCalendar',", "preview: 'profile-student', previewExt: 'png',");
+          s = s.replace("width={profile.preview === 'teacher' ? 1200 : 1440}", 'width={1440}');
+          s = s.replace("height={profile.preview === 'teacher' ? 833 : 1000}", 'height={1000}');
+          writeFileSync(path, s);
+          NODE
+      - run: npm test
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: previews-perfis
+          path: permaneo-app/public/previews/profile-*.png
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/previews/profile-*.png src/pages/Landing/Home.jsx
+          if ! git diff --cached --quiet; then
+            git commit -m "feat(home): atualizar capturas reais dos três perfis"
+            git push origin HEAD:refs/heads/feat/previews-reais-perfis
+          fi
