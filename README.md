@@ -19,6 +19,8 @@ O **Permaneo** é um protótipo de acompanhamento escolar para apoiar a prevenç
 | [`Documentacao`](Documentacao/) | Pesquisa, jornada, arquitetura, tecnologias e acessibilidade |
 | [`AGENTS.md`](AGENTS.md) | Instruções rápidas, regras obrigatórias e padrão de commits para agentes de IA |
 | [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) | Contexto mestre, arquitetura, limites e diretrizes do projeto Permaneo |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Fluxo de Git, regras de contribuição e ativação do hook de commit |
+| [`.githooks/commit-msg`](.githooks/commit-msg) | Hook Git para validar mensagens de commit no padrão do repositório |
 
 ## Como rodar
 
@@ -56,12 +58,24 @@ Os três perfis usam a versão completa anterior à inclusão dos widgets, com p
 
 ## Contexto para IA e Padrões de Commit
 
-Os arquivos [`AGENTS.md`](AGENTS.md) e [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) reúnem as diretrizes do projeto, a arquitetura, as regras de negócio, o mapa de testes e os limites do protótipo para que qualquer assistente ou agente de IA trabalhe no repositório com contexto consistente.
+Os arquivos [`AGENTS.md`](AGENTS.md), [`PROJECT_CONTEXT.md`](PROJECT_CONTEXT.md) e [`CONTRIBUTING.md`](CONTRIBUTING.md) reúnem as diretrizes do projeto, a arquitetura, as regras de negócio, o mapa de testes e os limites do protótipo para que qualquer pessoa ou agente de IA trabalhe no repositório com contexto consistente.
 
-Para manter o histórico organizado e padronizado entre pessoas desenvolvedoras e IAs, utilize a convenção de commits definida em [Padrões de Commits (`iagosm-oliveira/padroes-de-commits`)](https://github.com/iagosm-oliveira/padroes-de-commits):
+Para manter o histórico padronizado entre desenvolvedores e IAs, todos os commits devem seguir a convenção de [Padrões de Commits (`iagosm-oliveira/padroes-de-commits`)](https://github.com/iagosm-oliveira/padroes-de-commits):
 
-- **Formato padrão (com emoji):** `:emoji: <tipo>: <descrição>`
-- **Formato alternativo (compatível com o hook `commit-msg.sh`):** `<tipo>(<escopo opcional>): <descrição>`
+- **Formato obrigatório:** `:emoji: <tipo>: <Descrição com inicial maiúscula>`
+- Use o **shortcode** do emoji entre dois pontos (ex.: `:sparkles:`, `:bug:`, `:books:`), nunca emoji Unicode literal nem mensagem sem emoji.
+- Mantenha o título curto (idealmente até 4 palavras) e detalhe contexto ou impacto no corpo do commit quando necessário.
+- Para o primeiro commit de um projeto, também se aceita `:tada: Commit inicial`.
+
+### Hook de validação automático
+
+Para validar o padrão automaticamente antes de concluir cada commit, ative o hook [`.githooks/commit-msg`](.githooks/commit-msg) no seu clone local:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+No macOS ou Linux, se necessário, garanta permissão de execução com `chmod +x .githooks/commit-msg`.
 
 ### Principais tipos e emojis
 
@@ -77,16 +91,20 @@ Para manter o histórico organizado e padronizado entre pessoas desenvolvedoras 
 | `build` | 📦 `:package:` / ➕ `:heavy_plus_sign:` / ➖ `:heavy_minus_sign:` | Arquivos de build e dependências |
 | `ci` | 🧱 `:bricks:` | Integração contínua e infraestrutura |
 | `chore` | 🔧 `:wrench:` / 🚚 `:truck:` | Configurações rotineiras, mover ou renomear arquivos |
+| `raw` | 🗃️ `:card_file_box:` | Dados, configurações e parâmetros |
 | `cleanup` | 🧹 `:broom:` | Limpeza de código morto ou comentado |
 | `remove` | 🗑️ `:wastebasket:` | Exclusão de arquivos ou funcionalidades obsoletas |
+| `revert` | 💥 `:boom:` | Reversão de commit anterior |
 
 ### Exemplos
 
 ```bash
-git commit -m ":sparkles: feat: adicionar filtro de turma no acompanhamento"
-git commit -m ":bug: fix: corrigir gesto de toque no carrossel da equipe"
-git commit -m ":books: docs: atualizar instruções de configuração no README"
-git commit -m "fix(dashboard): ajustar contraste no tema escuro"
+git commit -m ":sparkles: feat: Página de login"
+git commit -m ":lipstick: feat: Estilização CSS do formulário"
+git commit -m ":bug: fix: Loop infinito na chamada"
+git commit -m ":books: docs: Atualização do README"
+git commit -m ":recycle: refactor: Extração de componente compartilhado"
+git commit -m ":test_tube: test: Validação do cálculo por aluno"
 ```
 
 ## Equipe

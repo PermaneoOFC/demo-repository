@@ -10,39 +10,68 @@
 
 ## Mensagens de commit
 
-Use **Conventional Commits**, em português, com o formato:
+Use **Conventional Commits + Gitmoji**, em português, seguindo o padrão do guia [`iagosm-oliveira/padroes-de-commits`](https://github.com/iagosm-oliveira/padroes-de-commits):
 
 ```text
-tipo(área): descrever a mudança de forma objetiva
+:emoji: tipo: Descrição curta com inicial maiúscula
 ```
 
+Regras de formato:
+- Comece com o **shortcode do emoji** entre dois pontos (`:sparkles:`, `:bug:`, `:books:`, etc.), e não com emoji Unicode literal ou sem emoji.
+- Use letra maiúscula no início da descrição e mantenha a primeira linha curta (idealmente até 4 palavras; detalhes vão no corpo do commit).
+- Para o primeiro commit de um projeto, admite-se `:tada: Commit inicial`.
+
 Tipos aceitos:
-- `feat`: adicionar funcionalidade
-- `fix`: corrigir problema
-- `refactor`: reorganizar código sem alterar o comportamento
-- `style`: ajustar visual ou formatação
-- `docs`: atualizar documentação
-- `test`: adicionar ou corrigir testes
-- `chore`: manutenção técnica
-- `perf`: melhorar desempenho
+- `feat`: novo recurso (`:sparkles:`) ou estilização de interface (`:lipstick:`)
+- `fix`: correção de bug (`:bug:`) ou reversão de mudança ineficiente (`:boom:`)
+- `docs`: documentação (`:books:`) ou comentários (`:bulb:`)
+- `refactor`: refatoração sem alterar comportamento (`:recycle:`)
+- `style`: formatação, lint ou revisão de estilo (`:ok_hand:`)
+- `test`: adição ou ajuste de testes (`:test_tube:` / `:white_check_mark:`)
+- `build`: build e dependências (`:package:` / `:heavy_plus_sign:` / `:heavy_minus_sign:`)
+- `perf`: melhoria de desempenho (`:zap:`)
+- `ci`: integração contínua e infraestrutura (`:bricks:`)
+- `chore`: configurações rotineiras (`:wrench:`) ou mover/renomear (`:truck:`)
+- `raw`: dados e parâmetros (`:card_file_box:`)
+- `cleanup`: limpeza de código morto ou comentado (`:broom:`)
+- `remove`: exclusão de arquivos ou código obsoleto (`:wastebasket:`)
+- `revert`: reversão de commit anterior (`:boom:`)
 
 Exemplos:
 
 ```text
-feat(home): adicionar carrossel interativo da equipe
-feat(professor): implementar navegação da sala virtual
-fix(login): corrigir retorno à página inicial
-style(mobile): ajustar cards para telas pequenas
-docs(projeto): atualizar instruções de instalação
-test(planos): validar cálculo por aluno
+:sparkles: feat: Carrossel interativo da equipe
+:lipstick: feat: Ajuste visual no painel do professor
+:bug: fix: Correção no retorno do login
+:books: docs: Atualização do README
+:recycle: refactor: Extração de componente compartilhado
+:test_tube: test: Validação de cálculo por aluno
+:bricks: ci: Configuração do fluxo de validação
+:wrench: chore: Configuração do hook de commit
 ```
 
-Regras:
+Regras gerais:
 1. Explique **o que mudou**, não qual ferramenta foi usada.
 2. Evite mensagens vagas como `update`, `changes`, `ajustes` ou `versão final`.
 3. Não use nomes de ferramentas ou agentes como título, escopo, assinatura automática ou sufixo do commit.
 4. Separe mudanças de assuntos diferentes em commits distintos.
 5. Não altere a autoria de outra pessoa ao corrigir um commit.
+
+## Hook de validação local
+
+O repositório versiona o hook [`.githooks/commit-msg`](.githooks/commit-msg) para validar automaticamente o formato acima antes de registrar cada commit.
+
+Ative no clone local (uma única vez por máquina):
+
+```bash
+git config core.hooksPath .githooks
+```
+
+Em macOS ou Linux, garanta também permissão de execução:
+
+```bash
+chmod +x .githooks/commit-msg
+```
 
 ## Rotina compartilhada
 
@@ -58,7 +87,7 @@ Depois de testar a mudança:
 ```bash
 git status
 git add caminho/do/arquivo
-git commit -m "feat(home): descrever a funcionalidade"
+git commit -m ":sparkles: feat: Descrição da funcionalidade"
 git push origin main
 ```
 

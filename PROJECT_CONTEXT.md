@@ -1,376 +1,207 @@
 # PERMANEO — CONTEXTO MESTRE DO PROJETO
 
-**Versão do documento:** 1.0
+**Versão:** 2.0
 
-**Data de preparação:** 18/11/2026
+**Atualizado:** 27/11/2026
 
-**Repositório analisado:** https://github.com/PermaneoOFC/demo-repository
+**Fonte:** `PermaneoOFC/demo-repository`, branch `main`; último commit observado em 26/11/2026: `c9006a244755f91e6653fc120e1d89d901d0eccb`.
 
-**Demonstração publicada informada pela equipe:** https://permaneo-ofc.vercel.app/#/home
+**Demonstração informada:** https://permaneo-ofc.vercel.app/#/home
 
-> Este documento é uma transferência de contexto para agentes de programação. Ele descreve o estado observado no repositório e separa fatos, limitações e hipóteses. O código atual é a fonte de verdade para implementação; esta documentação não substitui inspeção dos arquivos.
-
----
+> Documento de transferência para agentes de programação. O código atual é a fonte de verdade. Diferencie funcionalidades demonstrativas de integrações de produção.
 
 ## 1. Identidade e propósito
 
 **Permaneo — Toda trajetória merece continuar.**
 
-O Permaneo é um protótipo de acompanhamento escolar orientado à prevenção da evasão. A proposta é ajudar escolas a identificar sinais de afastamento, reunir contexto sobre frequência e desempenho e organizar ações de acompanhamento com participação de coordenação, professores e estudantes.
+Protótipo web de acompanhamento escolar que busca apoiar a prevenção da evasão. A proposta é reunir contexto de frequência, desempenho e histórico de acompanhamento para ajudar coordenação, professores e estudantes a compreender situações e organizar apoio.
 
-### Problema que busca enfrentar
-O acompanhamento de ausências pode ficar fragmentado entre registros de frequência, desempenho e contatos realizados. Uma ausência isolada não explica necessariamente o que está acontecendo: o estudante pode faltar a um componente curricular e continuar frequentando os demais. A equipe precisa de contexto para decidir como agir, sem transformar um indicador em julgamento sobre o estudante.
+- **Missão:** ajudar escolas a identificar sinais de afastamento e organizar o apoio à permanência.
+- **Visão:** tornar o acompanhamento escolar mais claro e acessível.
+- **Valores:** acolhimento, acessibilidade, clareza e cuidado com dados escolares.
+- **Princípio:** apoiar conversas e intervenções pedagógicas; não rotular estudantes nem substituir julgamento humano.
 
-### Missão
-Ajudar as escolas a identificar sinais de afastamento e organizar o apoio à permanência dos estudantes.
+## 2. Pesquisa documentada
 
-### Visão
-Tornar o acompanhamento escolar mais claro e acessível para coordenação, professores e estudantes.
+A documentação registra conversa em 20/10/2026 com representante da coordenação pedagógica do Senac. O relato menciona protocolo de aviso após três faltas consecutivas, contato por telefone/e-mail e dificuldade de cruzar frequência, desempenho e histórico. Também relata faltas concentradas em um componente curricular enquanto o estudante frequenta outros.
 
-### Valores
-Acolhimento, acessibilidade, clareza e cuidado com os dados escolares.
+Esse relato é uma referência de pesquisa, não regra universal nem prova de integração do Permaneo com essa instituição.
 
-### Princípio de produto
-O sistema deve apoiar conversas e intervenções pedagógicas, não rotular estudantes, automatizar decisões disciplinares ou substituir o julgamento humano.
+## 3. Perfis e fluxos descritos
 
----
+| Perfil | Percursos |
+| --- | --- |
+| Coordenação/direção | Visão geral da escola, Carômetro, acompanhamento, notificações/alertas, relatórios e configurações |
+| Professor | Minhas Turmas, Minha Sala, chamada, Carômetro, notificações e perfis de estudantes |
+| Estudante | Meu dia, Atividades, Calendário, Disciplinas, Avisos, Plano de estudos, Pedidos de apoio e Meu espaço |
 
-## 2. Contexto de pesquisa
+A sala do professor é descrita com planta, zoom, visualização em lista, edição/movimentação de assentos, carteiras livres, perfis e observações. Testes de sala/redesign cobrem mouse, toque, teclado, persistência local e operações de desfazer/refazer/cancelar.
 
-A documentação do repositório registra uma conversa realizada em **20/10/2026** com um representante da coordenação pedagógica do Senac. Segundo o registro:
-- havia um protocolo de aviso após três faltas consecutivas;
-- a equipe tentava contato por telefone ou e-mail;
-- existia dificuldade para cruzar frequência, desempenho e histórico de acompanhamento;
-- ausências podiam se concentrar em um componente curricular enquanto o estudante seguia participando de outros.
+O portal do estudante mantém entregas, avisos lidos, metas e pedidos demonstrativos no navegador. Isso não significa envio à escola.
 
-A proposta do Permaneo responde a isso contextualizando os registros por turma, componente curricular e data, para que a equipe investigue antes de agir.
+**Login:** “Explorar sem preencher” e escolha de perfil são apenas navegação da demonstração. Não são autenticação nem autorização reais.
 
-**Cuidado:** esse relato é uma referência de pesquisa documentada, não deve ser tratado como regra universal de todas as escolas.
+## 4. Estado do produto: protótipo
 
----
+O README define a versão atual como protótipo web com dados fictícios e registros locais no navegador.
 
-## 3. Públicos e perfis
+| Área | Afirmação permitida | Não prometer |
+| --- | --- | --- |
+| Dados | Dados fictícios | Dados reais sincronizados |
+| Persistência | Algumas interações em armazenamento local | Banco institucional ou sincronização multiusuário |
+| Login | Exploração de três perfis | Autenticação/controle de acesso de produção |
+| Chamada | Fluxo demonstrativo | Sincronização com diário/sistema acadêmico |
+| Acompanhamento | Telas e registros locais | Fluxo institucional compartilhado/auditável |
+| Alertas | Telas e indicadores demonstrativos | SMS, e-mail ou alertas automáticos ativos |
+| Relatórios | Exemplos demonstrativos | Relatórios oficiais com dados reais |
+| Calendário | Navegação e atividades demonstrativas | Sincronização externa/institucional |
+| Apoio | Pedido demonstrativo | Encaminhamento real à equipe escolar |
+| Câmeras/IA | Visão futura conceitual | Captura, identificação ou processamento de imagens |
+| Comercial | Planos, calculadora e formulário demonstrativos | Cobrança, assinatura ou contratação |
 
-| Perfil | Necessidade | Capacidades demonstradas/documentadas |
-|---|---|---|
-| Coordenação / direção | Enxergar sinais, investigar histórico e coordenar acompanhamento | Painel, Carômetro, acompanhamento, alertas e relatórios |
-| Professor | Registrar frequência e compreender a turma | Minhas Turmas, Minha Sala, chamada, Carômetro e notificações |
-| Estudante | Entender sua trajetória e saber quando pedir apoio | Painel, frequência demonstrativa e área do estudante |
+`Documentacao/Restauracao.md` menciona integração de frequência com API separada, disponível no login quando habilitada. Verifique serviços, configuração e ambiente antes de afirmar endpoint, cobertura ou disponibilidade.
 
-O login permite selecionar um perfil e usar **“Explorar sem preencher”**. Essa seleção é um mecanismo de navegação da demonstração, **não é autenticação real nem controle de autorização**.
+## 5. Planos e preços — atualização de 21/11/2026
 
----
+`Documentacao/planos-permaneo.md` e `permaneo-app/src/pages/Landing/commercial/pricing.js` informam:
 
-## 4. Estado funcional observado no repositório
+- Mensal: **R$ 249,00 + R$ 6,90 por aluno/mês**.
+- Anual: **equivalente mensal de R$ 210,00 + R$ 5,90 por aluno/mês**, por contrato de 12 meses.
+- Acima de 1.000 alunos: proposta sob medida, sem preço fechado nem cálculo de economia.
 
-O README da raiz descreve a versão atual como protótipo web com dados fictícios e armazenamento local no navegador.
+Exemplo documentado para 100 alunos: mensal R$ 939/mês (R$ 11.268/ano); anual equivalente R$ 800/mês (R$ 9.600/ano); economia comparativa R$ 1.668/ano. Cálculos usam centavos inteiros. Não alterar valores/condições sem solicitação explícita.
 
-### 4.1 Coordenação
-A demonstração oferece:
-- painel;
-- Carômetro;
-- acompanhamento;
-- alertas;
-- relatórios.
+O formulário comercial apenas valida e baixa um resumo local; não envia dados, não confirma contratação e não representa assinatura. A documentação diz que não há endpoint, e-mail ou WhatsApp comercial configurado.
 
-### 4.2 Professor
-A demonstração oferece:
-- Minhas Turmas;
-- Minha Sala;
-- chamada;
-- Carômetro;
-- notificações;
-- planta da sala com zoom;
-- alternância entre planta e lista;
-- edição de assentos, movimentação de estudantes e carteiras livres;
-- abertura do perfil de estudante e registro de observações.
+## 6. Estágio de recursos comerciais
 
-### 4.3 Estudante
-A área demonstrativa inclui:
-- Meu dia;
-- Atividades;
-- Calendário;
-- Disciplinas;
-- Avisos;
-- Plano de estudos;
-- Pedidos de apoio;
-- Meu espaço.
+`permaneo-app/src/pages/Landing/commercial/features.js` declara os estágios e avisa que o status descreve este checkout, não uma promessa de produção:
 
-O README informa que entregas de atividades com respostas, avisos lidos, metas e pedidos demonstrativos ficam salvos no navegador, inclusive após recarregar. Esses registros **não são enviados à escola**.
+- Indicadores escolares: em demonstração, com dados fictícios.
+- Alertas: automação planejada; níveis 5%, 8%, 10% e 15% previstos, mas disparos, SMS e e-mail não integrados.
+- Carômetro/histórico: demonstração local.
+- Acompanhamento/pedidos de apoio: demonstração local.
+- Chamada: demonstração local.
+- Relatórios: em demonstração.
+- Calendário: demonstração local.
+- Três perfis: em demonstração; troca não autentica.
 
-### 4.4 Recursos transversais
-- temas claro e escuro;
-- navegação por hash;
-- componentes compartilhados;
-- dados fictícios;
-- persistência local em algumas interações;
-- UserWay e VLibras integrados;
-- seção comercial/planos na homepage;
-- testes automatizados de fluxos e telas.
+## 7. Arquitetura e tecnologias
 
-### 4.5 Seção comercial e planos (preço atualizado em 21/11/2026)
-A documentação registra dois planos com os mesmos recursos:
-- Mensal: R$ 249 + R$ 6,90 por aluno/mês.
-- Anual: equivalente mensal de R$ 210 + R$ 5,90 por aluno/mês, por 12 meses.
-- Acima de 1.000 alunos: proposta sob medida, sem total fechado ou economia calculada.
+Stack documentada: React 18, JavaScript ES modules, Vite 6, CSS Modules/CSS, React Router DOM 7 listado, GSAP, lucide-react, Playwright, happy-dom e testes Node. `package.json` declara Node `>=20.19.0`; README recomenda Node 22 LTS ou superior.
 
-A calculadora compartilha estado entre homepage e modal, calcula totais e comparação em centavos inteiros. O formulário prepara e baixa um resumo local; **não envia, não persiste dados e não confirma contratação**.
+Estrutura `permaneo-app/src`: `App.jsx`, `main.jsx`, `components/`, `data/`, `hooks/`, `images/`, `pages/`, `routes/`, `services/`, `styles/` e `global.css`. Vite gera arquivos estáticos e a navegação por hash permite hospedagem estática. Inspecione o código antes de concluir detalhes de roteamento/estado/serviços.
 
-A documentação diz que a seção comercial é uma extensão demonstrativa e que publicação, cobrança, assinatura e envio de mensagens não foram realizados naquela entrega. Confirme os arquivos atuais antes de alterar preços, condições ou disponibilidade.
+### Scripts em `permaneo-app/package.json`
 
----
+- `npm run dev`, `npm run build`, `npm run preview`
+- `npm test`
+- `npm run test:browser`
+- `npm run test:accessibility`
+- `npm run test:student`
+- `npm run test:shell`
+- `npm run test:profile`
+- `npm run test:classroom`
+- `npm run test:widgets`
+- `npm run test:pricing`
+- `npm run test:commercial`
+- `npm run test:portraits`
+- `npm run test:redesign`
 
-## 5. Limitações e fronteiras — não inventar capacidades
+Testes de navegador usam Google Chrome instalado. Consulte os scripts antes de presumir cobertura. Não afirme que passaram sem executar.
 
-Esta seção é crítica. Não apresente protótipo como produto institucional de produção.
+### Execução
 
-1. **Dados:** os dados demonstrativos são fictícios.
-2. **Persistência:** registros locais ficam no navegador que os criou; não há sincronização institucional garantida.
-3. **Perfis:** escolher Coordenação/Professor/Estudante no login não autentica contas reais.
-4. **Mensagens:** não afirmar que e-mail, SMS, WhatsApp ou notificações externas são enviados sem encontrar integração funcional comprovada.
-5. **Relatórios:** distinguir telas e relatórios demonstrativos de relatórios oficiais conectados a sistemas escolares.
-6. **Câmeras e IA:** a visão futura descrita nos planos é conceitual. A documentação afirma que não há acesso a câmera, captura, identificação ou processamento de imagens.
-7. **Alertas:** níveis automáticos de faltas de 5%, 8%, 10% e 15% aparecem como planejados na documentação comercial; não anunciá-los como automação operacional sem comprovar no código.
-8. **Integração de frequência:** a documentação de restauração menciona integração com API disponível separadamente no login quando habilitada. Investigue o código e configuração antes de afirmar ambiente, endpoint, cobertura ou disponibilidade.
-9. **Contato comercial:** a documentação diz que não havia endpoint/e-mail/WhatsApp comercial configurado; formulário apenas prepara download local.
-10. **Privacidade:** UserWay/VLibras são serviços externos. Antes de dados reais de estudantes, revisar privacidade, consentimento, contratos, segurança e requisitos legais aplicáveis.
-
-**Regra:** se algo não puder ser comprovado no código, testes ou documentação atual, marque como “não verificado” e pergunte antes de implementar ou prometer.
-
----
-
-## 6. Arquitetura e tecnologias
-
-### Stack identificada
-- React 18;
-- JavaScript (ES modules);
-- Vite 6;
-- CSS Modules e CSS;
-- React Router DOM 7 listado nas dependências;
-- GSAP;
-- lucide-react;
-- Playwright, happy-dom e testes Node.
-
-O `package.json` exige Node `>=20.19.0`; o README da aplicação recomenda Node 22 LTS ou superior. Prefira Node 22 LTS compatível com o projeto.
-
-### Estrutura observada em `permaneo-app/src`
-- `App.jsx` e `main.jsx`: entrada e composição do aplicativo;
-- `components/`: componentes compartilhados;
-- `data/`: dados;
-- `hooks/`: hooks;
-- `images/`: imagens locais;
-- `pages/`: páginas por área;
-- `routes/`: rotas;
-- `services/`: serviços;
-- `styles/`: estilos;
-- `global.css`: estilos globais.
-
-A documentação descreve:
-- Vite gerando arquivos estáticos;
-- navegação por hash para hospedagem estática;
-- telas organizadas por área em `src/pages`;
-- dados fictícios no frontend e registros demonstrativos no armazenamento local.
-
-**Não assuma que o README descreve cada detalhe técnico atual.** Inspecione `package.json`, `src/main.jsx`, `src/App.jsx`, `src/routes`, serviços e páginas antes de qualquer refatoração.
-
-### Comandos (PowerShell/Windows)
-Na raiz:
+Windows PowerShell:
 ```powershell
 cd permaneo-app
 npm.cmd ci
 npm.cmd run dev
 ```
-Em macOS/Linux:
+
+macOS/Linux:
 ```bash
 cd permaneo-app
 npm ci
 npm run dev
 ```
-Use a URL local informado pelo Vite.
 
-Build:
-```bash
-npm.cmd run build
-```
+Build: `npm run build`.
 
----
+## 8. Acessibilidade e identidade
 
-## 7. Testes disponíveis
+A documentação registra temas claro/escuro, foco visível, seleção por teclado, erros anunciados a leitores de tela, sala operável por teclado com alternativa em lista, movimento reduzido e UserWay/VLibras.
 
-Scripts encontrados em `permaneo-app/package.json`:
+Os widgets são carregados uma vez por abertura do site, fora da árvore React. UserWay fica à direita, 12 px abaixo do VLibras. `Documentacao/Acessibilidade.md` informa identificador público padrão UserWay `csVkjYy3VL` e variável `VITE_USERWAY_ACCOUNT_ID`.
 
-| Comando | Objetivo indicado pelo nome/documentação |
-|---|---|
-| `npm test` | testes frontend gerais |
-| `npm run test:browser` | smoke e fluxo de navegador |
-| `npm run test:accessibility` | testes de acessibilidade |
-| `npm run test:student` | fluxos da área do estudante |
-| `npm run test:shell` | estrutura compartilhada |
-| `npm run test:profile` | perfis |
-| `npm run test:classroom` | sala de aula |
-| `npm run test:widgets` | widgets de acessibilidade no navegador |
-| `npm run test:pricing` | cálculos de preço |
-| `npm run test:commercial` | fluxo comercial no navegador |
-| `npm run test:portraits` | retratos/carômetro |
+Preservar semântica HTML, rótulos, teclado, foco, contraste, movimento reduzido, responsividade e CSS Modules. A documentação alerta que classes/tokens existentes podem depender de CSS Modules e classes exportadas do Figma; resets globais podem quebrar telas e controles externos. Widgets não substituem acessibilidade nativa nem revisão humana.
 
-Alguns testes de navegador exigem Google Chrome instalado. Consulte cada script e documentação antes de interpretar resultados.
+## 9. Privacidade e segurança
 
-A documentação `Restauracao.md` lista também comandos históricos/validações e informa que certas baterias usam `BASE_URL`. Confirme o estado real antes de executar comandos que não estejam no `package.json`.
+- Usar apenas dados fictícios; não inserir dados reais em fixtures, screenshots, logs ou commits.
+- Não adicionar segredos, tokens ou credenciais.
+- Não enviar dados a terceiros sem autorização e análise de privacidade.
+- Não tratar `localStorage` como armazenamento seguro.
+- Não apresentar seleção de perfil como controle de acesso.
+- Não criar rankings públicos ou linguagem estigmatizante.
+- Não transformar indicadores em diagnóstico ou decisão automática.
+- Antes de dados reais, definir autenticação, autorização, isolamento entre instituições, segurança, retenção, auditoria, consentimento, contratos e requisitos legais.
 
-### Rotina mínima recomendada para toda alteração
-1. Ler a página/componente e seus dependentes.
-2. Identificar comportamento atual e testes relacionados.
-3. Implementar a menor alteração coerente.
-4. Executar teste específico.
-5. Executar `npm test`.
-6. Executar `npm run build`.
-7. Se a alteração afetar navegador, responsividade, temas ou acessibilidade, executar testes de navegador pertinentes.
-8. Revisar `git diff` e `git status`.
-9. Relatar arquivos alterados, testes executados e limitações.
+## 10. Questões abertas para investigação
 
----
+Não assumir prioridade nem implementar automaticamente:
+1. Quais fluxos estão completos e quais são demonstrativos?
+2. Quais dados vêm de fixtures, `localStorage` ou API?
+3. Qual é o estado real da integração de frequência?
+4. Como serão implementadas autenticação e autorização?
+5. Como separar dados por instituição, turma, professor e estudante?
+6. Como coordenadores registram, acompanham e encerram intervenções?
+7. Quais alertas existem de fato?
+8. Como estudantes acessam dados e pedem apoio com privacidade?
+9. Como validar acessibilidade com usuários reais?
+10. Que evidência demonstra impacto no acompanhamento e na permanência?
 
-## 8. Acessibilidade e identidade visual
+## 11. Histórico recente observado
 
-A documentação registra:
-- temas claro e escuro;
-- foco visível;
-- seleção de perfil por teclado;
-- mensagens de erro anunciadas a leitores de tela;
-- sala virtual operável por teclado e com visualização alternativa em lista;
-- VLibras e UserWay carregados uma vez, fora da árvore React;
-- UserWay à direita, 12 px abaixo do VLibras;
-- revisão humana necessária para qualidade de tradução automática.
+| Data | Commit | Mensagem resumida |
+| --- | --- | --- |
+| 26/11/2026 | `c9006a2` | Logo como favicon |
+| 25/11/2026 | `03f06f2` | Capturas reais dos três perfis atualizadas |
+| 25/11/2026 | `55c06c5` | Navegação, login e portal do estudante refinados |
+| 25/11/2026 | `142197c` | Evolução da experiência de interface |
+| 21/11/2026 | `9995760` | Preço por aluno atualizado para R$ 6,90 |
+| 18/11/2026 | `4e83ac1` | Arquivos de contexto para IA e padrão de commits |
 
-**Preservar:**
-- semântica HTML;
-- rótulos acessíveis;
-- navegação por teclado;
-- foco visível;
-- contraste;
-- suporte a movimento reduzido;
-- layouts responsivos;
-- estilos CSS Modules.
+Os hashes são marcos da consulta, não substituem leitura de diffs. Confira o HEAD novamente.
 
-A documentação alerta que classes e tokens existentes não devem ser removidos por parecerem redundantes: parte do estilo depende de CSS Modules e classes exportadas do Figma, não compiladas por Tailwind. Um reset global excessivo pode quebrar a interface e controles externos.
+## 12. Documentos a ler
 
-Antes de mexer em UserWay/VLibras, leia `Documentacao/Acessibilidade.md`, `src/main.jsx` e `src/styles/accessibility.css` (se ainda existirem).
+- Raiz: `AGENTS.md`, `PROJECT_CONTEXT.md`, `CONTRIBUTING.md`, `README.md` e `.githooks/commit-msg`.
+- `Documentacao/`: `README.md`, `Arquitetura.md`, `tecnologias.md`, `Acessibilidade.md`, `Restauracao.md`, `planos-permaneo.md`.
+- App: `permaneo-app/README.md`, `permaneo-app/package.json` e código/testes da tarefa.
 
----
+## 13. Como o agente deve trabalhar
 
-## 9. Diretrizes de produto e UX
+1. Ler este contexto, `AGENTS.md`, `CONTRIBUTING.md` e documentação relevante.
+2. Conferir branch, `HEAD` e `git status`.
+3. Inspecionar código real; não confiar apenas em documentação/commits.
+4. Em tarefas amplas, apresentar diagnóstico, plano, arquivos e riscos antes de implementar.
+5. Preservar três perfis, rotas, temas, responsividade e acessibilidade.
+6. Fazer mudanças pequenas, reversíveis e testáveis.
+7. Não alterar preço, planos, marca, conteúdo institucional ou regras sem solicitação.
+8. Não fazer deploy, publicação, cobrança, contratação ou integração externa sem autorização.
+9. Não adicionar dados reais, segredos ou credenciais.
+10. Não apagar código sem rastrear referências.
+11. Executar testes pertinentes, `npm test` e `npm run build` quando possível; relatar resultados reais.
+12. Ao criar commits (somente com solicitação explícita), seguir estritamente `:emoji: <tipo>: <Descrição com inicial maiúscula>` conforme `https://github.com/iagosm-oliveira/padroes-de-commits`, `CONTRIBUTING.md` e `.githooks/commit-msg`.
+13. Entregar arquivos alterados, comportamento, testes, riscos e limitações.
 
-- Use linguagem acolhedora, clara e não estigmatizante.
-- Evite chamar estudantes de “problemáticos”, “desinteressados” ou equivalentes.
-- Indicadores são sinais para investigação, não diagnósticos.
-- Mostre contexto (data, turma, componente curricular) sempre que possível.
-- Não crie rankings públicos de estudantes nem exponha dados pessoais sem necessidade.
-- Não introduza dados reais de estudantes em fixtures, logs, screenshots ou commits.
-- Preserve consistência entre os três perfis e entre os temas.
-- Prefira mudanças incrementais e testáveis.
-- Não refaça telas inteiras quando uma alteração localizada resolve o problema.
-- Não adicione dependências sem justificar o benefício e avaliar impacto.
+### Primeiro contato
 
----
+Se a tarefa inicial for conhecer o projeto, operar somente em leitura: não editar/criar/mover/apagar arquivos, não instalar dependências, não fazer commit/push/deploy. Entregar diagnóstico com caminhos concretos, fatos, hipóteses e pontos não verificados.
 
-## 10. Segurança, privacidade e dados
+## 14. Fontes e limites desta atualização
 
-O domínio envolve informações educacionais potencialmente sensíveis. Mesmo em protótipo:
-- use somente dados fictícios;
-- não coloque credenciais, tokens, chaves privadas ou dados pessoais em código;
-- não registre respostas de estudantes em logs;
-- não envie dados a serviços externos sem autorização explícita e análise de privacidade;
-- não transforme `localStorage` em falsa promessa de armazenamento seguro;
-- não implemente autenticação fictícia como se fosse controle de acesso;
-- valide entradas e trate erros;
-- documente claramente o que é local, remoto, persistido ou apenas simulado.
+Consultados em 27/11/2026: repositório `PermaneoOFC/demo-repository`/`main`, commits recentes, `README.md`, `AGENTS.md`, `PROJECT_CONTEXT.md`, `CONTRIBUTING.md`, documentação listada acima, `permaneo-app/README.md`, `package.json`, `pricing.js`, `features.js` e README das capturas.
 
-Nunca exponha valores de `.env` ou arquivos de segredo. O `.env.example` pode ser lido para conhecer nomes de variáveis, mas não deve conter segredos.
-
----
-
-## 11. Equipe e origem
-
-O README identifica o projeto como iniciativa de Demo Day do Instituto PROA.
-
-Integrantes listados no README:
-- Gabriel Rodrigues Gomes
-- Caique
-- Diego
-- Iago Oliveira
-- João Victor Torres Pereira
-
-Não atribua responsabilidades individuais sem fonte atual que confirme.
-
----
-
-## 12. Mapa de documentação do repositório
-
-Leia estes arquivos antes de tarefas relevantes:
-- `AGENTS.md` — instruções rápidas, regras obrigatórias e padrão de commits para agentes de IA;
-- `PROJECT_CONTEXT.md` — contexto mestre do projeto Permaneo;
-- `README.md` — visão geral, execução e perfis;
-- `Documentacao/README.md` — pesquisa e jornada;
-- `Documentacao/Arquitetura.md` — fluxo e arquitetura;
-- `Documentacao/tecnologias.md` — stack;
-- `Documentacao/Acessibilidade.md` — acessibilidade e widgets;
-- `Documentacao/Restauracao.md` — recursos recuperados e verificações;
-- `Documentacao/planos-permaneo.md` — seção comercial, preços e limites;
-- `permaneo-app/README.md` — execução e estrutura da aplicação;
-- `permaneo-app/package.json` — scripts e dependências.
-
----
-
-## 13. Backlog de investigação — não presumir prioridade
-
-Antes de propor evolução, faça uma auditoria técnica e de produto. Pontos que merecem investigação:
-1. Quais fluxos estão realmente completos e quais são somente demonstrativos?
-2. Quais dados são mock, `localStorage` ou provenientes de API?
-3. Qual é o estado atual da integração de frequência mencionada na documentação?
-4. Existe autenticação e autorização reais? A documentação sugere que a escolha de perfil atual é apenas demonstrativa.
-5. Como separar dados por instituição, turma, professor e estudante numa futura versão multi-instituição?
-6. Quais requisitos de privacidade, segurança, retenção e auditoria serão necessários antes de dados reais?
-7. Quais alertas são efetivamente implementados e quais são apenas planejados?
-8. Como a coordenação registra, acompanha e encerra uma intervenção?
-9. Como garantir que o estudante tenha acesso adequado aos próprios dados e possa solicitar apoio?
-10. Como testar acessibilidade com leitores de tela e usuários reais, além dos testes automatizados?
-
-Não converta esta lista em funcionalidades implementadas sem aprovação e especificação.
-
----
-
-## 14. Como um agente deve trabalhar neste repositório
-
-1. Comece lendo este arquivo e `AGENTS.md`.
-2. Leia o README e a documentação relacionada à tarefa.
-3. Inspecione o código real; não confie apenas em descrições.
-4. Diga o que entendeu e quais arquivos pretende alterar quando a tarefa for ampla.
-5. Preserve funcionalidades existentes, rotas, dados demonstrativos, temas e acessibilidade.
-6. Não faça migração de stack, reestruturação global ou troca de biblioteca sem pedido/justificativa.
-7. Não apague código ou arquivos que pareçam não usados sem rastrear referências.
-8. Não altere preços, conteúdo institucional, identidade, textos de pitch ou regras de negócio por iniciativa própria.
-9. Não publique, faça deploy, envie mensagens, altere serviços externos ou use dados reais sem autorização explícita.
-10. Ao concluir, entregue resumo objetivo: o que mudou, arquivos, testes, resultado do build, riscos e próximos passos.
-11. Ao criar commits, siga o padrão de commits semânticos e emojis definido em https://github.com/iagosm-oliveira/padroes-de-commits (detalhado em AGENTS.md e no README.md).
-
----
-
-## 15. Fontes e grau de confiança
-
-**Fonte primária:** arquivos atuais do repositório `PermaneoOFC/demo-repository`, branch `main`, consultados em 18/11/2026.
-
-**Fontes consultadas nesta preparação:**
-- `README.md`;
-- `Documentacao/README.md`;
-- `Documentacao/Arquitetura.md`;
-- `Documentacao/Restauracao.md`;
-- `Documentacao/planos-permaneo.md`;
-- `Documentacao/tecnologias.md`;
-- `Documentacao/Acessibilidade.md`;
-- `permaneo-app/README.md`;
-- `permaneo-app/package.json`;
-- listagem de `permaneo-app/src`.
-
-**Limitação da preparação:** foi feita leitura documental e inspeção da estrutura e scripts. Não foi executado o projeto localmente nem realizada auditoria linha a linha de todos os componentes. O conteúdo de cada tela e o comportamento atual devem ser verificados no código e no navegador antes de alterações.
-
-**Notion:** a busca por “Permaneo” no workspace consultado não retornou páginas. Portanto, este pacote se baseia no repositório e no contexto compartilhado nesta conversa; não inventa decisões ausentes.
+**Limites:** leitura documental e de arquivos selecionados; os detalhes de implementação de cada tela devem ser sempre verificados diretamente no código antes de alterações.
