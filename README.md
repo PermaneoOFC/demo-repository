@@ -1,10 +1,10 @@
 <div align="center">
 
 <a href="https://permaneo-ofc.vercel.app/#/home" title="Abrir demonstração interativa do Permaneo">
-  <img src=".github/assets/tour-cinematico.svg" alt="Permaneo — Tour cinematográfico animado em 7 capítulos (28s)" width="100%" />
+  <img src=".github/assets/tour-cinematico.svg" alt="Permaneo — Tour animado pela plataforma real em 6 capítulos (24s)" width="100%" />
 </a>
 
-<sub>🎬 <b>Sequência animada em 7 capítulos (28s em loop · SVG puro)</b> — clique no player acima para abrir a demonstração interativa.</sub>
+<sub>🎬 <b>Tour pela plataforma real em 6 capítulos (24s em loop · SVG puro)</b> — clique no player acima para abrir a demonstração interativa.</sub>
 
 <br /><br />
 
@@ -33,7 +33,7 @@
 
 <br />
 
-<img src=".github/assets/stats-strip.svg" alt="Permaneo em números: 3 perfis navegáveis, 8 telas no portal do aluno, 12 scripts de validação, 2 temas e 100% dados fictícios" width="100%" />
+<img src=".github/assets/stats-strip.svg" alt="Permaneo: 3 Perfis, Carômetro, Sala Virtual e Inclusão" width="100%" />
 
 </div>
 
