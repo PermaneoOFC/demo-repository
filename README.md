@@ -1,8 +1,12 @@
 <div align="center">
 
-<img src=".github/assets/hero-banner.svg" alt="Permaneo — Toda trajetória merece continuar" width="100%" />
+<a href="https://permaneo-ofc.vercel.app/#/home" title="Abrir demonstração interativa do Permaneo">
+  <img src=".github/assets/tour-cinematico.svg" alt="Permaneo — Tour cinematográfico animado em 7 capítulos (28s)" width="100%" />
+</a>
 
-<br />
+<sub>🎬 <b>Sequência animada em 7 capítulos (28s em loop · SVG puro)</b> — clique no player acima para abrir a demonstração interativa.</sub>
+
+<br /><br />
 
 [![Validação](https://github.com/PermaneoOFC/demo-repository/actions/workflows/validacao.yml/badge.svg)](https://github.com/PermaneoOFC/demo-repository/actions/workflows/validacao.yml)
 ![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-246579?style=flat-square)
@@ -20,16 +24,18 @@
 <br />
 
 [Sobre](#-sobre-o-projeto) •
-[Tour Interativo](#-tour-interativo-pelos-perfis) •
-[Jornada & Arquitetura](#-jornada-e-arquitetura) •
+[Tour pelos Perfis](#-tour-interativo-pelos-perfis) •
+[Arquitetura](#-jornada-e-arquitetura) •
 [Como Rodar](#-como-rodar-localmente) •
 [Organização](#-organização-do-repositório) •
 [IA & Commits](#-contexto-para-ia-e-padrões-de-commit) •
 [Equipe](#-equipe)
 
-</div>
-
 <br />
+
+<img src=".github/assets/stats-strip.svg" alt="Permaneo em números: 3 perfis navegáveis, 8 telas no portal do aluno, 12 scripts de validação, 2 temas e 100% dados fictícios" width="100%" />
+
+</div>
 
 <img src=".github/assets/section-divider.svg" alt="" width="100%" />
 
@@ -62,7 +68,7 @@ Clique em cada perfil abaixo para expandir as capturas reais da plataforma e exp
 
 - **Visão Geral (`#/director`):** indicadores consolidados por turma, pendências prioritárias e atalhos para intervenção.
 - **Carômetro (`#/carometroManagement`):** ficha visual com histórico do estudante, observações docentes e filtro por turma/status.
-- **Acompanhamento, Alertas e Relatórios:** registro de ocorrências locais, filtros por severidade/categoria e exportação demonstrativa em CSV.
+- **Acompanhamento, Alertas e Relatórios (`#/directorFollowup`, `#/directorNotifications`, `#/reports`):** registro de ocorrências locais, filtros por severidade/categoria e exportação demonstrativa em CSV.
 
 <p align="center">
   <img src="permaneo-app/public/previews/profile-director.png" alt="Painel da Coordenação e Direção no Permaneo" width="48%" />
@@ -77,9 +83,9 @@ Clique em cada perfil abaixo para expandir as capturas reais da plataforma e exp
 
 <br />
 
-- **Minhas Turmas &amp; Minha Sala:** planta visual da sala com zoom, modo alternativo em lista acessível por teclado e edição de assentos (mouse, toque e teclado) com carteiras livres e desfazer/refazer/cancelar.
-- **Chamada &amp; Observações:** registro local de presença e anotações pedagógicas por estudante persistidas no navegador.
-- **Notificações &amp; Preferências:** filtros operacionais e ajustes visuais alinhados ao tema claro/escuro.
+- **Minhas Turmas &amp; Minha Sala (`#/teacher`, `#/teacherRoom`):** planta visual da sala com zoom, modo alternativo em lista acessível por teclado e edição de assentos (mouse, toque e teclado) com carteiras livres e desfazer/refazer/cancelar.
+- **Chamada &amp; Observações (`#/teacherAttendance`):** registro local de presença e anotações pedagógicas por estudante persistidas no navegador.
+- **Notificações &amp; Preferências (`#/teacherNotifications`, `#/teacherSettings`):** filtros operacionais e ajustes visuais alinhados ao tema claro/escuro.
 
 <p align="center">
   <img src="permaneo-app/public/previews/profile-teacher.png" alt="Área do Professor no Permaneo" width="78%" />
@@ -92,7 +98,7 @@ Clique em cada perfil abaixo para expandir as capturas reais da plataforma e exp
 
 <br />
 
-- **Portal completo (8 rotas):** `#/student` aceita rotas modernas e links legados (`#student`).
+- **Portal completo (8 telas):** `#/student` (e links legados como `#student`), `#/studentActivities`, `#/studentCalendar`, `#/studentSubjects`, `#/studentNotices`, `#/studentPlan`, `#/studentSupport` e `#/studentSpace`.
 - **Acompanhamento próprio:** frequência demonstrativa, metas pessoais, entrega simulada de atividades e solicitação de apoio pedagógico com persistência local no navegador (nada é enviado à escola).
 
 <p align="center">
@@ -139,6 +145,10 @@ flowchart LR
 
 Requer **Node.js `>=20.19.0`** (recomendado **Node 22 LTS**).
 
+<p align="center">
+  <img src=".github/assets/terminal-setup.svg" alt="Terminal animado demonstrando clone, ativação do hook, npm ci e npm run dev" width="88%" />
+</p>
+
 <details open>
 <summary><b>🪟 Windows (PowerShell)</b></summary>
 
@@ -166,7 +176,7 @@ Abra a URL local exibida pelo Vite (ex.: `http://localhost:5173`).
 </details>
 
 <details>
-<summary><b>🧪 Build e Suítes de Validação</b></summary>
+<summary><b>🧪 Build e Suítes de Validação (12 scripts)</b></summary>
 
 Na pasta `permaneo-app`:
 
@@ -175,8 +185,6 @@ npm test              # Testes gerais do frontend
 npm run build         # Build de produção em dist/
 npm run preview       # Pré-visualização local do build
 ```
-
-Suítes específicas disponíveis no `package.json`:
 
 | Comando | Cobertura |
 | --- | --- |
@@ -224,9 +232,13 @@ Todos os commits deste repositório seguem a convenção de [Padrões de Commits
 > [!IMPORTANT]
 > **Regras rápidas:** use sempre o **shortcode** do emoji entre dois pontos (`:sparkles:`, `:bug:`, `:books:`), comece a descrição com letra **maiúscula** e mantenha o título curto (idealmente até 4 palavras). Nunca use emoji Unicode literal, mensagem sem emoji ou menção a ferramentas de IA no commit.
 
+<p align="center">
+  <img src=".github/assets/terminal-hook.svg" alt="Terminal animado demonstrando o hook bloqueando mensagem fora do padrão e aceitando commit válido" width="88%" />
+</p>
+
 ### ⚙️ Ativar o Hook Automático no Clone Local
 
-Para validar suas mensagens antes de cada commit, execute **uma única vez** na raiz do repositório:
+Execute **uma única vez** na raiz do repositório:
 
 ```bash
 git config core.hooksPath .githooks
