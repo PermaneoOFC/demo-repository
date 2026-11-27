@@ -1,7 +1,7 @@
 name: Capturar prévias dos perfis
 on:
   push:
-    branches: ['feat/previews-reais-perfis']
+    branches: ['main']
     paths:
       - 'permaneo-app/tests/capture-profile-previews.mjs'
       - '.github/workflows/capturar-previas-perfis.yml'
