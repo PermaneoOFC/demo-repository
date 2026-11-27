@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# Valida mensagens de commit conforme o padrão adotado pelo Permaneo:
+# https://github.com/iagosm-oliveira/padroes-de-commits
+
+COMMIT_MSG_FILE="$1"
+
+if [ -z "$COMMIT_MSG_FILE" ] || [ ! -f "$COMMIT_MSG_FILE" ]; then
+  echo "ERRO: Arquivo da mensagem de commit não encontrado."
+  exit 1
+fi
+
+COMMIT_TITLE=$(grep -v '^#' "$COMMIT_MSG_FILE" | sed '/^[[:space:]]*$/d' | head -n 1 | tr -d '\r')
+
+if [ -z "$COMMIT_TITLE" ]; then
+  echo "ERRO: A mensagem de commit está vazia."
+  exit 1
+fi
+
+# Permite mensagens automáticas do Git (merge, revert, fixup, squash)
+if [[ "$COMMIT_TITLE" =~ ^(Merge|Revert|fixup!|squash!)[[:space:]] ]]; then
+  exit 0
+fi
+
+# Caso especial previsto no guia: :tada: Commit inicial
+if [[ "$COMMIT_TITLE" =~ ^:tada:[[:space:]]+Commit\ inicial$ ]]; then
+  exit 0
+fi
+
+PATTERN='^:([a-z0-9_+-]+):[[:space:]]+(feat|fix|docs|test|build|perf|style|refactor|chore|ci|raw|cleanup|remove|revert)(\([a-zA-Z0-9_.-]+\))?(!)?:[[:space:]]+(.+)$'
+
+if ! [[ "$COMMIT_TITLE" =~ $PATTERN ]]; then
+  echo "ERRO: A mensagem de commit não segue o padrão do repositório."
+  echo
+  echo "Formato obrigatório (https://github.com/iagosm-oliveira/padroes-de-commits):"
+  echo "  :emoji: <tipo>: <Descrição com inicial maiúscula>"
+  echo
+  echo "Use o shortcode do emoji entre dois pontos (ex.: :sparkles:, :bug:, :books:),"
+  echo "não o emoji Unicode literal nem mensagem sem emoji."
+  echo
+  echo "Tipos válidos:"
+  echo "  feat, fix, docs, test, build, perf, style, refactor, chore, ci, raw, cleanup, remove, revert"
+  echo
+  echo "Exemplos válidos:"
+  echo "  :sparkles: feat: Página de login"
+  echo "  :bug: fix: Loop infinito na linha 50"
+  echo "  :books: docs: Atualização do README"
+  echo "  :lipstick: feat: Estilização CSS do formulário"
+  echo "  :recycle: refactor: Passando para arrow functions"
+  echo "  :test_tube: test: Criando novo teste"
+  echo "  :wrench: chore: Ativação do hook de commit"
+  echo
+  echo "Mensagem recebida:"
+  echo "  $COMMIT_TITLE"
+  exit 1
+fi
+
+DESCRIPTION="${BASH_REMATCH[5]}"
+
+if [[ "$DESCRIPTION" =~ ^[a-z] ]]; then
+  echo "ERRO: A descrição do commit deve começar com letra maiúscula."
+  echo
+  echo "Recebido: $COMMIT_TITLE"
+  echo "Exemplo:  :books: docs: Atualização do README"
+  exit 1
+fi
+
+exit 0

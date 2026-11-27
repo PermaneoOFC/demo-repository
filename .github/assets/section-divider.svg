@@ -1,0 +1,20 @@
+<svg width="1200" height="20" viewBox="0 0 1200 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="divTrack" x1="0" y1="10" x2="1200" y2="10" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#246579" stop-opacity="0.12" />
+      <stop offset="30%" stop-color="#246579" stop-opacity="0.5" />
+      <stop offset="55%" stop-color="#227457" stop-opacity="0.55" />
+      <stop offset="80%" stop-color="#A5DCE8" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#246579" stop-opacity="0.12" />
+    </linearGradient>
+    <linearGradient id="pulseBeam" x1="0" y1="0" x2="260" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#A5DCE8" stop-opacity="0" />
+      <stop offset="50%" stop-color="#75CDB4" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#A5DCE8" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <rect x="40" y="8" width="1120" height="4" rx="2" fill="url(#divTrack)" />
+  <rect y="7" width="260" height="6" rx="3" fill="url(#pulseBeam)">
+    <animate attributeName="x" values="-260;1200" dur="4.2s" repeatCount="indefinite" />
+  </rect>
+</svg>

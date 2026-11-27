@@ -1,0 +1,39 @@
+<svg width="1200" height="120" viewBox="0 0 1200 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Rodapé animado Permaneo">
+  <defs>
+    <linearGradient id="waveGrad1" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#073A50" />
+      <stop offset="50%" stop-color="#246579" />
+      <stop offset="100%" stop-color="#227457" />
+    </linearGradient>
+    <linearGradient id="waveGrad2" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#246579" stop-opacity="0.45" />
+      <stop offset="50%" stop-color="#50C6C0" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#75CDB4" stop-opacity="0.45" />
+    </linearGradient>
+    <clipPath id="footerClip">
+      <rect width="1200" height="120" rx="18" />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#footerClip)">
+    <rect width="1200" height="120" fill="#062B3D" />
+
+    <!-- Onda traseira -->
+    <path d="M0 54 C 150 24, 300 84, 450 54 C 600 24, 750 84, 900 54 C 1050 24, 1200 84, 1350 54 L 1350 130 L 0 130 Z" fill="url(#waveGrad2)">
+      <animateTransform attributeName="transform" type="translate" values="0 0; -150 0; 0 0" dur="9s" repeatCount="indefinite" />
+    </path>
+
+    <!-- Onda frontal -->
+    <path d="M-150 68 C 0 94, 150 42, 300 68 C 450 94, 600 42, 750 68 C 900 94, 1050 42, 1200 68 C 1350 94, 1500 42, 1650 68 L 1650 130 L -150 130 Z" fill="url(#waveGrad1)">
+      <animateTransform attributeName="transform" type="translate" values="0 0; 150 0; 0 0" dur="11s" repeatCount="indefinite" />
+    </path>
+
+    <!-- Texto -->
+    <text x="600" y="50" text-anchor="middle" fill="#F1F8FA" font-family="'Segoe UI', 'Public Sans', Arial, sans-serif" font-size="16" font-weight="700">
+      Permaneo · Toda trajetória merece continuar
+    </text>
+    <text x="600" y="76" text-anchor="middle" fill="#A5DCE8" font-family="'Segoe UI', 'Public Sans', Arial, sans-serif" font-size="12.5" font-weight="500">
+      Projeto de Demo Day · Instituto PROA · Protótipo web com foco em acolhimento e permanência escolar
+    </text>
+  </g>
+</svg>
