@@ -1,0 +1,197 @@
+<svg width="1200" height="330" viewBox="0 0 1200 330" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Permaneo — Toda trajetória merece continuar">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1200" y2="330" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#062B3D">
+        <animate attributeName="stop-color" values="#062B3D;#0A3D52;#062B3D" dur="10s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="55%" stop-color="#17586B">
+        <animate attributeName="stop-color" values="#17586B;#1F6A7B;#17586B" dur="10s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#1C6850">
+        <animate attributeName="stop-color" values="#1C6850;#227457;#1C6850" dur="10s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+
+    <radialGradient id="glowLeft" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(180 165) rotate(25) scale(340 240)">
+      <stop offset="0%" stop-color="#28BDB6" stop-opacity="0.28" />
+      <stop offset="100%" stop-color="#28BDB6" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="glowRight" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1010 95) rotate(-15) scale(320 220)">
+      <stop offset="0%" stop-color="#A6E0BE" stop-opacity="0.24" />
+      <stop offset="100%" stop-color="#A6E0BE" stop-opacity="0" />
+    </radialGradient>
+
+    <linearGradient id="ribbon1" x1="480" y1="260" x2="1190" y2="70" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#28BDB6" stop-opacity="0.05" />
+      <stop offset="50%" stop-color="#A5DCE8" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#D5EDB6" stop-opacity="0.15" />
+    </linearGradient>
+
+    <linearGradient id="ribbon2" x1="560" y1="300" x2="1190" y2="145" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#50C6C0" stop-opacity="0.05" />
+      <stop offset="60%" stop-color="#75CDB4" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#D5EDB6" stop-opacity="0.1" />
+    </linearGradient>
+
+    <linearGradient id="sweepBorder" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#A5DCE8" stop-opacity="0.15" />
+      <stop offset="50%" stop-color="#A5DCE8" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#75CDB4" stop-opacity="0.15" />
+      <animate attributeName="x1" values="-600;1200" dur="6s" repeatCount="indefinite" />
+      <animate attributeName="x2" values="600;2400" dur="6s" repeatCount="indefinite" />
+    </linearGradient>
+
+    <!-- Gradientes oficiais da marca Permaneo -->
+    <linearGradient id="p0" x1="10.75" y1="8.25" x2="17.33" y2="1.58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A7D9B" /><stop offset="0.5" stop-color="#26A9B0" /><stop offset="1" stop-color="#5CE0D8" />
+    </linearGradient>
+    <linearGradient id="p1" x1="28.67" y1="13.17" x2="32.50" y2="7.00" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#48C9BD" /><stop offset="1" stop-color="#B9F0D4" />
+    </linearGradient>
+    <linearGradient id="p2" x1="1.75" y1="20.42" x2="21.67" y2="13.42" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#136F88" /><stop offset="0.48" stop-color="#249CA4" /><stop offset="1" stop-color="#58DDD4" />
+    </linearGradient>
+    <linearGradient id="p3" x1="25.42" y1="17.92" x2="36.08" y2="17.75" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6FE0D9" /><stop offset="1" stop-color="#40B9AE" />
+    </linearGradient>
+    <linearGradient id="p4" x1="34.67" y1="14.25" x2="37.25" y2="24.25" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8AE0C7" /><stop offset="0.55" stop-color="#C3F2D9" /><stop offset="1" stop-color="#6AC9B0" />
+    </linearGradient>
+    <linearGradient id="p5" x1="7.42" y1="23.75" x2="16.00" y2="28.17" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#12758C" /><stop offset="0.48" stop-color="#1E9E9E" /><stop offset="1" stop-color="#42CFC0" />
+    </linearGradient>
+    <linearGradient id="p6" x1="12.92" y1="16.42" x2="21.00" y2="31.50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E2F7C6" /><stop offset="0.35" stop-color="#B8EBD0" /><stop offset="0.7" stop-color="#8FDCCB" /><stop offset="1" stop-color="#5AC1A8" />
+    </linearGradient>
+
+    <clipPath id="cardClip">
+      <rect x="2" y="2" width="1196" height="326" rx="22" />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#cardClip)">
+    <!-- Fundo principal -->
+    <rect width="1200" height="330" fill="url(#bgGrad)" />
+
+    <!-- Grade sutil -->
+    <g stroke="#FFFFFF" stroke-opacity="0.045" stroke-width="1">
+      <line x1="0" y1="82" x2="1200" y2="82" />
+      <line x1="0" y1="165" x2="1200" y2="165" />
+      <line x1="0" y1="248" x2="1200" y2="248" />
+      <line x1="240" y1="0" x2="240" y2="330" />
+      <line x1="480" y1="0" x2="480" y2="330" />
+      <line x1="720" y1="0" x2="720" y2="330" />
+      <line x1="960" y1="0" x2="960" y2="330" />
+    </g>
+
+    <!-- Brilhos ambientes -->
+    <rect width="1200" height="330" fill="url(#glowLeft)">
+      <animate attributeName="opacity" values="0.75;1;0.75" dur="7s" repeatCount="indefinite" />
+    </rect>
+    <rect width="1200" height="330" fill="url(#glowRight)">
+      <animate attributeName="opacity" values="0.65;1;0.65" dur="9s" repeatCount="indefinite" />
+    </rect>
+
+    <!-- Trajetórias animadas à direita -->
+    <path id="trajA" d="M 520 295 C 670 290, 740 175, 895 162 C 1020 152, 1105 90, 1215 68" stroke="url(#ribbon1)" stroke-width="2.5" fill="none" stroke-dasharray="10 8">
+      <animate attributeName="stroke-dashoffset" from="0" to="-72" dur="4s" repeatCount="indefinite" />
+    </path>
+    <path id="trajB" d="M 590 320 C 730 275, 800 220, 955 215 C 1065 212, 1130 165, 1220 142" stroke="url(#ribbon2)" stroke-width="2" fill="none" stroke-dasharray="8 10">
+      <animate attributeName="stroke-dashoffset" from="0" to="-72" dur="5.5s" repeatCount="indefinite" />
+    </path>
+
+    <!-- Pontos de trajetória em movimento -->
+    <circle r="4.5" fill="#D5EDB6">
+      <animateMotion dur="7s" repeatCount="indefinite" path="M 520 295 C 670 290, 740 175, 895 162 C 1020 152, 1105 90, 1215 68" />
+      <animate attributeName="opacity" values="0;1;1;0" dur="7s" repeatCount="indefinite" />
+    </circle>
+    <circle r="3.5" fill="#A5DCE8">
+      <animateMotion dur="8.5s" begin="2s" repeatCount="indefinite" path="M 590 320 C 730 275, 800 220, 955 215 C 1065 212, 1130 165, 1220 142" />
+      <animate attributeName="opacity" values="0;0.95;0.95;0" dur="8.5s" begin="2s" repeatCount="indefinite" />
+    </circle>
+
+    <!-- Mini cards decorativos de métricas ilustrativas à direita -->
+    <g transform="translate(835, 62)">
+      <animateTransform attributeName="transform" type="translate" values="835 62; 835 56; 835 62" dur="6s" repeatCount="indefinite" />
+      <rect width="305" height="92" rx="16" fill="#0B3345" fill-opacity="0.72" stroke="#A5DCE8" stroke-opacity="0.28" stroke-width="1.2" />
+      <circle cx="24" cy="24" r="5" fill="#75CDB4">
+        <animate attributeName="opacity" values="1;0.35;1" dur="2.2s" repeatCount="indefinite" />
+      </circle>
+      <text x="38" y="29" fill="#D6E9EE" font-family="'Segoe UI', 'Public Sans', Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="0.4">VISÃO PREVENTIVA POR CONTEXTO</text>
+      <text x="20" y="55" fill="#FFFFFF" font-family="'Segoe UI', 'Public Sans', Arial, sans-serif" font-size="15" font-weight="700">Frequência + Carômetro + Apoio</text>
+      <!-- Mini barra de progresso animada -->
+      <rect x="20" y="69" width="265" height="7" rx="3.5" fill="#FFFFFF" fill-opacity="0.14" />
+      <rect x="20" y="69" width="198" height="7" rx="3.5" fill="#75CDB4">
+        <animate attributeName="width" values="160;222;160" dur="5s" repeatCount="indefinite" />
+      </rect>
+    </g>
+
+    <g transform="translate(875, 178)">
+      <animateTransform attributeName="transform" type="translate" values="875 178; 875 184; 875 178" dur="7s" repeatCount="indefinite" />
+      <rect width="265" height="86" rx="16" fill="#0B3345" fill-opacity="0.68" stroke="#75CDB4" stroke-opacity="0.3" stroke-width="1.2" />
+      <text x="20" y="30" fill="#A5DCE8" font-family="'Segoe UI', 'Public Sans', Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="0.4">TRÊS PERFIS INTEGRADOS</text>
+      <rect x="20" y="45" width="84" height="24" rx="12" fill="#246579" stroke="#A5DCE8" stroke-opacity="0.4" />
+      <text x="62" y="61" text-anchor="middle" fill="#F1F8FA" font-family="'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600">Coordenação</text>
+      <rect x="111" y="45" width="72" height="24" rx="12" fill="#227457" stroke="#A6E0BE" stroke-opacity="0.4" />
+      <text x="147" y="61" text-anchor="middle" fill="#F1F8FA" font-family="'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600">Professor</text>
+      <rect x="190" y="45" width="62" height="24" rx="12" fill="#185164" stroke="#A5DCE8" stroke-opacity="0.35" />
+      <text x="221" y="61" text-anchor="middle" fill="#F1F8FA" font-family="'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600">Aluno</text>
+    </g>
+
+    <!-- Marca Permaneo à esquerda -->
+    <g transform="translate(58, 52)">
+      <!-- Emblema flutuante -->
+      <g>
+        <animateTransform attributeName="transform" type="translate" values="0 0; 0 -4; 0 0" dur="4.8s" repeatCount="indefinite" />
+        <rect x="0" y="0" width="94" height="94" rx="24" fill="#FFFFFF" fill-opacity="0.1" stroke="#A5DCE8" stroke-opacity="0.35" stroke-width="1.5" />
+        <g transform="translate(15, 22) scale(1.6)">
+          <path d="M14.2913 9.66665C16.8917 9.66665 18.9997 7.68924 18.9997 5.24998C18.9997 2.81072 16.8917 0.833313 14.2913 0.833313C11.691 0.833313 9.58301 2.81072 9.58301 5.24998C9.58301 7.68924 11.691 9.66665 14.2913 9.66665Z" fill="url(#p0)"/>
+          <path d="M30.6673 13.8334C32.7154 13.8334 34.3757 12.2104 34.3757 10.2084C34.3757 8.20634 32.7154 6.58337 30.6673 6.58337C28.6193 6.58337 26.959 8.20634 26.959 10.2084C26.959 12.2104 28.6193 13.8334 30.6673 13.8334Z" fill="url(#p1)"/>
+          <path d="M1.16787 22.8333C-0.165468 18.4167 3.0012 12.5833 7.7512 10.8333C12.3345 9.08332 16.0845 10.4167 18.7512 13.0833C21.6679 16 23.0845 19.25 25.5845 21.75C28.2512 24.4167 30.5845 25.0833 34.0845 24.3333C30.9179 27 26.9179 26.6667 23.5012 24.5C20.5012 22.6667 17.9179 20.25 15.1679 19C10.9179 16.75 4.91786 18.3333 1.16787 22.8333Z" fill="url(#p2)"/>
+          <path d="M25.1663 18.5833C23.833 17.5833 25.4163 15.8333 27.083 14.9166C29.1663 13.6666 31.7496 13.75 33.333 15C35.333 16.5833 34.9996 19.5 33.083 22.25C31.9996 20 29.9996 18.3333 28.1663 18.5C27.083 18.4166 26.083 18.75 25.1663 18.5833Z" fill="url(#p3)"/>
+          <path d="M31.6654 14.1667C34.332 13.5833 36.4987 15 37.832 17.0833C39.4154 19.5 39.832 22.0833 38.332 24.25C36.832 26.3333 34.082 27.5 31.582 26.75L30.082 24.25C33.2487 24 35.1654 21.9167 34.7487 18.9167C34.582 16.6667 33.6654 15.0833 31.6654 14.1667Z" fill="url(#p4)"/>
+          <path d="M9.49962 21C10.0829 23.8333 12.4163 26.0833 15.4996 26C16.7496 25.9167 17.3329 26 17.2496 26.6667C17.0829 27.25 16.2496 27.8333 15.3329 28.4167C13.3329 29.75 11.4996 30.3333 9.24962 29.9167C6.91628 29.3333 6.41628 27.5 7.24962 25.25C7.74962 23.5833 8.41628 22.1667 9.49962 21Z" fill="url(#p5)"/>
+          <path d="M1.16602 22.8333C2.91602 19.5 6.16602 17 9.49935 17C12.8327 16.75 14.916 18.6666 17.166 20.5833C20.8327 23.8333 23.2493 27.1666 26.9993 29.0833C30.3327 30.8333 34.8327 30.0833 37.166 27.75C38.8327 26.25 39.416 24 39.166 21.75C37.9993 24.1666 35.666 25.25 33.3327 25.25C29.416 25.3333 26.4993 24 23.4993 21.9166C20.4993 19.8333 18.0827 18.5833 15.416 19C12.7493 19.4166 10.5827 21.0833 9.08268 23.1666C7.49935 25.4166 6.41602 27.9166 7.99935 29.5C4.16602 29.5 1.91602 27.1666 1.16602 22.8333Z" fill="url(#p6)"/>
+        </g>
+      </g>
+
+      <!-- Tag superior -->
+      <rect x="118" y="4" width="338" height="28" rx="14" fill="#FFFFFF" fill-opacity="0.1" stroke="#A5DCE8" stroke-opacity="0.28" />
+      <circle cx="136" cy="18" r="4.5" fill="#75CDB4">
+        <animate attributeName="r" values="3.8;5.2;3.8" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <text x="150" y="22" fill="#D6E9EE" font-family="'Segoe UI', 'Public Sans', Arial, sans-serif" font-size="11.5" font-weight="600" letter-spacing="0.6">DEMO DAY INSTITUTO PROA • PROTÓTIPO WEB</text>
+
+      <!-- Título e Slogan -->
+      <text x="118" y="84" fill="#FFFFFF" font-family="'Segoe UI', 'Bricolage Grotesque', Arial, sans-serif" font-size="52" font-weight="800" letter-spacing="-0.8">Permaneo</text>
+      <text x="118" y="114" fill="#A5DCE8" font-family="'Segoe UI', 'Public Sans', Arial, sans-serif" font-size="20" font-weight="500">Toda trajetória merece continuar.</text>
+
+      <!-- Descrição curta -->
+      <text x="0" y="160" fill="#E3F2F5" font-family="'Segoe UI', 'Public Sans', Arial, sans-serif" font-size="15.5" font-weight="400">
+        Acompanhamento escolar acolhedor para identificar sinais de afastamento cedo,
+      </text>
+      <text x="0" y="182" fill="#E3F2F5" font-family="'Segoe UI', 'Public Sans', Arial, sans-serif" font-size="15.5" font-weight="400">
+        reunir contexto de frequência e organizar apoio entre coordenação, docentes e estudantes.
+      </text>
+
+      <!-- Pills inferiores -->
+      <g transform="translate(0, 206)">
+        <rect x="0" y="0" width="166" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.11" stroke="#FFFFFF" stroke-opacity="0.2" />
+        <text x="83" y="20" text-anchor="middle" fill="#F1F8FA" font-family="'Segoe UI', Arial, sans-serif" font-size="12.5" font-weight="600">React 18 • Vite 6</text>
+
+        <rect x="176" y="0" width="174" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.11" stroke="#FFFFFF" stroke-opacity="0.2" />
+        <text x="263" y="20" text-anchor="middle" fill="#F1F8FA" font-family="'Segoe UI', Arial, sans-serif" font-size="12.5" font-weight="600">Temas Claro &amp; Escuro</text>
+
+        <rect x="360" y="0" width="194" height="32" rx="16" fill="#FFFFFF" fill-opacity="0.11" stroke="#FFFFFF" stroke-opacity="0.2" />
+        <text x="457" y="20" text-anchor="middle" fill="#F1F8FA" font-family="'Segoe UI', Arial, sans-serif" font-size="12.5" font-weight="600">VLibras &amp; UserWay</text>
+
+        <rect x="564" y="0" width="172" height="32" rx="16" fill="#75CDB4" fill-opacity="0.18" stroke="#75CDB4" stroke-opacity="0.45" />
+        <text x="650" y="20" text-anchor="middle" fill="#D5EDB6" font-family="'Segoe UI', Arial, sans-serif" font-size="12.5" font-weight="600">Dados Demonstrativos</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Borda externa animada -->
+  <rect x="2" y="2" width="1196" height="326" rx="22" stroke="url(#sweepBorder)" stroke-width="1.5" fill="none" />
+</svg>
